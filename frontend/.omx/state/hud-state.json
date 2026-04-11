@@ -1,0 +1,5 @@
+{
+  "last_turn_at": "2026-04-11T21:36:46.690Z",
+  "turn_count": 2,
+  "last_agent_output": "The project is running as a static site at `http://127.0.0.1:8010/`.\n\nIt isn’t a Node/Vite/Next app;"
+}

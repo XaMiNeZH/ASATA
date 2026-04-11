@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pandoc \"DATA  for Web ASATA 2026 version 0.1.docx\" -t plain)",
+      "Bash(python3)",
+      "Bash(python3 -c \"import zipfile; z = zipfile.ZipFile\\('/c/Users/hamza/OneDrive/Desktop/Projet Professionel/DATAA/DATA  for Web ASATA 2026 version 0.1.docx'\\); print\\(z.namelist\\(\\)[:10]\\)\")",
+      "Bash(find \"/c/Users/hamza/OneDrive/Desktop/Projet Professionel\" -not -path '*/.git/*' -type f -exec ls -lh {} \\\\;)",
+      "Bash(cd /tmp)",
+      "Bash(unzip -q \"/c/Users/hamza/OneDrive/Desktop/Projet Professionel/DATAA/DATA  for Web ASATA 2026 version 0.1.docx\" -d docx_content)",
+      "Bash(grep -v '^ *$')",
+      "Bash(unzip -p \"DATA  for Web ASATA 2026 version 0.1.docx\" word/document.xml)",
+      "Bash(grep -v '^$')",
+      "Bash(unzip -p \"COMITE DIRECTEUR ASATA 2024.pdf\")",
+      "Bash(find \"/c/Users/hamza/OneDrive/Desktop/Projet Professionel\" -type f -not -path \"*/.git/*\" -exec ls -lh {} \\\\;)"
+    ]
+  }
+}
