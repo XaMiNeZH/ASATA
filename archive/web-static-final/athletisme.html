@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athlétisme — ASATA</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="old.v1/public/Association Logo.jpg" alt="Logo ASATA" class="nav-logo">
+        <div class="nav-brand-text">
+          <span class="nav-name">ASATA</span>
+          <span class="nav-tagline">Atlas Toubkal Asni</span>
+        </div>
+      </a>
+      <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html"   class="nav-link">Accueil</a></li>
+        <li><a href="about.html"   class="nav-link">À Propos</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-link">Nos Clubs <i class="fas fa-chevron-down fa-xs"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="ski.html"><i class="fas fa-skiing"></i> Ski &amp; Montagne</a></li>
+            <li><a href="football.html"><i class="fas fa-futbol"></i> Football</a></li>
+            <li><a href="athletisme.html"><i class="fas fa-running"></i> Athlétisme</a></li>
+          </ul>
+        </li>
+        <li><a href="equipe.html"  class="nav-link">Notre Équipe</a></li>
+        <li><a href="galerie.html" class="nav-link">Galerie</a></li>
+        <li><a href="contact.html" class="nav-link nav-cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero" style="background-image:url('old.v1/public/skiActivitiesPics/PHOTO-2026-04-07-12-10-44.jpg')">
+    <div class="container page-hero-content">
+      <div class="page-hero-breadcrumb">
+        <a href="index.html">Accueil</a><i class="fas fa-chevron-right"></i>
+        <a href="#">Nos Clubs</a><i class="fas fa-chevron-right"></i>
+        <span>Athlétisme</span>
+      </div>
+      <h1><i class="fas fa-running" style="font-size:2.2rem;margin-right:.5rem"></i> Club Athlétisme</h1>
+      <p>Affilié à la Fédération Royale Marocaine d'Athlétisme (FRMA)</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="club-detail">
+    <div class="container">
+      <div class="club-intro-grid">
+        <div class="reveal">
+          <img src="old.v1/public/skiActivitiesPics/PHOTO-2026-04-07-12-10-43.jpg" alt="Athlétisme ASATA" class="club-intro-image">
+        </div>
+        <div class="club-intro-text reveal reveal-delay-1">
+          <span class="section-tag">Club Athlétisme</span>
+          <h2 style="margin-top:.75rem">Courir pour aller plus loin</h2>
+          <p>Le Club Athlétisme de l'ASATA est affilié à la <strong>Fédération Royale Marocaine d'Athlétisme (FRMA)</strong>. Il regroupe des athlètes passionnés par les disciplines de course, de saut et de lancer, encadrés par des entraîneurs qualifiés.</p>
+          <p>Berceau de nombreux champions, la région du Haut Atlas a une longue tradition athlétique. L'ASATA s'appuie sur ce terroir exceptionnel — altitude, relief et culture de l'effort — pour former des athlètes solides capables de briller aux niveaux régional et national.</p>
+          <p>Le club organise également des activités de <strong>trail running</strong> et de <strong>course en montagne</strong>, disciplines naturellement adaptées au cadre géographique d'Asni au pied du Djebel Toubkal.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem">
+            <a href="galerie.html" class="btn btn-primary"><i class="fas fa-images"></i> Voir les photos</a>
+            <a href="contact.html" class="btn btn-blue-outline"><i class="fas fa-envelope"></i> Rejoindre le club</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick stats -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem" class="reveal">
+        <div style="background:var(--blue-ghost);border-radius:var(--radius-lg);padding:1.75rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-family:'Montserrat',sans-serif;font-size:2rem;font-weight:800;color:var(--blue)">FRMA</div>
+          <div style="font-size:.82rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600">Fédération affiliée</div>
+        </div>
+        <div style="background:var(--blue-ghost);border-radius:var(--radius-lg);padding:1.75rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-family:'Montserrat',sans-serif;font-size:2rem;font-weight:800;color:var(--blue)">1150m</div>
+          <div style="font-size:.82rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600">Altitude entraînement</div>
+        </div>
+        <div style="background:var(--blue-ghost);border-radius:var(--radius-lg);padding:1.75rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-family:'Montserrat',sans-serif;font-size:2rem;font-weight:800;color:var(--blue)">National</div>
+          <div style="font-size:.82rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600">Niveau compétition</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities -->
+  <section class="activities-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Disciplines</span>
+        <h2 class="section-title">Nos activités</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="activities-grid">
+        <div class="activity-card reveal">
+          <div class="activity-icon"><i class="fas fa-running"></i></div>
+          <div>
+            <h3>Course sur piste</h3>
+            <p>Entraînements structurés et compétitions sur piste dans les disciplines courtes et longues distances.</p>
+          </div>
+        </div>
+        <div class="activity-card reveal reveal-delay-1">
+          <div class="activity-icon"><i class="fas fa-flag-checkered"></i></div>
+          <div>
+            <h3>Trail &amp; Course en montagne</h3>
+            <p>Épreuves de trail sur les sentiers du Haut Atlas, en profitant du relief naturel exceptionnel.</p>
+          </div>
+        </div>
+        <div class="activity-card reveal reveal-delay-2">
+          <div class="activity-icon"><i class="fas fa-medal"></i></div>
+          <div>
+            <h3>Compétitions régionales</h3>
+            <p>Participation aux championnats régionaux et nationaux sous l'égide de la FRMA.</p>
+          </div>
+        </div>
+        <div class="activity-card reveal">
+          <div class="activity-icon"><i class="fas fa-child"></i></div>
+          <div>
+            <h3>Athlétisme jeunes</h3>
+            <p>Programme adapté pour initier les enfants et adolescents aux disciplines athlétiques.</p>
+          </div>
+        </div>
+        <div class="activity-card reveal reveal-delay-1">
+          <div class="activity-icon"><i class="fas fa-heartbeat"></i></div>
+          <div>
+            <h3>Préparation physique</h3>
+            <p>Renforcement musculaire, endurance et récupération encadrés par des professionnels certifiés.</p>
+          </div>
+        </div>
+        <div class="activity-card reveal reveal-delay-2">
+          <div class="activity-icon"><i class="fas fa-users"></i></div>
+          <div>
+            <h3>Événements locaux</h3>
+            <p>Organisation de courses populaires et d'événements athlétiques ouverts à toute la communauté.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avantage altitude -->
+  <section style="padding:5rem 0;background:var(--white)">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Notre atout</span>
+        <h2 class="section-title">L'avantage de l'altitude</h2>
+        <div class="section-line"></div>
+        <p class="section-subtitle">S'entraîner à 1 150 m d'altitude au pied du plus haut sommet d'Afrique du Nord offre des conditions exceptionnelles pour le développement athlétique.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center" class="reveal">
+        <img src="old.v1/public/skiActivitiesPics/PHOTO-2026-04-07-12-10-45.jpg" alt="Paysage Asni" style="width:100%;height:360px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-md)">
+        <div>
+          <div style="display:flex;flex-direction:column;gap:1.25rem">
+            <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:var(--blue-ghost);border-radius:var(--radius);border:1px solid var(--border)">
+              <div style="width:44px;height:44px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-wind"></i></div>
+              <div>
+                <h4 style="margin-bottom:.3rem">Capacité cardio-pulmonaire</h4>
+                <p style="font-size:.9rem;color:var(--text-muted)">L'entraînement en altitude améliore naturellement la VO₂ max et l'endurance des athlètes.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:var(--blue-ghost);border-radius:var(--radius);border:1px solid var(--border)">
+              <div style="width:44px;height:44px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-mountain"></i></div>
+              <div>
+                <h4 style="margin-bottom:.3rem">Terrain varié</h4>
+                <p style="font-size:.9rem;color:var(--text-muted)">Les sentiers du Toubkal offrent un terrain de jeu unique pour le trail et la course en montagne.</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:var(--blue-ghost);border-radius:var(--radius);border:1px solid var(--border)">
+              <div style="width:44px;height:44px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-leaf"></i></div>
+              <div>
+                <h4 style="margin-bottom:.3rem">Environnement sain</h4>
+                <p style="font-size:.9rem;color:var(--text-muted)">Air pur, nature préservée et cadre de vie sain pour un développement sportif optimal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-brand" style="margin-bottom:.75rem">
+            <img src="old.v1/public/Association Logo.jpg" alt="Logo ASATA" class="nav-logo" style="width:60px;height:60px;border:2px solid rgba(255,255,255,.2);border-radius:50%">
+            <div class="nav-brand-text"><span class="nav-name" style="font-size:1.4rem">ASATA</span><span class="nav-tagline">Atlas Toubkal Asni</span></div>
+          </div>
+          <p class="footer-desc">Association Sportive fondée en 2010 à Asni, au pied du Djebel Toubkal.</p>
+          <ul class="footer-contact-list"><li><i class="fas fa-envelope"></i> asata.club@gmail.com</li><li><i class="fas fa-map-marker-alt"></i> Asni, Province d'Al Haouz, Maroc</li></ul>
+        </div>
+        <div class="footer-col"><h4>Navigation</h4><ul class="footer-links"><li><a href="index.html">Accueil</a></li><li><a href="about.html">À Propos</a></li><li><a href="equipe.html">Notre Équipe</a></li><li><a href="galerie.html">Galerie</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Nos clubs</h4><ul class="footer-links"><li><a href="ski.html">Ski &amp; Montagne</a></li><li><a href="football.html">Football</a></li><li><a href="athletisme.html">Athlétisme</a></li></ul></div>
+        <div class="footer-col"><h4>Fédérations</h4><ul class="footer-links"><li><a href="#">FRMSSM</a></li><li><a href="#">FRMF</a></li><li><a href="#">FRMA</a></li></ul></div>
+      </div>
+    </div>
+    <div class="container"><div class="footer-bottom"><p>&copy; 2026 ASATA — Tous droits réservés.</p><div class="footer-socials"><a href="https://www.facebook.com/asataclub" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div></div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+    <button class="lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-inner"><img src="" alt="" class="lightbox-img" id="lightboxImg"></div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
