@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { useEffect, useLayoutEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home        from './pages/Home'
@@ -13,6 +14,23 @@ import Contact     from './pages/Contact'
 
 export default function App() {
   const location = useLocation()
+
+  useEffect(() => {
+    if (!('scrollRestoration' in window.history)) {
+      return
+    }
+
+    const previous = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+
+    return () => {
+      window.history.scrollRestoration = previous
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
