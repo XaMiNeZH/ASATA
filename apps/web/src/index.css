@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Open Sans', sans-serif; color: #2D3E50; }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+}
+
+@layer utilities {
+  .bg-hero-overlay {
+    background: linear-gradient(135deg, rgba(13,71,161,.85) 0%, rgba(21,101,192,.55) 50%, rgba(13,71,161,.75) 100%);
+  }
+  .bg-footer {
+    background: linear-gradient(135deg, #0a1628 0%, #0D2B55 50%, #0a1628 100%);
+  }
+  .text-shadow {
+    text-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+}
