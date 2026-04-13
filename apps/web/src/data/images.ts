@@ -62,17 +62,18 @@ export const ALL_PHOTOS = [
 
 export const LOGO = '/Association Logo.jpg'
 export const PRESIDENT_IMG = '/president commit directeur.png'
+const TEAM_PHOTO_DIR = '/team-photos'
 
 export const TEAM_PHOTOS = {
   president:        PRESIDENT_IMG,
-  jamilaChenter:    null,
-  faridBouserhan:   null,
-  abdEssamad:       null,
-  medAitChakart:    null,
-  medAourik:        null,
-  noraAchebani:     null,
-  rachidBouserhan:  null,
-  medElAouad:       null,
-  azizAitBourhim:   null,
-  elmajidOussais:   null,
+  jamilaChenter:    `${TEAM_PHOTO_DIR}/Mme. Jamila CHENTER.png`,
+  faridBouserhan:   `${TEAM_PHOTO_DIR}/M. Farid BOUSERHAN.png`,
+  abdEssamad:       `${TEAM_PHOTO_DIR}/M. Abd Essamad AIT BEL HAJ.png`,
+  medAitChakart:    `${TEAM_PHOTO_DIR}/M. Med AIT CHAKART.png`,
+  medAourik:        `${TEAM_PHOTO_DIR}/M. Med AOURIK.png`,
+  noraAchebani:     `${TEAM_PHOTO_DIR}/Mlle. Nora ACHEBANI.png`,
+  rachidBouserhan:  `${TEAM_PHOTO_DIR}/Rachid BOUSERHAN.png`,
+  medElAouad:       `${TEAM_PHOTO_DIR}/Med EL AOUAD.png`,
+  azizAitBourhim:   `${TEAM_PHOTO_DIR}/Aziz AIT BOURHIM.png`,
+  elmajidOussais:   `${TEAM_PHOTO_DIR}/Elmajid OUSSAIS.png`,
 }
