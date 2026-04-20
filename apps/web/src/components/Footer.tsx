@@ -7,6 +7,7 @@ const navLinks = [
   { to: '/equipe',  label: 'Notre Équipe' },
   { to: '/galerie', label: 'Galerie' },
   { to: '/contact', label: 'Contact' },
+  { to: '/don',     label: 'Faire un Don' },
 ]
 
 const clubLinks = [

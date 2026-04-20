@@ -1,15 +1,16 @@
 const skiAsset = (fileName: string) => `/skiActivitiesPics/${fileName}`
 const footballAsset = (fileName: string) => `/footballActivitiesPics/${fileName}`
 
-export const SKI_TEAM_IMAGE = skiAsset('Group ski team with leaders.jpg')
+export const SKI_TEAM_IMAGE   = skiAsset('Group ski team with leaders.jpg')
+export const DON_HERO_IMAGE   = skiAsset('PHOTO-2026-04-07-12-10-35_1.jpg')
 export const HOME_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-42_1.jpg')
 export const SKI_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-35_1.jpg')
 export const GALLERY_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-36.jpg')
 export const ATHLETISME_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-44.jpg')
 export const ATHLETISME_INTRO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-43.jpg')
 export const ATHLETISME_LANDSCAPE_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-45.jpg')
-export const ABOUT_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-34.jpg')
-export const CONTACT_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-41.jpg')
+export const ABOUT_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-38.jpg')
+export const CONTACT_HERO_IMAGE = '/contactphoto.jpg'
 export const HOME_SKI_CARD_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-33.jpg')
 export const HOME_ATHLETISME_CARD_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-40.jpg')
 export const FOOTBALL_HERO_IMAGE = footballAsset('484108752_1050160593818353_1515778284063821567_n.jpg')

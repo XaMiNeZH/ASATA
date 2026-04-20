@@ -11,6 +11,7 @@ import Athletisme  from './pages/Athletisme'
 import Equipe      from './pages/Equipe'
 import Galerie     from './pages/Galerie'
 import Contact     from './pages/Contact'
+import Don         from './pages/Don'
 
 export default function App() {
   const location = useLocation()
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/equipe"     element={<Equipe />} />
             <Route path="/galerie"    element={<Galerie />} />
             <Route path="/contact"    element={<Contact />} />
+            <Route path="/don"        element={<Don />} />
           </Routes>
         </AnimatePresence>
       </main>

@@ -119,11 +119,23 @@ export default function Navbar() {
 
           <li>
             <Link
-              to="/contact"
+              to="/don"
               className={`font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 transition-all duration-200 ${
                 scrolled
                   ? 'bg-primary text-white hover:bg-primary-dark shadow-blue-sm'
                   : 'bg-white text-primary hover:bg-primary hover:text-white'
+              }`}
+            >
+              <i className="fas fa-hand-holding-heart mr-1.5" />Faire un Don
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contact"
+              className={`font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 transition-all duration-200 ${
+                scrolled
+                  ? 'bg-white text-primary border border-primary-pale hover:bg-primary-pale'
+                  : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
               Contact
@@ -190,8 +202,16 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/contact"
+                  to="/don"
                   className="block text-center font-heading font-bold text-sm px-4 py-2.5 bg-primary text-white rounded-full mt-2 hover:bg-primary-dark transition-colors"
+                >
+                  <i className="fas fa-hand-holding-heart mr-1.5" />Faire un Don
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="block text-center font-heading font-bold text-sm px-4 py-2.5 border border-primary text-primary rounded-full mt-2 hover:bg-primary-pale transition-colors"
                 >
                   Contact
                 </Link>
