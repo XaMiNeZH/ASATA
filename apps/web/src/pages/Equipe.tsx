@@ -2,17 +2,10 @@ import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
+import SectionHeader from '../components/SectionHeader'
 import { SKI_TEAM_IMAGE, TEAM_PHOTOS } from '../data/images'
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
-
-const president = {
-  photo: TEAM_PHOTOS.president,
-  initials: 'MB',
-  name: 'M. Med BOUSERHAN',
-  role: 'Président du Comité Directeur',
-  bio: 'À la tête de l\'ASATA depuis sa fondation en 2010, M. Med BOUSERHAN a bâti une association sportive solide et respectée au niveau régional et national. Son leadership a permis l\'affiliation aux trois fédérations nationales et l\'obtention de l\'accréditation professionnelle officielle en 2024.',
-}
 
 const vicePresidents = [
   { photo: TEAM_PHOTOS.jamilaChenter,  initials: 'JC', name: 'Mme. Jamila CHENTER',  role: '1ère Vice-Présidente' },
@@ -20,47 +13,33 @@ const vicePresidents = [
 ]
 
 const bureau = [
-  { photo: TEAM_PHOTOS.abdEssamad,      initials: 'AA', name: 'M. Abd Essamad AIT BEL HAJ', role: 'Secrétaire Général',    icon: 'fas fa-file-alt' },
-  { photo: TEAM_PHOTOS.medAitChakart,   initials: 'MA', name: 'M. Med AIT CHAKART',          role: 'Secrétaire Adjoint',    icon: 'fas fa-file-alt' },
-  { photo: TEAM_PHOTOS.medAourik,       initials: 'MO', name: 'M. Med AOURIK',               role: 'Trésorier',             icon: 'fas fa-coins' },
-  { photo: TEAM_PHOTOS.noraAchebani,    initials: 'NA', name: 'Mlle. Nora ACHEBANI',         role: 'Trésorière Adjointe',   icon: 'fas fa-coins' },
-  { photo: TEAM_PHOTOS.rachidBouserhan, initials: 'RB', name: 'M. Rachid BOUSERHAN',         role: 'Conseiller',            icon: 'fas fa-comments' },
-  { photo: TEAM_PHOTOS.medElAouad,      initials: 'ME', name: 'M. Med EL AOUAD',             role: 'Conseiller',            icon: 'fas fa-comments' },
-  { photo: TEAM_PHOTOS.azizAitBourhim,  initials: 'AB', name: 'M. Aziz AIT BOURHIM',         role: 'Conseiller',            icon: 'fas fa-comments' },
-  { photo: TEAM_PHOTOS.elmajidOussais,  initials: 'AO', name: 'M. Abd Elmajid OUSSAIS',      role: 'Conseiller',            icon: 'fas fa-comments' },
+  { photo: TEAM_PHOTOS.abdEssamad,      initials: 'AA', name: 'M. Abd Essamad AIT BEL HAJ', role: 'Secrétaire Général' },
+  { photo: TEAM_PHOTOS.medAitChakart,   initials: 'MA', name: 'M. Med AIT CHAKART',          role: 'Secrétaire Adjoint' },
+  { photo: TEAM_PHOTOS.medAourik,       initials: 'MO', name: 'M. Med AOURIK',               role: 'Trésorier' },
+  { photo: TEAM_PHOTOS.noraAchebani,    initials: 'NA', name: 'Mlle. Nora ACHEBANI',         role: 'Trésorière Adjointe' },
+  { photo: TEAM_PHOTOS.rachidBouserhan, initials: 'RB', name: 'M. Rachid BOUSERHAN',         role: 'Conseiller' },
+  { photo: TEAM_PHOTOS.medElAouad,      initials: 'ME', name: 'M. Med EL AOUAD',             role: 'Conseiller' },
+  { photo: TEAM_PHOTOS.azizAitBourhim,  initials: 'AB', name: 'M. Aziz AIT BOURHIM',         role: 'Conseiller' },
+  { photo: TEAM_PHOTOS.elmajidOussais,  initials: 'AO', name: 'M. Abd Elmajid OUSSAIS',      role: 'Conseiller' },
 ]
 
 const skiTeam = [
-  { name: 'M. Farid BOUSERHAN',   role: 'Président — Commission Technique — Porte-parole Média', icon: 'fas fa-star' },
-  { name: 'M. Rachid CHIB',       role: 'Entraîneur',   icon: 'fas fa-whistle' },
-  { name: 'Mlle. Nora ACHEBANI',  role: 'Conseillère',  icon: 'fas fa-comments' },
-  { name: 'Mme. Maryem EL QOTBI', role: 'Secrétaire',   icon: 'fas fa-file-alt' },
-  { name: 'M. Med AOURIK',        role: 'Trésorier',    icon: 'fas fa-coins' },
+  { name: 'M. Farid BOUSERHAN',   role: 'Président — Commission Technique — Porte-parole Média' },
+  { name: 'M. Rachid CHIB',       role: 'Entraîneur' },
+  { name: 'Mlle. Nora ACHEBANI',  role: 'Conseillère' },
+  { name: 'Mme. Maryem EL QOTBI', role: 'Secrétaire' },
+  { name: 'M. Med AOURIK',        role: 'Trésorier' },
 ]
 
-/* ─── Sub-components ────────────────────────────────────────────────────── */
+/* ─── Avatar ────────────────────────────────────────────────────────────── */
 
-function Avatar({ photo, initials, size = 'md' }: { photo: string | null; initials: string; size?: 'sm' | 'md' | 'lg' }) {
-  const dim  = size === 'lg' ? 'w-24 h-24' : size === 'md' ? 'w-16 h-16' : 'w-11 h-11'
-  const text = size === 'lg' ? 'text-3xl'  : size === 'md' ? 'text-xl'   : 'text-sm'
+function Avatar({ photo, initials, className = '' }: { photo: string | null; initials: string; className?: string }) {
   if (photo) {
-    return <img src={photo} alt={initials} className={`${dim} rounded-full object-cover shrink-0 ring-2 ring-primary-pale`} />
+    return <img src={photo} alt={initials} className={`object-cover ${className}`} />
   }
   return (
-    <div className={`${dim} rounded-full bg-primary-pale flex items-center justify-center font-heading font-black ${text} text-primary shrink-0`}>
-      {initials}
-    </div>
-  )
-}
-
-function LevelTag({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-3 mb-6">
-      <div className="h-px flex-1 bg-primary-pale" />
-      <span className="text-[11px] font-heading font-bold uppercase tracking-[2px] text-primary bg-primary-pale px-3 py-1 rounded-full">
-        {label}
-      </span>
-      <div className="h-px flex-1 bg-primary-pale" />
+    <div className={`bg-gradient-to-br from-primary-pale to-primary-ghost flex items-center justify-center font-heading font-black text-primary ${className}`}>
+      <span className="text-4xl">{initials}</span>
     </div>
   )
 }
@@ -77,130 +56,176 @@ export default function Equipe() {
         breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Notre Équipe' }]}
       />
 
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-5 flex flex-col gap-16">
-
-          {/* ── Président ─────────────────────────────────── */}
-          <div>
-            <LevelTag label="Présidence" />
-            <FadeIn>
-              <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start bg-gradient-to-br from-primary-ghost to-white border border-primary-pale rounded-3xl p-8 shadow-blue-sm">
-                <Avatar photo={president.photo} initials={president.initials} size="lg" />
-                <div className="text-center sm:text-left">
-                  <p className="text-[11px] font-heading font-bold uppercase tracking-[2px] text-primary mb-1">
-                    <i className="fas fa-crown mr-1.5" />Président
-                  </p>
-                  <h2 className="font-heading font-black text-2xl text-gray-900 mb-3">{president.name}</h2>
-                  <p className="text-gray-500 text-sm leading-relaxed">{president.bio}</p>
+      {/* ── Président ───────────────────────────────────────────────────── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader tag="Présidence" title="Le Président" />
+          <FadeIn>
+            <div className="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-blue-md border border-primary-pale">
+              {/* Photo side */}
+              <div className="relative min-h-[420px] bg-gradient-to-br from-primary-dark to-primary">
+                <img
+                  src={TEAM_PHOTOS.president}
+                  alt="M. Med BOUSERHAN"
+                  className="w-full h-full object-cover object-top absolute inset-0"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 text-white text-xs font-heading font-bold px-4 py-2 rounded-full uppercase tracking-widest">
+                    <i className="fas fa-crown" /> Président
+                  </span>
                 </div>
               </div>
-            </FadeIn>
-          </div>
 
-          {/* ── Vice-Présidents ───────────────────────────── */}
-          <div>
-            <LevelTag label="Vice-Présidence" />
-            <div className="grid sm:grid-cols-2 gap-4">
-              {vicePresidents.map(({ photo, initials, name, role }, i) => (
-                <FadeIn key={name} delay={i * 0.1}>
-                  <div className="flex items-center gap-4 bg-white border border-primary-pale rounded-2xl p-5 shadow-blue-sm hover:shadow-blue-md hover:-translate-y-0.5 transition-all duration-300">
-                    <Avatar photo={photo} initials={initials} size="md" />
-                    <div>
-                      <h3 className="font-heading font-bold text-base text-gray-900 leading-tight">{name}</h3>
-                      <p className="text-primary font-heading font-bold text-xs uppercase tracking-wide mt-1">{role}</p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-
-          {/* ── Bureau ───────────────────────────────────── */}
-          <div>
-            <LevelTag label="Bureau exécutif" />
-            <div className="grid sm:grid-cols-2 gap-3">
-              {bureau.map(({ photo, initials, name, role, icon }, i) => (
-                <FadeIn key={name} delay={i * 0.06}>
-                  <div className="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl p-4 hover:border-primary-pale hover:shadow-blue-sm transition-all duration-300">
-                    <Avatar photo={photo} initials={initials} size="sm" />
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-heading font-semibold text-sm text-gray-900 truncate">{name}</h3>
-                      <p className="text-gray-400 text-xs mt-0.5 flex items-center gap-1.5">
-                        <i className={`${icon} text-primary-light`} />
-                        {role}
-                      </p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-
-          {/* ── Clubs ────────────────────────────────────── */}
-          <div>
-            <LevelTag label="Direction des clubs" />
-
-            {/* Ski */}
-            <FadeIn>
-              <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-6 mb-4">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center shrink-0">
-                    <i className="fas fa-skiing text-base" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-base text-gray-900">Club Ski & Sports de Montagne</h3>
-                    <span className="text-xs text-gray-400">Affilié FRMSSM depuis 2013</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  {skiTeam.map(({ name, role, icon }, i) => (
-                    <div key={name} className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-primary-pale">
-                      <i className={`${icon} text-primary-light text-sm w-4 shrink-0`} />
-                      <span className="font-semibold text-sm text-gray-800 min-w-[170px]">{name}</span>
-                      <span className="text-xs text-gray-400">{role}</span>
-                    </div>
+              {/* Info side */}
+              <div className="bg-primary-ghost p-10 flex flex-col justify-center">
+                <p className="text-primary font-heading font-bold text-sm uppercase tracking-[3px] mb-3">Comité Directeur 2024–2028</p>
+                <h2 className="font-heading font-black text-4xl text-gray-900 mb-6 leading-tight">
+                  M. Med<br />BOUSERHAN
+                </h2>
+                <div className="w-12 h-1 bg-primary rounded mb-6" />
+                <p className="text-gray-500 text-base leading-relaxed mb-8">
+                  À la tête de l'ASATA depuis sa fondation en 2010, M. Med BOUSERHAN a bâti une association sportive solide et respectée au niveau régional et national. Son leadership a permis l'affiliation aux trois fédérations nationales et l'obtention de l'accréditation professionnelle officielle en 2024.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {['Ski & Montagne', 'Football', 'Athlétisme'].map(c => (
+                    <span key={c} className="bg-white border border-primary-pale text-primary font-heading font-bold text-xs px-4 py-2 rounded-full">
+                      {c}
+                    </span>
                   ))}
                 </div>
               </div>
-            </FadeIn>
-
-            {/* Football & Athlétisme */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              {[
-                { icon: 'fas fa-futbol',  title: 'Club Football',   sub: 'Affilié FRMF', to: '/football' },
-                { icon: 'fas fa-running', title: 'Club Athlétisme', sub: 'Affilié FRMA', to: '/athletisme' },
-              ].map(({ icon, title, sub, to }) => (
-                <FadeIn key={title}>
-                  <div className="flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-5 hover:border-primary-pale hover:shadow-blue-sm transition-all duration-300">
-                    <div className="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center shrink-0">
-                      <i className={`${icon} text-base`} />
-                    </div>
-                    <div>
-                      <h3 className="font-heading font-bold text-sm text-gray-900">{title}</h3>
-                      <p className="text-xs text-gray-400 mb-2">{sub}</p>
-                      <p className="text-xs text-gray-500">
-                        Voir la{' '}
-                        <Link to={to} className="text-primary font-semibold hover:underline">page du club</Link>
-                        {' '}ou{' '}
-                        <Link to="/contact" className="text-primary font-semibold hover:underline">nous contacter</Link>.
-                      </p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
             </div>
-          </div>
-
+          </FadeIn>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-primary-dark to-primary text-center">
+      {/* ── Vice-Présidents ─────────────────────────────────────────────── */}
+      <section className="py-24 bg-primary-ghost">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader tag="Vice-Présidence" title="Vice-Présidents" />
+          <div className="grid md:grid-cols-2 gap-8">
+            {vicePresidents.map(({ photo, initials, name, role }, i) => (
+              <FadeIn key={name} delay={i * 0.15}>
+                <div className="bg-white rounded-3xl overflow-hidden shadow-blue-sm border border-primary-pale hover:shadow-blue-md hover:-translate-y-1 transition-all duration-300">
+                  <div className="relative h-72 bg-gradient-to-br from-primary-dark to-primary overflow-hidden">
+                    <Avatar
+                      photo={photo}
+                      initials={initials}
+                      className="w-full h-full"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  </div>
+                  <div className="p-7">
+                    <p className="text-primary font-heading font-bold text-xs uppercase tracking-[2px] mb-1">{role}</p>
+                    <h3 className="font-heading font-black text-2xl text-gray-900">{name}</h3>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Bureau ──────────────────────────────────────────────────────── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader tag="Bureau exécutif" title="Membres du bureau" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {bureau.map(({ photo, initials, name, role }, i) => (
+              <FadeIn key={name} delay={i * 0.07}>
+                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-blue-sm hover:shadow-blue-md hover:-translate-y-1 hover:border-primary-pale transition-all duration-300 group">
+                  <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary-dark to-primary">
+                    <Avatar
+                      photo={photo}
+                      initials={initials}
+                      className="w-full h-full group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-primary font-heading font-bold text-[11px] uppercase tracking-[1.5px] mb-1">{role}</p>
+                    <h3 className="font-heading font-bold text-base text-gray-900 leading-snug">{name}</h3>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Direction des clubs ─────────────────────────────────────────── */}
+      <section className="py-24 bg-primary-ghost">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader tag="Responsables clubs" title="Direction des clubs" subtitle="Chaque club est géré par une équipe dédiée, affiliée à sa fédération nationale." />
+
+          {/* Ski club */}
+          <FadeIn className="mb-8">
+            <div className="bg-white rounded-3xl overflow-hidden border border-primary-pale shadow-blue-sm">
+              {/* Club header */}
+              <div className="bg-gradient-to-r from-primary-dark to-primary px-8 py-6 flex items-center gap-4">
+                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center shrink-0">
+                  <i className="fas fa-skiing text-white text-2xl" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-black text-xl text-white">Club Ski & Sports de Montagne</h3>
+                  <span className="text-white/70 text-sm font-medium">Affilié FRMSSM depuis 2013</span>
+                </div>
+              </div>
+              {/* Members list */}
+              <div className="divide-y divide-gray-50">
+                {skiTeam.map(({ name, role }, i) => (
+                  <div key={name} className={`flex flex-col sm:flex-row sm:items-center justify-between px-8 py-5 gap-1 ${i % 2 === 0 ? 'bg-white' : 'bg-primary-ghost/30'} hover:bg-primary-ghost transition-colors`}>
+                    <span className="font-heading font-bold text-gray-900 text-base">{name}</span>
+                    <span className="text-primary font-semibold text-sm">{role}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Football & Athlétisme */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { icon: 'fas fa-futbol',  title: 'Club Football',   sub: 'Affilié FRMF', to: '/football',   color: 'from-green-700 to-green-500' },
+              { icon: 'fas fa-running', title: 'Club Athlétisme', sub: 'Affilié FRMA', to: '/athletisme', color: 'from-orange-600 to-orange-400' },
+            ].map(({ icon, title, sub, to, color }) => (
+              <FadeIn key={title}>
+                <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-blue-sm hover:shadow-blue-md hover:-translate-y-1 transition-all duration-300">
+                  <div className={`bg-gradient-to-r ${color} px-8 py-6 flex items-center gap-4`}>
+                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center shrink-0">
+                      <i className={`${icon} text-white text-2xl`} />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-black text-xl text-white">{title}</h3>
+                      <span className="text-white/70 text-sm font-medium">{sub}</span>
+                    </div>
+                  </div>
+                  <div className="px-8 py-6">
+                    <p className="text-gray-500 text-sm mb-4">Retrouvez toutes les informations sur ce club, ses activités et son encadrement sur la page dédiée.</p>
+                    <div className="flex gap-3">
+                      <Link to={to} className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold text-sm px-5 py-2.5 rounded-full hover:bg-primary-dark transition-colors">
+                        <i className="fas fa-arrow-right text-xs" /> Voir le club
+                      </Link>
+                      <Link to="/contact" className="inline-flex items-center gap-2 border border-primary-pale text-primary font-heading font-bold text-sm px-5 py-2.5 rounded-full hover:bg-primary-ghost transition-colors">
+                        <i className="fas fa-envelope text-xs" /> Contact
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ─────────────────────────────────────────────────────────── */}
+      <section className="py-24 bg-gradient-to-br from-primary-dark to-primary text-center">
         <div className="max-w-2xl mx-auto px-5">
           <FadeIn>
-            <h2 className="font-heading font-black text-4xl text-white mb-4">Faites partie de l'équipe ASATA</h2>
-            <p className="text-white/80 mb-8">Nous sommes toujours à la recherche de bénévoles, d'encadreurs et de partenaires engagés.</p>
-            <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-white/70 text-white font-heading font-bold px-8 py-4 rounded-full hover:bg-white hover:text-primary transition-all">
+            <h2 className="font-heading font-black text-5xl text-white mb-5">Rejoignez l'équipe ASATA</h2>
+            <p className="text-white/75 text-lg mb-10">Nous sommes toujours à la recherche de bénévoles, d'encadreurs et de partenaires engagés.</p>
+            <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-white/70 text-white font-heading font-bold px-10 py-4 rounded-full hover:bg-white hover:text-primary transition-all text-base">
               <i className="fas fa-envelope" /> Prendre contact
             </Link>
           </FadeIn>
