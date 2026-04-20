@@ -53,11 +53,11 @@ export default function Equipe() {
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeader tag="Présidence" title="Le Président" />
           <FadeIn>
-            <div className="max-w-2xl mx-auto flex items-center gap-8 bg-primary-ghost border border-primary-pale rounded-2xl p-7">
+            <div className="max-w-3xl mx-auto flex items-center gap-10 bg-primary-ghost border border-primary-pale rounded-2xl p-9">
               <img
                 src={TEAM_PHOTOS.president}
                 alt="M. Med BOUSERHAN"
-                className="w-28 h-28 rounded-2xl object-cover object-top shrink-0 shadow-blue-sm"
+                className="w-36 h-36 rounded-2xl object-cover object-top shrink-0 shadow-blue-sm"
               />
               <div>
                 <span className="inline-flex items-center gap-1.5 text-[11px] font-heading font-bold uppercase tracking-[2px] text-primary mb-2">
@@ -77,11 +77,11 @@ export default function Equipe() {
       <section className="py-20 bg-primary-ghost">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeader tag="Vice-Présidence" title="Vice-Présidents" />
-          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {vicePresidents.map(({ photo, initials, name, role }, i) => (
               <FadeIn key={name} delay={i * 0.1}>
                 <div className="bg-white rounded-2xl overflow-hidden border border-primary-pale shadow-blue-sm hover:shadow-blue-md hover:-translate-y-0.5 transition-all duration-300">
-                  <div className="h-48 overflow-hidden bg-gradient-to-br from-primary-dark to-primary">
+                  <div className="h-60 overflow-hidden bg-gradient-to-br from-primary-dark to-primary">
                     <MemberPhoto photo={photo} initials={initials} className="w-full h-full" />
                   </div>
                   <div className="px-5 py-4">
@@ -103,7 +103,7 @@ export default function Equipe() {
             {bureau.map(({ photo, initials, name, role }, i) => (
               <FadeIn key={name} delay={i * 0.06}>
                 <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-blue-sm hover:shadow-blue-md hover:-translate-y-0.5 hover:border-primary-pale transition-all duration-300 group">
-                  <div className="h-44 overflow-hidden bg-gradient-to-br from-primary-dark to-primary">
+                  <div className="h-52 overflow-hidden bg-gradient-to-br from-primary-dark to-primary">
                     <MemberPhoto photo={photo} initials={initials} className="w-full h-full group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="px-4 py-4">
