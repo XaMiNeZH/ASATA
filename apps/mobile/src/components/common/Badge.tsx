@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
 import { FontSize, FontWeight } from '../../constants/typography';
 
 type BadgeStatus =
@@ -38,14 +37,15 @@ export function Badge({ label, status }: BadgeProps) {
 const styles = StyleSheet.create({
   badge: {
     alignSelf: 'flex-start',
-    borderRadius: 999,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   label: {
     color: Colors.surface,
     fontSize: FontSize.xs,
     fontWeight: FontWeight.bold,
+    textTransform: 'uppercase',
   },
 });
 
@@ -54,11 +54,11 @@ const statusStyles = StyleSheet.create({
   inactif: { backgroundColor: Colors.textMuted },
   suspendu: { backgroundColor: Colors.danger },
   planifie: { backgroundColor: Colors.primary },
-  en_cours: { backgroundColor: Colors.warning },
-  termine: { backgroundColor: Colors.textSecondary },
+  en_cours: { backgroundColor: '#F59E0B' },
+  termine: { backgroundColor: Colors.textMuted },
   annule: { backgroundColor: Colors.danger },
   confirme: { backgroundColor: Colors.success },
-  en_attente: { backgroundColor: Colors.warning },
+  en_attente: { backgroundColor: '#F59E0B' },
   present: { backgroundColor: Colors.success },
   absent: { backgroundColor: Colors.danger },
   non_renseigne: { backgroundColor: Colors.textMuted },

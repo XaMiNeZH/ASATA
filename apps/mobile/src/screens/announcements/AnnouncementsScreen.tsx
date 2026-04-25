@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Card } from '../../components/common/Card';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
-import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { getAnnouncements } from '../../services/announcements.service';
 import type { AnnouncementsStackParamList, Annonce } from '../../types';
 import { formatDate } from '../../utils/date';
+import { styles } from './AnnouncementsScreen.styles';
 
 type AnnouncementsNavigation = NativeStackNavigationProp<AnnouncementsStackParamList, 'Announcements'>;
 
@@ -58,13 +55,21 @@ export function AnnouncementsScreen() {
         data={announcements}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Card onPress={() => navigation.navigate('AnnouncementDetail', { annonceId: item.id })}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => navigation.navigate('AnnouncementDetail', { annonceId: item.id })}
+            style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+          >
             <View style={styles.cardContent}>
-              <Text style={styles.title}>{item.titre}</Text>
+              <Text numberOfLines={2} style={styles.title}>
+                {item.titre}
+              </Text>
+              <Text numberOfLines={2} style={styles.preview}>
+                {item.contenu}
+              </Text>
               <Text style={styles.date}>{formatDate(item.datePublication)}</Text>
-              <Text style={styles.preview}>{item.contenu}</Text>
             </View>
-          </Card>
+          </Pressable>
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={<EmptyState icon="bell" title="Aucune annonce" subtitle="Les annonces apparaitront ici." />}
@@ -75,33 +80,3 @@ export function AnnouncementsScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  listContent: {
-    paddingVertical: Spacing.md,
-  },
-  cardContent: {
-    gap: Spacing.sm,
-  },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.lg,
-    fontWeight: FontWeight.bold,
-  },
-  date: {
-    color: Colors.textMuted,
-    fontSize: FontSize.sm,
-  },
-  preview: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.md,
-  },
-  separator: {
-    height: Spacing.md,
-  },
-});

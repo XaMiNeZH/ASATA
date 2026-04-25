@@ -1,18 +1,16 @@
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Avatar } from '../../components/common/Avatar';
-import { Badge } from '../../components/common/Badge';
 import { Button } from '../../components/common/Button';
-import { Card } from '../../components/common/Card';
 import { EmptyState } from '../../components/common/EmptyState';
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { useAuthStore } from '../../store/auth.store';
 import type { ProfileStackParamList } from '../../types';
+import { styles } from './ProfileScreen.styles';
 
 type ProfileNavigation = NativeStackNavigationProp<ProfileStackParamList, 'Profile'>;
 
@@ -30,79 +28,54 @@ export function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <View style={styles.screen}>
+      <SafeAreaView edges={['top']} style={styles.header}>
+        <View style={styles.avatarRing}>
+          <Avatar name={user.nom} photo={user.profil.photo} />
+        </View>
+        <Text style={styles.name}>{user.nom}</Text>
+        <Text style={styles.email}>{user.email}</Text>
+        <View style={styles.roleBadge}>
+          <Text style={styles.roleText}>{user.role}</Text>
+        </View>
+      </SafeAreaView>
+      <View style={styles.stats}>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>4</Text>
+          <Text style={styles.statLabel}>Participations</Text>
+        </View>
+        <View style={styles.statItem}>
+          <Text style={styles.statNumber}>4</Text>
+          <Text style={styles.statLabel}>Annonces vues</Text>
+        </View>
+      </View>
       <ScrollView contentContainerStyle={styles.content}>
-        <Card>
-          <View style={styles.identity}>
-            <Avatar name={user.nom} photo={user.profil.photo} />
-            <View style={styles.identityText}>
-              <Text style={styles.name}>{user.nom}</Text>
-              <Text style={styles.email}>{user.email}</Text>
-              <View style={styles.badges}>
-                <Badge label={user.role} status={user.role} />
-                {user.statut ? <Badge label={user.statut} status={user.statut} /> : null}
-              </View>
+        <View style={styles.infoCard}>
+          <View style={styles.infoRow}>
+            <Feather name="calendar" size={18} color={Colors.primary} />
+            <View style={styles.infoCopy}>
+              <Text style={styles.infoLabel}>Age</Text>
+              <Text style={styles.infoValue}>{user.profil.age ?? 'Non renseigne'}</Text>
             </View>
           </View>
-        </Card>
-        <Card>
-          <View style={styles.details}>
-            <Text style={styles.sectionTitle}>Profil</Text>
-            <Text style={styles.detail}>Age: {user.profil.age ?? 'Non renseigne'}</Text>
-            <Text style={styles.detail}>Telephone: {user.profil.telephone ?? 'Non renseigne'}</Text>
-            <Text style={styles.detail}>Adresse: {user.profil.adresse ?? 'Non renseignee'}</Text>
+          <View style={styles.infoRow}>
+            <Feather name="phone" size={18} color={Colors.primary} />
+            <View style={styles.infoCopy}>
+              <Text style={styles.infoLabel}>Telephone</Text>
+              <Text style={styles.infoValue}>{user.profil.telephone ?? 'Non renseigne'}</Text>
+            </View>
           </View>
-        </Card>
-        <Button label="Modifier le profil" onPress={() => navigation.navigate('EditProfile')} variant="primary" />
+          <View style={[styles.infoRow, styles.infoRowLast]}>
+            <Feather name="map-pin" size={18} color={Colors.primary} />
+            <View style={styles.infoCopy}>
+              <Text style={styles.infoLabel}>Adresse</Text>
+              <Text style={styles.infoValue}>{user.profil.adresse ?? 'Non renseignee'}</Text>
+            </View>
+          </View>
+        </View>
+        <Button label="Modifier le profil" onPress={() => navigation.navigate('EditProfile')} variant="secondary" />
         <Button label="Se deconnecter" onPress={() => void logout()} variant="ghost" />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  content: {
-    gap: Spacing.md,
-    paddingVertical: Spacing.md,
-  },
-  identity: {
-    flexDirection: 'row',
-    gap: Spacing.md,
-    alignItems: 'center',
-  },
-  identityText: {
-    flex: 1,
-    gap: Spacing.xs,
-  },
-  name: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.xl,
-    fontWeight: FontWeight.bold,
-  },
-  email: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.md,
-  },
-  badges: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Spacing.sm,
-  },
-  details: {
-    gap: Spacing.sm,
-  },
-  sectionTitle: {
-    color: Colors.primaryDark,
-    fontSize: FontSize.xl,
-    fontWeight: FontWeight.bold,
-  },
-  detail: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.md,
-  },
-});

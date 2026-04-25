@@ -33,14 +33,15 @@ const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
 
 const getScreenOptions = () => ({
   headerStyle: styles.header,
-  headerTintColor: Colors.primaryDark,
+  headerTintColor: Colors.surface,
   headerTitleStyle: styles.headerTitle,
+  headerBackTitleVisible: false,
 });
 
 function HomeStackNavigator() {
   return (
     <HomeStack.Navigator screenOptions={getScreenOptions()}>
-      <HomeStack.Screen name="Home" component={HomeScreen} options={{ title: 'Accueil' }} />
+      <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <HomeStack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications' }} />
     </HomeStack.Navigator>
   );
@@ -50,7 +51,11 @@ function EventsStackNavigator() {
   return (
     <EventsStack.Navigator screenOptions={getScreenOptions()}>
       <EventsStack.Screen name="Events" component={EventsScreen} options={{ title: 'Activites' }} />
-      <EventsStack.Screen name="EventDetail" component={EventDetailScreen} options={{ title: 'Detail' }} />
+      <EventsStack.Screen
+        name="EventDetail"
+        component={EventDetailScreen}
+        options={{ title: '', headerTransparent: true, headerBackVisible: false }}
+      />
     </EventsStack.Navigator>
   );
 }
@@ -62,7 +67,7 @@ function AnnouncementsStackNavigator() {
       <AnnouncementsStack.Screen
         name="AnnouncementDetail"
         component={AnnouncementDetailScreen}
-        options={{ title: 'Annonce' }}
+        options={{ headerShown: false }}
       />
     </AnnouncementsStack.Navigator>
   );
@@ -71,7 +76,7 @@ function AnnouncementsStackNavigator() {
 function ProfileStackNavigator() {
   return (
     <ProfileStack.Navigator screenOptions={getScreenOptions()}>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profil' }} />
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
       <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Modifier' }} />
     </ProfileStack.Navigator>
   );
@@ -93,6 +98,7 @@ export function MainNavigator() {
         tabBarInactiveTintColor: Colors.textMuted,
         tabBarStyle: styles.tabBar,
         tabBarBadgeStyle: styles.badge,
+        tabBarLabelStyle: styles.tabBarLabel,
       }}
     >
       <Tab.Screen
@@ -114,17 +120,26 @@ export function MainNavigator() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.primary,
   },
   headerTitle: {
-    color: Colors.primaryDark,
+    color: Colors.surface,
     fontWeight: '700',
+    fontSize: 17,
   },
   tabBar: {
-    minHeight: 62,
+    backgroundColor: Colors.surface,
+    borderTopColor: Colors.border,
+    borderTopWidth: 1,
+    height: 60,
+    paddingBottom: 8,
     paddingTop: 6,
   },
+  tabBarLabel: {
+    fontSize: 11,
+    fontWeight: '600',
+  },
   badge: {
-    backgroundColor: Colors.danger,
+    backgroundColor: Colors.accent,
   },
 });
