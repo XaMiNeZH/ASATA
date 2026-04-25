@@ -1,17 +1,15 @@
 import { useState } from 'react';
-import { Alert, SectionList, StyleSheet, Text, View } from 'react-native';
+import { Alert, SectionList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { ParticipationItem } from '../../components/participations/ParticipationItem';
-import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { useParticipations } from '../../hooks/useParticipations';
 import { useAuthStore } from '../../store/auth.store';
 import type { Participation } from '../../types';
+import { styles } from './ParticipationsScreen.styles';
 
 interface ParticipationSection {
   title: string;
@@ -85,7 +83,12 @@ export function ParticipationsScreen() {
       <SectionList
         sections={sections}
         keyExtractor={(item) => item.id}
-        renderSectionHeader={({ section }) => <Text style={styles.sectionTitle}>{section.title}</Text>}
+        renderSectionHeader={({ section }) => (
+          <View style={styles.sectionHeader}>
+            <View style={styles.accentBar} />
+            <Text style={styles.sectionTitle}>{section.title}</Text>
+          </View>
+        )}
         renderItem={({ item }) => (
           <ParticipationItem
             participation={item}
@@ -104,33 +107,3 @@ export function ParticipationsScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.md,
-  },
-  listContent: {
-    paddingBottom: Spacing.xl,
-  },
-  sectionTitle: {
-    color: Colors.primaryDark,
-    fontSize: FontSize.xl,
-    fontWeight: FontWeight.bold,
-    marginBottom: Spacing.sm,
-  },
-  separator: {
-    height: Spacing.md,
-  },
-  sectionGap: {
-    height: Spacing.lg,
-  },
-  success: {
-    color: Colors.success,
-    fontSize: FontSize.md,
-    fontWeight: FontWeight.bold,
-    marginBottom: Spacing.sm,
-  },
-});

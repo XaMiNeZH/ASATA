@@ -30,9 +30,9 @@ export function Avatar({ name, photo }: AvatarProps) {
 
 const styles = StyleSheet.create({
   avatar: {
-    width: 76,
-    height: 76,
-    borderRadius: 38,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.primaryPale,

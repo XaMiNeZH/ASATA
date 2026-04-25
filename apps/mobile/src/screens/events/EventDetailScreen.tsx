@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { RouteProp } from '@react-navigation/native';
-import { useRoute } from '@react-navigation/native';
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
+import { Alert, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Badge } from '../../components/common/Badge';
@@ -10,20 +12,21 @@ import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { CapacityBar } from '../../components/events/CapacityBar';
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { getEventById, isUserRegistered } from '../../services/events.service';
 import { cancelParticipation, getUserParticipations, registerForEvent } from '../../services/participations.service';
 import { useAuthStore } from '../../store/auth.store';
 import type { Evenement, EventsStackParamList } from '../../types';
 import { formatDate } from '../../utils/date';
+import { styles } from './EventDetailScreen.styles';
 
 const placeholderEvent = require('../../../assets/images/placeholder-event.png');
 
 type EventDetailRoute = RouteProp<EventsStackParamList, 'EventDetail'>;
+type EventDetailNavigation = NativeStackNavigationProp<EventsStackParamList, 'EventDetail'>;
 
 export function EventDetailScreen() {
   const route = useRoute<EventDetailRoute>();
+  const navigation = useNavigation<EventDetailNavigation>();
   const user = useAuthStore((state) => state.user);
   const [event, setEvent] = useState<Evenement | null>(null);
   const [participationId, setParticipationId] = useState<string | null>(null);
@@ -74,7 +77,7 @@ export function EventDetailScreen() {
       setEvent({ ...event, inscrits: event.inscrits + 1 });
       setParticipationId(participation.id);
       setIsRegistered(true);
-      setMessage('Inscription confirmée ✓');
+      setMessage('Inscription confirmee.');
     } catch (caught) {
       if (caught instanceof Error && caught.message === 'Événement complet') {
         setError('Cet événement est complet.');
@@ -122,7 +125,7 @@ export function EventDetailScreen() {
     return <LoadingSpinner />;
   }
 
-  if (!event || error) {
+  if (!event) {
     return (
       <SafeAreaView style={styles.screen}>
         <ErrorMessage message={error ?? 'Événement introuvable.'} onRetry={loadEvent} />
@@ -134,22 +137,46 @@ export function EventDetailScreen() {
   const isCancelled = event.statut === 'annule';
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Image source={event.coverImage ? { uri: event.coverImage } : placeholderEvent} style={styles.cover} />
-        <View style={styles.header}>
-          <Badge label={event.statut.replace('_', ' ')} status={event.statut} />
-          <Text style={styles.title}>{event.titre}</Text>
-          <Text style={styles.meta}>{formatDate(event.date)}</Text>
-          <Text style={styles.meta}>{event.lieu}</Text>
+        <View style={styles.coverWrap}>
+          <Image source={event.coverImage ? { uri: event.coverImage } : placeholderEvent} style={styles.cover} />
+          <Text style={styles.watermark}>ASATA</Text>
+          <Pressable accessibilityRole="button" style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Feather name="chevron-left" size={24} color={Colors.primary} />
+          </Pressable>
         </View>
-        <Text style={styles.description}>{event.description}</Text>
-        <CapacityBar total={event.capacite} filled={event.inscrits} />
-        {message ? <Text style={styles.success}>{message}</Text> : null}
-        {error ? <ErrorMessage message={error} /> : null}
-        {isCancelled ? <Text style={styles.cancelled}>Événement annulé</Text> : null}
+        <View style={styles.card}>
+          <View style={styles.titleRow}>
+            <Badge label={event.statut.replace('_', ' ')} status={event.statut} />
+            <Text style={styles.title}>{event.titre}</Text>
+          </View>
+          <View style={styles.metaRow}>
+            <Feather name="calendar" size={17} color={Colors.primary} />
+            <Text style={styles.meta}>{formatDate(event.date)}</Text>
+          </View>
+          <View style={styles.metaRow}>
+            <Feather name="map-pin" size={17} color={Colors.primary} />
+            <Text style={styles.meta}>{event.lieu}</Text>
+          </View>
+          <View style={styles.divider} />
+          <View style={styles.capacity}>
+            <Text style={styles.label}>Places disponibles</Text>
+            <CapacityBar total={event.capacite} filled={event.inscrits} />
+          </View>
+          <Text style={styles.description}>{event.description}</Text>
+          {message ? <Text style={styles.success}>{message}</Text> : null}
+          {error ? <ErrorMessage message={error} /> : null}
+        </View>
+      </ScrollView>
+      <SafeAreaView edges={['bottom']} style={styles.actionBar}>
+        {isCancelled ? (
+          <View style={styles.cancelledBanner}>
+            <Text style={styles.cancelledText}>Evenement annule</Text>
+          </View>
+        ) : null}
         {!isCancelled && isRegistered ? (
-          <Button label="Se désinscrire" onPress={handleCancel} isLoading={isSubmitting} variant="danger" />
+          <Button label="Se desinscrire" onPress={handleCancel} isLoading={isSubmitting} variant="dangerOutline" />
         ) : null}
         {!isCancelled && !isRegistered && isFull ? (
           <Button label="Complet" onPress={handleRegister} disabled variant="secondary" />
@@ -157,39 +184,7 @@ export function EventDetailScreen() {
         {!isCancelled && !isRegistered && !isFull ? (
           <Button label="S'inscrire" onPress={handleRegister} isLoading={isSubmitting} variant="primary" />
         ) : null}
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  content: {
-    gap: Spacing.md,
-    paddingVertical: Spacing.md,
-  },
-  cover: {
-    width: '100%',
-    height: 220,
-    borderRadius: 8,
-    backgroundColor: Colors.primaryPale,
-  },
-  header: { gap: Spacing.sm },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.xxl,
-    fontWeight: FontWeight.bold,
-  },
-  meta: { color: Colors.textSecondary, fontSize: FontSize.md },
-  description: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.md,
-    lineHeight: 22,
-  },
-  success: { color: Colors.success, fontSize: FontSize.md, fontWeight: FontWeight.bold },
-  cancelled: { color: Colors.danger, fontSize: FontSize.md, fontWeight: FontWeight.bold },
-});

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
 import { Spacing } from '../../constants/spacing';
@@ -7,19 +8,38 @@ import { FontSize, FontWeight } from '../../constants/typography';
 interface CapacityBarProps {
   total: number;
   filled: number;
+  showText?: boolean;
 }
 
-export function CapacityBar({ total, filled }: CapacityBarProps) {
-  const bucket = Math.min(10, Math.max(0, Math.round((filled / total) * 10)));
+export function CapacityBar({ total, filled, showText = true }: CapacityBarProps) {
+  const ratio = total > 0 ? Math.min(1, Math.max(0, filled / total)) : 0;
+  const progress = useRef(new Animated.Value(0)).current;
+  const animatedWidth = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', `${Math.round(ratio * 100)}%`],
+  });
+  const animatedFillStyle = { width: animatedWidth };
+  const fillTone = ratio >= 0.9 ? styles.fillDanger : ratio >= 0.7 ? styles.fillWarning : styles.fillSuccess;
+
+  useEffect(() => {
+    Animated.timing(progress, {
+      toValue: 1,
+      duration: 300,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: false,
+    }).start();
+  }, [progress, ratio]);
 
   return (
     <View style={styles.container}>
       <View style={styles.track}>
-        <View style={[styles.fill, widthBuckets[bucket]]} />
+        <Animated.View style={[styles.fill, fillTone, animatedFillStyle]} />
       </View>
-      <Text style={styles.text}>
-        {filled} / {total} places
-      </Text>
+      {showText ? (
+        <Text style={[styles.text, ratio >= 0.9 && styles.textDanger]}>
+          {filled} / {total} places
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -29,47 +49,30 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   track: {
-    height: 8,
+    height: 6,
     borderRadius: 999,
-    backgroundColor: Colors.primaryPale,
+    backgroundColor: Colors.border,
     overflow: 'hidden',
   },
   fill: {
-    height: 8,
+    height: 6,
     borderRadius: 999,
-    backgroundColor: Colors.primary,
+  },
+  fillSuccess: {
+    backgroundColor: Colors.success,
+  },
+  fillWarning: {
+    backgroundColor: '#F59E0B',
+  },
+  fillDanger: {
+    backgroundColor: Colors.danger,
   },
   text: {
     color: Colors.textSecondary,
-    fontSize: FontSize.sm,
+    fontSize: FontSize.xs,
     fontWeight: FontWeight.medium,
   },
+  textDanger: {
+    color: Colors.danger,
+  },
 });
-
-const widthStyles = StyleSheet.create({
-  width0: { width: '0%' },
-  width1: { width: '10%' },
-  width2: { width: '20%' },
-  width3: { width: '30%' },
-  width4: { width: '40%' },
-  width5: { width: '50%' },
-  width6: { width: '60%' },
-  width7: { width: '70%' },
-  width8: { width: '80%' },
-  width9: { width: '90%' },
-  width10: { width: '100%' },
-});
-
-const widthBuckets = [
-  widthStyles.width0,
-  widthStyles.width1,
-  widthStyles.width2,
-  widthStyles.width3,
-  widthStyles.width4,
-  widthStyles.width5,
-  widthStyles.width6,
-  widthStyles.width7,
-  widthStyles.width8,
-  widthStyles.width9,
-  widthStyles.width10,
-];

@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { EventCard } from '../../components/events/EventCard';
-import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { useEvents } from '../../hooks/useEvents';
 import type { EventStatus, EventsStackParamList } from '../../types';
+import { styles } from './EventsScreen.styles';
 
 type EventsNavigation = NativeStackNavigationProp<EventsStackParamList, 'Events'>;
 type FilterKey = 'all' | 'upcoming' | 'finished' | 'cancelled';
@@ -51,7 +49,12 @@ export function EventsScreen() {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.filters}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.filters}
+        contentContainerStyle={styles.filtersContent}
+      >
         {filters.map((item) => (
           <Pressable
             key={item.key}
@@ -61,7 +64,7 @@ export function EventsScreen() {
             <Text style={[styles.chipText, filter === item.key && styles.chipTextActive]}>{item.label}</Text>
           </Pressable>
         ))}
-      </View>
+      </ScrollView>
       <FlatList
         data={filteredEvents}
         keyExtractor={(item) => item.id}
@@ -79,43 +82,3 @@ export function EventsScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  filters: {
-    flexDirection: 'row',
-    gap: Spacing.sm,
-    paddingVertical: Spacing.md,
-  },
-  chip: {
-    minHeight: 44,
-    justifyContent: 'center',
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingHorizontal: Spacing.md,
-    backgroundColor: Colors.surface,
-  },
-  chipActive: {
-    backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
-  },
-  chipText: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    fontWeight: FontWeight.bold,
-  },
-  chipTextActive: {
-    color: Colors.surface,
-  },
-  listContent: {
-    paddingBottom: Spacing.xl,
-  },
-  separator: {
-    height: Spacing.md,
-  },
-});
