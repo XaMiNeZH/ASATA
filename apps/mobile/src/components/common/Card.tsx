@@ -27,16 +27,15 @@ export function Card({ children, onPress }: CardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 8,
+    borderRadius: 12,
     backgroundColor: Colors.surface,
-    borderWidth: 1,
-    borderColor: Colors.border,
     padding: Spacing.md,
-    shadowColor: Colors.primaryDark,
-    shadowOffset: { width: 0, height: 6 },
+    marginBottom: Spacing.sm,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 2,
+    shadowRadius: 8,
+    elevation: 3,
   },
   touchable: {
     minHeight: 44,

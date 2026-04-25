@@ -1,14 +1,20 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { Input } from '../../components/common/Input';
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
 import { useAuthStore } from '../../store/auth.store';
+import type { AuthStackParamList } from '../../types';
 import { isValidEmail, isValidPassword } from '../../utils/validators';
+import { styles } from './RegisterScreen.styles';
+
+type RegisterNavigation = NativeStackNavigationProp<AuthStackParamList, 'Register'>;
+const logo = require('../../../assets/images/logo.png');
 
 interface RegisterErrors {
   nom?: string;
@@ -18,12 +24,15 @@ interface RegisterErrors {
 }
 
 export function RegisterScreen() {
+  const navigation = useNavigation<RegisterNavigation>();
   const register = useAuthStore((state) => state.register);
   const [nom, setNom] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [telephone, setTelephone] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<RegisterErrors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,53 +71,78 @@ export function RegisterScreen() {
     }
   };
 
+  const passwordsMatch = Boolean(confirmPassword) && password === confirmPassword;
+
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.form}>
-        <Input label="Nom complet" value={nom} onChangeText={setNom} placeholder="Votre nom" error={errors.nom} />
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          placeholder="votre@email.ma"
-          error={errors.email}
-        />
-        <Input
-          label="Mot de passe"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          error={errors.password}
-        />
-        <Input
-          label="Confirmer le mot de passe"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-          error={errors.confirmPassword}
-        />
-        <Input
-          label="Telephone"
-          value={telephone}
-          onChangeText={setTelephone}
-          keyboardType="phone-pad"
-          placeholder="Optionnel"
-        />
-        {submitError ? <ErrorMessage message={submitError} /> : null}
-        <Button label="Creer mon compte" onPress={handleSubmit} isLoading={isSubmitting} variant="primary" />
-      </View>
+      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollContent}>
+        <View style={styles.hero}>
+          <Image source={logo} style={styles.logo} resizeMode="contain" />
+          <Text style={styles.brand}>ASATA</Text>
+          <Text style={styles.subtitle}>Association Sportive Atlas Toubkal Asni</Text>
+        </View>
+        <View style={styles.card}>
+          <View style={styles.form}>
+            <View>
+              <Text style={styles.cardTitle}>Inscription</Text>
+              <Text style={styles.cardSubtitle}>Creez votre espace membre ASATA Connect.</Text>
+            </View>
+            <Input
+              label="Nom complet"
+              value={nom}
+              onChangeText={setNom}
+              placeholder="Votre nom"
+              error={errors.nom}
+              leftIcon="user"
+            />
+            <Input
+              label="Email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              placeholder="votre@email.ma"
+              error={errors.email}
+              leftIcon="mail"
+            />
+            <Input
+              label="Mot de passe"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+              error={errors.password}
+              leftIcon="lock"
+              rightIcon={showPassword ? 'eye-off' : 'eye'}
+              onRightIconPress={() => setShowPassword((current) => !current)}
+            />
+            <Input
+              label="Confirmer le mot de passe"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={!showConfirmPassword}
+              error={errors.confirmPassword}
+              leftIcon="shield"
+              rightIcon={passwordsMatch ? 'check-circle' : showConfirmPassword ? 'eye-off' : 'eye'}
+              rightIconColor={passwordsMatch ? Colors.success : Colors.textMuted}
+              onRightIconPress={passwordsMatch ? undefined : () => setShowConfirmPassword((current) => !current)}
+            />
+            <Input
+              label="Telephone"
+              value={telephone}
+              onChangeText={setTelephone}
+              keyboardType="phone-pad"
+              placeholder="Optionnel"
+              leftIcon="phone"
+            />
+            {submitError ? <ErrorMessage message={submitError} /> : null}
+            <Button label="Creer mon compte" onPress={handleSubmit} isLoading={isSubmitting} variant="primary" />
+            <Pressable style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.loginText}>
+                Deja membre? <Text style={styles.loginLink}>Se connecter</Text>
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    padding: Spacing.md,
-    backgroundColor: Colors.background,
-  },
-  form: {
-    gap: Spacing.md,
-  },
-});

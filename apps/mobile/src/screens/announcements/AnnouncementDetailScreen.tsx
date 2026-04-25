@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react';
 import type { RouteProp } from '@react-navigation/native';
-import { useRoute } from '@react-navigation/native';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { getAnnouncementById } from '../../services/announcements.service';
 import type { AnnouncementsStackParamList, Annonce } from '../../types';
 import { formatDate } from '../../utils/date';
+import { styles } from './AnnouncementDetailScreen.styles';
 
 type AnnouncementDetailRoute = RouteProp<AnnouncementsStackParamList, 'AnnouncementDetail'>;
+type AnnouncementDetailNavigation = NativeStackNavigationProp<AnnouncementsStackParamList, 'AnnouncementDetail'>;
 
 export function AnnouncementDetailScreen() {
   const route = useRoute<AnnouncementDetailRoute>();
+  const navigation = useNavigation<AnnouncementDetailNavigation>();
   const [announcement, setAnnouncement] = useState<Annonce | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,38 +53,23 @@ export function AnnouncementDetailScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <View style={styles.screen}>
+      <SafeAreaView edges={['top']} style={styles.header}>
+        <View style={styles.headerTop}>
+          <Pressable accessibilityRole="button" onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Feather name="chevron-left" size={26} color={Colors.surface} />
+          </Pressable>
+        </View>
+        <Text numberOfLines={3} style={styles.headerTitle}>
+          {announcement.titre}
+        </Text>
+      </SafeAreaView>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{announcement.titre}</Text>
-        <Text style={styles.date}>{formatDate(announcement.datePublication)}</Text>
-        <Text style={styles.body}>{announcement.contenu}</Text>
+        <View style={styles.card}>
+          <Text style={styles.date}>{formatDate(announcement.datePublication)}</Text>
+          <Text style={styles.body}>{announcement.contenu}</Text>
+        </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  content: {
-    gap: Spacing.md,
-    paddingVertical: Spacing.md,
-  },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.xxl,
-    fontWeight: FontWeight.bold,
-  },
-  date: {
-    color: Colors.textMuted,
-    fontSize: FontSize.sm,
-  },
-  body: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.md,
-    lineHeight: 23,
-  },
-});

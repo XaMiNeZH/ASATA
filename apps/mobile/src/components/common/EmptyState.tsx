@@ -15,7 +15,7 @@ interface EmptyStateProps {
 export function EmptyState({ icon, title, subtitle }: EmptyStateProps) {
   return (
     <View style={styles.container}>
-      <Feather name={icon} size={32} color={Colors.primary} />
+      <Feather name={icon} size={48} color={Colors.textMuted} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
@@ -25,17 +25,18 @@ export function EmptyState({ icon, title, subtitle }: EmptyStateProps) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    gap: Spacing.sm,
-    padding: Spacing.xl,
+    justifyContent: 'center',
+    gap: Spacing.md,
+    padding: Spacing.xxl,
   },
   title: {
     color: Colors.textPrimary,
-    fontSize: FontSize.lg,
+    fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
     textAlign: 'center',
   },
   subtitle: {
-    color: Colors.textSecondary,
+    color: Colors.textMuted,
     fontSize: FontSize.md,
     textAlign: 'center',
   },

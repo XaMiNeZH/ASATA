@@ -1,17 +1,14 @@
-import { SectionList, StyleSheet, Text, View } from 'react-native';
+import { Pressable, SectionList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Button } from '../../components/common/Button';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { NotificationItem } from '../../components/notifications/NotificationItem';
-import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { useNotifications } from '../../hooks/useNotifications';
 import { useAuthStore } from '../../store/auth.store';
 import type { Notification } from '../../types';
+import { styles } from './NotificationsScreen.styles';
 
 interface NotificationSection {
   title: string;
@@ -43,8 +40,16 @@ export function NotificationsScreen() {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.actions}>
-        <Text style={styles.title}>Notifications</Text>
-        <Button label="Tout marquer comme lu" onPress={() => void markAllRead()} variant="ghost" disabled={!unread.length} />
+        <Pressable
+          accessibilityRole="button"
+          disabled={!unread.length}
+          onPress={() => void markAllRead()}
+          style={styles.markReadButton}
+        >
+          <Text style={[styles.markReadText, !unread.length && styles.markReadTextDisabled]}>
+            Tout marquer comme lu
+          </Text>
+        </Pressable>
       </View>
       <SectionList
         sections={sections}
@@ -59,38 +64,3 @@ export function NotificationsScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  actions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: Spacing.md,
-    paddingVertical: Spacing.md,
-  },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.xl,
-    fontWeight: FontWeight.bold,
-  },
-  listContent: {
-    paddingBottom: Spacing.xl,
-  },
-  sectionTitle: {
-    color: Colors.primaryDark,
-    fontSize: FontSize.lg,
-    fontWeight: FontWeight.bold,
-    marginBottom: Spacing.sm,
-  },
-  separator: {
-    height: Spacing.sm,
-  },
-  sectionGap: {
-    height: Spacing.lg,
-  },
-});

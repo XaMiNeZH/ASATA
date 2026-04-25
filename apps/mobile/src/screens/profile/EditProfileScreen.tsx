@@ -2,18 +2,18 @@ import { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { Image, ScrollView, StyleSheet, Text } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Image, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { Input } from '../../components/common/Input';
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import { updateProfil } from '../../services/auth.service';
 import { useAuthStore } from '../../store/auth.store';
 import type { ProfileStackParamList } from '../../types';
+import { styles } from './EditProfileScreen.styles';
 
 type EditProfileNavigation = NativeStackNavigationProp<ProfileStackParamList, 'EditProfile'>;
 
@@ -76,42 +76,29 @@ export function EditProfileScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Modifier le profil</Text>
-        {photo ? <Image source={{ uri: photo }} style={styles.photo} /> : null}
-        <Button label="Changer la photo" onPress={() => void pickPhoto()} variant="secondary" />
-        <Input label="Nom" value={nom} onChangeText={setNom} placeholder="Nom complet" />
-        <Input label="Telephone" value={telephone} onChangeText={setTelephone} keyboardType="phone-pad" />
-        <Input label="Adresse" value={adresse} onChangeText={setAdresse} placeholder="Adresse" />
-        <Input label="Age" value={age} onChangeText={setAge} keyboardType="numeric" placeholder="Age" />
+    <View style={styles.screen}>
+      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
+        <Pressable accessibilityRole="button" onPress={() => void pickPhoto()} style={styles.photoButton}>
+          {photo ? (
+            <Image source={{ uri: photo }} style={styles.photo} />
+          ) : (
+            <View style={styles.photoPlaceholder}>
+              <Feather name="user" size={42} color={Colors.primary} />
+            </View>
+          )}
+          <View style={styles.cameraBadge}>
+            <Feather name="camera" size={17} color={Colors.surface} />
+          </View>
+        </Pressable>
+        <Input label="Nom" value={nom} onChangeText={setNom} placeholder="Nom complet" leftIcon="user" />
+        <Input label="Telephone" value={telephone} onChangeText={setTelephone} keyboardType="phone-pad" leftIcon="phone" />
+        <Input label="Adresse" value={adresse} onChangeText={setAdresse} placeholder="Adresse" leftIcon="map-pin" />
+        <Input label="Age" value={age} onChangeText={setAge} keyboardType="numeric" placeholder="Age" leftIcon="calendar" />
         {error ? <ErrorMessage message={error} /> : null}
-        <Button label="Enregistrer" onPress={saveProfile} isLoading={isSaving} variant="primary" />
       </ScrollView>
-    </SafeAreaView>
+      <SafeAreaView edges={['bottom']} style={styles.actionBar}>
+        <Button label="Enregistrer" onPress={saveProfile} isLoading={isSaving} variant="primary" />
+      </SafeAreaView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-  },
-  content: {
-    gap: Spacing.md,
-    paddingVertical: Spacing.md,
-  },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.xxl,
-    fontWeight: FontWeight.bold,
-  },
-  photo: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignSelf: 'center',
-    backgroundColor: Colors.primaryPale,
-  },
-});
