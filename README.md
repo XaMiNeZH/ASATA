@@ -14,3 +14,16 @@ Association Sportive Atlas Toubkal Asni repository.
 - The live website is the React app in `apps/web`.
 - Archived static versions are kept for reference only and are not the active deployment target.
 - Website assets are canonical in `apps/web/public`.
+
+## Mobile App
+
+Location: `apps/mobile/`
+
+Run locally:
+```bash
+cd apps/mobile
+npx expo start
+```
+
+To connect to a real backend: set `USE_MOCK = false` in all service files and
+configure `API_BASE_URL` in `src/api/client.ts`.
