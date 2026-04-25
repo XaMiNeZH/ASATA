@@ -1,0 +1,51 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Membre
+actor "Coach / Responsable" as Coach
+actor Administrateur as Admin
+
+rectangle "Application Mobile ASATA Connect" {
+
+  (S'authentifier) as UC_Auth
+  (Gérer profil) as UC_Profil
+
+  (Consulter activités) as UC_Activites
+  (Voir détails événement) as UC_Details
+  (S'inscrire à un événement) as UC_Inscrire
+  (Annuler participation) as UC_Annuler
+  (Consulter historique) as UC_Historique
+
+  (Consulter annonces) as UC_Annonces
+  (Recevoir notifications) as UC_Notif
+
+  (Suivre participations) as UC_Suivre
+  (Gérer événements) as UC_Events
+  (Gérer utilisateurs) as UC_Users
+}
+
+Membre --> UC_Auth
+Membre --> UC_Profil
+Membre --> UC_Activites
+Membre --> UC_Details
+Membre --> UC_Inscrire
+Membre --> UC_Annuler
+Membre --> UC_Historique
+Membre --> UC_Annonces
+Membre --> UC_Notif
+
+Coach --> UC_Auth
+Coach --> UC_Suivre
+Coach --> UC_Events
+Coach --> UC_Annonces
+
+Admin --> UC_Auth
+Admin --> UC_Events
+Admin --> UC_Users
+Admin --> UC_Annonces
+
+UC_Inscrire .> UC_Details : <<include>>
+UC_Annuler .> UC_Historique : <<include>>
+
+@enduml

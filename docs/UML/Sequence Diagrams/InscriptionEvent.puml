@@ -1,0 +1,39 @@
+@startuml
+actor Membre
+participant "Application Mobile" as App
+participant "Serveur ASATA" as Server
+database "Base de données" as DB
+participant "Service Notifications" as Notif
+
+Membre -> App : Consulter activités
+App -> Server : Demander liste des événements
+Server -> DB : Récupérer événements disponibles
+DB --> Server : Liste événements
+Server --> App : Liste événements
+App --> Membre : Afficher activités
+
+Membre -> App : Sélectionner un événement
+App -> Server : Demander détails événement
+Server -> DB : Récupérer détails
+DB --> Server : Détails événement
+Server --> App : Détails événement
+App --> Membre : Afficher détails
+
+Membre -> App : S'inscrire à l'événement
+App -> Server : Envoyer demande d'inscription
+Server -> DB : Vérifier places disponibles
+
+alt Places disponibles
+  DB --> Server : Places disponibles
+  Server -> DB : Enregistrer participation
+  Server -> Notif : Créer notification confirmation
+  Notif --> Server : Notification créée
+  Server --> App : Inscription confirmée
+  App --> Membre : Afficher confirmation
+else Aucune place disponible
+  DB --> Server : Complet
+  Server --> App : Inscription refusée
+  App --> Membre : Afficher événement complet
+end
+
+@enduml

@@ -1,0 +1,109 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+abstract class Utilisateur {
+  -id: int
+  -nom: string
+  -email: string
+  -motDePasseHash: string
+  -dateCreation: Date
+  +sAuthentifier()
+  +seDeconnecter()
+}
+
+class Membre {
+  -dateInscription: Date
+  -statut: string
+  +consulterActivites()
+  +sInscrireEvenement()
+  +annulerParticipation()
+  +consulterHistorique()
+}
+
+class Coach {
+  -specialite: string
+  -experience: string
+  +creerEvenement()
+  +modifierEvenement()
+  +suivreParticipation()
+  +publierAnnonce()
+}
+
+class Administrateur {
+  -niveau: string
+  +validerMembre()
+  +gererUtilisateurs()
+  +gererEvenements()
+  +gererContenu()
+}
+
+class Profil {
+  -id: int
+  -age: int
+  -telephone: string
+  -adresse: string
+  -photo: string
+  +modifierProfil()
+  +consulterProfil()
+}
+
+class Evenement {
+  -id: int
+  -titre: string
+  -description: string
+  -date: Date
+  -lieu: string
+  -capacite: int
+  -statut: string
+  +creer()
+  +modifier()
+  +supprimer()
+  +consulter()
+}
+
+class Participation {
+  -id: int
+  -dateInscription: Date
+  -statut: string
+  -presence: boolean
+  +confirmer()
+  +annuler()
+}
+
+class Annonce {
+  -id: int
+  -titre: string
+  -contenu: string
+  -datePublication: Date
+  -visible: boolean
+  +publier()
+  +archiver()
+}
+
+class Notification {
+  -id: int
+  -message: string
+  -dateEnvoi: Date
+  -type: string
+  -lu: boolean
+  +envoyer()
+  +marquerLu()
+}
+
+Utilisateur <|-- Membre
+Utilisateur <|-- Coach
+Utilisateur <|-- Administrateur
+
+Utilisateur "1" --> "1" Profil : possède
+Utilisateur "1" --> "0..*" Notification : reçoit
+
+Coach "1" --> "0..*" Evenement : crée
+Administrateur "1" --> "0..*" Evenement : gère
+
+Coach "1" --> "0..*" Annonce : publie
+Administrateur "1" --> "0..*" Annonce : publie
+
+Membre "1" --> "0..*" Participation : effectue
+Participation "0..*" --> "1" Evenement : concerne
+
+@enduml
