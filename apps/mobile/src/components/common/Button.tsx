@@ -8,13 +8,22 @@ interface ButtonProps {
   onPress: () => void;
   isLoading?: boolean;
   disabled?: boolean;
-  variant: 'primary' | 'secondary' | 'danger' | 'ghost';
+  variant: 'primary' | 'secondary' | 'danger' | 'dangerOutline' | 'ghost';
+  size?: 'default' | 'small';
 }
 
-export function Button({ label, onPress, isLoading = false, disabled = false, variant }: ButtonProps) {
+export function Button({
+  label,
+  onPress,
+  isLoading = false,
+  disabled = false,
+  variant,
+  size = 'default',
+}: ButtonProps) {
   const isDisabled = disabled || isLoading;
   const variantStyle = styles[variant];
   const textStyle = variant === 'ghost' || variant === 'secondary' ? styles.textDark : styles.textLight;
+  const finalTextStyle = variant === 'dangerOutline' ? styles.textDanger : textStyle;
 
   return (
     <Pressable
@@ -23,40 +32,68 @@ export function Button({ label, onPress, isLoading = false, disabled = false, va
       onPress={onPress}
       style={({ pressed }) => [
         styles.button,
+        size === 'small' && styles.small,
         variantStyle,
         isDisabled && styles.disabled,
+        isDisabled && styles.noShadow,
+        variant === 'ghost' && styles.noShadow,
+        variant === 'secondary' && styles.noShadow,
+        variant === 'dangerOutline' && styles.noShadow,
         pressed && !isDisabled && styles.pressed,
       ]}
     >
-      {isLoading ? <ActivityIndicator color={textStyle.color} /> : <Text style={[styles.text, textStyle]}>{label}</Text>}
+      {isLoading ? (
+        <ActivityIndicator color={finalTextStyle.color} />
+      ) : (
+        <Text style={[styles.text, size === 'small' && styles.smallText, finalTextStyle]}>{label}</Text>
+      )}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    minHeight: 48,
-    borderRadius: 8,
+    height: 52,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  small: {
+    height: 34,
+    borderRadius: 8,
+    paddingHorizontal: 14,
   },
   primary: {
     backgroundColor: Colors.primary,
   },
   secondary: {
-    backgroundColor: Colors.primaryPale,
-    borderWidth: 1,
-    borderColor: Colors.primaryLight,
+    backgroundColor: Colors.surface,
+    borderWidth: 1.5,
+    borderColor: Colors.primary,
   },
   danger: {
     backgroundColor: Colors.danger,
+  },
+  dangerOutline: {
+    backgroundColor: Colors.surface,
+    borderWidth: 1.5,
+    borderColor: Colors.danger,
   },
   ghost: {
     backgroundColor: 'transparent',
   },
   disabled: {
-    opacity: 0.55,
+    opacity: 0.5,
+  },
+  noShadow: {
+    shadowOpacity: 0,
+    elevation: 0,
   },
   pressed: {
     opacity: 0.82,
@@ -65,10 +102,16 @@ const styles = StyleSheet.create({
     fontSize: FontSize.md,
     fontWeight: FontWeight.bold,
   },
+  smallText: {
+    fontSize: FontSize.sm,
+  },
   textLight: {
     color: Colors.surface,
   },
   textDark: {
-    color: Colors.primaryDark,
+    color: Colors.primary,
+  },
+  textDanger: {
+    color: Colors.danger,
   },
 });
