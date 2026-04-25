@@ -1,0 +1,21 @@
+@startuml
+actor Administrateur as Admin
+participant "Dashboard Admin" as Dashboard
+participant "Serveur ASATA" as Server
+database "Base de données" as DB
+
+Admin -> Dashboard : Ouvrir gestion utilisateurs
+Dashboard -> Server : Demander liste utilisateurs
+Server -> DB : Récupérer utilisateurs
+DB --> Server : Liste utilisateurs
+Server --> Dashboard : Liste utilisateurs
+Dashboard --> Admin : Afficher utilisateurs
+
+Admin -> Dashboard : Ajouter / modifier / supprimer utilisateur
+Dashboard -> Server : Envoyer données utilisateur
+Server -> DB : Enregistrer modification
+DB --> Server : Modification enregistrée
+Server --> Dashboard : Confirmation
+Dashboard --> Admin : Afficher confirmation
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+actor "Coach / Responsable" as Coach
+actor Administrateur as Admin
+
+participant "Interface Responsable / Dashboard Admin" as Interface
+participant "Serveur ASATA" as Server
+database "Base de données" as DB
+participant "Service Notifications" as Notif
+
+alt Action effectuée par le Coach
+  Coach -> Interface : Créer / modifier un événement
+else Action effectuée par l'Administrateur
+  Admin -> Interface : Créer / modifier / supprimer un événement
+end
+
+Interface -> Server : Envoyer données de l'événement
+Server -> DB : Enregistrer modification
+DB --> Server : Modification enregistrée
+
+Server -> Notif : Notifier les membres concernés
+Notif --> Server : Notifications créées
+
+Server --> Interface : Confirmation opération
+
+alt Retour vers Coach
+  Interface --> Coach : Afficher confirmation
+else Retour vers Administrateur
+  Interface --> Admin : Afficher confirmation
+end
+
+@enduml

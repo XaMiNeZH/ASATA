@@ -1,0 +1,23 @@
+@startuml
+actor Membre
+participant "Application Mobile" as App
+participant "Serveur ASATA" as Server
+database "Base de données" as DB
+participant "Service Notifications" as Notif
+
+Membre -> App : Ouvrir mes participations
+App -> Server : Demander participations du membre
+Server -> DB : Rechercher participations
+DB --> Server : Liste participations
+Server --> App : Liste participations
+App --> Membre : Afficher participations
+
+Membre -> App : Annuler participation
+App -> Server : Envoyer demande d'annulation
+Server -> DB : Supprimer participation
+Server -> Notif : Créer notification d'annulation
+Notif --> Server : Notification créée
+Server --> App : Annulation confirmée
+App --> Membre : Afficher confirmation
+
+@enduml

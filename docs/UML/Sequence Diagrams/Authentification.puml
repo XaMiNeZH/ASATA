@@ -1,0 +1,20 @@
+@startuml
+actor Utilisateur
+participant "Application Mobile" as App
+participant "Serveur ASATA" as Server
+database "Base de données" as DB
+
+Utilisateur -> App : Saisir email et mot de passe
+App -> Server : Envoyer identifiants
+Server -> DB : Vérifier utilisateur
+DB --> Server : Résultat vérification
+
+alt Identifiants valides
+  Server --> App : Token + profil utilisateur
+  App --> Utilisateur : Accès autorisé
+else Identifiants invalides
+  Server --> App : Message d'erreur
+  App --> Utilisateur : Afficher erreur
+end
+
+@enduml
