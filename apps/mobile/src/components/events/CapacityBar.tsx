@@ -19,7 +19,7 @@ export function CapacityBar({ total, filled, showText = true }: CapacityBarProps
     outputRange: ['0%', `${Math.round(ratio * 100)}%`],
   });
   const animatedFillStyle = { width: animatedWidth };
-  const fillTone = ratio >= 0.9 ? styles.fillDanger : ratio >= 0.7 ? styles.fillWarning : styles.fillSuccess;
+  const fillTone = ratio >= 1 ? styles.fillDanger : ratio >= 0.7 ? styles.fillAccent : styles.fillSuccess;
 
   useEffect(() => {
     Animated.timing(progress, {
@@ -61,15 +61,15 @@ const styles = StyleSheet.create({
   fillSuccess: {
     backgroundColor: Colors.success,
   },
-  fillWarning: {
-    backgroundColor: '#F59E0B',
+  fillAccent: {
+    backgroundColor: Colors.skyBlue,
   },
   fillDanger: {
     backgroundColor: Colors.danger,
   },
   text: {
     color: Colors.textSecondary,
-    fontSize: FontSize.xs,
+    fontSize: FontSize.tiny,
     fontWeight: FontWeight.medium,
   },
   textDanger: {

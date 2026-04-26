@@ -8,14 +8,27 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
   },
   listContent: {
-    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.container,
+    paddingTop: Spacing.xl,
+    paddingBottom: 96,
+  },
+  heroCopy: {
+    gap: Spacing.xs,
+    marginBottom: Spacing.lg,
+  },
+  screenTitle: {
+    color: Colors.primaryDark,
+    fontSize: FontSize.display,
+    fontWeight: FontWeight.bold,
+  },
+  screenSubtitle: {
+    color: Colors.textSecondary,
+    fontSize: FontSize.md,
+    lineHeight: 26,
   },
   card: {
-    borderLeftWidth: 3,
-    borderLeftColor: Colors.accent,
     borderRadius: 12,
     backgroundColor: Colors.surface,
     padding: Spacing.md,
@@ -31,21 +44,48 @@ export const styles = StyleSheet.create({
   cardContent: {
     gap: Spacing.sm,
   },
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: Spacing.md,
+  },
+  category: {
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: Colors.primaryFixed,
+    color: Colors.primary,
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.semiBold,
+    letterSpacing: 1.8,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    textTransform: 'uppercase',
+  },
+  categoryUrgent: {
+    backgroundColor: Colors.errorContainer,
+    color: Colors.error,
+  },
   title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.md,
+    color: Colors.primaryDark,
+    fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
-    lineHeight: 20,
+    lineHeight: 26,
   },
   preview: {
     color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    lineHeight: 19,
+    fontSize: FontSize.md,
+    lineHeight: 25,
   },
   date: {
-    alignSelf: 'flex-end',
-    color: Colors.textMuted,
-    fontSize: FontSize.xs,
+    color: Colors.textSecondary,
+    fontSize: FontSize.sm,
+  },
+  readLink: {
+    color: Colors.skyBlue,
+    fontSize: FontSize.sm,
+    fontWeight: FontWeight.semiBold,
+    marginTop: Spacing.sm,
   },
   separator: {
     height: Spacing.md,

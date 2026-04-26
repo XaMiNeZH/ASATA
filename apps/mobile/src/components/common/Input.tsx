@@ -79,21 +79,23 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    fontWeight: FontWeight.bold,
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.semiBold,
+    letterSpacing: 0.96,
+    textTransform: 'uppercase',
   },
   field: {
     height: 48,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 1.5,
+    borderRadius: 12,
+    borderWidth: 1,
     borderColor: Colors.border,
     backgroundColor: Colors.surface,
     paddingHorizontal: Spacing.md,
   },
   fieldFocused: {
-    borderColor: Colors.primary,
+    borderColor: Colors.skyBlue,
   },
   fieldError: {
     borderColor: Colors.danger,
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
     color: Colors.textPrimary,
     fontSize: FontSize.md,
+    fontWeight: FontWeight.regular,
     padding: 0,
   },
   multiline: {

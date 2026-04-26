@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e7ec",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#747780",
+                    "on-tertiary-fixed": "#0a1d2d",
+                    "surface-variant": "#e3e2e6",
+                    "surface-container": "#efedf1",
+                    "tertiary": "#061829",
+                    "inverse-primary": "#aec7fa",
+                    "on-secondary-fixed-variant": "#3c475b",
+                    "surface-tint": "#465e8b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d2e4fb",
+                    "secondary-fixed": "#d7e3fc",
+                    "inverse-surface": "#2f3034",
+                    "outline-variant": "#c4c6d0",
+                    "on-background": "#1a1b1f",
+                    "primary-container": "#0d2b55",
+                    "on-primary-fixed": "#001b3f",
+                    "on-tertiary-container": "#8395aa",
+                    "surface-bright": "#faf9fd",
+                    "on-tertiary-fixed-variant": "#37485b",
+                    "on-primary-fixed-variant": "#2d4772",
+                    "on-primary-container": "#7a93c3",
+                    "on-primary": "#ffffff",
+                    "surface": "#faf9fd",
+                    "surface-container-highest": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "primary-fixed": "#d7e3ff",
+                    "surface-dim": "#dad9de",
+                    "on-surface": "#1a1b1f",
+                    "tertiary-fixed-dim": "#b6c8df",
+                    "secondary-container": "#d4e0f9",
+                    "primary": "#001637",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aec7fa",
+                    "on-secondary-container": "#586378",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1c2d3e",
+                    "secondary-fixed-dim": "#bbc7df",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#101c2e",
+                    "secondary": "#535f74",
+                    "on-surface-variant": "#44474f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-caps": ["Lexend"],
+                    "button": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "h2": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- Top AppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 h-16 bg-[#0D2B55] dark:bg-slate-950 shadow-md">
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-white/10 p-2 rounded-full transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-lexend font-semibold text-lg tracking-tight text-white uppercase">Activités</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/20">
+<img alt="User profile photo" data-alt="professional portrait of a confident athlete in clean athletic gear against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1pxuiOnQ-QKQdMkCgyOXHiMOoCoSwtfO-nhD1BKymHu4Uf8S9hSqpO7uu9O4rGaEGjr1nljhpuryMYul-31wQtxGr89gIvXLiAf8LKCHxol2SYFWvgZguI0QzSTsyFNcDCoDlZsZgjDEb68ZpgOz_CZWzVI6Lz_qh9fHl7cNywg4aspEPMFyF0x3lLUhajIAkD6agP4ThSOPn_u69pPX4t2hawXTF9H5eImKrOBqOeLC0YCBtDN9-dBmXWLUEE3NkgrzTJZ6VUbk"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="pt-16 pb-24 min-h-screen">
+<!-- Sticky Filter Row -->
+<div class="sticky top-16 z-40 bg-background/95 backdrop-blur-md px-container-margin py-md border-b border-outline-variant/30">
+<div class="flex gap-sm overflow-x-auto hide-scrollbar">
+<button class="flex-none px-md py-xs bg-primary-container text-white rounded-full font-button text-sm shadow-sm">
+                    Tous
+                </button>
+<button class="flex-none px-md py-xs bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-colors rounded-full font-button text-sm">
+                    À venir
+                </button>
+<button class="flex-none px-md py-xs bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-colors rounded-full font-button text-sm">
+                    Terminés
+                </button>
+<button class="flex-none px-md py-xs bg-surface-container-high text-on-surface-variant hover:bg-surface-variant transition-colors rounded-full font-button text-sm">
+                    Annulés
+                </button>
+</div>
+</div>
+<!-- Events List -->
+<section class="px-container-margin mt-md space-y-gutter">
+<!-- Event Card 1: Upcoming/Open -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex items-stretch p-3 gap-md active:scale-98 transition-all duration-200 cursor-pointer">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 bg-gradient-to-br from-[#42A5F5] to-[#0D2B55] relative overflow-hidden">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="close-up of vibrant athletic track field with lane markers and bright morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc9X26zpflogo4bCn7ZZwaY6je9vG1cFTh2bTH7Exs6NN0zE4AUGFUf2WdPH06DiRWo0zfhLBoVFs0h3C3hmUIG2N7DNJhHnKhdCrKPMh9sS-wBTBlFIJJfnmgcSmktEUNohpauKhhsyvGBkFeGcWQz19rhQSTYm31ZnPeXpqjPRqTaYuLnIlgWaeTZN1dGM0NNuQfyyJFreWsYzw8yEfR7BibVN5TyfLaB39tqYaOXoLFLeADTajSWStIqO5XgmLhLPhi7L1vLrs"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="sports_tennis">sports_tennis</span>
+</div>
+</div>
+<div class="flex flex-col justify-between flex-grow min-w-0">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="bg-[#42A5F5]/10 text-[#42A5F5] text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">À venir</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+<h3 class="font-h3 text-on-surface truncate leading-tight">Tournoi Open d'Été</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_month">calendar_month</span>
+                            15 Juil, 09:00
+                        </p>
+</div>
+<div class="mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[11px] font-medium text-on-surface-variant">42 / 50 participants</span>
+<span class="text-[11px] font-bold text-[#42A5F5]">84%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-[#42A5F5] rounded-full" style="width: 84%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 2: Featured/Navy -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex items-stretch p-3 gap-md active:scale-98 transition-all duration-200 cursor-pointer">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 bg-gradient-to-br from-[#0D2B55] to-slate-800 relative overflow-hidden">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="dramatic wide shot of a modern sports arena at night with bright stadium lights and deep blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXk6WbpGRNU07O2qIYWRywZYcEX6q7KKubfYuWNPjvvS3j0hJQTSm741x5tZQ3cnlGXmP68W9WukYR04qwDUS9jwdwkhL5bUvRmMsy682jrBFd89ohcMOd4sHNHrj5ZuY7ru8KYiQWzsk2ralW2MA_CnbHDW8ODjJ1Dy8U9MDcy82U5YMjFnfHHTOKRW7VgllyWUNluZq4UYNH2Nk_rxATrX2h0Sk_kxp22Qh3RVGefkdMi9if4NVRSezdu1LNqpx6wpt2kFG577w"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="groups">groups</span>
+</div>
+</div>
+<div class="flex flex-col justify-between flex-grow min-w-0">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="bg-[#0D2B55]/10 text-[#0D2B55] text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">Conférence</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+<h3 class="font-h3 text-on-surface truncate leading-tight">Masterclass Performance</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span>
+                            Auditorium Central
+                        </p>
+</div>
+<div class="mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[11px] font-medium text-on-surface-variant">150 / 150</span>
+<span class="text-[11px] font-bold text-error">Complet</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 3: Completed/Slate -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex items-stretch p-3 gap-md opacity-80 cursor-pointer">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 bg-slate-200 relative overflow-hidden grayscale">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="overhead view of professional basketball court with polished wooden floor and minimal equipment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKtvoo8PKX5yaGClHQD5aLJNRCGg6VzhG08lAngOCb4HU1icyBIkYSe1KMwRWWW96qNS87CKFeXl4DKvCwCRcSxjNFj32oO0ksCu8OeNkhCTYfBjXcKo_8ntr7URtBwmS2XRtb6UImrokQPdhBOFjyt7d78P5N3LTT_b9M7esPwAcbmay76UVs6BCM1O_6wYWBfpH26WEwFTKo_jvVR_FGVewxsi6uHyGG_5k8lDX_5u3JI4F3Hn_Ccq9qpKZi0IvhsypkW74WV1g"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="flex flex-col justify-between flex-grow min-w-0">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="bg-slate-200 text-slate-600 text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">Terminé</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+<h3 class="font-h3 text-on-surface truncate leading-tight">Stage de Printemps</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_month">calendar_month</span>
+                            10 Mai, 14:00
+                        </p>
+</div>
+<div class="mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[11px] font-medium text-slate-400">Événement archivé</span>
+</div>
+<div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-slate-300 rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 4: Cancelled/Red -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex items-stretch p-3 gap-md cursor-pointer">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 bg-error-container relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="event_busy">event_busy</span>
+</div>
+</div>
+<div class="flex flex-col justify-between flex-grow min-w-0">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="bg-error-container text-error text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">Annulé</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+<h3 class="font-h3 text-on-surface truncate leading-tight text-error/70 line-through">Séance Nocturne</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                            Cause météorologique
+                        </p>
+</div>
+<div class="mt-2">
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden opacity-30">
+<div class="h-full bg-error-container rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 5: Joined -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden flex items-stretch p-3 gap-md active:scale-98 transition-all duration-200 cursor-pointer">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 bg-gradient-to-br from-primary-fixed-dim to-secondary-fixed-dim relative overflow-hidden">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="vibrant abstract close-up of soccer ball on green grass with morning dew and soft light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0BhYbqt_Ea33jxzewgJi0qI4ZDQxzjT1l8AXo1gAwukqfgGoD_mi7rKcLcewUx5xOApZCPPjmTiXbW5hBeEUBmajawxk0hunrcwKkE4c-s54aOibIgfAHNpFiKlK46jMQV3C50XrEODqb9PxeGl3tGqzCaBX1IJLhwcnS2NnLhPhC_Tm0JZ1DTolxpOnGUmG-yUp4p15LM5ML00XYW69HyRj1ZGkRQy1PdV3Fp_6P5hnElmKldgCgTLC7M62DfZI0wLBwzFWAzmg"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+<div class="flex flex-col justify-between flex-grow min-w-0">
+<div>
+<div class="flex justify-between items-start mb-1">
+<span class="bg-tertiary-fixed text-tertiary text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">Inscrit</span>
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+<h3 class="font-h3 text-on-surface truncate leading-tight">Coupe Inter-Clubs</h3>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="calendar_month">calendar_month</span>
+                            28 Juin, 08:30
+                        </p>
+</div>
+<div class="mt-2">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[11px] font-medium text-on-surface-variant">12 / 32 inscrits</span>
+<span class="text-[11px] font-bold text-on-primary-container">37%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-container rounded-full" style="width: 37%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white dark:bg-slate-900 px-2 py-3 pb-safe shadow-[0_-2px_10px_rgba(0,0,0,0.05)] border-t border-slate-100 dark:border-slate-800 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-1 transition-all duration-200 active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-lexend text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#42A5F5] dark:text-sky-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 p-1 transition-all duration-200 active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="event" style="font-variation-settings: 'FILL' 1;">event</span>
+<span class="font-lexend text-[10px] font-medium">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-1 transition-all duration-200 active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-lexend text-[10px] font-medium">Joined</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-1 transition-all duration-200 active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-lexend text-[10px] font-medium">News</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-1 transition-all duration-200 active:scale-98 relative" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-lexend text-[10px] font-medium">Alerts</span>
+<span class="absolute top-0 right-1 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</a>
+</nav>
+</body></html>

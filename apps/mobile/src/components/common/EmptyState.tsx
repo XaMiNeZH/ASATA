@@ -26,8 +26,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    gap: Spacing.md,
-    padding: Spacing.xxl,
+    gap: Spacing.sm,
+    borderRadius: 12,
+    backgroundColor: Colors.surface,
+    padding: Spacing.xl,
   },
   title: {
     color: Colors.textPrimary,
