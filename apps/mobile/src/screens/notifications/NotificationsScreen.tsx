@@ -1,6 +1,6 @@
 import { Pressable, SectionList, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '../../components/common/AppHeader';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
@@ -31,24 +31,22 @@ export function NotificationsScreen() {
 
   if (error) {
     return (
-      <SafeAreaView style={styles.screen}>
+      <View style={styles.screen}>
         <ErrorMessage message={error} onRetry={retry} />
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <View style={styles.actions}>
-        <Pressable
-          accessibilityRole="button"
-          disabled={!unread.length}
-          onPress={() => void markAllRead()}
-          style={styles.markReadButton}
-        >
-          <Text style={[styles.markReadText, !unread.length && styles.markReadTextDisabled]}>
-            Tout marquer comme lu
-          </Text>
+    <View style={styles.screen}>
+      <AppHeader title="ASATA CONNECT" />
+      <View style={styles.heading}>
+        <View>
+          <Text style={styles.screenTitle}>Notifications</Text>
+          <View style={styles.underline} />
+        </View>
+        <Pressable accessibilityRole="button" disabled={!unread.length} onPress={() => void markAllRead()}>
+          <Text style={[styles.markReadText, !unread.length && styles.markReadTextDisabled]}>Tout lire</Text>
         </Pressable>
       </View>
       <SectionList
@@ -61,6 +59,6 @@ export function NotificationsScreen() {
         ListEmptyComponent={<EmptyState icon="bell" title="Aucune notification" subtitle="Vous etes a jour." />}
         contentContainerStyle={styles.listContent}
       />
-    </SafeAreaView>
+    </View>
   );
 }

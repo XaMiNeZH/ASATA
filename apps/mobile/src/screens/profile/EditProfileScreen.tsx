@@ -3,9 +3,10 @@ import * as ImagePicker from 'expo-image-picker';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { Image, Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '../../components/common/AppHeader';
 import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { Input } from '../../components/common/Input';
@@ -21,10 +22,12 @@ export function EditProfileScreen() {
   const navigation = useNavigation<EditProfileNavigation>();
   const user = useAuthStore((state) => state.user);
   const updateUser = useAuthStore((state) => state.updateUser);
-  const [nom, setNom] = useState(user?.nom ?? '');
+  const nameParts = user?.nom.split(' ') ?? [];
+  const [firstName, setFirstName] = useState(nameParts[0] ?? '');
+  const [lastName, setLastName] = useState(nameParts.slice(1).join(' ') ?? '');
+  const [email, setEmail] = useState(user?.email ?? '');
   const [telephone, setTelephone] = useState(user?.profil.telephone ?? '');
-  const [adresse, setAdresse] = useState(user?.profil.adresse ?? '');
-  const [age, setAge] = useState(user?.profil.age ? String(user.profil.age) : '');
+  const [bio, setBio] = useState(user?.profil.adresse ?? '');
   const [photo, setPhoto] = useState(user?.profil.photo);
   const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -62,11 +65,10 @@ export function EditProfileScreen() {
     try {
       const profil = await updateProfil(user.id, {
         telephone: telephone || undefined,
-        adresse: adresse || undefined,
-        age: age ? Number(age) : undefined,
+        adresse: bio || undefined,
         photo,
       });
-      updateUser({ nom: nom.trim() || user.nom, profil });
+      updateUser({ nom: `${firstName} ${lastName}`.trim() || user.nom, profil });
       navigation.goBack();
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Enregistrement impossible.');
@@ -77,23 +79,32 @@ export function EditProfileScreen() {
 
   return (
     <View style={styles.screen}>
+      <AppHeader title="ASATA CONNECT" />
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
+        <View style={styles.heading}>
+          <Text style={styles.eyebrow}>Account Settings</Text>
+          <Text style={styles.title}>Modifier le profil</Text>
+        </View>
         <Pressable accessibilityRole="button" onPress={() => void pickPhoto()} style={styles.photoButton}>
-          {photo ? (
-            <Image source={{ uri: photo }} style={styles.photo} />
-          ) : (
-            <View style={styles.photoPlaceholder}>
-              <Feather name="user" size={42} color={Colors.primary} />
-            </View>
-          )}
+          <View style={styles.photoPlaceholder}>
+            <Text style={styles.photoInitials}>{user?.nom ? user.nom.slice(0, 2).toUpperCase() : 'AS'}</Text>
+          </View>
           <View style={styles.cameraBadge}>
             <Feather name="camera" size={17} color={Colors.surface} />
           </View>
         </Pressable>
-        <Input label="Nom" value={nom} onChangeText={setNom} placeholder="Nom complet" leftIcon="user" />
-        <Input label="Telephone" value={telephone} onChangeText={setTelephone} keyboardType="phone-pad" leftIcon="phone" />
-        <Input label="Adresse" value={adresse} onChangeText={setAdresse} placeholder="Adresse" leftIcon="map-pin" />
-        <Input label="Age" value={age} onChangeText={setAge} keyboardType="numeric" placeholder="Age" leftIcon="calendar" />
+        <Text style={styles.photoCaption}>Changer la photo de profil</Text>
+        <Input label="Prénom" value={firstName} onChangeText={setFirstName} placeholder="Jean" />
+        <Input label="Nom" value={lastName} onChangeText={setLastName} placeholder="Dupont" />
+        <Input label="Email" value={email} onChangeText={setEmail} keyboardType="email-address" placeholder="jean.dupont@asata.com" />
+        <Input label="Numéro de téléphone" value={telephone} onChangeText={setTelephone} keyboardType="phone-pad" />
+        <Input
+          label="Bio"
+          value={bio}
+          onChangeText={setBio}
+          placeholder="Passionné par le sport de haut niveau et le management associatif."
+          multiline
+        />
         {error ? <ErrorMessage message={error} /> : null}
       </ScrollView>
       <SafeAreaView edges={['bottom']} style={styles.actionBar}>

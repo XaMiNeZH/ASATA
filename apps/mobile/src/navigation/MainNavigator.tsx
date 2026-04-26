@@ -2,9 +2,10 @@ import type { ComponentProps } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Colors } from '../constants/colors';
+import { FontSize } from '../constants/typography';
 import { AnnouncementsScreen } from '../screens/announcements/AnnouncementsScreen';
 import { AnnouncementDetailScreen } from '../screens/announcements/AnnouncementDetailScreen';
 import { EventDetailScreen } from '../screens/events/EventDetailScreen';
@@ -31,18 +32,13 @@ const EventsStack = createNativeStackNavigator<EventsStackParamList>();
 const AnnouncementsStack = createNativeStackNavigator<AnnouncementsStackParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
 
-const getScreenOptions = () => ({
-  headerStyle: styles.header,
-  headerTintColor: Colors.surface,
-  headerTitleStyle: styles.headerTitle,
-  headerBackTitleVisible: false,
-});
+const getScreenOptions = () => ({ headerShown: false });
 
 function HomeStackNavigator() {
   return (
     <HomeStack.Navigator screenOptions={getScreenOptions()}>
       <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      <HomeStack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications' }} />
+      <HomeStack.Screen name="Notifications" component={NotificationsScreen} />
     </HomeStack.Navigator>
   );
 }
@@ -50,12 +46,8 @@ function HomeStackNavigator() {
 function EventsStackNavigator() {
   return (
     <EventsStack.Navigator screenOptions={getScreenOptions()}>
-      <EventsStack.Screen name="Events" component={EventsScreen} options={{ title: 'Activites' }} />
-      <EventsStack.Screen
-        name="EventDetail"
-        component={EventDetailScreen}
-        options={{ title: '', headerTransparent: true, headerBackVisible: false }}
-      />
+      <EventsStack.Screen name="Events" component={EventsScreen} />
+      <EventsStack.Screen name="EventDetail" component={EventDetailScreen} />
     </EventsStack.Navigator>
   );
 }
@@ -63,12 +55,8 @@ function EventsStackNavigator() {
 function AnnouncementsStackNavigator() {
   return (
     <AnnouncementsStack.Navigator screenOptions={getScreenOptions()}>
-      <AnnouncementsStack.Screen name="Announcements" component={AnnouncementsScreen} options={{ title: 'Annonces' }} />
-      <AnnouncementsStack.Screen
-        name="AnnouncementDetail"
-        component={AnnouncementDetailScreen}
-        options={{ headerShown: false }}
-      />
+      <AnnouncementsStack.Screen name="Announcements" component={AnnouncementsScreen} />
+      <AnnouncementsStack.Screen name="AnnouncementDetail" component={AnnouncementDetailScreen} />
     </AnnouncementsStack.Navigator>
   );
 }
@@ -77,15 +65,19 @@ function ProfileStackNavigator() {
   return (
     <ProfileStack.Navigator screenOptions={getScreenOptions()}>
       <ProfileStack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-      <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Modifier' }} />
+      <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} />
     </ProfileStack.Navigator>
   );
 }
 
 const renderIcon =
   (name: FeatherName) =>
-  ({ color, size }: { color: string; size: number }) =>
-    <Feather name={name} color={color} size={size} />;
+  ({ focused }: { focused: boolean }) =>
+    (
+      <View style={[styles.tabIconShell, focused && styles.tabIconShellActive]}>
+        <Feather name={name} color={focused ? Colors.surface : Colors.onPrimaryContainer} size={24} />
+      </View>
+    );
 
 export function MainNavigator() {
   const unreadCount = useNotificationsStore((state) => state.unreadCount);
@@ -95,7 +87,7 @@ export function MainNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
+        tabBarInactiveTintColor: Colors.onPrimaryContainer,
         tabBarStyle: styles.tabBar,
         tabBarBadgeStyle: styles.badge,
         tabBarLabelStyle: styles.tabBarLabel,
@@ -104,16 +96,28 @@ export function MainNavigator() {
       <Tab.Screen
         name="Accueil"
         component={HomeStackNavigator}
-        options={{ tabBarIcon: renderIcon('home'), tabBarBadge: unreadCount || undefined }}
+        options={{ tabBarIcon: renderIcon('home'), tabBarLabel: 'Home', tabBarBadge: unreadCount || undefined }}
       />
-      <Tab.Screen name="Activites" component={EventsStackNavigator} options={{ tabBarIcon: renderIcon('calendar') }} />
+      <Tab.Screen
+        name="Activites"
+        component={EventsStackNavigator}
+        options={{ tabBarIcon: renderIcon('calendar'), tabBarLabel: 'Events' }}
+      />
       <Tab.Screen
         name="Participations"
         component={ParticipationsScreen}
-        options={{ tabBarIcon: renderIcon('check-circle') }}
+        options={{ tabBarIcon: renderIcon('award'), tabBarLabel: 'Joined' }}
       />
-      <Tab.Screen name="Annonces" component={AnnouncementsStackNavigator} options={{ tabBarIcon: renderIcon('bell') }} />
-      <Tab.Screen name="Profil" component={ProfileStackNavigator} options={{ tabBarIcon: renderIcon('user') }} />
+      <Tab.Screen
+        name="Annonces"
+        component={AnnouncementsStackNavigator}
+        options={{ tabBarIcon: renderIcon('volume-2'), tabBarLabel: 'News' }}
+      />
+      <Tab.Screen
+        name="Profil"
+        component={ProfileStackNavigator}
+        options={{ tabBarIcon: renderIcon('user'), tabBarLabel: 'Profile' }}
+      />
     </Tab.Navigator>
   );
 }
@@ -129,17 +133,35 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: Colors.surface,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.divider,
     borderTopWidth: 1,
-    height: 60,
-    paddingBottom: 8,
+    height: 72,
+    paddingBottom: 10,
     paddingTop: 6,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 8,
   },
   tabBarLabel: {
-    fontSize: 11,
+    fontSize: FontSize.tab,
     fontWeight: '600',
   },
   badge: {
-    backgroundColor: Colors.accent,
+    backgroundColor: Colors.skyBlue,
+    color: Colors.surface,
+  },
+  tabIconShell: {
+    width: 40,
+    height: 28,
+    borderRadius: 9999,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabIconShellActive: {
+    backgroundColor: Colors.primary,
   },
 });

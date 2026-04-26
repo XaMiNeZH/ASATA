@@ -8,41 +8,51 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
   },
-  actions: {
+  heading: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingVertical: Spacing.md,
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    paddingHorizontal: Spacing.container,
+    paddingTop: Spacing.xl,
+    paddingBottom: Spacing.lg,
   },
-  markReadButton: {
-    minHeight: 36,
-    justifyContent: 'center',
+  screenTitle: {
+    color: Colors.primaryDark,
+    fontSize: FontSize.display,
+    fontWeight: FontWeight.bold,
+  },
+  underline: {
+    width: 50,
+    height: 4,
+    borderRadius: 9999,
+    backgroundColor: Colors.skyBlue,
+    marginTop: Spacing.sm,
   },
   markReadText: {
-    color: Colors.accent,
-    fontSize: FontSize.sm,
-    fontWeight: FontWeight.bold,
+    color: Colors.skyBlue,
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.medium,
   },
   markReadTextDisabled: {
     opacity: 0.45,
   },
   listContent: {
-    paddingBottom: Spacing.xl,
+    paddingHorizontal: Spacing.container,
+    paddingBottom: 96,
   },
   sectionTitle: {
-    color: Colors.textMuted,
+    color: Colors.textSecondary,
     fontSize: FontSize.xs,
-    fontWeight: FontWeight.bold,
-    letterSpacing: 0,
-    marginBottom: Spacing.sm,
+    fontWeight: FontWeight.semiBold,
+    letterSpacing: 3,
+    marginBottom: Spacing.md,
     textTransform: 'uppercase',
   },
   separator: {
-    height: Spacing.sm,
+    height: Spacing.md,
   },
   sectionGap: {
-    height: Spacing.lg,
+    height: Spacing.xl,
   },
 });

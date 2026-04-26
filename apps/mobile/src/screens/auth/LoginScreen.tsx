@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Feather } from '@expo/vector-icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,7 +14,6 @@ import { isValidEmail, isValidPassword } from '../../utils/validators';
 import { styles } from './LoginScreen.styles';
 
 type LoginNavigation = NativeStackNavigationProp<AuthStackParamList, 'Login'>;
-const logo = require('../../../assets/images/logo.png');
 
 interface LoginErrors {
   email?: string;
@@ -62,7 +62,11 @@ export function LoginScreen() {
     <SafeAreaView style={styles.screen}>
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollContent}>
         <View style={styles.hero}>
-          <Image source={logo} style={styles.logo} resizeMode="contain" />
+          <View style={styles.locationPill}>
+            <Feather name="map-pin" size={14} color="rgba(255,255,255,0.86)" />
+            <Text style={styles.locationText}>Asni, Marrakech</Text>
+          </View>
+          <Text style={styles.heroBackdrop}>AS</Text>
           <Text style={styles.brand}>ASATA</Text>
           <Text style={styles.subtitle}>Association Sportive Atlas Toubkal Asni</Text>
         </View>
@@ -70,14 +74,14 @@ export function LoginScreen() {
           <View style={styles.form}>
             <View>
               <Text style={styles.cardTitle}>Connexion</Text>
-              <Text style={styles.cardSubtitle}>Accedez a vos activites et informations membre.</Text>
+              <Text style={styles.cardSubtitle}>Accédez à votre espace membre</Text>
             </View>
             <Input
               label="Email"
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
-              placeholder="votre@email.ma"
+              placeholder="nom@exemple.com"
               error={errors.email}
               leftIcon="mail"
             />
@@ -93,15 +97,20 @@ export function LoginScreen() {
               onRightIconPress={() => setShowPassword((current) => !current)}
             />
             <Pressable style={styles.forgotButton} onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text style={styles.link}>Mot de passe oublie?</Text>
+              <Text style={styles.link}>Mot de passe oublié ?</Text>
             </Pressable>
             {submitError ? <ErrorMessage message={submitError} /> : null}
             <Button label="Se connecter" onPress={handleSubmit} isLoading={isSubmitting} variant="primary" />
             <Pressable style={styles.signupButton} onPress={() => navigation.navigate('Register')}>
               <Text style={styles.signupText}>
-                Pas encore membre? <Text style={styles.signupLink}>S'inscrire</Text>
+                Nouveau membre ? <Text style={styles.signupLink}>S'inscrire</Text>
               </Text>
             </Pressable>
+            <View style={styles.dividerRow}>
+              <View style={styles.divider} />
+              <Text style={styles.dividerText}>ASATA ELITE</Text>
+              <View style={styles.divider} />
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Alert, SectionList, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '../../components/common/AppHeader';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
@@ -64,28 +64,31 @@ export function ParticipationsScreen() {
 
   if (error) {
     return (
-      <SafeAreaView style={styles.screen}>
+      <View style={styles.screen}>
         <ErrorMessage message={error} onRetry={retry} />
-      </SafeAreaView>
+      </View>
     );
   }
 
   const sections: ParticipationSection[] = [
-    { title: 'Confirmees', data: participations.filter((item) => item.statut === 'confirme' && !isPast(item)) },
-    { title: 'Annulees', data: participations.filter((item) => item.statut === 'annule') },
-    { title: 'Passees', data: participations.filter((item) => isPast(item) || item.statut === 'en_attente') },
+    { title: 'CONFIRMÉES', data: participations.filter((item) => item.statut === 'confirme' && !isPast(item)) },
+    { title: 'EN ATTENTE', data: participations.filter((item) => item.statut === 'en_attente' && !isPast(item)) },
+    { title: 'ANNULÉES', data: participations.filter((item) => item.statut === 'annule') },
+    { title: 'PASSÉES', data: participations.filter((item) => isPast(item) && item.statut !== 'annule') },
   ].filter((section) => section.data.length > 0);
 
   return (
-    <SafeAreaView style={styles.screen}>
-      {message ? <Text style={styles.success}>{message}</Text> : null}
-      {actionError ? <ErrorMessage message={actionError} /> : null}
+    <View style={styles.screen}>
+      <AppHeader title="Mes Participations" />
+      <View style={styles.feedback}>
+        {message ? <Text style={styles.success}>{message}</Text> : null}
+        {actionError ? <ErrorMessage message={actionError} /> : null}
+      </View>
       <SectionList
         sections={sections}
         keyExtractor={(item) => item.id}
         renderSectionHeader={({ section }) => (
           <View style={styles.sectionHeader}>
-            <View style={styles.accentBar} />
             <Text style={styles.sectionTitle}>{section.title}</Text>
           </View>
         )}
@@ -100,10 +103,10 @@ export function ParticipationsScreen() {
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         SectionSeparatorComponent={() => <View style={styles.sectionGap} />}
         ListEmptyComponent={
-          <EmptyState icon="check-circle" title="Aucune participation" subtitle="Vos inscriptions apparaitront ici." />
+          <EmptyState icon="check-circle" title="Aucune participation" subtitle="Vos inscriptions apparaîtront ici." />
         }
         contentContainerStyle={styles.listContent}
       />
-    </SafeAreaView>
+    </View>
   );
 }

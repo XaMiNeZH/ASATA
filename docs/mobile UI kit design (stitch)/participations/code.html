@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mes Participations - ASATA Connect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e7ec",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#747780",
+                    "on-tertiary-fixed": "#0a1d2d",
+                    "surface-variant": "#e3e2e6",
+                    "surface-container": "#efedf1",
+                    "tertiary": "#061829",
+                    "inverse-primary": "#aec7fa",
+                    "on-secondary-fixed-variant": "#3c475b",
+                    "surface-tint": "#465e8b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d2e4fb",
+                    "secondary-fixed": "#d7e3fc",
+                    "inverse-surface": "#2f3034",
+                    "outline-variant": "#c4c6d0",
+                    "on-background": "#1a1b1f",
+                    "primary-container": "#0d2b55",
+                    "on-primary-fixed": "#001b3f",
+                    "on-tertiary-container": "#8395aa",
+                    "surface-bright": "#faf9fd",
+                    "on-tertiary-fixed-variant": "#37485b",
+                    "on-primary-fixed-variant": "#2d4772",
+                    "on-primary-container": "#7a93c3",
+                    "on-primary": "#ffffff",
+                    "surface": "#faf9fd",
+                    "surface-container-highest": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "primary-fixed": "#d7e3ff",
+                    "surface-dim": "#dad9de",
+                    "on-surface": "#1a1b1f",
+                    "tertiary-fixed-dim": "#b6c8df",
+                    "secondary-container": "#d4e0f9",
+                    "primary": "#001637",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aec7fa",
+                    "on-secondary-container": "#586378",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1c2d3e",
+                    "secondary-fixed-dim": "#bbc7df",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#101c2e",
+                    "secondary": "#535f74",
+                    "on-surface-variant": "#44474f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-caps": ["Lexend"],
+                    "button": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "h2": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 h-16 bg-[#0D2B55] shadow-md">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-white cursor-pointer">menu</span>
+<h1 class="font-lexend font-semibold text-lg tracking-tight text-white">Mes Participations</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border-2 border-white/20">
+<img alt="User profile" data-alt="professional portrait of a confident sports administrator in a navy blue suit with soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACdmARpMgcM8fZTZtzLsA6rUsRt9Gp8Xkj2Rfnm2a0l5vdng6PrE6pEyeZ8kjxlfKxozD0scc8QdCF181Gf6GZ5-MoNu7mD4uwjwz98v4MIZyMi2cOMRv2bA94b_WGwZnP1-9ReU44oVo_Cz7qFYwBnlNYONn5iJHP9KOFA4NXzoava_9qxI0kCWwf-6XqQq_RmptSJZIN81M9-m9UzaCpjJHenFdks4AmjsRhyBiv-5ossDHNXb968osdq6KVCHEdAnc7JVIEklk"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-24 px-container-margin space-y-xl">
+<!-- Section: CONFIRMÉES -->
+<section class="space-y-md">
+<div class="flex items-center gap-sm">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">CONFIRMÉES</h2>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-[#2E7D52] flex flex-col gap-md">
+<div class="flex gap-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Football event" class="w-full h-full object-cover" data-alt="close-up of a high-end football tournament trophy sitting on a green field under bright stadium lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKg7NyLBdTTv_ZPfUSZbCSdi_aVltc6Z_yloJTHLAAv6BX61_Ec9tkZH6ciERvQbQieuEwf_buIwL1O8TI-qEsPW08sAWZpmAxEIE8r3OBvpRqygDnOuRbC0tiJxqvi85USkCacMy-B0XeOYDhM3fnJYX8Tyr2aJHSeNz7W9kmre62tVIxIXbBxUG29TB69iuP-ZIooZTkb1HSvF3HCJI6_hvjAwRjh7Cq6UFebZct5BZR9M2t4aR4jq9v3R2BzLa9UFxaDju5AL4"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-h3 text-h3 truncate">Tournoi de Printemps 2025</h3>
+<div class="flex items-center gap-xs mt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">15 Mai 2025</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">Stade Olympique</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-sm border-t border-slate-100">
+<span class="status-badge bg-[#2E7D52]/10 text-[#2E7D52]">Confirmé</span>
+<button class="font-button text-button text-error bg-transparent border border-error/20 px-md py-xs rounded-lg active:scale-95 transition-transform">
+                            Annuler
+                        </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-[#2E7D52] flex flex-col gap-md">
+<div class="flex gap-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Basketball training" class="w-full h-full object-cover" data-alt="professional indoor basketball court with polished wood floor and bright overhead lighting reflecting on surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBttmtxAocPbFw2wxichedttGUMimHbqjLdvImLm2WqP6VScHJtsFimeMqRxglGspxvXndiiqkzWp7an0zkR-B_e-mx4zEPBsBr4jR2N0W1-mpiQDf1EzpchiCmNYBZPmFFfuBSMWsEl-DkcOZnIoe50xVOpoXR6-ssF9uSumkifZVSR_0GdyBlu7rnzs6AHVt4vadHDUGzIq8j2vrMzYU8bPGBoUgaGx2I6l2zAp69z-57InS5HRHm5YQ05YZ4vbxU194h5cnGbR8"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-h3 text-h3 truncate">Stage Intensif Basket</h3>
+<div class="flex items-center gap-xs mt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">22 Mai 2025</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">Centre Technique</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-sm border-t border-slate-100">
+<span class="status-badge bg-[#2E7D52]/10 text-[#2E7D52]">Confirmé</span>
+<button class="font-button text-button text-error bg-transparent border border-error/20 px-md py-xs rounded-lg active:scale-95 transition-transform">
+                            Annuler
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: EN ATTENTE -->
+<section class="space-y-md">
+<div class="flex items-center gap-sm">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">EN ATTENTE</h2>
+</div>
+<div class="grid grid-cols-1">
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-[#42A5F5] flex flex-col gap-md">
+<div class="flex gap-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 grayscale">
+<img alt="General sports" class="w-full h-full object-cover" data-alt="wide shot of people training in a modern athletics stadium at dusk with deep blue sky and stadium glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdl7iJH35Vnm4zzXCBUJE-lWGeZ0TelhU9RtiGqmaGcihzkVYwALfwz9NZW5bz6EoK8F1HgXZkco_hsnWJkeDntfSk1fp99qZ2bZ33CffdkZNOyPuz5QJkyrFzBFKlcUAjsQlr7EzLjgK2i4GTVQNIqXolRq8gP9qEaYh2euA30Cpz4WgrVjtkk6RKhQygci5mXq1N97yhMCiGMGXU0LU7ZEXVgzcOtMHrK7VeTMNp85Gy_vx3nG8DOnQRiu_wYiK9v1K8OJg7SBU"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-h3 text-h3 truncate">Colloque des Entraîneurs</h3>
+<div class="flex items-center gap-xs mt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">10 Juin 2025</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="font-body-sm text-body-sm italic">Validation en cours</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-sm border-t border-slate-100">
+<span class="status-badge bg-[#42A5F5]/10 text-[#42A5F5]">En attente</span>
+<span class="font-body-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                             72h max.
+                        </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: ANNULÉES -->
+<section class="space-y-md opacity-70">
+<div class="flex items-center gap-sm">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">ANNULÉES</h2>
+</div>
+<div class="grid grid-cols-1">
+<div class="bg-surface-container rounded-xl p-md flex flex-col gap-md border-error/50">
+<div class="flex gap-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 saturate-0">
+<img alt="Athletics" class="w-full h-full object-cover" data-alt="blurred motion shot of athletes running on a track with focus on the red track surface and white lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBig6dQ7xqxcssZaNWHmNZy33N5JZDv-eC6zgnTEn3sDbeZ1z46goQbaZmAcOXXRXM_1SUt8FT1Zq5TYq4TrLklRx0Su6UYTQL3vo9PsiPN_nz6NsKd5bSq5BIoQDQAt2Hn8fP4B9F8Zho91wg-Qe7i-w9jrf6oP8f4rKc9ZmU6hyEqI_Ysct7v5kuViJldL6kTLYSus5s1Fe3RBZBR7WWcnB97Oek60_1YdU9hvA8SrbUJBIPwZoKw1A_V8DiZHrefv3Ad-1r-u1Y"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-h3 text-h3 truncate text-on-surface-variant">Meeting de la Ligue</h3>
+<div class="flex items-center gap-xs mt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">05 Avril 2025</span>
+</div>
+<div class="flex items-center gap-xs text-error/70">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span class="font-body-sm text-body-sm">Annulé par l'organisateur</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white dark:bg-slate-900 px-2 py-3 pb-safe border-t border-slate-100 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate-400 font-lexend text-[10px] font-medium hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 font-lexend text-[10px] font-medium hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined">event</span>
+<span>Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#42A5F5] font-lexend text-[10px] font-bold hover:bg-slate-50 scale-98 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span>Joined</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 font-lexend text-[10px] font-medium hover:bg-slate-50" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span>News</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 font-lexend text-[10px] font-medium hover:bg-slate-50 relative" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span>Alerts</span>
+<div class="absolute top-0 right-1/4 w-2 h-2 bg-error rounded-full border border-white"></div>
+</a>
+</nav>
+</body></html>

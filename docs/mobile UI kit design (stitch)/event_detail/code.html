@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e7ec",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#747780",
+                    "on-tertiary-fixed": "#0a1d2d",
+                    "surface-variant": "#e3e2e6",
+                    "surface-container": "#efedf1",
+                    "tertiary": "#061829",
+                    "inverse-primary": "#aec7fa",
+                    "on-secondary-fixed-variant": "#3c475b",
+                    "surface-tint": "#465e8b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d2e4fb",
+                    "secondary-fixed": "#d7e3fc",
+                    "inverse-surface": "#2f3034",
+                    "outline-variant": "#c4c6d0",
+                    "on-background": "#1a1b1f",
+                    "primary-container": "#0d2b55",
+                    "on-primary-fixed": "#001b3f",
+                    "on-tertiary-container": "#8395aa",
+                    "surface-bright": "#faf9fd",
+                    "on-tertiary-fixed-variant": "#37485b",
+                    "on-primary-fixed-variant": "#2d4772",
+                    "on-primary-container": "#7a93c3",
+                    "on-primary": "#ffffff",
+                    "surface": "#faf9fd",
+                    "surface-container-highest": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "primary-fixed": "#d7e3ff",
+                    "surface-dim": "#dad9de",
+                    "on-surface": "#1a1b1f",
+                    "tertiary-fixed-dim": "#b6c8df",
+                    "secondary-container": "#d4e0f9",
+                    "primary": "#001637",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aec7fa",
+                    "on-secondary-container": "#586378",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1c2d3e",
+                    "secondary-fixed-dim": "#bbc7df",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#101c2e",
+                    "secondary": "#535f74",
+                    "on-surface-variant": "#44474f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-caps": ["Lexend"],
+                    "button": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "h2": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top Cover Section -->
+<section class="relative w-full h-[397px] overflow-hidden">
+<img alt="Stadium Event" class="absolute inset-0 w-full h-full object-cover" data-alt="high-angle wide shot of a professional stadium field during twilight with dramatic floodlighting and atmospheric blue haze" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ5fK5ilsLtbsRXWmpWLc1jzz6LekU5IAcsCCmi6FT3rUECMtjeQCRLfTee6-RegfuHrWAr3G5XefPaEW63NdjIZkeG8OEsqzSIzIYXrlJkDtWaEvyvE5-lFdH0WzhP3xguvDArRKKokl2LPnA_WO7qVsmjwbNlOUf7FDo4aGrzBxykfpuEY8aw8Wr6adY-dG6VMxy6i0bpuzUQRhM8BO-TTyUDXxNlOX44gGvSnNN--zX1zIQeCu26wJbZ6dXA-HFu_8lcYq3W3c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<!-- Floating Back Button -->
+<button class="absolute top-6 left-5 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white active:scale-95 transition-transform">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="absolute bottom-16 left-5 right-5">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-[10px] mb-2 inline-block">CHAMPIONNAT NATIONAL</span>
+<h1 class="font-h1 text-white text-3xl leading-tight">Elite Finals 2025: Grand Tournoi Regional</h1>
+</div>
+</section>
+<!-- Main Content Card Overlay -->
+<main class="relative -mt-10 px-5">
+<div class="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] p-6 space-y-6">
+<!-- Status and Title Row -->
+<div class="flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<div class="w-2.5 h-2.5 rounded-full bg-[#2E7D52] shadow-[0_0_8px_rgba(46,125,82,0.4)]"></div>
+<span class="font-label-caps text-[#2E7D52] tracking-wider">OUVERT AUX INSCRIPTIONS</span>
+</div>
+<div class="flex items-center space-x-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="font-body-sm">45 inscrits</span>
+</div>
+</div>
+<!-- Event Details Grid -->
+<div class="grid grid-cols-2 gap-4 border-y border-outline-variant py-6">
+<div class="flex items-start space-x-3">
+<div class="p-2 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant text-[10px]">DATE &amp; HEURE</p>
+<p class="font-body-md font-semibold">24 Mai 2025</p>
+<p class="font-body-sm text-on-surface-variant">09:00 - 18:30</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<div class="p-2 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant text-[10px]">LIEU</p>
+<p class="font-body-md font-semibold">Palais des Sports</p>
+<p class="font-body-sm text-on-surface-variant">Nantes, FR</p>
+</div>
+</div>
+</div>
+<!-- Capacity Bar -->
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<p class="font-label-caps text-on-surface-variant">CAPACITÉ DE L'ÉVÉNEMENT</p>
+<p class="font-body-sm font-semibold">75% <span class="font-normal text-on-surface-variant">/ 120 places</span></p>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-[#42A5F5] rounded-full w-3/4"></div>
+</div>
+</div>
+<!-- Description -->
+<div class="space-y-3">
+<h3 class="font-h3 text-primary">À propos de l'événement</h3>
+<p class="font-body-md text-on-surface-variant">
+                    Rejoignez-nous pour la plus grande compétition de la saison. Les finales nationales de l'ASATA Connect rassemblent les meilleurs athlètes du pays pour une journée d'excellence sportive et de networking communautaire.
+                </p>
+<p class="font-body-md text-on-surface-variant">
+                    Le programme inclut des sessions de qualifications le matin, suivies des phases finales l'après-midi. Une zone de rafraîchissement et de restauration sera disponible pour tous les participants accrédités.
+                </p>
+</div>
+<!-- Speakers/Organizers (Bento Style) -->
+<div class="space-y-4 pt-4">
+<h3 class="font-h3 text-primary">Intervenants</h3>
+<div class="grid grid-cols-12 gap-3">
+<div class="col-span-7 bg-surface-container-low p-4 rounded-xl flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-slate-300">
+<img alt="Organizer" data-alt="headshot of professional male athlete with friendly expression in studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsC9S_MqHhXhNPTXBEvYuvfYVxxXrN4xeqEh2TJht3PNfdxAIQxWxw5TWvawaOVAASzEIOcw6osaZz-nO45QIK882XDODK36wwgGIeoUjPXY_5CNqfuT7QFf7-7A5UTPWCj_4jpUt0k0riMD0fhlpuEJMbJP0oF_hmXPdCRuxfesnRT88d2t7APRHGfBrg2KtpQU-1vfPPaP9hoVZXFEybH58LXoXy2EXPTFJITX55CzuRt208pC7VwbbKoytn2IegcBbwbogaJd0"/>
+</div>
+<div>
+<p class="font-body-sm font-bold">Jean Dupont</p>
+<p class="text-[11px] text-on-surface-variant">Directeur Technique</p>
+</div>
+</div>
+<div class="col-span-5 bg-surface-container-low p-4 rounded-xl flex items-center justify-center">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-[#0D2B55] flex items-center justify-center text-white text-[10px] font-bold">+12</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Map Preview -->
+<section class="px-5 mt-6 mb-12">
+<div class="h-40 w-full rounded-xl overflow-hidden relative shadow-[0_2px_8px_rgba(0,0,0,0.08)] bg-surface-container">
+<img alt="Location Map" class="w-full h-full object-cover grayscale opacity-60" data-alt="stylized architectural map view of a city grid with clean lines and high contrast" data-location="Nantes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlj_A5WJmxnHc-gdAFrtR3FgtlOvfmwzYiSKry5YYmEjrgDhRDFSpS3ACr9d957punmN1UqUX82mJgkWSwJ8GQy_XtkBEzO6tupYVs4HNGKhJEC-Oo78EDdF3mafJv7k3CycXaTMz02gc77XXpe9YVp_B_FDBfYVLPDklmKapG_2-_jl1NF5ljuHb9mBWKcFWWKWtWLVcByjBOVQuEr6WHKlUFo2GSG8AwwNl8NKfHNxVqRF_1Q42rRQg9Fj30q96iE1BBUeE1ECo"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white px-4 py-2 rounded-full shadow-lg flex items-center space-x-2 border border-outline-variant">
+<span class="material-symbols-outlined text-[#42A5F5]">location_on</span>
+<span class="font-body-sm font-bold">Ouvrir dans Maps</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Bottom CTA (Above Nav) -->
+<div class="fixed bottom-20 left-0 w-full px-5 z-40">
+<button class="w-full h-14 bg-[#0D2B55] text-white rounded-xl shadow-xl font-button text-lg flex items-center justify-center space-x-3 active:scale-95 transition-transform">
+<span>S'inscrire à l'événement</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar (Shell) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white px-2 py-3 pb-safe shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-xl border-t border-slate-100">
+<a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-lexend text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#42A5F5] font-bold hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="event" style="font-variation-settings: 'FILL' 1;">event</span>
+<span class="font-lexend text-[10px] font-medium">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-lexend text-[10px] font-medium">Joined</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-lexend text-[10px] font-medium">News</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-lexend text-[10px] font-medium">Alerts</span>
+</a>
+</nav>
+</body></html>

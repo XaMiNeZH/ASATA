@@ -2,8 +2,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '../../components/common/AppHeader';
 import { Avatar } from '../../components/common/Avatar';
 import { Button } from '../../components/common/Button';
 import { EmptyState } from '../../components/common/EmptyState';
@@ -21,60 +21,95 @@ export function ProfileScreen() {
 
   if (!user) {
     return (
-      <SafeAreaView style={styles.screen}>
+      <View style={styles.screen}>
         <EmptyState icon="user" title="Profil indisponible" subtitle="Reconnectez-vous pour voir votre profil." />
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
     <View style={styles.screen}>
-      <SafeAreaView edges={['top']} style={styles.header}>
-        <View style={styles.avatarRing}>
-          <Avatar name={user.nom} photo={user.profil.photo} />
-        </View>
-        <Text style={styles.name}>{user.nom}</Text>
-        <Text style={styles.email}>{user.email}</Text>
-        <View style={styles.roleBadge}>
-          <Text style={styles.roleText}>{user.role}</Text>
-        </View>
-      </SafeAreaView>
-      <View style={styles.stats}>
-        <View style={styles.statItem}>
-          <Text style={styles.statNumber}>4</Text>
-          <Text style={styles.statLabel}>Participations</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Text style={styles.statNumber}>4</Text>
-          <Text style={styles.statLabel}>Annonces vues</Text>
-        </View>
-      </View>
+      <AppHeader title="ASATA CONNECT" />
       <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.hero}>
+          <View style={styles.avatarRing}>
+          <Avatar name={user.nom} photo={user.profil.photo} />
+          <View style={styles.onlineDot} />
+          </View>
+          <Text style={styles.name}>{user.nom}</Text>
+          <View style={styles.badgeRow}>
+            <View style={styles.roleBadge}>
+              <Text style={styles.roleText}>{user.role}</Text>
+            </View>
+            <View style={styles.activeBadge}>
+              <View style={styles.activeDot} />
+              <Text style={styles.activeText}>Actif</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.stats}>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>24</Text>
+            <Text style={styles.statLabel}>ÉVÉNEMENTS</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>12</Text>
+            <Text style={styles.statLabel}>BADGES</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Text style={styles.statNumber}>85</Text>
+            <Text style={styles.statLabel}>POINTS</Text>
+          </View>
+        </View>
         <View style={styles.infoCard}>
+          <Text style={styles.cardTitle}>INFORMATIONS PERSONNELLES</Text>
           <View style={styles.infoRow}>
-            <Feather name="calendar" size={18} color={Colors.primary} />
+            <View style={styles.infoIcon}>
+              <Feather name="mail" size={22} color={Colors.skyBlue} />
+            </View>
             <View style={styles.infoCopy}>
-              <Text style={styles.infoLabel}>Age</Text>
-              <Text style={styles.infoValue}>{user.profil.age ?? 'Non renseigne'}</Text>
+              <Text style={styles.infoLabel}>E-mail</Text>
+              <Text style={styles.infoValue}>{user.email}</Text>
             </View>
           </View>
           <View style={styles.infoRow}>
-            <Feather name="phone" size={18} color={Colors.primary} />
+            <View style={styles.infoIcon}>
+              <Feather name="phone" size={22} color={Colors.skyBlue} />
+            </View>
             <View style={styles.infoCopy}>
-              <Text style={styles.infoLabel}>Telephone</Text>
-              <Text style={styles.infoValue}>{user.profil.telephone ?? 'Non renseigne'}</Text>
+              <Text style={styles.infoLabel}>Téléphone</Text>
+              <Text style={styles.infoValue}>{user.profil.telephone ?? 'Non renseigné'}</Text>
             </View>
           </View>
           <View style={[styles.infoRow, styles.infoRowLast]}>
-            <Feather name="map-pin" size={18} color={Colors.primary} />
+            <View style={styles.infoIcon}>
+              <Feather name="map-pin" size={22} color={Colors.skyBlue} />
+            </View>
             <View style={styles.infoCopy}>
-              <Text style={styles.infoLabel}>Adresse</Text>
-              <Text style={styles.infoValue}>{user.profil.adresse ?? 'Non renseignee'}</Text>
+              <Text style={styles.infoLabel}>Localisation</Text>
+              <Text style={styles.infoValue}>{user.profil.adresse ?? 'Asni, Marrakech'}</Text>
             </View>
           </View>
         </View>
+        <View style={styles.infoCard}>
+          <Text style={styles.cardTitle}>COMPTE & SÉCURITÉ</Text>
+          <View style={styles.securityRow}>
+            <View style={styles.securityLeft}>
+              <Feather name="lock" size={24} color={Colors.textSecondary} />
+              <Text style={styles.securityText}>Changer le mot de passe</Text>
+            </View>
+            <Feather name="chevron-right" size={24} color={Colors.skyBlue} />
+          </View>
+          <View style={[styles.securityRow, styles.infoRowLast]}>
+            <View style={styles.securityLeft}>
+              <Feather name="shield" size={24} color={Colors.textSecondary} />
+              <Text style={styles.securityText}>Confidentialité</Text>
+            </View>
+            <Feather name="chevron-right" size={24} color={Colors.skyBlue} />
+          </View>
+        </View>
         <Button label="Modifier le profil" onPress={() => navigation.navigate('EditProfile')} variant="secondary" />
-        <Button label="Se deconnecter" onPress={() => void logout()} variant="ghost" />
+        <Button label="Déconnexion" onPress={() => void logout()} variant="ghost" />
       </ScrollView>
     </View>
   );

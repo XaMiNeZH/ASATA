@@ -8,28 +8,25 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: Colors.background,
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.md,
+  },
+  feedback: {
+    paddingHorizontal: Spacing.container,
   },
   listContent: {
-    paddingBottom: Spacing.xl,
+    paddingHorizontal: Spacing.container,
+    paddingTop: Spacing.lg,
+    paddingBottom: 96,
   },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.sm,
-    marginBottom: Spacing.sm,
-  },
-  accentBar: {
-    width: 4,
-    height: 18,
-    borderRadius: 2,
-    backgroundColor: Colors.accent,
+    marginBottom: Spacing.md,
   },
   sectionTitle: {
     color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    fontWeight: FontWeight.bold,
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.semiBold,
+    letterSpacing: 3,
     textTransform: 'uppercase',
   },
   separator: {

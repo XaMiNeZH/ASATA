@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, Pressable, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '../../components/common/AppHeader';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
@@ -41,14 +41,15 @@ export function EventsScreen() {
 
   if (error) {
     return (
-      <SafeAreaView style={styles.screen}>
+      <View style={styles.screen}>
         <ErrorMessage message={error} onRetry={retry} />
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <View style={styles.screen}>
+      <AppHeader title="ACTIVITÉS" />
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -79,6 +80,6 @@ export function EventsScreen() {
         }}
         contentContainerStyle={styles.listContent}
       />
-    </SafeAreaView>
+    </View>
   );
 }
