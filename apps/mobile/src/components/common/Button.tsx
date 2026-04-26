@@ -53,27 +53,27 @@ export function Button({
 
 const styles = StyleSheet.create({
   button: {
-    height: 52,
-    borderRadius: 12,
+    height: 56,
+    borderRadius: 9999,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 18,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   small: {
-    height: 34,
-    borderRadius: 8,
+    height: 40,
+    borderRadius: 9999,
     paddingHorizontal: 14,
   },
   primary: {
     backgroundColor: Colors.primary,
   },
   secondary: {
-    backgroundColor: Colors.surface,
+    backgroundColor: 'transparent',
     borderWidth: 1.5,
     borderColor: Colors.primary,
   },
@@ -96,11 +96,12 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   pressed: {
-    opacity: 0.82,
+    opacity: 0.86,
+    transform: [{ scale: 0.98 }],
   },
   text: {
     fontSize: FontSize.md,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.semiBold,
   },
   smallText: {
     fontSize: FontSize.sm,

@@ -9,27 +9,59 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-  hero: {
-    minHeight: 140,
-    justifyContent: 'flex-end',
+  networkCard: {
+    minHeight: 150,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 12,
+    overflow: 'hidden',
     backgroundColor: Colors.primary,
-    paddingHorizontal: Spacing.lg,
-    paddingBottom: Spacing.lg,
+    padding: Spacing.lg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
-  greeting: {
+  eyebrow: {
+    color: Colors.onPrimaryContainer,
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.semiBold,
+    letterSpacing: 0.96,
+    textTransform: 'uppercase',
+  },
+  networkTitle: {
     color: Colors.surface,
-    fontSize: FontSize.display,
+    fontSize: FontSize.h2,
+    fontWeight: FontWeight.bold,
+    marginTop: Spacing.xs,
+  },
+  networkStats: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+    marginTop: Spacing.md,
+  },
+  statLabel: {
+    color: Colors.whiteOverlay60,
+    fontSize: FontSize.sm,
+  },
+  statValue: {
+    color: Colors.surface,
+    fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
   },
-  subtitle: {
-    color: 'rgba(255,255,255,0.76)',
-    fontSize: FontSize.sm,
-    lineHeight: 20,
-    marginTop: Spacing.xs,
+  statDivider: {
+    width: 1,
+    height: 32,
+    backgroundColor: Colors.whiteOverlay20,
   },
   content: {
     gap: Spacing.lg,
+    paddingHorizontal: Spacing.container,
     paddingVertical: Spacing.lg,
+    paddingBottom: 96,
   },
   section: {
     gap: Spacing.md,
@@ -39,7 +71,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: Spacing.md,
-    paddingHorizontal: Spacing.lg,
   },
   sectionTitle: {
     color: Colors.textPrimary,
@@ -51,12 +82,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   link: {
-    color: Colors.accent,
+    color: Colors.onPrimaryContainer,
     fontSize: FontSize.sm,
     fontWeight: FontWeight.bold,
+    letterSpacing: 0.96,
+    textTransform: 'uppercase',
   },
   eventList: {
-    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.xs,
   },
   eventItem: {
     marginRight: Spacing.md,
@@ -79,7 +112,33 @@ export const styles = StyleSheet.create({
     lineHeight: 24,
   },
   list: {
-    gap: Spacing.sm,
-    paddingHorizontal: Spacing.lg,
+    gap: Spacing.md,
+  },
+  activityGrid: {
+    flexDirection: 'row',
+    gap: Spacing.md,
+  },
+  activityCard: {
+    flex: 1,
+    minHeight: 120,
+    justifyContent: 'flex-end',
+    borderRadius: 12,
+    backgroundColor: Colors.surface,
+    padding: Spacing.md,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  activityValue: {
+    color: Colors.textPrimary,
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.semiBold,
+    marginTop: Spacing.md,
+  },
+  activityLabel: {
+    color: Colors.textSecondary,
+    fontSize: FontSize.xs,
   },
 });

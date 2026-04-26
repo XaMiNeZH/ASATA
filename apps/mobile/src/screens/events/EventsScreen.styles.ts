@@ -10,38 +10,39 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   filters: {
+    flexGrow: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.divider,
     paddingVertical: Spacing.md,
   },
   filtersContent: {
     gap: Spacing.sm,
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: Spacing.container,
   },
   chip: {
-    height: 36,
+    height: 48,
     justifyContent: 'center',
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingHorizontal: Spacing.md,
-    backgroundColor: Colors.surface,
+    borderRadius: 9999,
+    paddingHorizontal: Spacing.lg,
+    backgroundColor: Colors.surfaceContainerHigh,
   },
   chipActive: {
     backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
   },
   chipText: {
     color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    fontWeight: FontWeight.bold,
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.medium,
   },
   chipTextActive: {
     color: Colors.surface,
   },
   listContent: {
-    paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.xl,
+    paddingHorizontal: Spacing.container,
+    paddingTop: Spacing.lg,
+    paddingBottom: 96,
   },
   separator: {
-    height: Spacing.sm,
+    height: Spacing.gutter,
   },
 });

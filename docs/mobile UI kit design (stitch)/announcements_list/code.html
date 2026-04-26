@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e7ec",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#747780",
+                    "on-tertiary-fixed": "#0a1d2d",
+                    "surface-variant": "#e3e2e6",
+                    "surface-container": "#efedf1",
+                    "tertiary": "#061829",
+                    "inverse-primary": "#aec7fa",
+                    "on-secondary-fixed-variant": "#3c475b",
+                    "surface-tint": "#465e8b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d2e4fb",
+                    "secondary-fixed": "#d7e3fc",
+                    "inverse-surface": "#2f3034",
+                    "outline-variant": "#c4c6d0",
+                    "on-background": "#1a1b1f",
+                    "primary-container": "#0d2b55",
+                    "on-primary-fixed": "#001b3f",
+                    "on-tertiary-container": "#8395aa",
+                    "surface-bright": "#faf9fd",
+                    "on-tertiary-fixed-variant": "#37485b",
+                    "on-primary-fixed-variant": "#2d4772",
+                    "on-primary-container": "#7a93c3",
+                    "on-primary": "#ffffff",
+                    "surface": "#faf9fd",
+                    "surface-container-highest": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "primary-fixed": "#d7e3ff",
+                    "surface-dim": "#dad9de",
+                    "on-surface": "#1a1b1f",
+                    "tertiary-fixed-dim": "#b6c8df",
+                    "secondary-container": "#d4e0f9",
+                    "primary": "#001637",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aec7fa",
+                    "on-secondary-container": "#586378",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1c2d3e",
+                    "secondary-fixed-dim": "#bbc7df",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#101c2e",
+                    "secondary": "#535f74",
+                    "on-surface-variant": "#44474f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-caps": ["Lexend"],
+                    "button": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "h2": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .announcement-card {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .announcement-card:active {
+            transform: scale(0.98);
+            box-shadow: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-low font-body-md text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 h-16 bg-[#0D2B55] dark:bg-slate-950 shadow-md">
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-white/10 p-2 rounded-full transition-transform Active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-white font-lexend font-semibold text-lg tracking-tight uppercase">Annonces</h1>
+</div>
+<div class="flex items-center">
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-white/20 object-cover" data-alt="Professional headshot of a smiling sports executive in a navy suit against a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3x9u0Llgak6gzg8IhRxV0fN7DnFc04OQSU9hUA3PpngFZdLcw_7TLobTxzVVsw2NIZnOZCJy2MOvI3GDwlW5ws0pVsWXkVJsQqQjm-ka268a_vH_FqIYunUw8e2OogPWq12Zbdwm35r0fjvb8Bd8-UdPvYDg07LvXpXwHYDFhORf4Ln5e1eaXIBXLMO5rqMpjYFlguqKIi4MIda2WsPSQDwAX_LFZxXEBlYrvG254SxxutKVqQxHT6qU84e4n7IWkmu0HYq3mH5M"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-24 pb-24 px-container-margin max-w-2xl mx-auto w-full">
+<!-- Header Text -->
+<div class="mb-gutter">
+<h2 class="font-h2 text-h2 text-primary mb-xs">Latest Updates</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Stay informed about the newest developments in the association.</p>
+</div>
+<!-- Announcements List -->
+<div class="flex flex-col gap-md">
+<!-- Announcement Card 1 -->
+<div class="announcement-card bg-surface-container-lowest rounded-xl p-md transition-all duration-200 cursor-pointer">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-primary bg-primary-fixed/30 px-2 py-1 rounded-sm uppercase">Priority</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">24 Oct 2024</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary mb-sm">Summer Championships 2025 Venue Announcement</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                    We are thrilled to announce that the 2025 Summer Championships will be hosted at the newly renovated Olympic Park Plaza. This decision comes after extensive...
+                </p>
+<div class="mt-md flex items-center text-[#42A5F5] font-button text-body-sm">
+                    Read full announcement
+                    <span class="material-symbols-outlined ml-1 text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Announcement Card 2 -->
+<div class="announcement-card bg-surface-container-lowest rounded-xl p-md transition-all duration-200 cursor-pointer">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-secondary bg-secondary-container/50 px-2 py-1 rounded-sm uppercase">General</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">22 Oct 2024</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary mb-sm">New Digital Member ID Launch</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                    Starting next month, all ASATA Connect users will have access to their digital credentials within the app. This replaces the old physical cards...
+                </p>
+<div class="mt-md flex items-center text-[#42A5F5] font-button text-body-sm">
+                    Read full announcement
+                    <span class="material-symbols-outlined ml-1 text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Announcement Card 3 -->
+<div class="announcement-card bg-surface-container-lowest rounded-xl p-md transition-all duration-200 cursor-pointer">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-on-tertiary-container bg-tertiary-fixed/40 px-2 py-1 rounded-sm uppercase">Training</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">19 Oct 2024</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary mb-sm">Elite Coaching Seminar Series</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                    Registration is now open for our annual Coaching Excellence seminar. This year's focus is on "Data-Driven Performance Management" with guest...
+                </p>
+<div class="mt-md flex items-center text-[#42A5F5] font-button text-body-sm">
+                    Read full announcement
+                    <span class="material-symbols-outlined ml-1 text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Announcement Card 4 -->
+<div class="announcement-card bg-surface-container-lowest rounded-xl p-md transition-all duration-200 cursor-pointer">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-caps text-label-caps text-error bg-error-container/50 px-2 py-1 rounded-sm uppercase">Urgent</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">15 Oct 2024</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary mb-sm">Network Maintenance Window</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                    Please be advised that the ASATA Connect portal will be down for scheduled maintenance this Sunday between 02:00 and 06:00 GMT...
+                </p>
+<div class="mt-md flex items-center text-[#42A5F5] font-button text-body-sm">
+                    Read full announcement
+                    <span class="material-symbols-outlined ml-1 text-[18px]" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white dark:bg-slate-900 px-2 py-3 pb-safe shadow-[0_-2px_10px_rgba(0,0,0,0.05)] border-t border-slate-100 dark:border-slate-800 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-all duration-200 Active:scale-98">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-lexend text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-all duration-200 Active:scale-98">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span class="font-lexend text-[10px] font-medium">Events</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-all duration-200 Active:scale-98">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-lexend text-[10px] font-medium">Joined</span>
+</div>
+<!-- Active Tab: News -->
+<div class="flex flex-col items-center justify-center text-[#42A5F5] dark:text-sky-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-all duration-200 Active:scale-98">
+<span class="material-symbols-outlined" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-lexend text-[10px] font-medium">News</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded-lg transition-all duration-200 Active:scale-98">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-lexend text-[10px] font-medium">Alerts</span>
+</div>
+</nav>
+</body></html>

@@ -1,15 +1,15 @@
+import type { ComponentProps } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { Badge } from '../common/Badge';
 import { CapacityBar } from './CapacityBar';
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 import type { Evenement } from '../../types';
 import { formatDate } from '../../utils/date';
+import { imageToneStyles, styles } from './EventCard.styles';
 
-const placeholderEvent = require('../../../assets/images/placeholder-event.png');
+type FeatherName = ComponentProps<typeof Feather>['name'];
 
 interface EventCardProps {
   event: Evenement;
@@ -17,11 +17,33 @@ interface EventCardProps {
   variant?: 'list' | 'feature';
 }
 
+const iconByStatus: Record<Evenement['statut'], FeatherName> = {
+  planifie: 'calendar',
+  en_cours: 'activity',
+  termine: 'check-circle',
+  annule: 'x-square',
+};
+
+const labelByStatus: Record<Evenement['statut'], string> = {
+  planifie: 'À venir',
+  en_cours: 'Inscrit',
+  termine: 'Terminé',
+  annule: 'Annulé',
+};
+
+const getDateBadge = (date: string): string =>
+  new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'short' })
+    .format(new Date(date))
+    .replace('.', '')
+    .toUpperCase();
+
 export function EventCard({ event, onPress, variant = 'list' }: EventCardProps) {
   const isFeature = variant === 'feature';
+  const ratio = event.capacite > 0 ? event.inscrits / event.capacite : 0;
   const isFull = event.inscrits >= event.capacite;
   const isCancelled = event.statut === 'annule';
-  const statusLabel = event.statut.replace('_', ' ');
+  const percentage = `${Math.round(Math.min(1, ratio) * 100)}%`;
+  const statusLabel = labelByStatus[event.statut];
 
   if (isFeature) {
     return (
@@ -30,17 +52,26 @@ export function EventCard({ event, onPress, variant = 'list' }: EventCardProps) 
         onPress={onPress}
         style={({ pressed }) => [styles.card, styles.featureCard, pressed && styles.pressed]}
       >
-        <View style={styles.featureImageWrap}>
-          <Image source={event.coverImage ? { uri: event.coverImage } : placeholderEvent} style={styles.featureImage} />
-          <View style={styles.overlayBadge}>
-            <Badge label={statusLabel} status={event.statut} />
+        <View style={[styles.featureImage, imageToneStyles[event.statut]]}>
+          <Text style={styles.imageWordmark}>ASATA</Text>
+          <View style={styles.dateBadge}>
+            <Text style={styles.dateBadgeText}>{getDateBadge(event.date)}</Text>
           </View>
         </View>
         <View style={styles.featureBody}>
-          <Text numberOfLines={2} style={[styles.featureTitle, isCancelled && styles.cancelledTitle]}>
+          <Text numberOfLines={2} style={styles.featureTitle}>
             {event.titre}
           </Text>
-          <Text style={styles.meta}>{formatDate(event.date)}</Text>
+          <View style={styles.metaRow}>
+            <Feather name="map-pin" size={14} color={Colors.textSecondary} />
+            <Text numberOfLines={1} style={styles.metaText}>
+              {event.lieu}
+            </Text>
+          </View>
+          <View style={styles.capacityLabelRow}>
+            <Text style={styles.capacityLabel}>Capacité</Text>
+            <Text style={styles.capacityValue}>{percentage}</Text>
+          </View>
           <CapacityBar total={event.capacite} filled={event.inscrits} showText={false} />
         </View>
       </Pressable>
@@ -53,128 +84,33 @@ export function EventCard({ event, onPress, variant = 'list' }: EventCardProps) 
       onPress={onPress}
       style={({ pressed }) => [styles.card, styles.listCard, isCancelled && styles.cancelledCard, pressed && styles.pressed]}
     >
-      <View style={styles.content}>
-        <Image source={event.coverImage ? { uri: event.coverImage } : placeholderEvent} style={styles.image} />
-        <View style={styles.body}>
-          <Text numberOfLines={2} style={[styles.title, isCancelled && styles.cancelledTitle]}>
-            {event.titre}
-          </Text>
-          <Text style={styles.meta}>{formatDate(event.date)}</Text>
-          <View style={styles.locationRow}>
-            <Feather name="map-pin" size={13} color={Colors.textMuted} />
-            <Text numberOfLines={1} style={styles.location}>
-              {event.lieu}
-            </Text>
-          </View>
-          <CapacityBar total={event.capacite} filled={event.inscrits} />
-        </View>
+      <View style={[styles.thumbnail, imageToneStyles[event.statut]]}>
+        <Feather name={iconByStatus[event.statut]} size={28} color={isCancelled ? Colors.error : Colors.surface} />
       </View>
-      <View style={styles.statusRow}>
-        <Badge label={statusLabel} status={event.statut} />
-        {isFull ? <Text style={styles.fullText}>Complet</Text> : null}
+      <View style={styles.listBody}>
+        <View style={styles.listHeader}>
+          <Badge label={statusLabel} status={event.statut} />
+          <Feather name="chevron-right" size={22} color={Colors.border} />
+        </View>
+        <Text numberOfLines={1} style={[styles.title, isCancelled && styles.cancelledTitle]}>
+          {event.titre}
+        </Text>
+        <View style={styles.metaRow}>
+          <Feather name={event.statut === 'annule' ? 'alert-triangle' : 'calendar'} size={15} color={Colors.textSecondary} />
+          <Text numberOfLines={1} style={styles.metaText}>
+            {isCancelled ? 'Cause météorologique' : formatDate(event.date)}
+          </Text>
+        </View>
+        <View style={styles.capacityLabelRow}>
+          <Text style={styles.participantsText}>
+            {isFull ? `${event.inscrits} / ${event.capacite}` : `${event.inscrits} / ${event.capacite} participants`}
+          </Text>
+          <Text style={[styles.capacityValue, isFull && styles.fullText]}>
+            {isFull ? 'Complet' : percentage}
+          </Text>
+        </View>
+        <CapacityBar total={event.capacite} filled={event.inscrits} showText={false} />
       </View>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    overflow: 'hidden',
-    borderRadius: 12,
-    backgroundColor: Colors.surface,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  listCard: {
-    padding: Spacing.md,
-    marginBottom: Spacing.sm,
-  },
-  featureCard: {
-    width: 200,
-    height: 220,
-  },
-  pressed: {
-    opacity: 0.86,
-  },
-  cancelledCard: {
-    opacity: 0.7,
-  },
-  content: {
-    flexDirection: 'row',
-    gap: Spacing.md,
-  },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
-    backgroundColor: Colors.primaryPale,
-  },
-  body: {
-    flex: 1,
-    gap: Spacing.xs,
-  },
-  title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.md,
-    fontWeight: FontWeight.bold,
-  },
-  cancelledTitle: {
-    color: Colors.textMuted,
-    textDecorationLine: 'line-through',
-  },
-  meta: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-  },
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.xs,
-  },
-  location: {
-    flex: 1,
-    color: Colors.textMuted,
-    fontSize: FontSize.xs,
-  },
-  statusRow: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    gap: Spacing.sm,
-    marginTop: Spacing.sm,
-  },
-  fullText: {
-    color: Colors.danger,
-    fontSize: FontSize.xs,
-    fontWeight: FontWeight.bold,
-    textTransform: 'uppercase',
-  },
-  featureImageWrap: {
-    height: 122,
-    backgroundColor: Colors.border,
-  },
-  featureImage: {
-    width: '100%',
-    height: '100%',
-    opacity: 0.85,
-  },
-  overlayBadge: {
-    position: 'absolute',
-    top: Spacing.sm,
-    left: Spacing.sm,
-  },
-  featureBody: {
-    flex: 1,
-    gap: 6,
-    padding: 12,
-  },
-  featureTitle: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.md,
-    fontWeight: FontWeight.bold,
-    lineHeight: 19,
-  },
-});

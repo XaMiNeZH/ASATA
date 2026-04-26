@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Feather } from '@expo/vector-icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '../../components/common/Button';
@@ -14,7 +15,6 @@ import { isValidEmail, isValidPassword } from '../../utils/validators';
 import { styles } from './RegisterScreen.styles';
 
 type RegisterNavigation = NativeStackNavigationProp<AuthStackParamList, 'Register'>;
-const logo = require('../../../assets/images/logo.png');
 
 interface RegisterErrors {
   nom?: string;
@@ -77,7 +77,10 @@ export function RegisterScreen() {
     <SafeAreaView style={styles.screen}>
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollContent}>
         <View style={styles.hero}>
-          <Image source={logo} style={styles.logo} resizeMode="contain" />
+          <View style={styles.locationPill}>
+            <Feather name="map-pin" size={14} color="rgba(255,255,255,0.86)" />
+            <Text style={styles.locationText}>Asni, Marrakech</Text>
+          </View>
           <Text style={styles.brand}>ASATA</Text>
           <Text style={styles.subtitle}>Association Sportive Atlas Toubkal Asni</Text>
         </View>
@@ -85,7 +88,7 @@ export function RegisterScreen() {
           <View style={styles.form}>
             <View>
               <Text style={styles.cardTitle}>Inscription</Text>
-              <Text style={styles.cardSubtitle}>Creez votre espace membre ASATA Connect.</Text>
+              <Text style={styles.cardSubtitle}>Créez votre espace membre ASATA Connect.</Text>
             </View>
             <Input
               label="Nom complet"
@@ -100,7 +103,7 @@ export function RegisterScreen() {
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
-              placeholder="votre@email.ma"
+              placeholder="nom@exemple.com"
               error={errors.email}
               leftIcon="mail"
             />
@@ -126,7 +129,7 @@ export function RegisterScreen() {
               onRightIconPress={passwordsMatch ? undefined : () => setShowConfirmPassword((current) => !current)}
             />
             <Input
-              label="Telephone"
+              label="Téléphone"
               value={telephone}
               onChangeText={setTelephone}
               keyboardType="phone-pad"
@@ -134,10 +137,10 @@ export function RegisterScreen() {
               leftIcon="phone"
             />
             {submitError ? <ErrorMessage message={submitError} /> : null}
-            <Button label="Creer mon compte" onPress={handleSubmit} isLoading={isSubmitting} variant="primary" />
+            <Button label="Créer mon compte" onPress={handleSubmit} isLoading={isSubmitting} variant="primary" />
             <Pressable style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
               <Text style={styles.loginText}>
-                Deja membre? <Text style={styles.loginLink}>Se connecter</Text>
+                Déjà membre ? <Text style={styles.loginLink}>Se connecter</Text>
               </Text>
             </Pressable>
           </View>

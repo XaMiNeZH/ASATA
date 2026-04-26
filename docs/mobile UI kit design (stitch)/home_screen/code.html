@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASATA Connect - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e7ec",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#747780",
+                    "on-tertiary-fixed": "#0a1d2d",
+                    "surface-variant": "#e3e2e6",
+                    "surface-container": "#efedf1",
+                    "tertiary": "#061829",
+                    "inverse-primary": "#aec7fa",
+                    "on-secondary-fixed-variant": "#3c475b",
+                    "surface-tint": "#465e8b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d2e4fb",
+                    "secondary-fixed": "#d7e3fc",
+                    "inverse-surface": "#2f3034",
+                    "outline-variant": "#c4c6d0",
+                    "on-background": "#1a1b1f",
+                    "primary-container": "#0d2b55",
+                    "on-primary-fixed": "#001b3f",
+                    "on-tertiary-container": "#8395aa",
+                    "surface-bright": "#faf9fd",
+                    "on-tertiary-fixed-variant": "#37485b",
+                    "on-primary-fixed-variant": "#2d4772",
+                    "on-primary-container": "#7a93c3",
+                    "on-primary": "#ffffff",
+                    "surface": "#faf9fd",
+                    "surface-container-highest": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "primary-fixed": "#d7e3ff",
+                    "surface-dim": "#dad9de",
+                    "on-surface": "#1a1b1f",
+                    "tertiary-fixed-dim": "#b6c8df",
+                    "secondary-container": "#d4e0f9",
+                    "primary": "#001637",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aec7fa",
+                    "on-secondary-container": "#586378",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1c2d3e",
+                    "secondary-fixed-dim": "#bbc7df",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#101c2e",
+                    "secondary": "#535f74",
+                    "on-surface-variant": "#44474f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-caps": ["Lexend"],
+                    "button": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "h2": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Lexend', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 h-16 bg-[#0D2B55] dark:bg-slate-950 shadow-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white">menu</span>
+<span class="text-white font-lexend font-semibold text-lg tracking-tight">Bonjour, Youssef 👋</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-white text-2xl">notifications</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-[#42A5F5] rounded-full flex items-center justify-center border-2 border-[#0D2B55]">
+<span class="text-[8px] font-bold text-white leading-none">2</span>
+</span>
+</div>
+<img alt="User profile photo" class="w-9 h-9 rounded-full border-2 border-white/20" data-alt="professional portrait of a young man with dark hair smiling gently, clean corporate headshot style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvES_VwsOr9WPqvHdfvgbbkSZEihaXOjwdkycEIkrPmolBcptyCKrLitUiZK96DutzkjdRAkZDahEZ_2eefcPaWr2sYjJ6JrYjB_KMiuktMjrQNgiy6drCjZ1GWube97pkcASP3l4OA9JNr0TwWN2dfXuN4QV_mOS9jjhxQ-4PthEqnVVeb_67wPft4UrBgMsj3Ylw0QDAZx1nK5pVfFftELM5BdBeUywTGMUiJQcq9mcH85bAGB242sxIe3jtAY5jTr41M91EOlU"/>
+</div>
+</header>
+<main class="mt-20 px-container-margin">
+<!-- Welcome Hero Bento -->
+<section class="mb-xl">
+<div class="bg-primary-container rounded-xl p-lg relative overflow-hidden shadow-lg border border-white/10">
+<div class="relative z-10">
+<p class="text-on-primary-container font-label-caps mb-xs">ÉTAT DU RÉSEAU</p>
+<h2 class="text-white font-h2 text-h2 mb-md">Élite Performance Hub</h2>
+<div class="flex items-center gap-md">
+<div class="flex flex-col">
+<span class="text-white/60 font-body-sm text-body-sm">Membres actifs</span>
+<span class="text-white font-h3 text-h3">1,284</span>
+</div>
+<div class="h-8 w-px bg-white/20"></div>
+<div class="flex flex-col">
+<span class="text-white/60 font-body-sm text-body-sm">Nouveaux events</span>
+<span class="text-white font-h3 text-h3">12</span>
+</div>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-32 h-full opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px] absolute -right-8 -top-4 text-white">analytics</span>
+</div>
+</div>
+</section>
+<!-- Horizontal Scroll Events Section -->
+<section class="mb-xl">
+<div class="flex justify-between items-end mb-md">
+<h3 class="font-h3 text-h3 text-on-background">Prochains événements</h3>
+<span class="text-on-primary-container font-label-caps cursor-pointer">VOIR TOUT</span>
+</div>
+<div class="flex gap-gutter overflow-x-auto hide-scrollbar -mx-container-margin px-container-margin py-2">
+<!-- Event Card 1 -->
+<div class="min-w-[280px] bg-white rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.08)] active:scale-[0.98] transition-all">
+<div class="h-32 bg-gradient-to-br from-[#0D2B55] to-[#42A5F5] relative">
+<img alt="Training camp" class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="high-tech athletic facility with blue lighting and modern training equipment in a spacious gym environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWv6mXBSokGt5XOAkSBzScAS1NrsYNZPkp-_Lx9PPzXI88aCdCELOrKGsviPqr0D8Q98ZD5cySumyBeOxaknJCkrkRT76H1dTvNiLb6u50aYDBLS2AjnKHCD9-FY2nURo7Pje--T8-VAPHBZmLVWszZVlvdPi4-7vb7bfFUlERzVp6lZACTTFex98ryn3pkV6wlzeO5HQI9_AG7DmzZDT-8-zCcAykfxT8_UwtrjoBdrHiJaPlXTmNbP3f9tF4t0AOMgG7MYXALsI"/>
+<div class="absolute top-3 left-3 bg-white/90 px-sm py-xs rounded-lg">
+<span class="text-primary-container font-label-caps">15 MAI</span>
+</div>
+</div>
+<div class="p-md">
+<h4 class="font-h3 text-body-lg font-bold text-on-surface mb-xs">Séminaire Elite Performance</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">location_on</span> Paris, France
+                        </p>
+<div class="space-y-xs">
+<div class="flex justify-between text-body-sm font-label-caps">
+<span class="text-on-surface-variant">Capacité</span>
+<span class="text-secondary font-bold">85%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-[#2E7D52] rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="min-w-[280px] bg-white rounded-xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.08)] active:scale-[0.98] transition-all">
+<div class="h-32 bg-gradient-to-br from-[#0D2B55] to-slate-400 relative">
+<img alt="Networking dinner" class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="luxury rooftop lounge at twilight with elegant blue architectural lighting and city skyline background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATnALs78hRzWe3jsH8zLM09C1ODfPOqFmPIdZTxXk0mGt6QBG-5aTCNPZ-HBcO5uTMU6C7ezHQ4p0H7C-tI1HgliIZFVbAXMmAdFRqlkE7p43qXspPXQnuTUosNGlg2b3d84XVRBcNOOOaG95TIQepDTmXHSWYOIfjgEb0PMTpnOUvoMbIn8XVIw6gLkF3IHWggPYk9L-Zq-NzgUgHop52zLzsPQrFpdHknZdnZzVv8aJrx7MirprzCB1X9yFrWWaOtdgWYw63nbI"/>
+<div class="absolute top-3 left-3 bg-white/90 px-sm py-xs rounded-lg">
+<span class="text-primary-container font-label-caps">22 MAI</span>
+</div>
+</div>
+<div class="p-md">
+<h4 class="font-h3 text-body-lg font-bold text-on-surface mb-xs">Gala des Dirigeants 2025</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">location_on</span> Monaco
+                        </p>
+<div class="space-y-xs">
+<div class="flex justify-between text-body-sm font-label-caps">
+<span class="text-on-surface-variant">Capacité</span>
+<span class="text-secondary font-bold">40%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-[#2E7D52] rounded-full" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications Section -->
+<section class="mb-xl">
+<div class="flex justify-between items-end mb-md">
+<h3 class="font-h3 text-h3 text-on-background">Notifications</h3>
+<span class="text-on-primary-container font-label-caps cursor-pointer">MARQUER LU</span>
+</div>
+<div class="space-y-md">
+<!-- Notification Card 1 -->
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex gap-md items-start active:scale-[0.98] transition-all">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#0D2B55]">campaign</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-button text-on-surface text-body-md">Mise à jour du protocole</h4>
+<span class="text-on-surface-variant text-[10px] font-label-caps">IL Y A 2H</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Les nouveaux guides de conformité pour le cycle 2025 sont maintenant disponibles dans votre espace.</p>
+</div>
+</div>
+<!-- Notification Card 2 -->
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex gap-md items-start active:scale-[0.98] transition-all">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#0D2B55]">workspace_premium</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-button text-on-surface text-body-md">Certification validée</h4>
+<span class="text-on-surface-variant text-[10px] font-label-caps">HIER</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Félicitations ! Votre accréditation "Elite Member" a été renouvelée avec succès.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section (Extra High-End Content) -->
+<section class="mb-xl">
+<h3 class="font-h3 text-h3 text-on-background mb-md">Activité du réseau</h3>
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-white p-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+<span class="material-symbols-outlined text-[#42A5F5] mb-sm">trending_up</span>
+<p class="font-h3 text-on-surface">+12%</p>
+<p class="text-on-surface-variant font-label-caps text-[10px]">Engagement</p>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+<span class="material-symbols-outlined text-[#2E7D52] mb-sm">task_alt</span>
+<p class="font-h3 text-on-surface">18/20</p>
+<p class="text-on-surface-variant font-label-caps text-[10px]">Objectifs</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white dark:bg-slate-900 px-2 py-3 pb-safe border-t border-slate-100 dark:border-slate-800 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-[#42A5F5] dark:text-sky-400 font-bold active:scale-98 transition-all duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-lexend text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-98 transition-all duration-200">
+<span class="material-symbols-outlined">event</span>
+<span class="font-lexend text-[10px] font-medium">Events</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-98 transition-all duration-200">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-lexend text-[10px] font-medium">Joined</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-98 transition-all duration-200">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-lexend text-[10px] font-medium">News</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-98 transition-all duration-200">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-lexend text-[10px] font-medium">Alerts</span>
+</div>
+</nav>
+</body></html>

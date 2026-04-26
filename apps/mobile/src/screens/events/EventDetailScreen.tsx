@@ -3,23 +3,19 @@ import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { Alert, Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Badge } from '../../components/common/Badge';
 import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
-import { CapacityBar } from '../../components/events/CapacityBar';
 import { Colors } from '../../constants/colors';
 import { getEventById, isUserRegistered } from '../../services/events.service';
 import { cancelParticipation, getUserParticipations, registerForEvent } from '../../services/participations.service';
 import { useAuthStore } from '../../store/auth.store';
 import type { Evenement, EventsStackParamList } from '../../types';
-import { formatDate } from '../../utils/date';
+import { EventDetailContent } from './EventDetailContent';
 import { styles } from './EventDetailScreen.styles';
-
-const placeholderEvent = require('../../../assets/images/placeholder-event.png');
 
 type EventDetailRoute = RouteProp<EventsStackParamList, 'EventDetail'>;
 type EventDetailNavigation = NativeStackNavigationProp<EventsStackParamList, 'EventDetail'>;
@@ -140,33 +136,32 @@ export function EventDetailScreen() {
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.coverWrap}>
-          <Image source={event.coverImage ? { uri: event.coverImage } : placeholderEvent} style={styles.cover} />
-          <Text style={styles.watermark}>ASATA</Text>
           <Pressable accessibilityRole="button" style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Feather name="chevron-left" size={24} color={Colors.primary} />
+            <Feather name="arrow-left" size={24} color={Colors.surface} />
           </Pressable>
+          <Text style={styles.coverWatermark}>ASATA</Text>
+          <View style={styles.coverContent}>
+            <View style={styles.coverBadge}>
+              <Text style={styles.coverBadgeText}>CHAMPIONNAT NATIONAL</Text>
+            </View>
+            <Text numberOfLines={3} style={styles.coverTitle}>
+              {event.titre}
+            </Text>
+          </View>
         </View>
-        <View style={styles.card}>
-          <View style={styles.titleRow}>
-            <Badge label={event.statut.replace('_', ' ')} status={event.statut} />
-            <Text style={styles.title}>{event.titre}</Text>
+        <EventDetailContent
+          event={event}
+          isRegistered={isRegistered}
+          isCancelled={isCancelled}
+          message={message}
+          error={error}
+        />
+        <View style={styles.mapCard}>
+          <Feather name="map-pin" size={42} color={Colors.whiteOverlay60} />
+          <View style={styles.mapButton}>
+            <Feather name="map-pin" size={18} color={Colors.skyBlue} />
+            <Text style={styles.mapButtonText}>Ouvrir dans Maps</Text>
           </View>
-          <View style={styles.metaRow}>
-            <Feather name="calendar" size={17} color={Colors.primary} />
-            <Text style={styles.meta}>{formatDate(event.date)}</Text>
-          </View>
-          <View style={styles.metaRow}>
-            <Feather name="map-pin" size={17} color={Colors.primary} />
-            <Text style={styles.meta}>{event.lieu}</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.capacity}>
-            <Text style={styles.label}>Places disponibles</Text>
-            <CapacityBar total={event.capacite} filled={event.inscrits} />
-          </View>
-          <Text style={styles.description}>{event.description}</Text>
-          {message ? <Text style={styles.success}>{message}</Text> : null}
-          {error ? <ErrorMessage message={error} /> : null}
         </View>
       </ScrollView>
       <SafeAreaView edges={['bottom']} style={styles.actionBar}>
@@ -176,13 +171,13 @@ export function EventDetailScreen() {
           </View>
         ) : null}
         {!isCancelled && isRegistered ? (
-          <Button label="Se desinscrire" onPress={handleCancel} isLoading={isSubmitting} variant="dangerOutline" />
+          <Button label="Se désinscrire" onPress={handleCancel} isLoading={isSubmitting} variant="dangerOutline" />
         ) : null}
         {!isCancelled && !isRegistered && isFull ? (
           <Button label="Complet" onPress={handleRegister} disabled variant="secondary" />
         ) : null}
         {!isCancelled && !isRegistered && !isFull ? (
-          <Button label="S'inscrire" onPress={handleRegister} isLoading={isSubmitting} variant="primary" />
+          <Button label="S'inscrire à l'événement" onPress={handleRegister} isLoading={isSubmitting} variant="primary" />
         ) : null}
       </SafeAreaView>
     </View>

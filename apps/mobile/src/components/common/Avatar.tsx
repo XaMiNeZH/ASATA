@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
 import { FontSize, FontWeight } from '../../constants/typography';
@@ -16,11 +16,7 @@ const getInitials = (name: string): string =>
     .map((part) => part.charAt(0).toUpperCase())
     .join('');
 
-export function Avatar({ name, photo }: AvatarProps) {
-  if (photo) {
-    return <Image source={{ uri: photo }} style={styles.avatar} />;
-  }
-
+export function Avatar({ name }: AvatarProps) {
   return (
     <View style={styles.avatar}>
       <Text style={styles.initials}>{getInitials(name)}</Text>
@@ -35,10 +31,12 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primaryPale,
+    borderWidth: 4,
+    borderColor: Colors.surface,
+    backgroundColor: Colors.primary,
   },
   initials: {
-    color: Colors.primaryDark,
+    color: Colors.surface,
     fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
   },
