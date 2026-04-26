@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e9e7ec",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#747780",
+                    "on-tertiary-fixed": "#0a1d2d",
+                    "surface-variant": "#e3e2e6",
+                    "surface-container": "#efedf1",
+                    "tertiary": "#061829",
+                    "inverse-primary": "#aec7fa",
+                    "on-secondary-fixed-variant": "#3c475b",
+                    "surface-tint": "#465e8b",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#d2e4fb",
+                    "secondary-fixed": "#d7e3fc",
+                    "inverse-surface": "#2f3034",
+                    "outline-variant": "#c4c6d0",
+                    "on-background": "#1a1b1f",
+                    "primary-container": "#0d2b55",
+                    "on-primary-fixed": "#001b3f",
+                    "on-tertiary-container": "#8395aa",
+                    "surface-bright": "#faf9fd",
+                    "on-tertiary-fixed-variant": "#37485b",
+                    "on-primary-fixed-variant": "#2d4772",
+                    "on-primary-container": "#7a93c3",
+                    "on-primary": "#ffffff",
+                    "surface": "#faf9fd",
+                    "surface-container-highest": "#e3e2e6",
+                    "background": "#faf9fd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f4f3f7",
+                    "inverse-on-surface": "#f1f0f4",
+                    "primary-fixed": "#d7e3ff",
+                    "surface-dim": "#dad9de",
+                    "on-surface": "#1a1b1f",
+                    "tertiary-fixed-dim": "#b6c8df",
+                    "secondary-container": "#d4e0f9",
+                    "primary": "#001637",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aec7fa",
+                    "on-secondary-container": "#586378",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#1c2d3e",
+                    "secondary-fixed-dim": "#bbc7df",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#101c2e",
+                    "secondary": "#535f74",
+                    "on-surface-variant": "#44474f",
+                    "sky-blue": "#42A5F5",
+                    "deep-navy": "#0D2B55"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Lexend"],
+                    "label-caps": ["Lexend"],
+                    "button": ["Lexend"],
+                    "h1": ["Lexend"],
+                    "body-lg": ["Lexend"],
+                    "body-sm": ["Lexend"],
+                    "h3": ["Lexend"],
+                    "h2": ["Lexend"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Lexend', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top AppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 h-16 bg-[#0D2B55] text-white shadow-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white">menu</span>
+<span class="text-xl font-bold tracking-wide uppercase">ASATA Connect</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white/20">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="professional headshot of a confident athletic association manager in a smart casual blazer with a neutral office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuMQ1GMPuBZnwcvEk8pnz7vsM6hewXO2CJiG6-Sh7ZQ-1PsOaEOcBgnhahkedsctNVnS6898W_LVLY5MpSrF7-iZDdVzeBVWVkF96TMMuI7KX_0ysTTshSlKMbSzXNdCXsFu-b3MQLPZ3t9mi7YkLjFahfHO-j5uBiawjx2oIkwhm9MXHm6Tw-59oASBvTitVF6I_HGaB5oQJN_JExjHkNE_N34kaAZHDrbg5_6Cu4w500n1pNrXtfMXkFzeghDWvXZp8DZdSK0_E"/>
+</div>
+</header>
+<main class="mt-16">
+<!-- Hero Profile Section -->
+<section class="bg-[#0D2B55] pt-8 pb-20 px-container-margin relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-sky-blue/10 rounded-full -ml-12 -mb-12"></div>
+<div class="flex flex-col items-center">
+<div class="relative">
+<div class="w-20 h-20 rounded-full border-4 border-white shadow-lg overflow-hidden bg-white">
+<img alt="Main Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a high-performance sports executive with a focused and professional expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3ztDKTQWIVK2jWj3y_XCanP0r8fM2iDJih1FXBIueJB24p8bR9BqNgeqAWzyRwOD_Dz9dGFNa16mdtdkQdH-Leiv_jW_BBjh7P8e6PrfTWE0-CSFGaqSWlOiT9j2v8lM-Dw4tVieOivzXKNFXP7GKcSAB5Y2GUxjQCqjmpjDyhuXazHMZMh6PatS1tGl_BMRc35ClKFNVxpoZ_VBpZgj5vv6VMBvfbRMRr39Huh0AQWcqkVzL7D1qnIzDm35V1EOCqLobYKxaeq4"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-[#0D2B55] flex items-center justify-center">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</div>
+<h1 class="font-h2 text-h2 text-white mt-4">Jean-Marc Dupont</h1>
+<div class="flex gap-2 mt-2">
+<span class="bg-white/20 text-white font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Membre</span>
+<span class="bg-green-100/20 text-green-400 font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                        Actif
+                    </span>
+</div>
+</div>
+</section>
+<!-- Stats Bento Row -->
+<section class="px-container-margin -mt-12 mb-gutter grid grid-cols-3 gap-md">
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex flex-col items-center">
+<span class="font-h2 text-deep-navy">24</span>
+<span class="font-label-caps text-on-surface-variant mt-1 text-[10px]">ÉVÉNEMENTS</span>
+</div>
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex flex-col items-center">
+<span class="font-h2 text-deep-navy">12</span>
+<span class="font-label-caps text-on-surface-variant mt-1 text-[10px]">BADGES</span>
+</div>
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex flex-col items-center">
+<span class="font-h2 text-deep-navy">85</span>
+<span class="font-label-caps text-on-surface-variant mt-1 text-[10px]">POINTS</span>
+</div>
+</section>
+<!-- User Info Cards -->
+<section class="px-container-margin flex flex-col gap-md">
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+<h3 class="font-label-caps text-on-surface-variant mb-4 uppercase">Informations Personnelles</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-sky-blue/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-sky-blue">mail</span>
+</div>
+<div>
+<p class="font-body-sm text-on-surface-variant text-xs">E-mail</p>
+<p class="font-body-md text-on-surface">j.dupont@asata.org</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-sky-blue/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-sky-blue">phone</span>
+</div>
+<div>
+<p class="font-body-sm text-on-surface-variant text-xs">Téléphone</p>
+<p class="font-body-md text-on-surface">+33 6 12 34 56 78</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-sky-blue/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-sky-blue">location_on</span>
+</div>
+<div>
+<p class="font-body-sm text-on-surface-variant text-xs">Localisation</p>
+<p class="font-body-md text-on-surface">Paris, France</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+<h3 class="font-label-caps text-on-surface-variant mb-4 uppercase">Compte &amp; Sécurité</h3>
+<div class="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">lock</span>
+<span class="font-body-md text-on-surface">Changer le mot de passe</span>
+</div>
+<span class="material-symbols-outlined text-sky-blue">chevron_right</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">shield</span>
+<span class="font-body-md text-on-surface">Confidentialité</span>
+</div>
+<span class="material-symbols-outlined text-sky-blue">chevron_right</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-4 border-[1.5px] border-deep-navy rounded-xl flex items-center justify-center gap-2 font-button text-deep-navy active:scale-95 transition-transform mt-2">
+<span class="material-symbols-outlined">edit</span>
+                Modifier le profil
+            </button>
+<!-- Logout Link -->
+<button class="w-full py-4 flex items-center justify-center gap-2 font-button text-error mb-4">
+<span class="material-symbols-outlined">logout</span>
+                Déconnexion
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white px-2 py-3 pb-safe border-t border-slate-100 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">home</span>
+<span class="font-lexend text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">event</span>
+<span class="font-lexend text-[10px] font-medium">Events</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-lexend text-[10px] font-medium">Joined</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-lexend text-[10px] font-medium">News</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#42A5F5] font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-lexend text-[10px] font-medium">Profile</span>
+</div>
+</nav>
+</body></html>

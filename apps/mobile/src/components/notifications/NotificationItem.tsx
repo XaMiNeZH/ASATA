@@ -16,10 +16,17 @@ interface NotificationItemProps {
 }
 
 const iconByType: Record<Notification['type'], FeatherName> = {
-  event_confirmation: 'check',
+  event_confirmation: 'calendar',
   event_cancelled: 'x',
   reminder: 'clock',
-  announcement: 'bell',
+  announcement: 'volume-2',
+};
+
+const titleByType: Record<Notification['type'], string> = {
+  event_confirmation: 'Nouvel Événement',
+  event_cancelled: 'Événement annulé',
+  reminder: 'Rappel de Cotisation',
+  announcement: 'Annonce Importante',
 };
 
 export function NotificationItem({ notification, onPress }: NotificationItemProps) {
@@ -35,15 +42,15 @@ export function NotificationItem({ notification, onPress }: NotificationItemProp
         pressed && styles.pressed,
       ]}
     >
-      <View style={[styles.iconCircle, iconTone]}>
-        <Feather name={iconByType[notification.type]} size={16} color={Colors.surface} />
+      <View style={[styles.iconBox, iconTone]}>
+        <Feather name={iconByType[notification.type]} size={22} color={notification.lu ? Colors.textMuted : Colors.primary} />
       </View>
       <View style={styles.body}>
         <View style={styles.header}>
-          <Text style={[styles.message, !notification.lu && styles.messageUnread]}>{notification.message}</Text>
-          {!notification.lu ? <View style={styles.dot} /> : null}
+          <Text style={[styles.title, notification.lu && styles.titleRead]}>{titleByType[notification.type]}</Text>
+          <Text style={[styles.date, !notification.lu && styles.dateUnread]}>{formatRelative(notification.dateEnvoi)}</Text>
         </View>
-        <Text style={styles.date}>{formatRelative(notification.dateEnvoi)}</Text>
+        <Text style={[styles.message, notification.lu && styles.messageRead]}>{notification.message}</Text>
       </View>
     </Pressable>
   );
@@ -60,8 +67,6 @@ const styles = StyleSheet.create({
     padding: Spacing.md,
   },
   unread: {
-    borderLeftWidth: 3,
-    borderLeftColor: Colors.accent,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -69,15 +74,16 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   read: {
-    backgroundColor: '#F9F9F9',
+    backgroundColor: Colors.surfaceContainerLow,
+    opacity: 0.75,
   },
   pressed: {
     opacity: 0.82,
   },
-  iconCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -88,34 +94,41 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    justifyContent: 'space-between',
     gap: Spacing.sm,
   },
-  message: {
+  title: {
     flex: 1,
-    color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    lineHeight: 19,
+    color: Colors.primaryDark,
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.semiBold,
   },
-  messageUnread: {
-    color: Colors.textPrimary,
+  titleRead: {
+    color: Colors.textSecondary,
     fontWeight: FontWeight.medium,
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: Colors.primary,
-    marginTop: 6,
+  message: {
+    color: Colors.textSecondary,
+    fontSize: FontSize.sm,
+    lineHeight: 22,
+  },
+  messageRead: {
+    color: Colors.textMuted,
   },
   date: {
     color: Colors.textMuted,
-    fontSize: FontSize.xs,
+    fontSize: FontSize.tab,
+    fontWeight: FontWeight.medium,
+    textTransform: 'uppercase',
+  },
+  dateUnread: {
+    color: Colors.skyBlue,
   },
 });
 
 const iconToneByType = StyleSheet.create({
-  event_confirmation: { backgroundColor: Colors.success },
-  event_cancelled: { backgroundColor: Colors.danger },
-  reminder: { backgroundColor: '#F59E0B' },
-  announcement: { backgroundColor: Colors.primary },
+  event_confirmation: { backgroundColor: Colors.secondaryContainer },
+  event_cancelled: { backgroundColor: Colors.errorContainer },
+  reminder: { backgroundColor: Colors.surfaceContainer },
+  announcement: { backgroundColor: Colors.secondaryContainer },
 });

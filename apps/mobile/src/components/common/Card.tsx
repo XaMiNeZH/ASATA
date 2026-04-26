@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: Colors.surface,
     padding: Spacing.md,
-    marginBottom: Spacing.sm,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -42,5 +41,6 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.86,
+    transform: [{ scale: 0.98 }],
   },
 });

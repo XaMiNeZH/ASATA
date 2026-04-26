@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, Pressable, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '../../components/common/AppHeader';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
@@ -13,6 +13,8 @@ import { formatDate } from '../../utils/date';
 import { styles } from './AnnouncementsScreen.styles';
 
 type AnnouncementsNavigation = NativeStackNavigationProp<AnnouncementsStackParamList, 'Announcements'>;
+
+const categories = ['Priority', 'General', 'Training', 'Urgent'];
 
 export function AnnouncementsScreen() {
   const navigation = useNavigation<AnnouncementsNavigation>();
@@ -43,31 +45,44 @@ export function AnnouncementsScreen() {
 
   if (error) {
     return (
-      <SafeAreaView style={styles.screen}>
+      <View style={styles.screen}>
         <ErrorMessage message={error} onRetry={() => void loadAnnouncements()} />
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <View style={styles.screen}>
+      <AppHeader title="ANNONCES" />
       <FlatList
         data={announcements}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        ListHeaderComponent={
+          <View style={styles.heroCopy}>
+            <Text style={styles.screenTitle}>Latest Updates</Text>
+            <Text style={styles.screenSubtitle}>Stay informed about the newest developments in the association.</Text>
+          </View>
+        }
+        renderItem={({ item, index }) => (
           <Pressable
             accessibilityRole="button"
             onPress={() => navigation.navigate('AnnouncementDetail', { annonceId: item.id })}
             style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
           >
             <View style={styles.cardContent}>
+              <View style={styles.metaRow}>
+                <Text style={[styles.category, index % categories.length === 3 && styles.categoryUrgent]}>
+                  {categories[index % categories.length]}
+                </Text>
+                <Text style={styles.date}>{formatDate(item.datePublication)}</Text>
+              </View>
               <Text numberOfLines={2} style={styles.title}>
                 {item.titre}
               </Text>
               <Text numberOfLines={2} style={styles.preview}>
                 {item.contenu}
               </Text>
-              <Text style={styles.date}>{formatDate(item.datePublication)}</Text>
+              <Text style={styles.readLink}>Read full announcement ›</Text>
             </View>
           </Pressable>
         )}
@@ -77,6 +92,6 @@ export function AnnouncementsScreen() {
         onRefresh={() => void loadAnnouncements(true)}
         contentContainerStyle={styles.listContent}
       />
-    </SafeAreaView>
+    </View>
   );
 }

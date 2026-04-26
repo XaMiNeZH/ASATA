@@ -1,1 +1,15 @@
-export const Spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 };
+export const Spacing = {
+  none: 0,
+  base: 4,
+  xs: 4,
+  sm: 8,
+  md: 16,
+  gutter: 16,
+  container: 20,
+  lg: 24,
+  xl: 32,
+  xxl: 48,
+  screenTop: 64,
+  bottomBar: 60,
+  bottomActionOffset: 84,
+};
