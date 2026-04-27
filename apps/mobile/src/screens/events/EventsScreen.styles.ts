@@ -20,23 +20,19 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Spacing.container,
   },
   chip: {
-    height: 40,
+    height: 48,
     justifyContent: 'center',
     borderRadius: 9999,
     paddingHorizontal: Spacing.lg,
     backgroundColor: Colors.surfaceContainerHigh,
-    borderWidth: 1.5,
-    borderColor: 'transparent',
   },
   chipActive: {
     backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
   },
   chipText: {
     color: Colors.textSecondary,
-    fontSize: FontSize.sm,
-    fontWeight: FontWeight.semiBold,
-    letterSpacing: 0.2,
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.medium,
   },
   chipTextActive: {
     color: Colors.surface,
