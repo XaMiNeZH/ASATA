@@ -1,15 +1,16 @@
 const skiAsset = (fileName: string) => `/skiActivitiesPics/${fileName}`
 const footballAsset = (fileName: string) => `/footballActivitiesPics/${fileName}`
+const athleticismAsset = (fileName: string) => `/athleticism/${fileName}`
 
 export const SKI_TEAM_IMAGE   = skiAsset('Group ski team with leaders.jpg')
 export const DON_HERO_IMAGE   = skiAsset('PHOTO-2026-04-07-12-10-35_1.jpg')
 export const HOME_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-42_1.jpg')
 export const SKI_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-35_1.jpg')
 export const GALLERY_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-36.jpg')
-export const ATHLETISME_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-44.jpg')
-export const ATHLETISME_INTRO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-43.jpg')
-export const ATHLETISME_LANDSCAPE_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-45.jpg')
-export const ABOUT_HERO_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-38.jpg')
+export const ATHLETISME_HERO_IMAGE    = athleticismAsset('Screenshot 2026-04-26 211856.png')
+export const ATHLETISME_INTRO_IMAGE   = athleticismAsset('Screenshot 2026-04-26 212022.png')
+export const ATHLETISME_LANDSCAPE_IMAGE = athleticismAsset('Screenshot 2026-04-26 212049.png')
+export const ABOUT_HERO_IMAGE = skiAsset('about-hero.jpg')
 export const CONTACT_HERO_IMAGE = '/contactphoto.jpg'
 export const HOME_SKI_CARD_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-33.jpg')
 export const HOME_ATHLETISME_CARD_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-40.jpg')
@@ -56,10 +57,30 @@ export const FOOTBALL_PHOTOS: string[] = [
   footballAsset('488942403_1063991805768565_8104423691628912325_n.jpg'),
 ]
 
+export const ATHLETISME_PHOTOS: string[] = [
+  athleticismAsset('Screenshot 2026-04-26 211856.png'),
+  athleticismAsset('Screenshot 2026-04-26 212022.png'),
+  athleticismAsset('Screenshot 2026-04-26 212049.png'),
+  athleticismAsset('Screenshot 2026-04-26 212127.png'),
+  athleticismAsset('Screenshot 2026-04-26 212350.png'),
+]
+
 export const ALL_PHOTOS = [
   ...SKI_PHOTOS.map(src => ({ src, category: 'ski' as const })),
   ...FOOTBALL_PHOTOS.map(src => ({ src, category: 'football' as const })),
+  ...ATHLETISME_PHOTOS.map(src => ({ src, category: 'athletisme' as const })),
 ]
+
+const trainerAsset = (fileName: string) => `/trainers/${fileName}`
+
+export const TRAINER_PHOTOS = {
+  rachidChib:        trainerAsset('rachid-chib.jpeg'),
+  ahmedBiri:         trainerAsset('ahmed-biri.jpeg'),
+  younesElMarkat:    trainerAsset('younes-el-markat.jpeg'),
+  taherAitElBaraka:  trainerAsset('taher-ait-el-baraka.jpeg'),
+  essadiqAitBenAli:  trainerAsset('essadiq-ait-ben-ali.jpeg'),
+  soufianAzzaimi:    trainerAsset('soufian-azzaimi.jpeg'),
+}
 
 export const LOGO = '/Association Logo.jpg'
 export const PRESIDENT_IMG = '/president commit directeur.png'

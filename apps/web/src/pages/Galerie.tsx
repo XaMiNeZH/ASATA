@@ -5,12 +5,13 @@ import PageHero from '../components/PageHero'
 import Lightbox from '../components/Lightbox'
 import { ALL_PHOTOS, GALLERY_HERO_IMAGE } from '../data/images'
 
-type Filter = 'all' | 'ski' | 'football'
+type Filter = 'all' | 'ski' | 'football' | 'athletisme'
 
 const filters: { key: Filter; label: string; icon: string }[] = [
-  { key: 'all',      label: 'Tout voir',       icon: 'fas fa-th' },
-  { key: 'ski',      label: 'Ski & Montagne',   icon: 'fas fa-skiing' },
-  { key: 'football', label: 'Football',         icon: 'fas fa-futbol' },
+  { key: 'all',        label: 'Tout voir',       icon: 'fas fa-th' },
+  { key: 'ski',        label: 'Ski & Montagne',   icon: 'fas fa-skiing' },
+  { key: 'football',   label: 'Football',         icon: 'fas fa-futbol' },
+  { key: 'athletisme', label: 'Athlétisme',       icon: 'fas fa-running' },
 ]
 
 export default function Galerie() {
@@ -86,7 +87,7 @@ export default function Galerie() {
                   {/* Category badge */}
                   <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="bg-primary/80 text-white text-[10px] font-heading font-bold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm">
-                      {category === 'ski' ? '⛷ Ski' : '⚽ Football'}
+                      {category === 'ski' ? '⛷ Ski' : category === 'football' ? '⚽ Football' : '🏃 Athlétisme'}
                     </span>
                   </div>
                 </motion.div>

@@ -8,6 +8,15 @@
   h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
 @layer utilities {
   .bg-hero-overlay {
     background: linear-gradient(135deg, rgba(13,71,161,.85) 0%, rgba(21,101,192,.55) 50%, rgba(13,71,161,.75) 100%);

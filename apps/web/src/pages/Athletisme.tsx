@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
 import SectionHeader from '../components/SectionHeader'
-import { ATHLETISME_HERO_IMAGE, ATHLETISME_INTRO_IMAGE, ATHLETISME_LANDSCAPE_IMAGE } from '../data/images'
+import Lightbox from '../components/Lightbox'
+import { ATHLETISME_HERO_IMAGE, ATHLETISME_INTRO_IMAGE, ATHLETISME_LANDSCAPE_IMAGE, ATHLETISME_PHOTOS } from '../data/images'
 
 const activities = [
   { icon: 'fas fa-running',        title: 'Course sur piste',         desc: 'Entraînements structurés et compétitions sur piste en courtes et longues distances.' },
@@ -21,6 +23,8 @@ const altitudeAdvantages = [
 ]
 
 export default function Athletisme() {
+  const [lbIndex, setLbIndex] = useState<number | null>(null)
+
   return (
     <PageTransition>
       <PageHero title="Club Athlétisme" subtitle="Affilié à la Fédération Royale Marocaine d'Athlétisme (FRMA)" image={ATHLETISME_HERO_IMAGE} icon="fas fa-running" breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Nos Clubs' }, { label: 'Athlétisme' }]} />
@@ -99,6 +103,43 @@ export default function Athletisme() {
           </div>
         </div>
       </section>
+
+      {/* Photo Gallery */}
+      <section className="py-20 bg-primary-ghost">
+        <div className="max-w-7xl mx-auto px-5">
+          <SectionHeader tag="Nos photos" title="Galerie Athlétisme" />
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+            {ATHLETISME_PHOTOS.map((src, i) => (
+              <FadeIn key={src} delay={i * 0.08}>
+                <div
+                  className="group relative overflow-hidden rounded-xl cursor-pointer break-inside-avoid mb-3"
+                  onClick={() => setLbIndex(i)}
+                >
+                  <img
+                    src={src}
+                    alt={`Athlétisme ASATA ${i + 1}`}
+                    className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-primary-dark/0 group-hover:bg-primary-dark/45 transition-all duration-300 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center text-white text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <i className="fas fa-search-plus" />
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Lightbox
+        images={ATHLETISME_PHOTOS}
+        index={lbIndex}
+        onClose={() => setLbIndex(null)}
+        onPrev={() => setLbIndex(i => (i !== null && i > 0 ? i - 1 : i))}
+        onNext={() => setLbIndex(i => (i !== null && i < ATHLETISME_PHOTOS.length - 1 ? i + 1 : i))}
+      />
 
       <section className="py-20 bg-gradient-to-br from-primary-dark to-primary text-center">
         <div className="max-w-2xl mx-auto px-5">
