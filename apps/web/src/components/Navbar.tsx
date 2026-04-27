@@ -10,10 +10,11 @@ const clubs = [
 ]
 
 const links = [
-  { to: '/',        label: 'Accueil' },
-  { to: '/about',   label: 'À Propos' },
-  { to: '/equipe',  label: 'Notre Équipe' },
-  { to: '/galerie', label: 'Galerie' },
+  { to: '/',            label: 'Accueil' },
+  { to: '/about',       label: 'À Propos' },
+  { to: '/equipe',      label: 'Notre Équipe' },
+  { to: '/evenements',  label: 'Événements' },
+  { to: '/galerie',     label: 'Galerie' },
 ]
 
 export default function Navbar() {
