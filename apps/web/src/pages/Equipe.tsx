@@ -174,8 +174,8 @@ function SectionHead({ kicker, title, subtitle, num }: { kicker: string; title: 
         </span>
         <span className="h-px w-10 bg-primary/30" />
       </div>
-      <h2 className="font-heading font-black text-primary-dark text-4xl md:text-5xl mt-4 tracking-tight">{title}</h2>
-      {subtitle && <p className="text-gray-500 mt-3 max-w-xl leading-relaxed">{subtitle}</p>}
+      <h2 className="font-heading font-black text-primary-dark text-2xl sm:text-4xl md:text-5xl mt-4 tracking-tight">{title}</h2>
+      {subtitle && <p className="text-gray-500 mt-3 max-w-xl leading-relaxed text-sm sm:text-base">{subtitle}</p>}
       <div className="mt-5 flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-primary-light" />
         <span className="w-12 h-0.5 bg-primary" />
@@ -187,7 +187,7 @@ function SectionHead({ kicker, title, subtitle, num }: { kicker: string; title: 
 
 function Divider({ label }: { label?: string }) {
   return (
-    <div className="my-20 flex items-center gap-5 max-w-7xl mx-auto px-5">
+    <div className="my-10 md:my-20 flex items-center gap-5 max-w-7xl mx-auto px-5">
       <span className="h-px flex-1 bg-primary-pale" />
       <div className="flex items-center gap-1.5">
         <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
@@ -273,12 +273,12 @@ export default function Equipe() {
           </div>
 
           <h1
-            className="font-heading font-black text-white leading-[0.95] text-5xl md:text-7xl"
+            className="font-heading font-black text-white leading-[0.95] text-4xl sm:text-5xl md:text-7xl"
             style={{ textShadow: '0 4px 20px rgba(0,22,55,0.25)' }}
           >
             Comité<br />Directeur
           </h1>
-          <p className="mt-6 max-w-xl text-white/80 text-lg leading-relaxed">
+          <p className="mt-4 max-w-xl text-white/80 text-base sm:text-lg leading-relaxed">
             Les femmes et hommes qui dirigent et font vivre l'ASATA — de la haute montagne aux pistes, terrains et stades.
           </p>
 
@@ -308,7 +308,7 @@ export default function Equipe() {
       </section>
 
       {/* ── President ── */}
-      <section id="presidence" className="bg-[#FAF9FD] pt-20 pb-0">
+      <section id="presidence" className="bg-[#FAF9FD] pt-12 md:pt-20 pb-0">
         <div className="max-w-7xl mx-auto px-5">
           <SectionHead kicker="Présidence" num="01" title="Le Président" subtitle="Architecte et premier visage de l'ASATA depuis sa création." />
 
@@ -326,7 +326,7 @@ export default function Equipe() {
 
               <div className="relative rounded-3xl overflow-hidden bg-white ring-1 ring-primary-pale shadow-blue-lg grid md:grid-cols-[380px_1fr]">
                 {/* Left — navy panel */}
-                <div className="relative p-10 text-white overflow-hidden" style={{ background: 'linear-gradient(160deg, #1565C0 0%, #0D47A1 100%)' }}>
+                <div className="relative p-6 sm:p-10 text-white overflow-hidden" style={{ background: 'linear-gradient(160deg, #1565C0 0%, #0D47A1 100%)' }}>
                   <div
                     className="absolute inset-0 opacity-20 pointer-events-none"
                     style={{ backgroundImage: 'radial-gradient(circle at 30% 30%, rgba(66,165,245,0.7) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%)' }}
@@ -338,11 +338,11 @@ export default function Equipe() {
                       <i className="fas fa-crown text-primary-light text-sm" />
                       <span className="font-heading text-[11px] uppercase tracking-[0.25em] text-white/75">Présidence</span>
                     </div>
-                    <div className="mt-auto pt-10 flex flex-col items-start">
-                      <div className="ring-4 ring-white/20 rounded-full">
-                        <MemberPhoto photo={TEAM_PHOTOS.president} name={presidentData.name} size={200} dark />
+                    <div className="mt-6 md:mt-auto md:pt-10 flex flex-row md:flex-col items-center md:items-start gap-5 md:gap-0">
+                      <div className="ring-4 ring-white/20 rounded-full shrink-0">
+                        <MemberPhoto photo={TEAM_PHOTOS.president} name={presidentData.name} size={120} dark />
                       </div>
-                      <div className="mt-6 font-heading font-black text-2xl leading-tight">
+                      <div className="md:mt-6 font-heading font-black text-xl sm:text-2xl leading-tight">
                         {presidentData.name.replace(/^M\.\s/, '')}
                       </div>
                       <div className="text-primary-light font-heading font-semibold mt-1 text-sm uppercase tracking-wider">
@@ -356,7 +356,7 @@ export default function Equipe() {
                 </div>
 
                 {/* Right — content */}
-                <div className="p-10 md:p-12 flex flex-col">
+                <div className="p-6 sm:p-10 md:p-12 flex flex-col">
                   <div className="flex items-center gap-2 text-primary/60">
                     <span className="font-heading text-[11px] uppercase tracking-[0.25em]">Le Président</span>
                     <span className="h-px flex-1 bg-primary/15 ml-2" />
@@ -370,7 +370,7 @@ export default function Equipe() {
                   <div className="grid grid-cols-3 gap-px bg-primary-pale rounded-2xl overflow-hidden mt-8 ring-1 ring-primary-pale">
                     {presidentData.highlights.map((h, i) => (
                       <div key={i} className="bg-white p-5">
-                        <div className="font-heading font-black text-primary-dark text-3xl tracking-tight">{h.k}</div>
+                        <div className="font-heading font-black text-primary-dark text-xl sm:text-3xl tracking-tight">{h.k}</div>
                         <div className="text-gray-400 text-xs mt-1 uppercase tracking-wider">{h.v}</div>
                       </div>
                     ))}
@@ -420,14 +420,14 @@ export default function Equipe() {
                   {/* member number */}
                   <div className="absolute right-6 top-6 font-heading text-[10px] tracking-[0.2em] text-primary/25">0{i + 2}/15</div>
 
-                  <div className="flex items-start gap-5 lg:gap-6">
-                    <MemberPhoto photo={vp.photo} name={vp.name} size={110} />
-                    <div className="flex-1 min-w-0 pt-2">
+                  <div className="flex items-center gap-4 lg:gap-6">
+                    <MemberPhoto photo={vp.photo} name={vp.name} size={80} />
+                    <div className="flex-1 min-w-0">
                       <div className="font-heading text-[10px] uppercase tracking-[0.25em] text-primary/55">{vp.role}</div>
-                      <h3 className="font-heading font-black text-primary-dark text-xl lg:text-2xl mt-1 leading-tight">{vp.name}</h3>
-                      <div className="mt-3 inline-flex items-center gap-2 text-sm text-gray-500 bg-primary-ghost border border-primary-pale rounded-full px-3 py-1">
+                      <h3 className="font-heading font-black text-primary-dark text-base sm:text-xl lg:text-2xl mt-1 leading-tight">{vp.name}</h3>
+                      <div className="mt-2 flex items-center gap-2 text-xs sm:text-sm text-gray-500 bg-primary-ghost border border-primary-pale rounded-full px-3 py-1 w-fit">
                         <span className="w-2 h-2 rounded-full bg-primary-light shrink-0" />
-                        {vp.focus}
+                        <span className="truncate">{vp.focus}</span>
                       </div>
                     </div>
                   </div>
@@ -467,14 +467,14 @@ export default function Equipe() {
                       {members.map((m, mi) => {
                         const num = String(startIdx + mi + 4).padStart(2, '0')
                         return (
-                          <li key={m.name} className="group relative grid grid-cols-[52px_64px_1fr_auto] md:grid-cols-[64px_76px_1fr_auto] items-center gap-4 md:gap-6 px-4 md:px-6 py-4 hover:bg-primary-ghost transition-colors">
+                          <li key={m.name} className="group relative grid grid-cols-[32px_44px_1fr] md:grid-cols-[64px_76px_1fr_auto] items-center gap-3 md:gap-6 px-3 md:px-6 py-3 md:py-4 hover:bg-primary-ghost transition-colors">
                             {/* hover left accent */}
                             <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r bg-primary-light opacity-0 group-hover:opacity-100 transition" />
-                            <span className="font-heading text-xs md:text-sm text-primary/35 group-hover:text-primary-light transition tracking-widest">{num}</span>
-                            <MemberPhoto photo={m.photo} name={m.name} size={52} />
+                            <span className="font-heading text-[10px] md:text-sm text-primary/35 group-hover:text-primary-light transition tracking-widest">{num}</span>
+                            <MemberPhoto photo={m.photo} name={m.name} size={44} />
                             <div className="min-w-0">
-                              <div className="font-heading font-bold text-primary-dark truncate">{m.name}</div>
-                              <div className="text-sm text-gray-400 truncate">{m.role}</div>
+                              <div className="font-heading font-bold text-primary-dark text-sm truncate">{m.name}</div>
+                              <div className="text-xs text-gray-400 truncate">{m.role}</div>
                             </div>
                             <div className="hidden md:flex items-center gap-2">
                               <span className="px-2.5 py-1 rounded-full bg-primary-ghost text-primary text-xs font-heading font-semibold">
@@ -514,7 +514,7 @@ export default function Equipe() {
       </div>
 
       {/* ── Club direction ── */}
-      <section id="clubs" className="bg-[#FAF9FD] py-20">
+      <section id="clubs" className="bg-[#FAF9FD] py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-5">
           <SectionHead kicker="Direction des Clubs" num="12–15" title="Nos Équipes Sportives" subtitle="Trois clubs, une seule famille — chacun avec sa direction dédiée." />
 
@@ -555,12 +555,12 @@ export default function Equipe() {
                         </div>
 
                         {/* card */}
-                        <div className={`relative rounded-2xl p-5 ring-1 transition-all ${m.lead ? 'bg-primary text-white ring-primary shadow-blue-md' : 'bg-white ring-primary-pale hover:ring-primary/20 hover:shadow-blue-sm'}`}>
-                          <div className="flex items-center gap-4">
-                            <MemberPhoto photo={m.photo} name={m.name} size={m.lead ? 60 : 52} dark={m.lead} />
+                        <div className={`relative rounded-2xl p-3 sm:p-5 ring-1 transition-all ${m.lead ? 'bg-primary text-white ring-primary shadow-blue-md' : 'bg-white ring-primary-pale hover:ring-primary/20 hover:shadow-blue-sm'}`}>
+                          <div className="flex items-center gap-3 sm:gap-4">
+                            <MemberPhoto photo={m.photo} name={m.name} size={m.lead ? 52 : 44} dark={m.lead} />
                             <div className="min-w-0 flex-1">
-                              <div className={`font-heading font-black leading-tight ${m.lead ? 'text-white text-base' : 'text-primary-dark text-sm'}`}>{m.name}</div>
-                              <div className={`text-sm mt-0.5 ${m.lead ? 'text-primary-light' : 'text-gray-400'}`}>{m.role}</div>
+                              <div className={`font-heading font-black leading-tight ${m.lead ? 'text-white text-sm sm:text-base' : 'text-primary-dark text-xs sm:text-sm'}`}>{m.name}</div>
+                              <div className={`text-xs mt-0.5 leading-snug ${m.lead ? 'text-primary-light' : 'text-gray-400'}`}>{m.role}</div>
                             </div>
                             {m.lead && (
                               <div className="hidden md:flex flex-col items-end shrink-0">
@@ -636,7 +636,7 @@ export default function Equipe() {
       </section>
 
       {/* ── Staff Sportif ── */}
-      <section className="bg-primary-ghost py-20">
+      <section className="bg-primary-ghost py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-5">
           <SectionHead
             kicker="Staff Technique"
@@ -668,24 +668,24 @@ export default function Equipe() {
                       >
                         {/* top strip */}
                         <div className={`h-1.5 bg-gradient-to-r ${group.color}`} />
-                        <div className="p-6 flex gap-5 items-start">
+                        <div className="p-4 sm:p-6 flex gap-4 sm:gap-5 items-start">
                           {/* Photo */}
                           <div className="shrink-0">
                             <img
                               src={trainer.photo}
                               alt={trainer.name}
-                              className="w-24 h-24 rounded-xl object-cover shadow-blue-sm ring-2 ring-primary-pale"
+                              className="w-16 h-16 sm:w-24 sm:h-24 rounded-xl object-cover shadow-blue-sm ring-2 ring-primary-pale"
                             />
                           </div>
                           {/* Info */}
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-heading font-black text-primary-dark text-base leading-tight">{trainer.name}</h4>
-                            <p className="text-primary font-heading font-semibold text-xs uppercase tracking-wide mt-1">{trainer.role}</p>
-                            <ul className="mt-3 space-y-1.5">
+                            <h4 className="font-heading font-black text-primary-dark text-sm sm:text-base leading-tight">{trainer.name}</h4>
+                            <p className="text-primary font-heading font-semibold text-[10px] sm:text-xs uppercase tracking-wide mt-1 leading-snug">{trainer.role}</p>
+                            <ul className="mt-2 sm:mt-3 space-y-1 sm:space-y-1.5">
                               {trainer.highlights.map((h, hi) => (
-                                <li key={hi} className="flex items-start gap-2 text-sm text-gray-500">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0 mt-1.5" />
-                                  {h}
+                                <li key={hi} className="flex items-start gap-2 text-xs sm:text-sm text-gray-500">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0 mt-1" />
+                                  <span>{h}</span>
                                 </li>
                               ))}
                             </ul>
@@ -786,11 +786,11 @@ export default function Equipe() {
               </button>
 
               {/* Photo + name header */}
-              <div className="px-8 pt-8 pb-6 flex items-center gap-5">
+              <div className="px-5 sm:px-8 pt-6 sm:pt-8 pb-5 sm:pb-6 flex items-center gap-4 sm:gap-5">
                 <img
                   src={activeTrainer.photo}
                   alt={activeTrainer.name}
-                  className="w-24 h-24 rounded-2xl object-cover ring-4 ring-primary-pale shadow-blue-sm shrink-0"
+                  className="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-primary-pale shadow-blue-sm shrink-0"
                 />
                 <div>
                   <div className="font-heading text-[10px] uppercase tracking-[0.28em] text-primary/55 mb-1">
@@ -806,10 +806,10 @@ export default function Equipe() {
               </div>
 
               {/* Divider */}
-              <div className="mx-8 h-px bg-primary-pale" />
+              <div className="mx-5 sm:mx-8 h-px bg-primary-pale" />
 
               {/* Highlights */}
-              <div className="px-8 py-6">
+              <div className="px-5 sm:px-8 py-5 sm:py-6">
                 <div className="flex items-center gap-2 mb-4">
                   <i className="fas fa-trophy text-primary-light text-sm" />
                   <span className="font-heading font-bold text-primary-dark text-sm uppercase tracking-wider">
@@ -829,7 +829,7 @@ export default function Equipe() {
               </div>
 
               {/* Footer */}
-              <div className="px-8 pb-7">
+              <div className="px-5 sm:px-8 pb-6 sm:pb-7">
                 <div className="rounded-2xl bg-primary-ghost border border-primary-pale px-5 py-4 flex items-center gap-3">
                   <i className="fas fa-map-marker-alt text-primary-light" />
                   <span className="text-sm text-gray-500">
