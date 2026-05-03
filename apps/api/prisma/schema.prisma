@@ -1,0 +1,65 @@
+// ── Prisma Schema — ASATA API ─────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ── Models ────────────────────────────────────────────────────────────────────
+// Note: SQLite does not support native enums.
+// method: "CARD" | "VIREMENT"
+// status: "PENDING" | "CONFIRMED" | "FAILED"
+
+model Donation {
+  id          String   @id @default(cuid())
+
+  // Amount
+  amount      Float
+  currency    String   @default("MAD")
+
+  // Donor info (optional — anonymous donations allowed)
+  donorName   String?
+  donorEmail  String?
+  donorPhone  String?
+  message     String?
+
+  // Payment — stored as plain strings, validated by Zod in the router
+  method      String   // "CARD" | "VIREMENT"
+  status      String   @default("PENDING") // "PENDING" | "CONFIRMED" | "FAILED"
+
+  // Unique reference shown to donor after submission
+  reference   String   @unique @default(cuid())
+
+  // Internal notes (admin use)
+  adminNote   String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([donorEmail])
+}
+
+model ContactMessage {
+  id         String   @id @default(cuid())
+
+  firstName  String
+  lastName   String
+  email      String
+  phone      String?
+  subject    String
+  message    String
+
+  // "unread" | "read" | "replied"
+  status     String   @default("unread")
+
+  createdAt  DateTime @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
