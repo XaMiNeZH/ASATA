@@ -7,6 +7,8 @@ import FadeIn from '../components/FadeIn'
 import SectionHeader from '../components/SectionHeader'
 import { CONTACT_HERO_IMAGE } from '../data/images'
 
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
+
 interface Form { firstName: string; lastName: string; email: string; phone: string; subject: string; message: string }
 const init: Form = { firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' }
 
@@ -18,19 +20,45 @@ const contactInfo = [
 ]
 
 export default function Contact() {
-  const [form, setForm]       = useState<Form>(init)
-  const [sent, setSent]       = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [form, setForm]         = useState<Form>(init)
+  const [sent, setSent]         = useState(false)
+  const [loading, setLoading]   = useState(false)
+  const [apiError, setApiError] = useState<string | null>(null)
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
+    setApiError(null)
+
+    try {
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          firstName: form.firstName,
+          lastName:  form.lastName,
+          email:     form.email,
+          phone:     form.phone || undefined,
+          subject:   form.subject,
+          message:   form.message,
+        }),
+      })
+
+      const json = await res.json()
+
+      if (!res.ok) {
+        setApiError(json?.message ?? 'Une erreur est survenue. Réessayez.')
+        return
+      }
+
       setSent(true)
       setForm(init)
-      setTimeout(() => setSent(false), 4000)
-    }, 1200)
+      setTimeout(() => setSent(false), 5000)
+    } catch {
+      setApiError('Impossible de contacter le serveur. Vérifiez votre connexion.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const set = (key: keyof Form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -112,13 +140,26 @@ export default function Contact() {
               <AnimatePresence>
                 {sent && (
                   <motion.div
+                    key="success"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 rounded-xl px-4 py-3 mb-5 text-sm font-semibold"
                   >
                     <i className="fas fa-check-circle text-green-500" />
-                    Message envoyé avec succès ! Nous vous répondrons bientôt.
+                    Message envoyé ! Nous vous répondrons bientôt.
+                  </motion.div>
+                )}
+                {apiError && (
+                  <motion.div
+                    key="error"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 mb-5 text-sm font-semibold"
+                  >
+                    <i className="fas fa-exclamation-circle text-red-400" />
+                    {apiError}
                   </motion.div>
                 )}
               </AnimatePresence>

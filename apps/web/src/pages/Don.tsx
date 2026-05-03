@@ -5,6 +5,8 @@ import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
 import { DON_HERO_IMAGE } from '../data/images'
 
+type PaymentMethod = 'CARD' | 'VIREMENT'
+
 interface DonForm {
   firstName: string
   lastName: string
@@ -20,6 +22,8 @@ const init: DonForm = {
   firstName: '', lastName: '', email: '', phone: '',
   cardName: '', cardNumber: '', expiry: '', cvv: '',
 }
+
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
 const presetAmounts = [50, 100, 200, 500]
 
@@ -52,8 +56,11 @@ export default function Don() {
   const [selected, setSelected] = useState<number | null>(null)
   const [custom, setCustom]     = useState('')
   const [form, setForm]         = useState<DonForm>(init)
+  const [method, setMethod]     = useState<PaymentMethod>('CARD')
   const [sent, setSent]         = useState(false)
   const [loading, setLoading]   = useState(false)
+  const [reference, setReference] = useState<string | null>(null)
+  const [apiError, setApiError]   = useState<string | null>(null)
 
   const set = (key: keyof DonForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -78,25 +85,54 @@ export default function Don() {
   }
 
   const amount    = custom ? parseFloat(custom) : selected
-  const canSubmit = amount !== null && amount > 0 && !isNaN(amount) &&
-                    !!form.cardName &&
-                    form.cardNumber.replace(/\s/g, '').length >= 13 &&
-                    /^(0[1-9]|1[0-2])\/\d{2}$/.test(form.expiry) &&
-                    form.cvv.length >= 3 &&
-                    !!form.firstName && !!form.lastName && !!form.email
+  const cardValid = method === 'CARD'
+    ? !!form.cardName &&
+      form.cardNumber.replace(/\s/g, '').length >= 13 &&
+      /^(0[1-9]|1[0-2])\/\d{2}$/.test(form.expiry) &&
+      form.cvv.length >= 3
+    : true
 
-  const handleSubmit = (e: FormEvent) => {
+  const canSubmit = amount !== null && amount > 0 && !isNaN(amount) &&
+                    !!form.firstName && !!form.lastName && !!form.email &&
+                    cardValid
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (!canSubmit) return
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
+    setApiError(null)
+
+    try {
+      const res = await fetch(`${API_URL}/api/donations`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount,
+          currency: 'MAD',
+          method,
+          donorName:  `${form.firstName} ${form.lastName}`.trim(),
+          donorEmail: form.email || undefined,
+          donorPhone: form.phone || undefined,
+        }),
+      })
+
+      const json = await res.json()
+
+      if (!res.ok) {
+        setApiError(json.message ?? 'Une erreur est survenue. Veuillez réessayer.')
+        return
+      }
+
+      setReference(json.data?.reference ?? null)
       setSent(true)
       setForm(init)
       setSelected(null)
       setCustom('')
-      setTimeout(() => setSent(false), 7000)
-    }, 1500)
+    } catch {
+      setApiError('Impossible de contacter le serveur. Vérifiez votre connexion.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inp = 'w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-300 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all font-body'
@@ -193,6 +229,21 @@ export default function Don() {
 
                 <div className="px-8 py-7 overflow-y-auto flex-1">
 
+                  {/* API Error */}
+                  <AnimatePresence>
+                    {apiError && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-2xl px-4 py-4 mb-4 text-sm"
+                      >
+                        <i className="fas fa-exclamation-circle text-red-500 text-lg mt-0.5 shrink-0" />
+                        <p>{apiError}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   {/* Success */}
                   <AnimatePresence>
                     {sent && (
@@ -200,15 +251,34 @@ export default function Don() {
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
-                        className="flex items-start gap-3 bg-green-50 border border-green-200 text-green-700 rounded-2xl px-4 py-4 mb-6 text-sm"
+                        className="flex flex-col gap-3 bg-green-50 border border-green-200 rounded-2xl px-4 py-5 mb-6"
                       >
-                        <i className="fas fa-check-circle text-green-500 text-xl mt-0.5 shrink-0" />
-                        <div>
-                          <p className="font-heading font-bold text-base">Merci infiniment !</p>
-                          <p className="text-green-600/80 mt-0.5 leading-relaxed">
-                            Votre don a bien été reçu. Vous recevrez un accusé de réception par email. Ensemble, nous aidons plus d'enfants à s'épanouir à travers le sport.
-                          </p>
+                        <div className="flex items-start gap-3">
+                          <i className="fas fa-check-circle text-green-500 text-xl mt-0.5 shrink-0" />
+                          <div>
+                            <p className="font-heading font-bold text-base text-green-700">Merci infiniment !</p>
+                            <p className="text-green-600/80 text-sm mt-0.5 leading-relaxed">
+                              Votre don a bien été enregistré. Ensemble, nous aidons plus d'enfants à s'épanouir à travers le sport.
+                            </p>
+                          </div>
                         </div>
+                        {reference && (
+                          <div className="bg-white border border-green-200 rounded-xl px-4 py-3">
+                            <p className="text-[11px] text-gray-400 font-heading uppercase tracking-widest mb-1">Référence de votre don</p>
+                            <p className="font-heading font-black text-primary tracking-wide text-sm break-all">{reference}</p>
+                            <p className="text-[11px] text-gray-400 mt-1">Conservez cette référence pour le suivi de votre don.</p>
+                          </div>
+                        )}
+                        {method === 'VIREMENT' && (
+                          <div className="bg-white border border-green-200 rounded-xl px-4 py-3 text-sm">
+                            <p className="font-heading font-bold text-gray-700 mb-2">Instructions de virement</p>
+                            <div className="space-y-1 text-gray-500 text-xs">
+                              <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Association Sportive Atlas Toubkal Asni</p>
+                              <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
+                              <p><span className="font-semibold text-gray-700">Motif :</span> Don ASATA — {reference}</p>
+                            </div>
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -281,74 +351,113 @@ export default function Don() {
 
                     <hr className="border-gray-100" />
 
-                    {/* Card */}
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center justify-between">
-                        <p className={lbl}>Paiement par carte</p>
-                        <div className="flex items-center gap-2 text-2xl text-gray-300">
-                          <i className="fab fa-cc-visa" />
-                          <i className="fab fa-cc-mastercard" />
-                          <i className="fab fa-cc-amex" />
+                    {/* Payment method toggle */}
+                    <div>
+                      <p className={lbl}>Méthode de paiement</p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {([
+                          { key: 'CARD',     icon: 'fas fa-credit-card', label: 'Carte bancaire' },
+                          { key: 'VIREMENT', icon: 'fas fa-university',  label: 'Virement' },
+                        ] as { key: PaymentMethod; icon: string; label: string }[]).map(m => (
+                          <button
+                            key={m.key}
+                            type="button"
+                            onClick={() => setMethod(m.key)}
+                            className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border-2 font-heading font-semibold text-sm transition-all ${
+                              method === m.key
+                                ? 'border-primary bg-primary-pale text-primary'
+                                : 'border-gray-200 text-gray-400 hover:border-primary/40'
+                            }`}
+                          >
+                            <i className={`${m.icon} text-base`} />
+                            {m.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Card fields */}
+                    {method === 'CARD' && (
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-center justify-between">
+                          <p className={lbl}>Détails de la carte</p>
+                          <div className="flex items-center gap-2 text-2xl text-gray-300">
+                            <i className="fab fa-cc-visa" />
+                            <i className="fab fa-cc-mastercard" />
+                            <i className="fab fa-cc-amex" />
+                          </div>
                         </div>
-                      </div>
 
-                      <div>
-                        <label className={lbl}>Nom sur la carte *</label>
-                        <input type="text" className={inp} placeholder="PRÉNOM NOM" value={form.cardName} onChange={set('cardName')} required autoComplete="cc-name" />
-                      </div>
-
-                      <div>
-                        <label className={lbl}>Numéro de carte *</label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            inputMode="numeric"
-                            className={`${inp} pr-12`}
-                            placeholder="0000 0000 0000 0000"
-                            value={form.cardNumber}
-                            onChange={handleCardNumber}
-                            required
-                            autoComplete="cc-number"
-                            maxLength={19}
-                          />
-                          <i className={`${cardIcon()} absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 text-xl pointer-events-none`} />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className={lbl}>Expiration *</label>
-                          <input
-                            type="text"
-                            inputMode="numeric"
-                            className={inp}
-                            placeholder="MM/AA"
-                            value={form.expiry}
-                            onChange={handleExpiry}
-                            required
-                            autoComplete="cc-exp"
-                            maxLength={5}
-                          />
+                          <label className={lbl}>Nom sur la carte *</label>
+                          <input type="text" className={inp} placeholder="PRÉNOM NOM" value={form.cardName} onChange={set('cardName')} autoComplete="cc-name" />
                         </div>
+
                         <div>
-                          <label className={lbl}>CVV *</label>
+                          <label className={lbl}>Numéro de carte *</label>
                           <div className="relative">
                             <input
-                              type="password"
+                              type="text"
                               inputMode="numeric"
-                              className={`${inp} pr-10`}
-                              placeholder="•••"
-                              value={form.cvv}
-                              onChange={e => setForm(f => ({ ...f, cvv: e.target.value.replace(/\D/g,'').slice(0,4) }))}
-                              required
-                              autoComplete="cc-csc"
-                              maxLength={4}
+                              className={`${inp} pr-12`}
+                              placeholder="0000 0000 0000 0000"
+                              value={form.cardNumber}
+                              onChange={handleCardNumber}
+                              autoComplete="cc-number"
+                              maxLength={19}
                             />
-                            <i className="fas fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none" />
+                            <i className={`${cardIcon()} absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 text-xl pointer-events-none`} />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className={lbl}>Expiration *</label>
+                            <input
+                              type="text"
+                              inputMode="numeric"
+                              className={inp}
+                              placeholder="MM/AA"
+                              value={form.expiry}
+                              onChange={handleExpiry}
+                              autoComplete="cc-exp"
+                              maxLength={5}
+                            />
+                          </div>
+                          <div>
+                            <label className={lbl}>CVV *</label>
+                            <div className="relative">
+                              <input
+                                type="password"
+                                inputMode="numeric"
+                                className={`${inp} pr-10`}
+                                placeholder="•••"
+                                value={form.cvv}
+                                onChange={e => setForm(f => ({ ...f, cvv: e.target.value.replace(/\D/g,'').slice(0,4) }))}
+                                autoComplete="cc-csc"
+                                maxLength={4}
+                              />
+                              <i className="fas fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none" />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* Virement info */}
+                    {method === 'VIREMENT' && (
+                      <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-4 text-sm">
+                        <div className="flex items-center gap-2 mb-3">
+                          <i className="fas fa-info-circle text-primary" />
+                          <span className="font-heading font-bold text-primary-dark">Instructions de virement</span>
+                        </div>
+                        <div className="space-y-1.5 text-gray-500 text-xs">
+                          <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Asso. Sportive Atlas Toubkal Asni</p>
+                          <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
+                          <p className="mt-2 text-primary/70">Une référence unique vous sera transmise après soumission à indiquer dans le motif du virement.</p>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Submit */}
                     <button
