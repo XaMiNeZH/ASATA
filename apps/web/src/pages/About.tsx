@@ -45,7 +45,7 @@ export default function About() {
         title="À Propos de l'ASATA"
         subtitle="Fondée en 2010 à Asni, au cœur du Haut Atlas marocain"
         image={ABOUT_HERO_IMAGE}
-        imagePosition="top"
+        imagePosition="center"
         breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'À Propos' }]}
       />
 
