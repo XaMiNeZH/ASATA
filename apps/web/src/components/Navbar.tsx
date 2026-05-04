@@ -37,21 +37,12 @@ export default function Navbar() {
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to)
 
-  const navBase = scrolled
-    ? 'bg-white/95 backdrop-blur-md shadow-blue-sm border-b border-primary-pale'
-    : 'bg-transparent'
-
-  const linkColor = (to: string) =>
-    scrolled
-      ? isActive(to)
-        ? 'text-primary bg-primary-pale'
-        : 'text-gray-800 hover:text-primary hover:bg-primary-pale'
-      : isActive(to)
-        ? 'text-white bg-white/20'
-        : 'text-white/90 hover:text-white hover:bg-white/15'
-
   return (
-    <nav className={`fixed top-0 inset-x-0 z-50 h-[76px] transition-all duration-300 ${navBase}`}>
+    <nav
+      className={`fixed top-0 inset-x-0 z-50 h-[76px] bg-white/95 backdrop-blur-md border-b transition-all duration-300 ${
+        scrolled ? 'shadow-blue-sm border-primary-pale' : 'border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between h-full">
 
         {/* Brand */}
@@ -59,15 +50,13 @@ export default function Navbar() {
           <img
             src={LOGO}
             alt="Logo ASATA"
-            className={`w-12 h-12 rounded-full object-contain border-2 transition-all duration-300 ${
-              scrolled ? 'border-primary-pale' : 'border-white/60'
-            }`}
+            className="w-12 h-12 rounded-full object-contain border-2 border-primary-pale"
           />
           <div className="flex flex-col leading-none">
-            <span className={`font-heading font-extrabold text-xl tracking-wide transition-colors duration-300 ${scrolled ? 'text-primary' : 'text-white'}`}>
+            <span className="font-heading font-extrabold text-xl tracking-wide text-primary">
               ASATA
             </span>
-            <span className={`text-[11px] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-gray-400' : 'text-white/70'}`}>
+            <span className="text-[11px] font-medium tracking-wide text-gray-400">
               Atlas Toubkal Asni
             </span>
           </div>
@@ -79,7 +68,11 @@ export default function Navbar() {
             <li key={to}>
               <Link
                 to={to}
-                className={`font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 ${linkColor(to)}`}
+                className={`font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 ${
+                  isActive(to)
+                    ? 'text-primary bg-primary-pale'
+                    : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
+                }`}
               >
                 {label}
               </Link>
@@ -88,9 +81,7 @@ export default function Navbar() {
 
           {/* Clubs dropdown */}
           <li className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button className={`font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-1 ${
-              scrolled ? 'text-gray-800 hover:text-primary hover:bg-primary-pale' : 'text-white/90 hover:text-white hover:bg-white/15'
-            }`}>
+            <button className="font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-primary-ghost">
               Nos Clubs <i className={`fas fa-chevron-down text-[10px] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             <AnimatePresence>
@@ -121,11 +112,7 @@ export default function Navbar() {
           <li>
             <Link
               to="/don"
-              className={`font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 transition-all duration-200 ${
-                scrolled
-                  ? 'bg-primary text-white hover:bg-primary-dark shadow-blue-sm'
-                  : 'bg-white text-primary hover:bg-primary hover:text-white'
-              }`}
+              className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-primary text-white hover:bg-primary-dark hover:shadow-blue-sm transition-all duration-200"
             >
               <i className="fas fa-hand-holding-heart mr-1.5" />Faire un Don
             </Link>
@@ -133,11 +120,7 @@ export default function Navbar() {
           <li>
             <Link
               to="/contact"
-              className={`font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 transition-all duration-200 ${
-                scrolled
-                  ? 'bg-white text-primary border border-primary-pale hover:bg-primary-pale'
-                  : 'bg-white/20 text-white hover:bg-white/30'
-              }`}
+              className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-white text-primary border border-primary-pale hover:bg-primary-pale transition-all duration-200"
             >
               Contact
             </Link>
@@ -153,7 +136,7 @@ export default function Navbar() {
           {[0, 1, 2].map(i => (
             <span
               key={i}
-              className={`block h-0.5 w-6 rounded transition-all duration-300 ${scrolled ? 'bg-gray-800' : 'bg-white'} ${
+              className={`block h-0.5 w-6 rounded bg-gray-800 transition-all duration-300 ${
                 menuOpen
                   ? i === 0 ? 'rotate-45 translate-y-[7px]'
                   : i === 1 ? 'opacity-0'
