@@ -1,135 +1,171 @@
-import { useState, useMemo } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition'
-import FadeIn from '../components/FadeIn'
 import { TEAM_PHOTOS, TRAINER_PHOTOS } from '../data/images'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-const presidentData = {
+const president = {
   name: 'M. Med BOUSERHAN',
-  role: 'Président du Comité Directeur',
-  since: 'Depuis 2008',
+  role: 'Président · Comité Directeur',
+  since: 2008,
+  photo: TEAM_PHOTOS.president,
+  quote:
+    "Notre mission dépasse le sport — nous formons une communauté qui porte les couleurs d'Asni et de l'Atlas, du sommet du Toubkal aux compétitions nationales.",
   bio: "À la tête de l'ASATA depuis sa fondation, M. Med BOUSERHAN a construit une association sportive solide, respectée au niveau régional et national. Son leadership a permis l'affiliation aux trois fédérations nationales et l'obtention de l'accréditation professionnelle officielle en 2024.",
-  highlights: [
-    { k: '16+', v: 'années à la tête' },
-    { k: '3',   v: 'fédérations affiliées' },
-    { k: '2024', v: 'accréditation officielle' },
-  ],
 }
 
 const vicePresidents = [
-  { rank: '01', photo: TEAM_PHOTOS.jamilaChenter,  name: 'Mme. Jamila CHENTER', role: '1ère Vice-Présidente', focus: 'Développement & Gouvernance' },
-  { rank: '02', photo: TEAM_PHOTOS.faridBouserhan, name: 'M. Farid BOUSERHAN',  role: '2ème Vice-Président',  focus: 'Sport & Performance' },
+  {
+    photo: TEAM_PHOTOS.jamilaChenter,
+    name: 'Mme. Jamila CHENTER',
+    short: 'Jamila CHENTER',
+    role: '1ère Vice-Présidente',
+    focus: 'Gouvernance & Développement',
+    rank: 'VP·01',
+  },
+  {
+    photo: TEAM_PHOTOS.faridBouserhan,
+    name: 'M. Farid BOUSERHAN',
+    short: 'Farid BOUSERHAN',
+    role: '2ème Vice-Président',
+    focus: 'Sport & Performance',
+    rank: 'VP·02',
+  },
 ]
 
 const bureau = [
-  { photo: TEAM_PHOTOS.abdEssamad,      name: 'M. Abd Essamad AIT BEL HAJ', role: 'Secrétaire Général',  group: 'Secrétariat' },
-  { photo: TEAM_PHOTOS.medAitChakart,   name: 'M. Med AIT CHAKART',          role: 'Secrétaire Adjoint',  group: 'Secrétariat' },
-  { photo: TEAM_PHOTOS.medAourik,       name: 'M. Med AOURIK',               role: 'Trésorier',           group: 'Trésorerie' },
-  { photo: TEAM_PHOTOS.noraAchebani,    name: 'Mlle. Nora ACHEBANI',         role: 'Trésorière Adjointe', group: 'Trésorerie' },
-  { photo: TEAM_PHOTOS.rachidBouserhan, name: 'M. Rachid BOUSERHAN',         role: 'Conseiller',          group: 'Conseil' },
-  { photo: TEAM_PHOTOS.medElAouad,      name: 'M. Med EL AOUAD',             role: 'Conseiller',          group: 'Conseil' },
-  { photo: TEAM_PHOTOS.azizAitBourhim,  name: 'M. Aziz AIT BOURHIM',         role: 'Conseiller',          group: 'Conseil' },
-  { photo: TEAM_PHOTOS.elmajidOussais,  name: 'M. Abd Elmajid OUSSAIS',      role: 'Conseiller',          group: 'Conseil' },
+  { photo: TEAM_PHOTOS.abdEssamad,      name: 'M. Abd Essamad AIT BEL HAJ', role: 'Secrétaire Général',  pole: 'Secrétariat' },
+  { photo: TEAM_PHOTOS.medAitChakart,   name: 'M. Med AIT CHAKART',          role: 'Secrétaire Adjoint',  pole: 'Secrétariat' },
+  { photo: TEAM_PHOTOS.medAourik,       name: 'M. Med AOURIK',               role: 'Trésorier',           pole: 'Trésorerie' },
+  { photo: TEAM_PHOTOS.noraAchebani,    name: 'Mlle. Nora ACHEBANI',         role: 'Trésorière Adjointe', pole: 'Trésorerie' },
+  { photo: TEAM_PHOTOS.rachidBouserhan, name: 'M. Rachid BOUSERHAN',         role: 'Conseiller',          pole: 'Conseil' },
+  { photo: TEAM_PHOTOS.medElAouad,      name: 'M. Med EL AOUAD',             role: 'Conseiller',          pole: 'Conseil' },
+  { photo: TEAM_PHOTOS.azizAitBourhim,  name: 'M. Aziz AIT BOURHIM',         role: 'Conseiller',          pole: 'Conseil' },
+  { photo: TEAM_PHOTOS.elmajidOussais,  name: 'M. Abd Elmajid OUSSAIS',      role: 'Conseiller',          pole: 'Conseil' },
 ]
 
-const skiTeam = [
-  { photo: TEAM_PHOTOS.faridBouserhan, name: 'M. Farid BOUSERHAN',   role: 'Président · Commission Technique · Porte-parole Média', lead: true },
-  { photo: TRAINER_PHOTOS.rachidChib,    name: 'M. Rachid CHIB',       role: 'Entraîneur',   lead: false },
-  { photo: TEAM_PHOTOS.noraAchebani,   name: 'Mlle. Nora ACHEBANI',  role: 'Conseillère',  lead: false },
-  { photo: null,                        name: 'Mme. Maryem EL QOTBI', role: 'Secrétaire',   lead: false },
-  { photo: TEAM_PHOTOS.medAourik,      name: 'M. Med AOURIK',        role: 'Trésorier',    lead: false },
-]
-
-const otherClubs = [
-  { name: 'Club de Football',   code: 'FC', count: '32 athlètes', note: 'Affilié FRMF', to: '/football' },
-  { name: "Club d'Athlétisme", code: 'AT', count: '18 athlètes', note: 'Affilié FRMA', to: '/athletisme' },
-]
-
-const staffGroups = [
+const sportClubs = [
   {
-    club: 'Club Ski & Sports de Montagne',
-    icon: 'fas fa-skiing',
+    id: 'ski',
+    code: 'SKI',
+    name: 'Ski & Sports de Montagne',
+    short: 'Ski',
     fed: 'FRMSSM',
-    color: 'from-primary-dark to-primary',
-    trainers: [
-      {
-        photo: TRAINER_PHOTOS.rachidChib,
-        name: 'M. Rachid CHIB',
-        role: 'Moniteur & Entraîneur',
-        highlights: [
-          '1ère place — Coupe du Trône Ski Alpin 2000',
-          'Championnats du Maroc 1998–2004',
-          'Moniteur ski à Oukaimeden depuis 2005',
-          'Guide montagne Haut Atlas',
-        ],
-      },
+    icon: 'fas fa-skiing',
+    accent: '#1565C0',
+    members: [
+      { photo: TEAM_PHOTOS.faridBouserhan, name: 'M. Farid BOUSERHAN',   role: 'Président · Commission Technique · Porte-parole' },
+      { photo: TRAINER_PHOTOS.rachidChib,    name: 'M. Rachid CHIB',       role: 'Entraîneur' },
+      { photo: TEAM_PHOTOS.noraAchebani,   name: 'Mlle. Nora ACHEBANI',  role: 'Conseillère' },
+      { photo: null,                        name: 'Mme. Maryem EL QOTBI', role: 'Secrétaire' },
+      { photo: TEAM_PHOTOS.medAourik,      name: 'M. Med AOURIK',        role: 'Trésorier' },
     ],
+    desc: 'Discipline historique de l\'ASATA depuis 2008.',
   },
   {
-    club: "Club d'Athlétisme",
-    icon: 'fas fa-running',
-    fed: 'FRMA',
-    color: 'from-primary to-primary-mid',
-    trainers: [
-      {
-        photo: TRAINER_PHOTOS.ahmedBiri,
-        name: 'M. Ahmed BIRI',
-        role: 'Entraîneur — Champion National',
-        highlights: [
-          '1ère place — Open African Masters, Tunis, 100m & 110m haies (2025)',
-          '1ère place — Champ. International, Shkodër (Albanie), 110m haies (2024 & 2025)',
-          '2ème place — Championnat National, Salé, 110m haies (2024)',
-          '1ère place — Champ. International, Shkodër, 200m (2024)',
-        ],
-      },
-    ],
-  },
-  {
-    club: 'Académie de Football Asni',
-    icon: 'fas fa-futbol',
+    id: 'football',
+    code: 'FC',
+    name: 'Club de Football',
+    short: 'Football',
     fed: 'FRMF',
-    color: 'from-primary-mid to-primary-light',
-    trainers: [
-      {
-        photo: TRAINER_PHOTOS.younesElMarkat,
-        name: 'M. Younes EL MARKAT',
-        role: 'Entraîneur — Toutes catégories (Garçons & Filles)',
-        highlights: [
-          'Ancien joueur de football',
-          "A propulsé l'équipe futsal ASATA en Super Ligue Marrakech-Safi 2024–2025",
-        ],
-      },
-      {
-        photo: TRAINER_PHOTOS.taherAitElBaraka,
-        name: 'M. Taher AIT EL BARAKA',
-        role: 'Entraîneur — U10 & U12',
-        highlights: [
-          'Licencié universitaire',
-          "Élément associatif actif sur le territoire d'El Haouz",
-          'Expérience dans plusieurs programmes gouvernementaux',
-        ],
-      },
-      {
-        photo: TRAINER_PHOTOS.essadiqAitBenAli,
-        name: 'M. Essadiq AIT BEN ALI',
-        role: 'Entraîneur mixte — U10, U12 & U16',
-        highlights: [
-          "Pilier fondateur du staff sportif ASATA",
-          "Actif depuis la création de l'association",
-          'Palmarès classé parmi les meilleurs coachs',
-        ],
-      },
-      {
-        photo: TRAINER_PHOTOS.soufianAzzaimi,
-        name: 'M. Soufian AZZAIMI',
-        role: 'Entraîneur — Équipe A Futsal',
-        highlights: [
-          'Super Ligue régionale Marrakech-Safi',
-        ],
-      },
+    icon: 'fas fa-futbol',
+    accent: '#0D47A1',
+    members: [],
+    desc: '32 athlètes formés sur les terrains régionaux.',
+  },
+  {
+    id: 'athletisme',
+    code: 'AT',
+    name: 'Club d\'Athlétisme',
+    short: 'Athlétisme',
+    fed: 'FRMA',
+    icon: 'fas fa-running',
+    accent: '#42A5F5',
+    members: [],
+    desc: '18 athlètes en piste et trail de montagne.',
+  },
+]
+
+const coaches = [
+  {
+    photo: TRAINER_PHOTOS.rachidChib,
+    name: 'M. Rachid CHIB',
+    role: 'Moniteur & Entraîneur Ski',
+    club: 'Ski',
+    fed: 'FRMSSM',
+    color: 'from-blue-700 to-blue-900',
+    highlights: [
+      '1ère place — Coupe du Trône Ski Alpin 2000',
+      'Championnats du Maroc 1998–2004',
+      'Moniteur ski à Oukaimeden depuis 2005',
+      'Guide montagne Haut Atlas',
+    ],
+  },
+  {
+    photo: TRAINER_PHOTOS.ahmedBiri,
+    name: 'M. Ahmed BIRI',
+    role: 'Entraîneur — Champion National',
+    club: 'Athlétisme',
+    fed: 'FRMA',
+    color: 'from-blue-500 to-blue-700',
+    highlights: [
+      '1ère place — Open African Masters, Tunis (2025)',
+      '1ère — Champ. International Shkodër, 110m haies (2024 & 2025)',
+      '2ème — Championnat National Salé, 110m haies (2024)',
+      '1ère — Champ. International Shkodër, 200m (2024)',
+    ],
+  },
+  {
+    photo: TRAINER_PHOTOS.younesElMarkat,
+    name: 'M. Younes EL MARKAT',
+    role: 'Entraîneur Football',
+    club: 'Football',
+    fed: 'FRMF',
+    color: 'from-blue-600 to-blue-800',
+    highlights: [
+      'Toutes catégories (Garçons & Filles)',
+      'Ancien joueur de football',
+      "Équipe futsal ASATA en Super Ligue Marrakech-Safi 2024–2025",
+    ],
+  },
+  {
+    photo: TRAINER_PHOTOS.taherAitElBaraka,
+    name: 'M. Taher AIT EL BARAKA',
+    role: 'Entraîneur U10 & U12',
+    club: 'Football',
+    fed: 'FRMF',
+    color: 'from-blue-600 to-blue-800',
+    highlights: [
+      'Licencié universitaire',
+      "Élément associatif actif — territoire d'El Haouz",
+      'Expérience dans plusieurs programmes gouvernementaux',
+    ],
+  },
+  {
+    photo: TRAINER_PHOTOS.essadiqAitBenAli,
+    name: 'M. Essadiq AIT BEN ALI',
+    role: 'Entraîneur U10, U12 & U16',
+    club: 'Football',
+    fed: 'FRMF',
+    color: 'from-blue-600 to-blue-800',
+    highlights: [
+      "Pilier fondateur du staff sportif ASATA",
+      "Actif depuis la création de l'association",
+      'Palmarès classé parmi les meilleurs coachs',
+    ],
+  },
+  {
+    photo: TRAINER_PHOTOS.soufianAzzaimi,
+    name: 'M. Soufian AZZAIMI',
+    role: 'Entraîneur Équipe A Futsal',
+    club: 'Football',
+    fed: 'FRMF',
+    color: 'from-blue-600 to-blue-800',
+    highlights: [
+      'Super Ligue régionale Marrakech-Safi',
+      'Encadrement de l\'équipe première',
     ],
   },
 ]
@@ -141,699 +177,721 @@ function getInitials(full: string): string {
   return ((parts[0]?.[0] ?? '') + (parts[parts.length - 1]?.[0] ?? '')).toUpperCase()
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-function MemberPhoto({ photo, name, size = 80, dark = false }: { photo: string | null; name: string; size?: number; dark?: boolean }) {
+function Avatar({ photo, name, size = 80, square = false, ring = false }: { photo: string | null; name: string; size?: number; square?: boolean; ring?: boolean }) {
+  const cls = `${square ? 'rounded-2xl' : 'rounded-full'} object-cover shrink-0 ${ring ? 'ring-2 ring-white/40' : ''}`
   if (photo) {
-    return (
-      <img
-        src={photo}
-        alt={name}
-        className="rounded-full object-cover shrink-0"
-        style={{ width: size, height: size }}
-      />
-    )
+    return <img src={photo} alt={name} className={cls} style={{ width: size, height: size }} />
   }
   return (
     <div
-      className={`rounded-full flex items-center justify-center font-heading font-black shrink-0 ${dark ? 'bg-primary-mid text-white' : 'bg-primary-pale text-primary'}`}
-      style={{ width: size, height: size, fontSize: size * 0.3 }}
+      className={`${square ? 'rounded-2xl' : 'rounded-full'} flex items-center justify-center font-heading font-black shrink-0 bg-primary-pale text-primary`}
+      style={{ width: size, height: size, fontSize: size * 0.32 }}
     >
       {getInitials(name)}
     </div>
   )
 }
 
-function SectionHead({ kicker, title, subtitle, num }: { kicker: string; title: string; subtitle?: string; num?: string }) {
-  return (
-    <div className="flex flex-col items-center text-center">
-      <div className="flex items-center gap-3">
-        <span className="h-px w-10 bg-primary/30" />
-        <span className="text-[11px] uppercase tracking-[0.28em] text-primary/60 font-heading font-semibold">
-          {kicker}{num ? ` · ${num}` : ''}
-        </span>
-        <span className="h-px w-10 bg-primary/30" />
-      </div>
-      <h2 className="font-heading font-black text-primary-dark text-2xl sm:text-4xl md:text-5xl mt-4 tracking-tight">{title}</h2>
-      {subtitle && <p className="text-gray-500 mt-3 max-w-xl leading-relaxed text-sm sm:text-base">{subtitle}</p>}
-      <div className="mt-5 flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-primary-light" />
-        <span className="w-12 h-0.5 bg-primary" />
-        <span className="w-2 h-2 rounded-full bg-primary-light" />
-      </div>
-    </div>
-  )
-}
+// ─── Main ────────────────────────────────────────────────────────────────────
 
-function Divider({ label }: { label?: string }) {
-  return (
-    <div className="my-10 md:my-20 flex items-center gap-5 max-w-7xl mx-auto px-5">
-      <span className="h-px flex-1 bg-primary-pale" />
-      <div className="flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-        <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-        <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-      </div>
-      {label && (
-        <span className="font-heading text-[11px] uppercase tracking-[0.3em] text-primary/40 px-2">{label}</span>
-      )}
-      <div className="flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-        <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-        <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-      </div>
-      <span className="h-px flex-1 bg-primary-pale" />
-    </div>
-  )
-}
-
-// ─── Main Page ────────────────────────────────────────────────────────────────
-
-type Trainer = typeof staffGroups[0]['trainers'][0]
+type Coach = typeof coaches[0]
 
 export default function Equipe() {
-  const [bioOpen, setBioOpen] = useState(false)
-  const [activeTrainer, setActiveTrainer] = useState<Trainer | null>(null)
+  const [activeCoach, setActiveCoach] = useState<Coach | null>(null)
+  const [activeClub, setActiveClub] = useState<string>('ski')
+  const [activePole, setActivePole] = useState<string>('Tous')
+  const heroRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 200])
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3])
 
-  const bureauGroups = useMemo(() => {
-    const map: Record<string, typeof bureau> = {}
-    bureau.forEach(b => { ;(map[b.group] = map[b.group] ?? []).push(b) })
-    return Object.entries(map)
+  // close modal on ESC
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setActiveCoach(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [])
+
+  const poles = ['Tous', 'Secrétariat', 'Trésorerie', 'Conseil']
+  const filteredBureau = activePole === 'Tous' ? bureau : bureau.filter(b => b.pole === activePole)
+  const club = sportClubs.find(c => c.id === activeClub) ?? sportClubs[0]
 
   return (
     <PageTransition>
 
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-[76px]">
-        {/* Background photo */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'url(/skiActivitiesPics/PHOTO-2026-04-07-12-10-30.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 40%',
-          }}
-        />
-        {/* Gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(120% 80% at 80% 20%, rgba(66,165,245,0.25) 0%, rgba(66,165,245,0) 60%), linear-gradient(180deg, rgba(25,118,210,0.88) 0%, rgba(21,101,192,0.87) 55%, rgba(13,71,161,0.94) 100%)',
-          }}
-        />
-        {/* dot noise */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 1.5px)',
-            backgroundSize: '22px 22px',
-          }}
-        />
-        {/* decorative rings */}
-        <div className="absolute -right-24 -bottom-24 w-[420px] h-[420px] rounded-full border border-white/10" />
-        <div className="absolute right-10 top-24 w-[180px] h-[180px] rounded-full border border-white/10" />
-        <div className="absolute left-1/2 bottom-8 w-px h-16 bg-white/25" />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── HERO — Editorial cover                                           ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section ref={heroRef} className="relative min-h-screen bg-[#0A1628] overflow-hidden pt-[76px]">
+        {/* Background image with parallax */}
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'url(/skiActivitiesPics/PHOTO-2026-04-07-12-10-30.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'grayscale(40%) brightness(0.45)',
+            }}
+          />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,22,40,0.6) 0%, rgba(13,71,161,0.7) 50%, rgba(10,22,40,0.95) 100%)' }} />
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 1.5px)', backgroundSize: '24px 24px' }} />
+        </motion.div>
 
-        <div className="max-w-7xl mx-auto px-5 pt-16 pb-24 relative">
-          {/* breadcrumb */}
-          <div className="text-white/70 text-sm flex items-center gap-2 mb-6">
-            <Link to="/" className="hover:text-white transition">Accueil</Link>
-            <span>›</span>
-            <span className="text-white">Notre Équipe</span>
-          </div>
-
-          {/* meta row */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="font-heading text-[11px] uppercase tracking-[0.25em] text-white/65 border border-white/25 rounded-full px-3 py-1">
-              Mandat 2024 — 2028
-            </span>
-            <span className="h-px w-10 bg-white/30" />
-            <span className="font-heading text-[11px] uppercase tracking-[0.25em] text-white/65">15 Membres</span>
-          </div>
-
-          <h1
-            className="font-heading font-black text-white leading-[0.95] text-4xl sm:text-5xl md:text-7xl"
-            style={{ textShadow: '0 4px 20px rgba(0,22,55,0.25)' }}
-          >
-            Comité<br />Directeur
-          </h1>
-          <p className="mt-4 max-w-xl text-white/80 text-base sm:text-lg leading-relaxed">
-            Les femmes et hommes qui dirigent et font vivre l'ASATA — de la haute montagne aux pistes, terrains et stades.
-          </p>
-
-          {/* anchor pills */}
-          <div className="mt-10 flex flex-wrap gap-2">
-            {[
-              ['Présidence', '#presidence'],
-              ['Vice-Présidence', '#vp'],
-              ['Bureau', '#bureau'],
-              ['Direction des Clubs', '#clubs'],
-            ].map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                className="text-sm bg-white/10 hover:bg-white/20 ring-1 ring-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-white transition font-heading font-semibold"
-              >
-                {label}
-              </a>
-            ))}
+        {/* Top meta bar */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 pt-8 flex items-center justify-between text-white/50 font-mono text-[11px] tracking-widest uppercase">
+          <Link to="/" className="hover:text-white transition flex items-center gap-2">
+            <i className="fas fa-arrow-left text-[10px]" /> Accueil
+          </Link>
+          <div className="hidden md:flex items-center gap-4">
+            <span>Édition 2024–2028</span>
+            <span className="w-1 h-1 rounded-full bg-white/40" />
+            <span>15 Membres</span>
+            <span className="w-1 h-1 rounded-full bg-white/40" />
+            <span>Asni · Maroc</span>
           </div>
         </div>
 
-        {/* bottom wave */}
-        <svg className="block w-full" viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ height: 60, display: 'block' }}>
-          <path d="M0,60 L0,30 Q720,0 1440,30 L1440,60 Z" fill="#FAF9FD" />
-        </svg>
+        {/* Main hero content */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 pt-16 md:pt-24 pb-32">
+          {/* Year stamp */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
+            className="inline-flex items-center gap-3 mb-8"
+          >
+            <span className="font-mono text-[11px] tracking-[0.4em] text-blue-300 uppercase">№ 01 / Comité</span>
+            <span className="h-px w-16 bg-blue-400" />
+            <span className="font-mono text-[11px] tracking-[0.4em] text-white/40 uppercase">2024</span>
+          </motion.div>
+
+          {/* Massive title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
+            className="font-heading font-black text-white leading-[0.85] tracking-tighter"
+            style={{ fontSize: 'clamp(3.5rem, 12vw, 11rem)' }}
+          >
+            <span className="block">Le Comité.</span>
+            <span className="block text-blue-300/90 italic font-light">Les visages.</span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.4 }}
+            className="mt-10 max-w-2xl text-white/70 text-lg md:text-xl leading-relaxed font-light"
+          >
+            Quinze femmes et hommes — un président fondateur, deux vice-président·e·s, huit membres du bureau et quatre directions sportives — qui font vivre l'ASATA depuis le Haut Atlas marocain.
+          </motion.p>
+
+          {/* Stats row */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.6 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 max-w-3xl"
+          >
+            {[
+              { k: '15', v: 'Membres' },
+              { k: '03', v: 'Fédérations' },
+              { k: '16', v: 'Années' },
+              { k: '01', v: 'Mission' },
+            ].map((s, i) => (
+              <div key={i} className="border-l border-white/15 pl-4 md:pl-6">
+                <div className="font-heading font-black text-white text-3xl md:text-5xl tracking-tight">{s.k}</div>
+                <div className="font-mono text-[10px] text-blue-200/60 uppercase tracking-widest mt-2">{s.v}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/40"
+        >
+          <span className="font-mono text-[10px] tracking-[0.3em] uppercase">Défiler</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}
+            className="w-px h-10 bg-gradient-to-b from-white/40 to-transparent"
+          />
+        </motion.div>
       </section>
 
-      {/* ── President ── */}
-      <section id="presidence" className="bg-[#FAF9FD] pt-12 md:pt-20 pb-0">
-        <div className="max-w-7xl mx-auto px-5">
-          <SectionHead kicker="Présidence" num="01" title="Le Président" subtitle="Architecte et premier visage de l'ASATA depuis sa création." />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── PRESIDENT — Editorial split with quote                          ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-white py-24 md:py-32 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
-          <FadeIn className="mt-14">
-            <div className="relative">
-              {/* dot grid accents */}
-              <div
-                className="absolute -top-6 -right-6 w-44 h-44 hidden md:block opacity-60 pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(#E3F2FD 1.4px, transparent 1.4px)', backgroundSize: '18px 18px' }}
-              />
-              <div
-                className="absolute -bottom-6 -left-6 w-32 h-32 hidden md:block opacity-60 pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(#E3F2FD 1.4px, transparent 1.4px)', backgroundSize: '18px 18px' }}
-              />
+          {/* Section label */}
+          <div className="flex items-center gap-4 mb-16 md:mb-24">
+            <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">№ 01</span>
+            <span className="h-px flex-1 bg-primary/15" />
+            <span className="font-mono text-xs tracking-[0.3em] text-primary/50 uppercase">Présidence</span>
+          </div>
 
-              <div className="relative rounded-3xl overflow-hidden bg-white ring-1 ring-primary-pale shadow-blue-lg grid md:grid-cols-[380px_1fr]">
-                {/* Left — navy panel */}
-                <div className="relative p-6 sm:p-10 text-white overflow-hidden" style={{ background: 'linear-gradient(160deg, #1565C0 0%, #0D47A1 100%)' }}>
-                  <div
-                    className="absolute inset-0 opacity-20 pointer-events-none"
-                    style={{ backgroundImage: 'radial-gradient(circle at 30% 30%, rgba(66,165,245,0.7) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%)' }}
-                  />
-                  <div className="absolute top-5 right-5 font-heading text-[10px] tracking-[0.25em] uppercase text-white/50">N°01 / 15</div>
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-                  <div className="relative flex flex-col h-full">
-                    <div className="flex items-center gap-2">
-                      <i className="fas fa-crown text-primary-light text-sm" />
-                      <span className="font-heading text-[11px] uppercase tracking-[0.25em] text-white/75">Présidence</span>
-                    </div>
-                    <div className="mt-6 md:mt-auto md:pt-10 flex flex-row md:flex-col items-center md:items-start gap-5 md:gap-0">
-                      <div className="ring-4 ring-white/20 rounded-full shrink-0">
-                        <MemberPhoto photo={TEAM_PHOTOS.president} name={presidentData.name} size={120} dark />
-                      </div>
-                      <div className="md:mt-6 font-heading font-black text-xl sm:text-2xl leading-tight">
-                        {presidentData.name.replace(/^M\.\s/, '')}
-                      </div>
-                      <div className="text-primary-light font-heading font-semibold mt-1 text-sm uppercase tracking-wider">
-                        {presidentData.role}
-                      </div>
-                      <div className="mt-1 font-heading text-[11px] tracking-widest text-white/50 uppercase">
-                        {presidentData.since}
-                      </div>
-                    </div>
-                  </div>
+            {/* Left — Photo with frame */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-5 relative"
+            >
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-primary-dark">
+                <img src={president.photo} alt={president.name} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-transparent" />
+                {/* Bottom info on photo */}
+                <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 text-white">
+                  <div className="font-mono text-[10px] tracking-[0.3em] text-blue-300 uppercase mb-2">Depuis 2008</div>
+                  <div className="font-heading font-black text-2xl md:text-3xl leading-tight">{president.name.replace(/^M\.\s/, '')}</div>
                 </div>
-
-                {/* Right — content */}
-                <div className="p-6 sm:p-10 md:p-12 flex flex-col">
-                  <div className="flex items-center gap-2 text-primary/60">
-                    <span className="font-heading text-[11px] uppercase tracking-[0.25em]">Le Président</span>
-                    <span className="h-px flex-1 bg-primary/15 ml-2" />
-                  </div>
-                  <h3 className="font-heading font-black text-primary-dark text-3xl md:text-4xl mt-4 leading-tight">
-                    Au service de<br />l'ASATA depuis<br />sa fondation.
-                  </h3>
-                  <p className="text-gray-500 leading-relaxed mt-5 max-w-xl">{presidentData.bio}</p>
-
-                  {/* highlights */}
-                  <div className="grid grid-cols-3 gap-px bg-primary-pale rounded-2xl overflow-hidden mt-8 ring-1 ring-primary-pale">
-                    {presidentData.highlights.map((h, i) => (
-                      <div key={i} className="bg-white p-5">
-                        <div className="font-heading font-black text-primary-dark text-xl sm:text-3xl tracking-tight">{h.k}</div>
-                        <div className="text-gray-400 text-xs mt-1 uppercase tracking-wider">{h.v}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-8 flex items-center gap-3 flex-wrap">
-                    <button
-                      onClick={() => setBioOpen(o => !o)}
-                      className="inline-flex items-center gap-2 bg-primary text-white font-heading font-semibold px-5 py-3 rounded-full hover:bg-primary-dark transition"
-                    >
-                      {bioOpen ? 'Masquer le message' : 'Lire le message du président'}
-                      <i className={`fas fa-chevron-down text-xs transition-transform ${bioOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    <Link to="/contact" className="text-primary font-heading font-semibold text-sm hover:underline">
-                      Contacter →
-                    </Link>
-                  </div>
-
-                  {bioOpen && (
-                    <div className="mt-5 rounded-2xl bg-primary-ghost border-l-4 border-primary-light p-5 text-gray-600 italic leading-relaxed" style={{ animation: 'fadeUp .5s ease both' }}>
-                      « Notre mission dépasse le sport : nous formons une communauté qui porte les couleurs d'Asni et de l'Atlas, du sommet du Toubkal aux compétitions nationales. Chaque athlète, chaque bénévole, chaque membre du bureau écrit une page de cette histoire. »
-                    </div>
-                  )}
+                {/* Corner stamp */}
+                <div className="absolute top-6 right-6 w-16 h-16 rounded-full bg-white/95 grid place-items-center font-heading font-black text-primary-dark text-xl">
+                  01
                 </div>
               </div>
-            </div>
-          </FadeIn>
+              {/* Decorative offset frame */}
+              <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-primary/20 rounded-3xl -z-10" />
+            </motion.div>
+
+            {/* Right — Editorial text */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="lg:col-span-7 lg:pl-8"
+            >
+              <p className="font-heading text-primary uppercase tracking-[0.3em] text-xs mb-4">Le Président</p>
+              <h2 className="font-heading font-black text-primary-dark leading-[0.95] tracking-tight"
+                  style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>
+                À la tête depuis<br />le premier jour.
+              </h2>
+
+              {/* Quote block */}
+              <div className="mt-12 relative pl-6 md:pl-10 py-6 border-l-2 border-primary">
+                <i className="fas fa-quote-left absolute -left-3 top-0 text-primary text-2xl bg-white pr-2" />
+                <p className="font-heading italic text-gray-700 text-lg md:text-xl leading-relaxed">
+                  {president.quote}
+                </p>
+                <div className="mt-5 flex items-center gap-3 font-mono text-xs text-primary/70 uppercase tracking-widest">
+                  <span className="h-px w-10 bg-primary/40" />
+                  Med Bouserhan
+                </div>
+              </div>
+
+              {/* Bio paragraph */}
+              <p className="mt-10 text-gray-600 leading-relaxed text-base md:text-lg">{president.bio}</p>
+
+              {/* Stat strip */}
+              <div className="mt-12 grid grid-cols-3 divide-x divide-primary-pale border-t border-b border-primary-pale py-6">
+                {[
+                  { k: '16+', v: 'Années' },
+                  { k: '03', v: 'Fédérations' },
+                  { k: '2024', v: 'Accréditation' },
+                ].map((s, i) => (
+                  <div key={i} className={`px-4 ${i === 0 ? 'pr-4' : ''}`}>
+                    <div className="font-heading font-black text-primary-dark text-2xl md:text-4xl tracking-tight">{s.k}</div>
+                    <div className="font-mono text-[10px] text-primary/50 uppercase tracking-widest mt-1">{s.v}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      <Divider label="Vice-Présidence" />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── VICE-PRESIDENTS — Asymmetric duo                                ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[#F4F7FB] py-24 md:py-32 overflow-hidden">
+        {/* Decorative big number */}
+        <div className="absolute right-0 top-10 font-heading font-black text-primary/[0.04] leading-none pointer-events-none select-none"
+             style={{ fontSize: 'clamp(20rem, 40vw, 38rem)' }}>02</div>
 
-      {/* ── Vice-Presidents ── */}
-      <section id="vp" className="bg-[#FAF9FD]">
-        <div className="max-w-7xl mx-auto px-5">
-          <SectionHead kicker="Vice-Présidence" num="02–03" title="Les Vice-Président·e·s" subtitle="Deux mandats complémentaires : gouvernance et performance sportive." />
-          <div className="mt-14 grid md:grid-cols-2 gap-6">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">№ 02</span>
+            <span className="h-px flex-1 bg-primary/15" />
+            <span className="font-mono text-xs tracking-[0.3em] text-primary/50 uppercase">Vice-Présidence</span>
+          </div>
+
+          <h2 className="font-heading font-black text-primary-dark mb-12 md:mb-20 leading-[0.95] tracking-tight max-w-3xl"
+              style={{ fontSize: 'clamp(2.25rem, 5vw, 4rem)' }}>
+            Deux mandats, une<br /><span className="italic font-light text-primary">mission partagée.</span>
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
             {vicePresidents.map((vp, i) => (
-              <FadeIn key={vp.name} delay={i * 0.1}>
-                <article className="group relative bg-white rounded-2xl ring-1 ring-primary-pale p-6 lg:p-8 hover:-translate-y-1 hover:shadow-blue-md hover:ring-primary/20 transition-all duration-300">
-                  {/* rank badge */}
-                  <div className="absolute -top-3 left-6">
-                    <span className="bg-primary text-white font-heading font-bold text-xs px-3 py-1 rounded-full shadow-blue-sm">
-                      VP · {vp.rank}
-                    </span>
-                  </div>
-                  {/* member number */}
-                  <div className="absolute right-6 top-6 font-heading text-[10px] tracking-[0.2em] text-primary/25">0{i + 2}/15</div>
-
-                  <div className="flex items-center gap-4 lg:gap-6">
-                    <MemberPhoto photo={vp.photo} name={vp.name} size={80} />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-heading text-[10px] uppercase tracking-[0.25em] text-primary/55">{vp.role}</div>
-                      <h3 className="font-heading font-black text-primary-dark text-base sm:text-xl lg:text-2xl mt-1 leading-tight">{vp.name}</h3>
-                      <div className="mt-2 flex items-center gap-2 text-xs sm:text-sm text-gray-500 bg-primary-ghost border border-primary-pale rounded-full px-3 py-1 w-fit">
-                        <span className="w-2 h-2 rounded-full bg-primary-light shrink-0" />
-                        <span className="truncate">{vp.focus}</span>
-                      </div>
+              <motion.article
+                key={vp.name}
+                initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="group relative bg-white rounded-3xl overflow-hidden hover:shadow-2xl transition-shadow duration-500"
+              >
+                {/* Photo banner */}
+                <div className="relative aspect-[16/10] bg-primary-pale overflow-hidden">
+                  {vp.photo ? (
+                    <img src={vp.photo} alt={vp.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center font-heading font-black text-primary text-9xl">
+                      {getInitials(vp.name)}
                     </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-transparent to-transparent" />
+
+                  {/* Top tag */}
+                  <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                    <span className="font-mono text-[10px] tracking-widest text-primary-dark uppercase font-bold">{vp.rank}</span>
                   </div>
-                </article>
-              </FadeIn>
+
+                  {/* Corner number */}
+                  <div className="absolute top-5 right-5 font-heading font-black text-white/30 text-7xl leading-none">
+                    0{i + 2}
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="p-7 md:p-9">
+                  <p className="font-mono text-xs tracking-[0.25em] text-primary uppercase mb-2">{vp.role}</p>
+                  <h3 className="font-heading font-black text-primary-dark text-2xl md:text-3xl leading-tight">{vp.name}</h3>
+                  <div className="mt-5 flex items-center gap-3">
+                    <i className="fas fa-bullseye text-primary-light text-sm" />
+                    <span className="text-gray-600 text-sm md:text-base">{vp.focus}</span>
+                  </div>
+                  {/* Hover arrow */}
+                  <div className="mt-6 flex items-center gap-3 text-primary font-heading font-bold text-sm tracking-wider uppercase opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                    Direction
+                    <i className="fas fa-arrow-right" />
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      <Divider label="Bureau" />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── BUREAU — Bento grid with filters                                ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-white py-24 md:py-32 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
-      {/* ── Bureau ── */}
-      <section id="bureau" className="bg-[#FAF9FD]">
-        <div className="max-w-7xl mx-auto px-5">
-          <SectionHead kicker="Bureau" num="04–11" title="Le Bureau" subtitle="Huit membres répartis sur trois pôles — secrétariat, trésorerie et conseil." />
-
-          <div className="mt-14 space-y-10">
-            {bureauGroups.map(([group, members], gi) => {
-              let counter = 3 + members.reduce((acc, _, idx) => {
-                // calculate offset based on previous groups
-                return acc
-              }, 0)
-              // flat counter across groups
-              const startIdx = bureauGroups.slice(0, gi).reduce((s, [, ms]) => s + ms.length, 0)
-              return (
-                <FadeIn key={group} delay={gi * 0.1}>
-                  <div>
-                    <div className="flex items-baseline gap-3 mb-4">
-                      <span className="font-heading font-black text-primary-dark text-lg">{group}</span>
-                      <span className="font-heading text-[10px] uppercase tracking-[0.25em] text-primary/45">
-                        {members.length} membre{members.length > 1 ? 's' : ''}
-                      </span>
-                      <span className="h-px flex-1 bg-primary-pale" />
-                    </div>
-                    <ul className="rounded-2xl bg-white ring-1 ring-primary-pale overflow-hidden divide-y divide-primary-pale">
-                      {members.map((m, mi) => {
-                        const num = String(startIdx + mi + 4).padStart(2, '0')
-                        return (
-                          <li key={m.name} className="group relative grid grid-cols-[32px_44px_1fr] md:grid-cols-[64px_76px_1fr_auto] items-center gap-3 md:gap-6 px-3 md:px-6 py-3 md:py-4 hover:bg-primary-ghost transition-colors">
-                            {/* hover left accent */}
-                            <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r bg-primary-light opacity-0 group-hover:opacity-100 transition" />
-                            <span className="font-heading text-[10px] md:text-sm text-primary/35 group-hover:text-primary-light transition tracking-widest">{num}</span>
-                            <MemberPhoto photo={m.photo} name={m.name} size={44} />
-                            <div className="min-w-0">
-                              <div className="font-heading font-bold text-primary-dark text-sm truncate">{m.name}</div>
-                              <div className="text-xs text-gray-400 truncate">{m.role}</div>
-                            </div>
-                            <div className="hidden md:flex items-center gap-2">
-                              <span className="px-2.5 py-1 rounded-full bg-primary-ghost text-primary text-xs font-heading font-semibold">
-                                {m.role.split(' ')[0]}
-                              </span>
-                              <div className="opacity-0 group-hover:opacity-100 transition w-8 h-8 rounded-full bg-primary text-white grid place-items-center">
-                                <i className="fas fa-arrow-right text-xs" />
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                </FadeIn>
-              )
-            })}
+          <div className="flex items-center gap-4 mb-16">
+            <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">№ 03</span>
+            <span className="h-px flex-1 bg-primary/15" />
+            <span className="font-mono text-xs tracking-[0.3em] text-primary/50 uppercase">Le Bureau</span>
           </div>
+
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 md:mb-16">
+            <h2 className="font-heading font-black text-primary-dark leading-[0.95] tracking-tight max-w-3xl"
+                style={{ fontSize: 'clamp(2.25rem, 5vw, 4rem)' }}>
+              Huit piliers,<br /><span className="italic font-light text-primary">trois pôles.</span>
+            </h2>
+
+            {/* Filter pills */}
+            <div className="flex flex-wrap gap-2">
+              {poles.map(p => (
+                <button
+                  key={p}
+                  onClick={() => setActivePole(p)}
+                  className={`px-4 py-2 rounded-full font-mono text-[11px] tracking-widest uppercase transition-all ${
+                    activePole === p
+                      ? 'bg-primary-dark text-white shadow-blue-md'
+                      : 'bg-primary-ghost text-primary hover:bg-primary-pale'
+                  }`}
+                >
+                  {p}
+                  {p !== 'Tous' && <span className="ml-2 opacity-60">{bureau.filter(b => b.pole === p).length}</span>}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Bento grid */}
+          <motion.div
+            layout
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredBureau.map((m, i) => {
+                // Featured pattern: every 4th tile is "tall"
+                const isFeatured = i % 5 === 0
+                return (
+                  <motion.div
+                    key={m.name}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4, delay: i * 0.04 }}
+                    className={`group relative rounded-2xl overflow-hidden bg-primary-ghost ring-1 ring-primary-pale hover:ring-primary/40 transition-all hover:-translate-y-1 hover:shadow-blue-md cursor-pointer ${
+                      isFeatured ? 'md:row-span-2' : ''
+                    }`}
+                  >
+                    <div className={`relative ${isFeatured ? 'aspect-[3/4] md:aspect-[3/5]' : 'aspect-square'} bg-primary-pale`}>
+                      {m.photo ? (
+                        <img src={m.photo} alt={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center font-heading font-black text-primary text-5xl">
+                          {getInitials(m.name)}
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/30 to-transparent" />
+
+                      {/* Pole badge */}
+                      <div className="absolute top-3 left-3">
+                        <span className="bg-white/95 backdrop-blur font-mono text-[9px] tracking-widest uppercase font-bold text-primary-dark px-2 py-1 rounded-full">
+                          {m.pole}
+                        </span>
+                      </div>
+
+                      {/* Number */}
+                      <div className="absolute top-3 right-3 font-heading font-black text-white/40 text-2xl leading-none">
+                        {String(i + 4).padStart(2, '0')}
+                      </div>
+
+                      {/* Bottom info */}
+                      <div className="absolute bottom-0 inset-x-0 p-4 text-white">
+                        <h4 className="font-heading font-bold text-sm md:text-base leading-tight">{m.name.replace(/^(M\.|Mme\.|Mlle\.)\s/, '')}</h4>
+                        <p className="font-mono text-[10px] tracking-wider text-blue-200 uppercase mt-1">{m.role}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── Marquee strip ── */}
-      <div className="bg-primary-dark text-white py-4 overflow-hidden mt-20">
-        <div
-          className="flex whitespace-nowrap"
-          style={{ animation: 'marquee 40s linear infinite', width: 'max-content' }}
-        >
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── MARQUEE                                                          ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <div className="bg-primary-dark text-white py-6 overflow-hidden">
+        <div className="flex whitespace-nowrap" style={{ animation: 'marquee 50s linear infinite', width: 'max-content' }}>
           {[...Array(3)].flatMap((_, r) =>
-            ['Ski', 'Football', 'Athlétisme', 'Toubkal', '15 Membres', 'Mandat 2024–2028', 'Asni · Maroc'].map((it, i) => (
-              <span key={`${r}-${i}`} className="flex items-center gap-6 mx-6 font-heading font-black text-2xl tracking-tight">
-                <span>{it}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-primary-light inline-block" />
+            ['Comité Directeur', '★', 'Mandat 2024–2028', '★', 'Asni · Atlas Toubkal', '★', '15 Membres', '★', 'Ski · Football · Athlétisme', '★'].map((it, i) => (
+              <span key={`${r}-${i}`} className={`mx-6 font-heading font-black tracking-tight ${it === '★' ? 'text-blue-300 text-2xl' : 'text-3xl md:text-4xl'}`}>
+                {it}
               </span>
             ))
           )}
         </div>
       </div>
 
-      {/* ── Club direction ── */}
-      <section id="clubs" className="bg-[#FAF9FD] py-12 md:py-20">
-        <div className="max-w-7xl mx-auto px-5">
-          <SectionHead kicker="Direction des Clubs" num="12–15" title="Nos Équipes Sportives" subtitle="Trois clubs, une seule famille — chacun avec sa direction dédiée." />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── SPORT CLUBS — Tabbed showcase                                   ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[#F4F7FB] py-24 md:py-32 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
-          {/* Ski club */}
-          <div className="mt-14 grid lg:grid-cols-[1fr_340px] gap-10">
-            <FadeIn>
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary text-white grid place-items-center">
-                      <i className="fas fa-skiing text-sm" />
-                    </div>
-                    <div>
-                      <div className="font-heading font-black text-primary-dark text-2xl">Club de Ski</div>
-                      <div className="font-heading text-[11px] uppercase tracking-[0.22em] text-primary/45">5 membres · Affilié FRMSSM</div>
-                    </div>
-                  </div>
-                  <span className="hidden md:inline-flex items-center gap-2 text-xs text-primary bg-primary-pale px-3 py-1 rounded-full font-heading font-semibold">
-                    Discipline phare
-                  </span>
-                </div>
+          <div className="flex items-center gap-4 mb-16">
+            <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">№ 04</span>
+            <span className="h-px flex-1 bg-primary/15" />
+            <span className="font-mono text-xs tracking-[0.3em] text-primary/50 uppercase">Direction des Clubs</span>
+          </div>
 
-                {/* Timeline list */}
+          <h2 className="font-heading font-black text-primary-dark mb-12 leading-[0.95] tracking-tight max-w-3xl"
+              style={{ fontSize: 'clamp(2.25rem, 5vw, 4rem)' }}>
+            Trois clubs,<br /><span className="italic font-light text-primary">trois familles.</span>
+          </h2>
+
+          {/* Tabs */}
+          <div className="flex flex-wrap gap-2 md:gap-3 mb-10">
+            {sportClubs.map(c => (
+              <button
+                key={c.id}
+                onClick={() => setActiveClub(c.id)}
+                className={`group inline-flex items-center gap-3 px-5 py-3 rounded-full font-heading font-bold tracking-wide transition-all ${
+                  activeClub === c.id
+                    ? 'bg-primary-dark text-white shadow-blue-lg'
+                    : 'bg-white ring-1 ring-primary-pale text-primary-dark hover:ring-primary'
+                }`}
+              >
+                <i className={`${c.icon} text-sm`} />
+                <span>{c.short}</span>
+                <span className={`font-mono text-[10px] tracking-widest ${activeClub === c.id ? 'text-blue-300' : 'text-primary/40'}`}>{c.fed}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Active club content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeClub}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="grid lg:grid-cols-12 gap-8"
+            >
+              {/* Club banner */}
+              <div className="lg:col-span-4 relative rounded-3xl p-8 md:p-10 text-white overflow-hidden min-h-[300px] flex flex-col justify-between"
+                   style={{ background: `linear-gradient(160deg, ${club.accent} 0%, #0A1628 100%)` }}>
+                <div className="absolute -right-10 -bottom-10 font-heading font-black text-white/8 leading-none pointer-events-none select-none"
+                     style={{ fontSize: '14rem' }}>{club.code}</div>
                 <div className="relative">
-                  <div
-                    className="absolute left-[27px] md:left-[33px] top-2 bottom-2 w-px"
-                    style={{ background: 'linear-gradient(to bottom, #42A5F5, #1565C0, transparent)' }}
-                  />
-                  <ol className="space-y-4 relative">
-                    {skiTeam.map((m, i) => (
-                      <li key={m.name} className="relative grid grid-cols-[56px_1fr] md:grid-cols-[66px_1fr] gap-4 items-stretch">
-                        {/* node */}
-                        <div className="flex flex-col items-center pt-3">
-                          <div className={`grid place-items-center rounded-full font-heading font-black text-sm ${m.lead ? 'bg-primary text-white w-14 h-14 ring-4 ring-primary-pale' : 'bg-white text-primary ring-1 ring-primary-pale w-12 h-12'}`}>
-                            {String(i + 1).padStart(2, '0')}
-                            {m.lead && <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-primary-light ring-2 ring-white" />}
-                          </div>
-                        </div>
-
-                        {/* card */}
-                        <div className={`relative rounded-2xl p-3 sm:p-5 ring-1 transition-all ${m.lead ? 'bg-primary text-white ring-primary shadow-blue-md' : 'bg-white ring-primary-pale hover:ring-primary/20 hover:shadow-blue-sm'}`}>
-                          <div className="flex items-center gap-3 sm:gap-4">
-                            <MemberPhoto photo={m.photo} name={m.name} size={m.lead ? 52 : 44} dark={m.lead} />
-                            <div className="min-w-0 flex-1">
-                              <div className={`font-heading font-black leading-tight ${m.lead ? 'text-white text-sm sm:text-base' : 'text-primary-dark text-xs sm:text-sm'}`}>{m.name}</div>
-                              <div className={`text-xs mt-0.5 leading-snug ${m.lead ? 'text-primary-light' : 'text-gray-400'}`}>{m.role}</div>
-                            </div>
-                            {m.lead && (
-                              <div className="hidden md:flex flex-col items-end shrink-0">
-                                <span className="font-heading text-[10px] uppercase tracking-[0.25em] text-white/55">Direction</span>
-                                <span className="font-heading font-black text-2xl">SKI</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
+                  <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur grid place-items-center text-2xl mb-6">
+                    <i className={club.icon} />
+                  </div>
+                  <p className="font-mono text-xs tracking-[0.3em] text-blue-200 uppercase mb-2">Affilié {club.fed}</p>
+                  <h3 className="font-heading font-black text-3xl md:text-4xl leading-tight">{club.name}</h3>
+                </div>
+                <div className="relative mt-8 pt-6 border-t border-white/15">
+                  <p className="text-white/70 text-sm leading-relaxed">{club.desc}</p>
+                  <Link
+                    to={`/${club.id}`}
+                    className="mt-5 inline-flex items-center gap-2 text-white font-heading font-bold text-sm hover:gap-3 transition-all"
+                  >
+                    Découvrir le club <i className="fas fa-arrow-right text-xs" />
+                  </Link>
                 </div>
               </div>
-            </FadeIn>
 
-            {/* Side card */}
-            <FadeIn delay={0.15}>
-              <aside className="bg-white rounded-2xl ring-1 ring-primary-pale p-7 self-start sticky top-24 shadow-blue-sm">
-                <span className="font-heading text-[10px] uppercase tracking-[0.25em] text-primary/50">À propos</span>
-                <h4 className="font-heading font-black text-primary-dark text-xl mt-2 leading-tight">Une équipe née sur les pistes du Toubkal.</h4>
-                <p className="text-gray-500 text-sm leading-relaxed mt-4">
-                  Le club de ski porte la première discipline historique de l'ASATA. Notre équipe accompagne les athlètes du club-école aux compétitions nationales.
-                </p>
-                <div className="mt-5 space-y-3 text-sm">
-                  {[
-                    ['Fondation', '2008'],
-                    ['Athlètes actifs', '24'],
-                    ['Saison', 'Déc. — Avr.'],
-                  ].map(([label, val]) => (
-                    <div key={label} className="flex items-center justify-between border-b border-primary-pale pb-2 last:border-0">
-                      <span className="text-gray-400">{label}</span>
-                      <span className="font-heading font-bold text-primary-dark">{val}</span>
+              {/* Members list */}
+              <div className="lg:col-span-8">
+                {club.members.length > 0 ? (
+                  <div className="bg-white rounded-3xl ring-1 ring-primary-pale overflow-hidden">
+                    <div className="px-6 md:px-8 py-5 border-b border-primary-pale flex items-center justify-between">
+                      <span className="font-heading font-black text-primary-dark">Direction du club</span>
+                      <span className="font-mono text-[10px] tracking-widest text-primary/40 uppercase">{club.members.length} Membres</span>
                     </div>
-                  ))}
-                </div>
-                <Link to="/ski" className="mt-5 inline-flex items-center gap-2 text-primary font-heading font-semibold text-sm hover:gap-3 transition-all">
-                  Voir le club <i className="fas fa-arrow-right text-xs" />
-                </Link>
-              </aside>
-            </FadeIn>
-          </div>
-
-          {/* Other clubs */}
-          <div className="mt-16">
-            <div className="flex items-baseline gap-3 mb-5">
-              <span className="font-heading font-black text-primary-dark text-lg">Autres clubs affiliés</span>
-              <span className="h-px flex-1 bg-primary-pale" />
-            </div>
-            <div className="grid md:grid-cols-2 gap-5">
-              {otherClubs.map(c => (
-                <FadeIn key={c.name}>
-                  <div className="group relative bg-white rounded-2xl ring-1 ring-primary-pale p-6 hover:-translate-y-1 hover:shadow-blue-md hover:ring-primary/20 transition-all duration-300 overflow-hidden">
-                    <div className="absolute -right-6 -top-6 w-40 h-40 rounded-full bg-primary-ghost" />
-                    <div className="absolute right-6 top-6 font-heading font-black text-primary/8 text-7xl tracking-tight pointer-events-none select-none">{c.code}</div>
-                    <div className="relative">
-                      <span className="font-heading text-[10px] uppercase tracking-[0.25em] text-primary/50">Club affilié</span>
-                      <h4 className="font-heading font-black text-primary-dark text-2xl mt-1">{c.name}</h4>
-                      <div className="mt-4 flex items-center gap-3 text-sm">
-                        <span className="px-3 py-1 rounded-full bg-primary-pale text-primary font-heading font-semibold">{c.count}</span>
-                        <span className="text-gray-400">{c.note}</span>
-                      </div>
-                      <Link to={c.to} className="mt-5 inline-flex items-center gap-2 text-primary font-heading font-semibold text-sm group-hover:gap-3 transition-all">
-                        Découvrir le club <i className="fas fa-arrow-right text-xs" />
-                      </Link>
-                    </div>
+                    <ul>
+                      {club.members.map((m, mi) => (
+                        <li key={m.name} className="group grid grid-cols-[44px_56px_1fr_auto] md:grid-cols-[64px_72px_1fr_auto] items-center gap-3 md:gap-5 px-4 md:px-8 py-4 hover:bg-primary-ghost transition-colors border-b border-primary-pale last:border-0">
+                          <span className="font-mono text-xs text-primary/35 tracking-widest">{String(mi + 1).padStart(2, '0')}</span>
+                          <Avatar photo={m.photo} name={m.name} size={48} square />
+                          <div className="min-w-0">
+                            <div className="font-heading font-bold text-primary-dark text-sm md:text-base truncate">{m.name}</div>
+                            <div className="text-xs md:text-sm text-gray-500 truncate">{m.role}</div>
+                          </div>
+                          <div className="hidden md:flex w-8 h-8 rounded-full bg-primary-ghost grid place-items-center text-primary/40 group-hover:bg-primary group-hover:text-white transition-all">
+                            <i className="fas fa-arrow-right text-xs" />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
+                ) : (
+                  <div className="bg-white rounded-3xl ring-1 ring-primary-pale p-10 md:p-14 text-center">
+                    <i className={`${club.icon} text-primary/30 text-5xl mb-5`} />
+                    <p className="font-heading font-black text-primary-dark text-xl md:text-2xl mb-2">Direction en cours de constitution</p>
+                    <p className="text-gray-500 text-sm md:text-base">L'équipe dirigeante du {club.short.toLowerCase()} est en cours de formation.</p>
+                    <Link to={`/${club.id}`} className="mt-6 inline-flex items-center gap-2 text-primary font-heading font-bold text-sm hover:gap-3 transition-all">
+                      Voir le club <i className="fas fa-arrow-right text-xs" />
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
-      {/* ── Staff Sportif ── */}
-      <section className="bg-primary-ghost py-12 md:py-20">
-        <div className="max-w-7xl mx-auto px-5">
-          <SectionHead
-            kicker="Staff Technique"
-            title="Nos Entraîneurs"
-            subtitle="Des professionnels passionnés qui encadrent nos athlètes au quotidien."
-          />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── COACHES — Trading-card grid                                     ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-white py-24 md:py-32 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
-          <div className="mt-14 space-y-16">
-            {staffGroups.map((group, gi) => (
-              <FadeIn key={group.club} delay={gi * 0.1}>
-                {/* Club header */}
-                <div className="flex items-center gap-3 mb-7">
-                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${group.color} text-white flex items-center justify-center text-lg shrink-0`}>
-                    <i className={group.icon} />
+          <div className="flex items-center gap-4 mb-16">
+            <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">№ 05</span>
+            <span className="h-px flex-1 bg-primary/15" />
+            <span className="font-mono text-xs tracking-[0.3em] text-primary/50 uppercase">Staff Technique</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14">
+            <h2 className="font-heading font-black text-primary-dark leading-[0.95] tracking-tight max-w-3xl"
+                style={{ fontSize: 'clamp(2.25rem, 5vw, 4rem)' }}>
+              Les <span className="italic font-light text-primary">entraîneurs.</span>
+            </h2>
+            <p className="text-gray-500 max-w-md leading-relaxed">
+              Cliquez sur une carte pour découvrir le palmarès et l'expérience de chaque entraîneur.
+            </p>
+          </div>
+
+          {/* Coach grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {coaches.map((c, i) => (
+              <motion.button
+                key={c.name}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
+                onClick={() => setActiveCoach(c)}
+                className="group relative bg-white rounded-3xl ring-1 ring-primary-pale overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 text-left"
+              >
+                {/* Photo */}
+                <div className="relative aspect-[4/5] overflow-hidden bg-primary-pale">
+                  <img src={c.photo} alt={c.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${c.color} opacity-80 mix-blend-multiply`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/30 to-transparent" />
+
+                  {/* Top — Fed badge */}
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                    <span className="font-mono text-[10px] tracking-widest text-primary-dark uppercase font-bold">{c.fed}</span>
                   </div>
-                  <div>
-                    <h3 className="font-heading font-black text-primary-dark text-xl">{group.club}</h3>
-                    <span className="font-heading text-[11px] uppercase tracking-[0.22em] text-primary/45">{group.fed}</span>
+
+                  {/* Top right — Number */}
+                  <div className="absolute top-4 right-4 font-heading font-black text-white/30 text-5xl leading-none">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+
+                  {/* Bottom — name + role */}
+                  <div className="absolute bottom-0 inset-x-0 p-5 md:p-6 text-white">
+                    <p className="font-mono text-[10px] tracking-[0.25em] text-blue-200 uppercase mb-2">{c.club}</p>
+                    <h3 className="font-heading font-black text-xl md:text-2xl leading-tight">{c.name.replace(/^M\.\s/, '')}</h3>
+                    <p className="text-white/80 text-sm mt-2 leading-snug">{c.role}</p>
+                  </div>
+
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-primary-dark/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6 md:p-8">
+                    <p className="font-mono text-[10px] tracking-[0.3em] text-blue-300 uppercase mb-4">Aperçu palmarès</p>
+                    <ul className="space-y-2.5">
+                      {c.highlights.slice(0, 3).map((h, hi) => (
+                        <li key={hi} className="flex items-start gap-2.5 text-white/90 text-sm leading-relaxed">
+                          <i className="fas fa-trophy text-blue-300 text-xs mt-1.5 shrink-0" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-6 inline-flex items-center gap-2 text-white font-heading font-bold text-sm">
+                      Voir le profil complet <i className="fas fa-arrow-right text-xs" />
+                    </div>
                   </div>
                 </div>
-
-                {/* Trainer cards */}
-                <div className={`grid gap-5 ${group.trainers.length === 1 ? 'md:grid-cols-1 max-w-2xl' : group.trainers.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-2'}`}>
-                  {group.trainers.map((trainer, ti) => (
-                    <FadeIn key={trainer.name} delay={ti * 0.08}>
-                      <div
-                        className="group bg-white rounded-2xl ring-1 ring-primary-pale overflow-hidden hover:shadow-blue-md hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                        onClick={() => setActiveTrainer(trainer)}
-                      >
-                        {/* top strip */}
-                        <div className={`h-1.5 bg-gradient-to-r ${group.color}`} />
-                        <div className="p-4 sm:p-6 flex gap-4 sm:gap-5 items-start">
-                          {/* Photo */}
-                          <div className="shrink-0">
-                            <img
-                              src={trainer.photo}
-                              alt={trainer.name}
-                              className="w-16 h-16 sm:w-24 sm:h-24 rounded-xl object-cover shadow-blue-sm ring-2 ring-primary-pale"
-                            />
-                          </div>
-                          {/* Info */}
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-heading font-black text-primary-dark text-sm sm:text-base leading-tight">{trainer.name}</h4>
-                            <p className="text-primary font-heading font-semibold text-[10px] sm:text-xs uppercase tracking-wide mt-1 leading-snug">{trainer.role}</p>
-                            <ul className="mt-2 sm:mt-3 space-y-1 sm:space-y-1.5">
-                              {trainer.highlights.map((h, hi) => (
-                                <li key={hi} className="flex items-start gap-2 text-xs sm:text-sm text-gray-500">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0 mt-1" />
-                                  <span>{h}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            <div className="mt-4 inline-flex items-center gap-1.5 text-primary text-xs font-heading font-semibold opacity-0 group-hover:opacity-100 transition">
-                              Voir le profil <i className="fas fa-arrow-right text-[10px]" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </FadeIn>
-                  ))}
-                </div>
-              </FadeIn>
+              </motion.button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-[#FAF9FD] pb-20">
-        <div className="max-w-7xl mx-auto px-5">
-          <div className="relative rounded-3xl overflow-hidden text-white p-10 md:p-16" style={{ background: 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)' }}>
-            {/* deco glows */}
-            <div
-              className="absolute inset-0 opacity-30 pointer-events-none"
-              style={{ background: 'radial-gradient(60% 60% at 90% 20%, rgba(66,165,245,0.5) 0%, transparent 60%), radial-gradient(50% 60% at 10% 100%, rgba(66,165,245,0.25) 0%, transparent 60%)' }}
-            />
-            <div
-              className="absolute inset-y-0 right-0 w-1/2 opacity-10 pointer-events-none"
-              style={{ backgroundImage: 'radial-gradient(#D7E3FF 1.4px, transparent 1.4px)', backgroundSize: '18px 18px' }}
-            />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── CTA — Magazine outro                                            ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[#0A1628] text-white py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 opacity-30 pointer-events-none"
+             style={{ background: 'radial-gradient(60% 60% at 90% 30%, rgba(66,165,245,0.4) 0%, transparent 60%), radial-gradient(50% 60% at 10% 100%, rgba(13,71,161,0.3) 0%, transparent 60%)' }} />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
 
-            <div className="relative grid md:grid-cols-[1fr_auto] gap-10 items-end">
-              <div>
-                <span className="font-heading text-[11px] uppercase tracking-[0.28em] text-primary-light">Rejoignez l'aventure</span>
-                <h3 className="font-heading font-black text-4xl md:text-6xl mt-4 leading-[0.95]">
-                  Du Toubkal aux<br />terrains, l'équipe<br />vous attend.
-                </h3>
-                <p className="text-white/70 mt-5 max-w-lg leading-relaxed">
-                  Bénévoles, athlètes, partenaires — l'ASATA grandit avec vous. Découvrez comment vous engager auprès de notre comité.
-                </p>
-              </div>
-              <div className="flex flex-wrap md:flex-col gap-3">
-                <Link to="/contact" className="bg-white text-primary font-heading font-bold px-6 py-3.5 rounded-full inline-flex items-center gap-2 hover:bg-primary-pale transition">
-                  Devenir bénévole <i className="fas fa-arrow-right text-xs" />
-                </Link>
-                <Link to="/contact" className="bg-white/10 ring-1 ring-white/30 text-white font-heading font-bold px-6 py-3.5 rounded-full inline-flex items-center gap-2 hover:bg-white/20 transition">
-                  <i className="fas fa-envelope text-xs" /> Nous contacter
-                </Link>
-              </div>
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative">
+
+          <div className="flex items-center gap-4 mb-10">
+            <span className="font-mono text-xs tracking-[0.3em] text-blue-300 uppercase">— Fin</span>
+            <span className="h-px flex-1 bg-white/15" />
+            <span className="font-mono text-xs tracking-[0.3em] text-white/40 uppercase">Rejoignez l'aventure</span>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-10 items-end">
+            <div className="lg:col-span-8">
+              <h2 className="font-heading font-black leading-[0.9] tracking-tighter"
+                  style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)' }}>
+                Du Toubkal aux<br />
+                <span className="italic font-light text-blue-300">terrains</span> — l'équipe<br />
+                vous attend.
+              </h2>
+              <p className="mt-8 text-white/60 text-lg max-w-xl leading-relaxed">
+                Bénévoles, athlètes, partenaires — l'ASATA grandit avec vous. Découvrez comment vous engager auprès du comité directeur.
+              </p>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              <Link to="/contact" className="group inline-flex items-center justify-between bg-white text-primary-dark font-heading font-bold px-7 py-5 rounded-2xl hover:bg-blue-100 transition">
+                <span>Devenir bénévole</span>
+                <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link to="/don" className="group inline-flex items-center justify-between bg-white/5 ring-1 ring-white/20 text-white font-heading font-bold px-7 py-5 rounded-2xl hover:bg-white/10 transition">
+                <span>Soutenir l'ASATA</span>
+                <i className="fas fa-heart text-blue-300" />
+              </Link>
+              <Link to="/contact" className="group inline-flex items-center justify-between bg-transparent ring-1 ring-white/15 text-white/80 font-heading font-bold px-7 py-5 rounded-2xl hover:ring-white/40 hover:text-white transition">
+                <span>Nous contacter</span>
+                <i className="fas fa-envelope text-blue-300/70" />
+              </Link>
             </div>
           </div>
 
-          {/* footer strip */}
-          <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-300 font-heading uppercase tracking-[0.22em]">
+          {/* Footer strip */}
+          <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[10px] tracking-[0.3em] text-white/40 uppercase">
             <span>ASATA · Atlas Toubkal Asni</span>
             <span>Comité Directeur 2024 — 2028</span>
-            <span>Asni · Maroc</span>
+            <span>Asni · Maroc · 1 150 m</span>
           </div>
         </div>
       </section>
 
-      {/* ── Trainer Modal ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── COACH MODAL                                                      ── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
       <AnimatePresence>
-        {activeTrainer && (
+        {activeCoach && (
           <motion.div
-            key="trainer-modal-backdrop"
+            key="coach-modal"
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onClick={() => setActiveTrainer(null)}
+            onClick={() => setActiveCoach(null)}
           >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-primary-dark/85 backdrop-blur-md" />
 
-            {/* Card */}
             <motion.div
-              key="trainer-modal-card"
-              className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden"
+              className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden max-h-[90vh] overflow-y-auto"
               initial={{ opacity: 0, scale: 0.92, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 16 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               onClick={e => e.stopPropagation()}
             >
-              {/* Top gradient band */}
-              <div className="h-2 bg-gradient-to-r from-primary-dark via-primary to-primary-light" />
+              {/* Hero photo */}
+              <div className="relative aspect-[16/9] bg-primary-dark overflow-hidden">
+                <img src={activeCoach.photo} alt={activeCoach.name} className="w-full h-full object-cover" />
+                <div className={`absolute inset-0 bg-gradient-to-t ${activeCoach.color} opacity-70 mix-blend-multiply`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/50 to-transparent" />
 
-              {/* Close button */}
-              <button
-                onClick={() => setActiveTrainer(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition text-gray-500 hover:text-gray-800 z-10"
-                aria-label="Fermer"
-              >
-                <i className="fas fa-times text-sm" />
-              </button>
+                {/* Close */}
+                <button
+                  onClick={() => setActiveCoach(null)}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/95 hover:bg-white grid place-items-center text-primary-dark transition z-10"
+                  aria-label="Fermer"
+                >
+                  <i className="fas fa-times" />
+                </button>
 
-              {/* Photo + name header */}
-              <div className="px-5 sm:px-8 pt-6 sm:pt-8 pb-5 sm:pb-6 flex items-center gap-4 sm:gap-5">
-                <img
-                  src={activeTrainer.photo}
-                  alt={activeTrainer.name}
-                  className="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-primary-pale shadow-blue-sm shrink-0"
-                />
-                <div>
-                  <div className="font-heading text-[10px] uppercase tracking-[0.28em] text-primary/55 mb-1">
-                    Entraîneur ASATA
-                  </div>
-                  <h3 className="font-heading font-black text-primary-dark text-xl leading-tight">
-                    {activeTrainer.name}
-                  </h3>
-                  <p className="text-primary font-heading font-semibold text-xs uppercase tracking-wide mt-1.5">
-                    {activeTrainer.role}
-                  </p>
+                {/* Top tag */}
+                <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="font-mono text-[10px] tracking-widest text-primary-dark uppercase font-bold">{activeCoach.fed} · {activeCoach.club}</span>
+                </div>
+
+                {/* Bottom info */}
+                <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 text-white">
+                  <p className="font-mono text-[10px] tracking-[0.3em] text-blue-200 uppercase mb-2">Entraîneur ASATA</p>
+                  <h3 className="font-heading font-black text-3xl md:text-4xl leading-tight">{activeCoach.name}</h3>
+                  <p className="font-heading text-blue-200 font-semibold mt-1">{activeCoach.role}</p>
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="mx-5 sm:mx-8 h-px bg-primary-pale" />
-
-              {/* Highlights */}
-              <div className="px-5 sm:px-8 py-5 sm:py-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <i className="fas fa-trophy text-primary-light text-sm" />
-                  <span className="font-heading font-bold text-primary-dark text-sm uppercase tracking-wider">
-                    Palmarès & Expérience
-                  </span>
+              {/* Body */}
+              <div className="p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <i className="fas fa-trophy text-primary text-lg" />
+                  <span className="font-heading font-black text-primary-dark uppercase tracking-wider text-sm">Palmarès & Expérience</span>
+                  <span className="h-px flex-1 bg-primary-pale" />
                 </div>
+
                 <ul className="space-y-3">
-                  {activeTrainer.highlights.map((h, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed">
-                      <span className="w-5 h-5 rounded-full bg-primary-pale flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary-light" />
+                  {activeCoach.highlights.map((h, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-700 leading-relaxed">
+                      <span className="font-mono text-[10px] text-primary/50 mt-1.5 tracking-wider">
+                        {String(i + 1).padStart(2, '0')}
                       </span>
-                      {h}
+                      <span className="text-sm md:text-base">{h}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
 
-              {/* Footer */}
-              <div className="px-5 sm:px-8 pb-6 sm:pb-7">
-                <div className="rounded-2xl bg-primary-ghost border border-primary-pale px-5 py-4 flex items-center gap-3">
-                  <i className="fas fa-map-marker-alt text-primary-light" />
-                  <span className="text-sm text-gray-500">
-                    Entraîneur au sein de l'<span className="font-semibold text-primary">ASATA</span> — Asni, Haut Atlas
+                <div className="mt-8 rounded-2xl bg-primary-ghost border border-primary-pale p-4 flex items-center gap-3">
+                  <i className="fas fa-map-marker-alt text-primary" />
+                  <span className="text-sm text-gray-600">
+                    Entraîneur — <span className="font-bold text-primary-dark">ASATA Asni</span>, Haut Atlas
                   </span>
                 </div>
               </div>
