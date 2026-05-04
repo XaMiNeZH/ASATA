@@ -7,7 +7,7 @@ interface ButtonProps {
   onPress: () => void;
   isLoading?: boolean;
   disabled?: boolean;
-  variant: 'primary' | 'secondary' | 'danger' | 'dangerOutline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'danger' | 'dangerOutline' | 'ghost';
   size?: 'default' | 'small';
 }
 
@@ -16,7 +16,7 @@ export function Button({
   onPress,
   isLoading = false,
   disabled = false,
-  variant,
+  variant = 'primary',
   size = 'default',
 }: ButtonProps) {
   const isDisabled = disabled || isLoading;

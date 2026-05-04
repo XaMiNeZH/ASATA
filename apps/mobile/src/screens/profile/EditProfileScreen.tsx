@@ -28,6 +28,7 @@ export function EditProfileScreen() {
   const [email, setEmail] = useState(user?.email ?? '');
   const [telephone, setTelephone] = useState(user?.profil.telephone ?? '');
   const [adresse, setAdresse] = useState(user?.profil.adresse ?? '');
+  const [photo, setPhoto] = useState(user?.profil.photo);
   const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -44,9 +45,8 @@ export function EditProfileScreen() {
         allowsEditing: true,
         quality: 0.8,
       });
-      // photo state not used in UI since we show initials, but kept for API call
       if (!result.canceled) {
-        void result.assets[0].uri; // consumed below in saveProfile via closure
+        setPhoto(result.assets[0].uri);
       }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Sélection de photo impossible.');
@@ -61,6 +61,7 @@ export function EditProfileScreen() {
       const profil = await updateProfil(user.id, {
         telephone: telephone || undefined,
         adresse: adresse || undefined,
+        photo,
       });
       updateUser({ nom: `${firstName} ${lastName}`.trim() || user.nom, profil });
       navigation.goBack();

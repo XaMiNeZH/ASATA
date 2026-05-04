@@ -7,6 +7,7 @@ export const Colors = {
   primaryDark:  '#0D47A1',
   primaryPale:  '#E3F2FD',
   primaryGhost: '#F4F9FF',
+  onPrimaryContainer: '#6B7280',
   surface:      '#FFFFFF',
 
   // ── Text ────────────────────────────────────────────────

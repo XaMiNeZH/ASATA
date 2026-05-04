@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { ComponentProps } from 'react';
 import { Feather } from '@expo/vector-icons';
-import type { KeyboardTypeOptions } from 'react-native';
+import type { KeyboardTypeOptions, TextInputProps } from 'react-native';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
@@ -13,6 +13,7 @@ interface InputProps {
   error?: string;
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
+  autoCapitalize?: TextInputProps['autoCapitalize'];
   placeholder?: string;
   multiline?: boolean;
   leftIcon?: ComponentProps<typeof Feather>['name'];
@@ -29,6 +30,7 @@ export function Input({
   error,
   secureTextEntry = false,
   keyboardType = 'default',
+  autoCapitalize,
   placeholder,
   multiline = false,
   leftIcon,
@@ -66,6 +68,7 @@ export function Input({
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
+          autoCapitalize={autoCapitalize}
           placeholder={placeholder}
           placeholderTextColor={Colors.subtle}
           multiline={multiline}
