@@ -217,63 +217,58 @@ export default function Equipe() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      {/* PRESIDENT — HUGE feature card                                        */}
+      {/* PRESIDENT — Compact horizontal card                                  */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-white pb-24 md:pb-32">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative bg-white pb-20 md:pb-24">
+        <div className="max-w-5xl mx-auto px-6">
 
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-8">
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Présidence</span>
             <span className="h-px flex-1 bg-primary/15" />
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary/40">01 / 15</span>
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative grid lg:grid-cols-12 gap-8 items-center"
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-3xl shadow-blue-sm ring-1 ring-primary-pale overflow-hidden"
           >
-            {/* HUGE photo */}
-            <div className="lg:col-span-7 relative">
-              <div className="relative aspect-[4/5] lg:aspect-[5/6] rounded-3xl overflow-hidden shadow-blue-lg">
+            <div className="grid md:grid-cols-[280px_1fr]">
+              {/* Photo */}
+              <div className="relative h-72 md:h-auto bg-primary-pale overflow-hidden">
                 <img src={president.photo} alt={president.name} className="w-full h-full object-cover" />
-                {/* Top badge */}
-                <div className="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-4 py-2 rounded-full shadow-blue-sm">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="font-heading font-bold text-xs tracking-widest text-primary-dark uppercase">Président · Depuis 2008</span>
-                </div>
-                {/* Big number stamp */}
-                <div className="absolute top-6 right-6 w-20 h-20 rounded-full bg-white/95 backdrop-blur grid place-items-center shadow-blue-sm">
-                  <span className="font-heading font-black text-primary-dark text-3xl">01</span>
+                <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="font-heading font-bold text-[10px] tracking-widest text-primary-dark uppercase">Président · 01/15</span>
                 </div>
               </div>
-            </div>
-
-            {/* Right info */}
-            <div className="lg:col-span-5 lg:pl-6">
-              <h2 className="font-heading font-black text-primary-dark leading-[0.9] tracking-tight"
-                  style={{ fontSize: 'clamp(2.5rem, 4.5vw, 4rem)' }}>
-                {president.name.replace(/^M\.\s/, '')}
-              </h2>
-              <p className="text-primary font-heading font-bold text-sm md:text-base uppercase tracking-widest mt-3">
-                {president.role}
-              </p>
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed mt-6">
-                {president.bio}
-              </p>
-
-              {/* Big stat blocks */}
-              <div className="mt-8 grid grid-cols-3 gap-3">
-                {[
-                  { k: '16+', v: 'Années' },
-                  { k: '03', v: 'Fédérations' },
-                  { k: '2024', v: 'Accréditation' },
-                ].map((s, i) => (
-                  <div key={i} className="bg-primary-ghost border border-primary-pale rounded-2xl p-4 md:p-5">
-                    <div className="font-heading font-black text-primary-dark text-2xl md:text-3xl tracking-tight">{s.k}</div>
-                    <div className="font-heading font-bold text-[10px] md:text-xs text-primary/60 uppercase tracking-widest mt-1">{s.v}</div>
+              {/* Text */}
+              <div className="p-7 md:p-9 flex flex-col justify-center">
+                <h3 className="font-heading font-black text-primary-dark text-2xl md:text-3xl leading-tight">
+                  {president.name}
+                </h3>
+                <p className="text-primary font-heading font-bold text-xs md:text-sm uppercase tracking-widest mt-2">
+                  {president.role} · Depuis 2008
+                </p>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mt-4">
+                  {president.bio}
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-5 text-sm">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-heading font-black text-primary-dark text-2xl">16+</span>
+                    <span className="text-gray-500 text-xs uppercase tracking-wider">Années</span>
                   </div>
-                ))}
+                  <div className="h-6 w-px bg-primary-pale" />
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-heading font-black text-primary-dark text-2xl">03</span>
+                    <span className="text-gray-500 text-xs uppercase tracking-wider">Fédérations</span>
+                  </div>
+                  <div className="h-6 w-px bg-primary-pale" />
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-heading font-black text-primary-dark text-2xl">2024</span>
+                    <span className="text-gray-500 text-xs uppercase tracking-wider">Accréditation</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -281,57 +276,41 @@ export default function Equipe() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      {/* VICE-PRESIDENTS — Two large feature cards                            */}
+      {/* VICE-PRESIDENTS — Compact horizontal cards                           */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-primary-ghost py-24 md:py-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative bg-primary-ghost py-20 md:py-24">
+        <div className="max-w-5xl mx-auto px-6">
 
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-8">
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Vice-Présidence</span>
             <span className="h-px flex-1 bg-primary/15" />
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary/40">02 — 03 / 15</span>
           </div>
 
-          <h2 className="font-heading font-black text-primary-dark leading-[0.9] tracking-tight mb-12 max-w-3xl"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+          <h2 className="font-heading font-black text-primary-dark leading-tight tracking-tight mb-10 text-2xl md:text-4xl">
             Deux mandats, une mission partagée.
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-5">
             {vicePresidents.map((vp, i) => (
               <motion.article
                 key={vp.name}
-                initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="group bg-white rounded-3xl shadow-blue-sm overflow-hidden hover:shadow-blue-lg hover:-translate-y-1 transition-all duration-300"
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group bg-white rounded-2xl ring-1 ring-primary-pale overflow-hidden hover:shadow-blue-md hover:-translate-y-1 hover:ring-primary/30 transition-all duration-300"
               >
-                <div className="relative aspect-[4/5] bg-primary-pale overflow-hidden">
-                  <PhotoOrInitials photo={vp.photo} name={vp.name} className="w-full h-full group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/10 to-transparent" />
-
-                  <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3.5 py-1.5 rounded-full">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                    <span className="font-heading font-bold text-[10px] tracking-widest text-primary-dark uppercase">VP · 0{i + 2}</span>
+                <div className="grid grid-cols-[140px_1fr]">
+                  <div className="relative bg-primary-pale overflow-hidden">
+                    <PhotoOrInitials photo={vp.photo} name={vp.name} className="w-full h-full group-hover:scale-105 transition-transform duration-500" />
                   </div>
-
-                  <div className="absolute top-5 right-5 font-heading font-black text-white/40 text-7xl leading-none">
-                    0{i + 2}
-                  </div>
-
-                  {/* Big info on photo */}
-                  <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 text-white">
-                    <p className="font-heading font-bold text-[11px] tracking-[0.25em] uppercase text-blue-100 mb-2">{vp.role}</p>
-                    <h3 className="font-heading font-black text-2xl md:text-4xl leading-tight">{vp.name}</h3>
-                  </div>
-                </div>
-
-                <div className="p-6 md:p-8 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-primary-ghost grid place-items-center text-primary text-xl shrink-0">
-                    <i className="fas fa-bullseye" />
-                  </div>
-                  <div>
-                    <p className="font-heading font-bold text-[10px] tracking-widest uppercase text-primary/50 mb-1">Mission</p>
-                    <p className="text-primary-dark font-heading font-bold text-base md:text-lg">{vp.focus}</p>
+                  <div className="p-5 md:p-6 flex flex-col justify-center">
+                    <span className="font-heading font-bold text-[10px] tracking-widest uppercase text-primary">VP · 0{i + 2} / 15</span>
+                    <h3 className="font-heading font-black text-primary-dark text-lg md:text-xl leading-tight mt-1">{vp.name}</h3>
+                    <p className="text-primary text-xs font-heading font-semibold uppercase tracking-wide mt-1.5">{vp.role}</p>
+                    <p className="text-gray-500 text-sm mt-3 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0" />
+                      {vp.focus}
+                    </p>
                   </div>
                 </div>
               </motion.article>
@@ -341,55 +320,46 @@ export default function Equipe() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      {/* BUREAU — Big photo cards (4 per row, then 4 per row)                 */}
+      {/* BUREAU — Compact card grid                                           */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-white py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative bg-white py-20 md:py-24">
+        <div className="max-w-5xl mx-auto px-6">
 
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-8">
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Le Bureau</span>
             <span className="h-px flex-1 bg-primary/15" />
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary/40">04 — 11 / 15</span>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <h2 className="font-heading font-black text-primary-dark leading-[0.9] tracking-tight max-w-3xl"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <h2 className="font-heading font-black text-primary-dark leading-tight tracking-tight text-2xl md:text-4xl">
               Huit membres, trois pôles.
             </h2>
-            <p className="text-gray-500 max-w-md">
+            <p className="text-gray-500 text-sm max-w-md">
               Le bureau veille à la gestion administrative, financière et stratégique de l'association.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {bureau.map((m, i) => (
               <motion.div
                 key={m.name}
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-                className="group bg-white rounded-2xl ring-1 ring-primary-pale overflow-hidden hover:shadow-blue-md hover:-translate-y-1 hover:ring-primary/30 transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: (i % 4) * 0.06 }}
+                className="group bg-white rounded-2xl ring-1 ring-primary-pale overflow-hidden hover:shadow-blue-sm hover:-translate-y-0.5 hover:ring-primary/30 transition-all"
               >
-                <div className="relative aspect-[3/4] bg-primary-pale overflow-hidden">
+                <div className="relative aspect-square bg-primary-pale overflow-hidden">
                   <PhotoOrInitials photo={m.photo} name={m.name} className="w-full h-full group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/15 to-transparent" />
-
-                  {/* Pole badge */}
-                  <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full">
-                    <span className="w-1 h-1 rounded-full bg-primary" />
-                    <span className="font-heading font-bold text-[9px] tracking-widest text-primary-dark uppercase">{m.pole}</span>
+                  <div className="absolute top-2 left-2 bg-white/95 backdrop-blur px-2 py-0.5 rounded-full">
+                    <span className="font-heading font-bold text-[8px] tracking-widest text-primary-dark uppercase">{m.pole}</span>
                   </div>
-
-                  {/* Number */}
-                  <div className="absolute top-3 right-3 font-heading font-black text-white/40 text-3xl leading-none">
+                  <div className="absolute top-2 right-2 font-heading font-black text-white text-xs bg-primary/70 backdrop-blur w-6 h-6 grid place-items-center rounded-full">
                     {String(i + 4).padStart(2, '0')}
                   </div>
-
-                  {/* Bottom info on photo */}
-                  <div className="absolute bottom-0 inset-x-0 p-4 text-white">
-                    <h4 className="font-heading font-black text-base md:text-lg leading-tight">{m.name.replace(/^(M\.|Mme\.|Mlle\.)\s/, '')}</h4>
-                    <p className="font-heading font-semibold text-[10px] md:text-xs tracking-wider text-blue-100 uppercase mt-1">{m.role}</p>
-                  </div>
+                </div>
+                <div className="p-3">
+                  <h4 className="font-heading font-bold text-primary-dark text-xs md:text-sm leading-tight truncate">{m.name.replace(/^(M\.|Mme\.|Mlle\.)\s/, '')}</h4>
+                  <p className="text-gray-500 text-[10px] md:text-xs mt-0.5 truncate">{m.role}</p>
                 </div>
               </motion.div>
             ))}
@@ -398,56 +368,48 @@ export default function Equipe() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      {/* SPORT CLUBS — Three large feature cards                              */}
+      {/* SPORT CLUBS — Compact 3-column                                       */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-primary-ghost py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative bg-primary-ghost py-20 md:py-24">
+        <div className="max-w-5xl mx-auto px-6">
 
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-8">
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Direction des clubs</span>
             <span className="h-px flex-1 bg-primary/15" />
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary/40">12 — 15 / 15</span>
           </div>
 
-          <h2 className="font-heading font-black text-primary-dark leading-[0.9] tracking-tight mb-12 max-w-3xl"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+          <h2 className="font-heading font-black text-primary-dark leading-tight tracking-tight mb-10 text-2xl md:text-4xl">
             Trois clubs, une famille.
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             {sportClubs.map((c, i) => (
               <motion.div
                 key={c.id}
-                initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.12 }}
-                className="group bg-white rounded-3xl overflow-hidden shadow-blue-sm hover:shadow-blue-lg hover:-translate-y-2 transition-all duration-500"
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group bg-white rounded-2xl overflow-hidden ring-1 ring-primary-pale hover:shadow-blue-md hover:-translate-y-1 transition-all duration-300"
               >
-                {/* Big image */}
-                <div className="relative aspect-[4/5] bg-primary-pale overflow-hidden">
-                  <img src={c.image} alt={c.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent" />
-
-                  {/* Top badge */}
-                  <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3.5 py-1.5 rounded-full">
-                    <i className={`${c.icon} text-primary text-xs`} />
-                    <span className="font-heading font-bold text-[10px] tracking-widest text-primary-dark uppercase">{c.fed}</span>
+                <div className="relative aspect-[16/10] bg-primary-pale overflow-hidden">
+                  <img src={c.image} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
+                  <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full">
+                    <i className={`${c.icon} text-primary text-[10px]`} />
+                    <span className="font-heading font-bold text-[9px] tracking-widest text-primary-dark uppercase">{c.fed}</span>
                   </div>
-
-                  {/* Bottom info */}
-                  <div className="absolute bottom-0 inset-x-0 p-6 md:p-7 text-white">
-                    <p className="font-heading font-bold text-[11px] tracking-[0.25em] uppercase text-blue-100 mb-2">{c.count}</p>
-                    <h3 className="font-heading font-black text-2xl md:text-3xl leading-tight">{c.name}</h3>
+                  <div className="absolute bottom-0 inset-x-0 p-4 text-white">
+                    <p className="font-heading font-bold text-[10px] tracking-[0.2em] uppercase text-blue-100 mb-1">{c.count}</p>
+                    <h3 className="font-heading font-black text-lg md:text-xl leading-tight">{c.name}</h3>
                   </div>
                 </div>
-
-                {/* Bottom action */}
-                <div className="p-6 md:p-7 flex items-center justify-between gap-3">
-                  <p className="text-gray-500 text-sm leading-snug flex-1">{c.desc}</p>
+                <div className="p-5 flex items-center justify-between gap-3">
+                  <p className="text-gray-500 text-xs leading-snug flex-1">{c.desc}</p>
                   <Link
                     to={`/${c.id}`}
-                    className="w-12 h-12 rounded-full bg-primary-pale text-primary grid place-items-center group-hover:bg-primary group-hover:text-white transition shrink-0"
+                    className="w-9 h-9 rounded-full bg-primary-pale text-primary grid place-items-center group-hover:bg-primary group-hover:text-white transition shrink-0"
                   >
-                    <i className="fas fa-arrow-right" />
+                    <i className="fas fa-arrow-right text-xs" />
                   </Link>
                 </div>
               </motion.div>
