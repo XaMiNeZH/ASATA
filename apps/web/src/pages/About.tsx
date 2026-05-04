@@ -115,7 +115,7 @@ export default function About() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {values.map(({ icon, title, desc }, i) => (
               <FadeIn key={title} delay={i * 0.08}>
-                <div className="bg-white rounded-2xl p-6 border-l-4 border-primary-light hover:border-primary hover:shadow-blue-md hover:translate-x-1 transition-all duration-300 shadow-blue-sm">
+                <div className="bg-white rounded-2xl p-6 hover:shadow-blue-md transition-all duration-300 shadow-blue-sm">
                   <h3 className="font-heading font-bold text-base text-gray-900 mb-2 flex items-center gap-2">
                     <i className={`${icon} text-primary-light`} /> {title}
                   </h3>
