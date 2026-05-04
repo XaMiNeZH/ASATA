@@ -17,9 +17,9 @@ import {
 } from '../data/images'
 
 const clubs = [
-  { to: '/athletisme', img: HOME_ATHLETISME_CARD_IMAGE, icon: 'fas fa-running', fed: 'FRMA',   title: 'Athlétisme',               desc: 'Trail, course en montagne et disciplines de piste affiliées à la Fédération Royale Marocaine d\'Athlétisme.' },
-  { to: '/football',   img: FOOTBALL_INTRO_IMAGE,       icon: 'fas fa-futbol',  fed: 'FRMF',   title: 'Football',                 desc: 'Formation des jeunes joueurs et participation aux compétitions régionales sous l\'égide de la FRMF.' },
   { to: '/ski',        img: HOME_SKI_CARD_IMAGE,        icon: 'fas fa-skiing',  fed: 'FRMSSM', title: 'Ski & Sports de Montagne', desc: 'Ski alpin à Oukaimden, escalade, randonnée et trail. Stages internationaux en Espagne, France et Corée du Sud.' },
+  { to: '/football',   img: FOOTBALL_INTRO_IMAGE,       icon: 'fas fa-futbol',  fed: 'FRMF',   title: 'Football',                 desc: 'Formation des jeunes joueurs et participation aux compétitions régionales sous l\'égide de la FRMF.' },
+  { to: '/athletisme', img: HOME_ATHLETISME_CARD_IMAGE, icon: 'fas fa-running', fed: 'FRMA',   title: 'Athlétisme',               desc: 'Trail, course en montagne et disciplines de piste affiliées à la Fédération Royale Marocaine d\'Athlétisme.' },
 ]
 
 const missions = [
