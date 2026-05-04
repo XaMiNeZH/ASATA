@@ -95,7 +95,7 @@ const coaches = [
     role: 'Moniteur & Entraîneur Ski',
     club: 'Ski',
     fed: 'FRMSSM',
-    color: 'from-blue-700 to-blue-900',
+    color: 'from-blue-300 to-blue-500',
     highlights: [
       '1ère place — Coupe du Trône Ski Alpin 2000',
       'Championnats du Maroc 1998–2004',
@@ -109,7 +109,7 @@ const coaches = [
     role: 'Entraîneur — Champion National',
     club: 'Athlétisme',
     fed: 'FRMA',
-    color: 'from-blue-500 to-blue-700',
+    color: 'from-blue-200 to-blue-400',
     highlights: [
       '1ère place — Open African Masters, Tunis (2025)',
       '1ère — Champ. International Shkodër, 110m haies (2024 & 2025)',
@@ -123,7 +123,7 @@ const coaches = [
     role: 'Entraîneur Football',
     club: 'Football',
     fed: 'FRMF',
-    color: 'from-blue-600 to-blue-800',
+    color: 'from-blue-300 to-blue-500',
     highlights: [
       'Toutes catégories (Garçons & Filles)',
       'Ancien joueur de football',
@@ -136,7 +136,7 @@ const coaches = [
     role: 'Entraîneur U10 & U12',
     club: 'Football',
     fed: 'FRMF',
-    color: 'from-blue-600 to-blue-800',
+    color: 'from-blue-300 to-blue-500',
     highlights: [
       'Licencié universitaire',
       "Élément associatif actif — territoire d'El Haouz",
@@ -149,7 +149,7 @@ const coaches = [
     role: 'Entraîneur U10, U12 & U16',
     club: 'Football',
     fed: 'FRMF',
-    color: 'from-blue-600 to-blue-800',
+    color: 'from-blue-300 to-blue-500',
     highlights: [
       "Pilier fondateur du staff sportif ASATA",
       "Actif depuis la création de l'association",
@@ -162,7 +162,7 @@ const coaches = [
     role: 'Entraîneur Équipe A Futsal',
     club: 'Football',
     fed: 'FRMF',
-    color: 'from-blue-600 to-blue-800',
+    color: 'from-blue-300 to-blue-500',
     highlights: [
       'Super Ligue régionale Marrakech-Safi',
       'Encadrement de l\'équipe première',
@@ -220,9 +220,9 @@ export default function Equipe() {
     <PageTransition>
 
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      {/* ── HERO — Editorial cover                                           ── */}
+      {/* ── HERO — Editorial cover (light blue + white)                     ── */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative min-h-screen bg-[#0A1628] overflow-hidden pt-[76px]">
+      <section ref={heroRef} className="relative min-h-screen bg-white overflow-hidden pt-[76px]">
         {/* Background image with parallax */}
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0">
           <div
@@ -231,23 +231,23 @@ export default function Equipe() {
               backgroundImage: 'url(/skiActivitiesPics/PHOTO-2026-04-07-12-10-30.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              filter: 'grayscale(40%) brightness(0.45)',
+              filter: 'brightness(1.1) saturate(0.9)',
             }}
           />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,22,40,0.6) 0%, rgba(13,71,161,0.7) 50%, rgba(10,22,40,0.95) 100%)' }} />
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 1.5px)', backgroundSize: '24px 24px' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(227,242,253,0.82) 50%, rgba(187,222,251,0.88) 100%)' }} />
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(21,101,192,0.08) 1px, transparent 1.5px)', backgroundSize: '24px 24px' }} />
         </motion.div>
 
         {/* Top meta bar */}
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 pt-8 flex items-center justify-between text-white/50 font-mono text-[11px] tracking-widest uppercase">
-          <Link to="/" className="hover:text-white transition flex items-center gap-2">
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 pt-8 flex items-center justify-between text-primary/60 font-mono text-[11px] tracking-widest uppercase">
+          <Link to="/" className="hover:text-primary-dark transition flex items-center gap-2">
             <i className="fas fa-arrow-left text-[10px]" /> Accueil
           </Link>
           <div className="hidden md:flex items-center gap-4">
             <span>Édition 2024–2028</span>
-            <span className="w-1 h-1 rounded-full bg-white/40" />
+            <span className="w-1 h-1 rounded-full bg-primary/40" />
             <span>15 Membres</span>
-            <span className="w-1 h-1 rounded-full bg-white/40" />
+            <span className="w-1 h-1 rounded-full bg-primary/40" />
             <span>Asni · Maroc</span>
           </div>
         </div>
@@ -259,25 +259,25 @@ export default function Equipe() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
             className="inline-flex items-center gap-3 mb-8"
           >
-            <span className="font-mono text-[11px] tracking-[0.4em] text-blue-300 uppercase">№ 01 / Comité</span>
-            <span className="h-px w-16 bg-blue-400" />
-            <span className="font-mono text-[11px] tracking-[0.4em] text-white/40 uppercase">2024</span>
+            <span className="font-mono text-[11px] tracking-[0.4em] text-primary uppercase">№ 01 / Comité</span>
+            <span className="h-px w-16 bg-primary" />
+            <span className="font-mono text-[11px] tracking-[0.4em] text-primary/40 uppercase">2024</span>
           </motion.div>
 
           {/* Massive title */}
           <motion.h1
             initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-heading font-black text-white leading-[0.85] tracking-tighter"
+            className="font-heading font-black text-primary-dark leading-[0.85] tracking-tighter"
             style={{ fontSize: 'clamp(3.5rem, 12vw, 11rem)' }}
           >
             <span className="block">Le Comité.</span>
-            <span className="block text-blue-300/90 italic font-light">Les visages.</span>
+            <span className="block text-primary-light italic font-light">Les visages.</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-10 max-w-2xl text-white/70 text-lg md:text-xl leading-relaxed font-light"
+            className="mt-10 max-w-2xl text-gray-600 text-lg md:text-xl leading-relaxed font-light"
           >
             Quinze femmes et hommes — un président fondateur, deux vice-président·e·s, huit membres du bureau et quatre directions sportives — qui font vivre l'ASATA depuis le Haut Atlas marocain.
           </motion.p>
@@ -293,9 +293,9 @@ export default function Equipe() {
               { k: '16', v: 'Années' },
               { k: '01', v: 'Mission' },
             ].map((s, i) => (
-              <div key={i} className="border-l border-white/15 pl-4 md:pl-6">
-                <div className="font-heading font-black text-white text-3xl md:text-5xl tracking-tight">{s.k}</div>
-                <div className="font-mono text-[10px] text-blue-200/60 uppercase tracking-widest mt-2">{s.v}</div>
+              <div key={i} className="border-l-2 border-primary/30 pl-4 md:pl-6">
+                <div className="font-heading font-black text-primary-dark text-3xl md:text-5xl tracking-tight">{s.k}</div>
+                <div className="font-mono text-[10px] text-primary/60 uppercase tracking-widest mt-2">{s.v}</div>
               </div>
             ))}
           </motion.div>
@@ -304,12 +304,12 @@ export default function Equipe() {
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/40"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-primary/50"
         >
           <span className="font-mono text-[10px] tracking-[0.3em] uppercase">Défiler</span>
           <motion.div
             animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}
-            className="w-px h-10 bg-gradient-to-b from-white/40 to-transparent"
+            className="w-px h-10 bg-gradient-to-b from-primary/50 to-transparent"
           />
         </motion.div>
       </section>
@@ -337,7 +337,7 @@ export default function Equipe() {
             >
               <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-primary-dark">
                 <img src={president.photo} alt={president.name} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
                 {/* Bottom info on photo */}
                 <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 text-white">
                   <div className="font-mono text-[10px] tracking-[0.3em] text-blue-300 uppercase mb-2">Depuis 2008</div>
@@ -434,7 +434,7 @@ export default function Equipe() {
                       {getInitials(vp.name)}
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/15 to-transparent" />
 
                   {/* Top tag */}
                   <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full">
@@ -534,7 +534,7 @@ export default function Equipe() {
                           {getInitials(m.name)}
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent" />
 
                       {/* Pole badge */}
                       <div className="absolute top-3 left-3">
@@ -565,11 +565,11 @@ export default function Equipe() {
       {/* ═══════════════════════════════════════════════════════════════════ */}
       {/* ── MARQUEE                                                          ── */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <div className="bg-primary-dark text-white py-6 overflow-hidden">
+      <div className="bg-primary-pale text-primary-dark py-6 overflow-hidden border-y border-primary/15">
         <div className="flex whitespace-nowrap" style={{ animation: 'marquee 50s linear infinite', width: 'max-content' }}>
           {[...Array(3)].flatMap((_, r) =>
             ['Comité Directeur', '★', 'Mandat 2024–2028', '★', 'Asni · Atlas Toubkal', '★', '15 Membres', '★', 'Ski · Football · Athlétisme', '★'].map((it, i) => (
-              <span key={`${r}-${i}`} className={`mx-6 font-heading font-black tracking-tight ${it === '★' ? 'text-blue-300 text-2xl' : 'text-3xl md:text-4xl'}`}>
+              <span key={`${r}-${i}`} className={`mx-6 font-heading font-black tracking-tight ${it === '★' ? 'text-primary-light text-2xl' : 'text-3xl md:text-4xl'}`}>
                 {it}
               </span>
             ))
@@ -625,7 +625,7 @@ export default function Equipe() {
             >
               {/* Club banner */}
               <div className="lg:col-span-4 relative rounded-3xl p-8 md:p-10 text-white overflow-hidden min-h-[300px] flex flex-col justify-between"
-                   style={{ background: `linear-gradient(160deg, ${club.accent} 0%, #0A1628 100%)` }}>
+                   style={{ background: `linear-gradient(160deg, ${club.accent} 0%, #1565C0 100%)` }}>
                 <div className="absolute -right-10 -bottom-10 font-heading font-black text-white/8 leading-none pointer-events-none select-none"
                      style={{ fontSize: '14rem' }}>{club.code}</div>
                 <div className="relative">
@@ -721,8 +721,8 @@ export default function Equipe() {
                 {/* Photo */}
                 <div className="relative aspect-[4/5] overflow-hidden bg-primary-pale">
                   <img src={c.photo} alt={c.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${c.color} opacity-80 mix-blend-multiply`} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/30 to-transparent" />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${c.color} opacity-30 mix-blend-multiply`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/15 to-transparent" />
 
                   {/* Top — Fed badge */}
                   <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full">
@@ -743,17 +743,17 @@ export default function Equipe() {
                   </div>
 
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-primary-dark/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6 md:p-8">
-                    <p className="font-mono text-[10px] tracking-[0.3em] text-blue-300 uppercase mb-4">Aperçu palmarès</p>
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6 md:p-8">
+                    <p className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-4">Aperçu palmarès</p>
                     <ul className="space-y-2.5">
                       {c.highlights.slice(0, 3).map((h, hi) => (
-                        <li key={hi} className="flex items-start gap-2.5 text-white/90 text-sm leading-relaxed">
-                          <i className="fas fa-trophy text-blue-300 text-xs mt-1.5 shrink-0" />
+                        <li key={hi} className="flex items-start gap-2.5 text-primary-dark/90 text-sm leading-relaxed">
+                          <i className="fas fa-trophy text-primary-light text-xs mt-1.5 shrink-0" />
                           <span>{h}</span>
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-6 inline-flex items-center gap-2 text-white font-heading font-bold text-sm">
+                    <div className="mt-6 inline-flex items-center gap-2 text-primary font-heading font-bold text-sm">
                       Voir le profil complet <i className="fas fa-arrow-right text-xs" />
                     </div>
                   </div>
@@ -765,19 +765,19 @@ export default function Equipe() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      {/* ── CTA — Magazine outro                                            ── */}
+      {/* ── CTA — Light blue magazine outro                                 ── */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-[#0A1628] text-white py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-30 pointer-events-none"
-             style={{ background: 'radial-gradient(60% 60% at 90% 30%, rgba(66,165,245,0.4) 0%, transparent 60%), radial-gradient(50% 60% at 10% 100%, rgba(13,71,161,0.3) 0%, transparent 60%)' }} />
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
+      <section className="relative bg-gradient-to-br from-primary-ghost via-primary-pale to-white text-primary-dark py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 opacity-40 pointer-events-none"
+             style={{ background: 'radial-gradient(60% 60% at 90% 30%, rgba(66,165,245,0.25) 0%, transparent 60%), radial-gradient(50% 60% at 10% 100%, rgba(187,222,251,0.5) 0%, transparent 60%)' }} />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(21,101,192,0.3) 1px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative">
 
           <div className="flex items-center gap-4 mb-10">
-            <span className="font-mono text-xs tracking-[0.3em] text-blue-300 uppercase">— Fin</span>
-            <span className="h-px flex-1 bg-white/15" />
-            <span className="font-mono text-xs tracking-[0.3em] text-white/40 uppercase">Rejoignez l'aventure</span>
+            <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">— Fin</span>
+            <span className="h-px flex-1 bg-primary/20" />
+            <span className="font-mono text-xs tracking-[0.3em] text-primary/50 uppercase">Rejoignez l'aventure</span>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-10 items-end">
@@ -785,32 +785,32 @@ export default function Equipe() {
               <h2 className="font-heading font-black leading-[0.9] tracking-tighter"
                   style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)' }}>
                 Du Toubkal aux<br />
-                <span className="italic font-light text-blue-300">terrains</span> — l'équipe<br />
+                <span className="italic font-light text-primary-light">terrains</span> — l'équipe<br />
                 vous attend.
               </h2>
-              <p className="mt-8 text-white/60 text-lg max-w-xl leading-relaxed">
+              <p className="mt-8 text-gray-600 text-lg max-w-xl leading-relaxed">
                 Bénévoles, athlètes, partenaires — l'ASATA grandit avec vous. Découvrez comment vous engager auprès du comité directeur.
               </p>
             </div>
 
             <div className="lg:col-span-4 flex flex-col gap-3">
-              <Link to="/contact" className="group inline-flex items-center justify-between bg-white text-primary-dark font-heading font-bold px-7 py-5 rounded-2xl hover:bg-blue-100 transition">
+              <Link to="/contact" className="group inline-flex items-center justify-between bg-primary text-white font-heading font-bold px-7 py-5 rounded-2xl hover:bg-primary-dark hover:shadow-blue-lg transition">
                 <span>Devenir bénévole</span>
                 <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link to="/don" className="group inline-flex items-center justify-between bg-white/5 ring-1 ring-white/20 text-white font-heading font-bold px-7 py-5 rounded-2xl hover:bg-white/10 transition">
+              <Link to="/don" className="group inline-flex items-center justify-between bg-white ring-1 ring-primary/30 text-primary-dark font-heading font-bold px-7 py-5 rounded-2xl hover:ring-primary hover:shadow-blue-md transition">
                 <span>Soutenir l'ASATA</span>
-                <i className="fas fa-heart text-blue-300" />
+                <i className="fas fa-heart text-primary-light" />
               </Link>
-              <Link to="/contact" className="group inline-flex items-center justify-between bg-transparent ring-1 ring-white/15 text-white/80 font-heading font-bold px-7 py-5 rounded-2xl hover:ring-white/40 hover:text-white transition">
+              <Link to="/contact" className="group inline-flex items-center justify-between bg-transparent ring-1 ring-primary/20 text-primary-dark/80 font-heading font-bold px-7 py-5 rounded-2xl hover:ring-primary/50 hover:text-primary-dark hover:bg-white/50 transition">
                 <span>Nous contacter</span>
-                <i className="fas fa-envelope text-blue-300/70" />
+                <i className="fas fa-envelope text-primary/60" />
               </Link>
             </div>
           </div>
 
           {/* Footer strip */}
-          <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[10px] tracking-[0.3em] text-white/40 uppercase">
+          <div className="mt-20 pt-8 border-t border-primary/15 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[10px] tracking-[0.3em] text-primary/50 uppercase">
             <span>ASATA · Atlas Toubkal Asni</span>
             <span>Comité Directeur 2024 — 2028</span>
             <span>Asni · Maroc · 1 150 m</span>
@@ -830,7 +830,7 @@ export default function Equipe() {
             transition={{ duration: 0.2 }}
             onClick={() => setActiveCoach(null)}
           >
-            <div className="absolute inset-0 bg-primary-dark/85 backdrop-blur-md" />
+            <div className="absolute inset-0 bg-primary/40 backdrop-blur-md" />
 
             <motion.div
               className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden max-h-[90vh] overflow-y-auto"
@@ -841,10 +841,10 @@ export default function Equipe() {
               onClick={e => e.stopPropagation()}
             >
               {/* Hero photo */}
-              <div className="relative aspect-[16/9] bg-primary-dark overflow-hidden">
+              <div className="relative aspect-[16/9] bg-primary-pale overflow-hidden">
                 <img src={activeCoach.photo} alt={activeCoach.name} className="w-full h-full object-cover" />
-                <div className={`absolute inset-0 bg-gradient-to-t ${activeCoach.color} opacity-70 mix-blend-multiply`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/50 to-transparent" />
+                <div className={`absolute inset-0 bg-gradient-to-t ${activeCoach.color} opacity-50 mix-blend-multiply`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-transparent" />
 
                 {/* Close */}
                 <button
