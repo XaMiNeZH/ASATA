@@ -4,4 +4,11 @@
 node_modules/
 dist/
 .vite/
-
+# generated bs"
+.obsidian/
+frontend/
+issuesToFix.md
+.codex/
+issuesToFix/
+.trash/
+.codex
