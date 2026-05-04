@@ -11,7 +11,7 @@ const envSchema = z.object({
   RATE_LIMIT_MAX:      z.coerce.number().default(20),
   GMAIL_USER:          z.string().email().optional(),
   GMAIL_APP_PASSWORD:  z.string().optional(),
-  CONTACT_RECEIVER:    z.string().email().default('hamzabelazri00@gmail.com'),
+  CONTACT_RECEIVER:    z.string().email().default('asata.club@gmail.com'),
 })
 
 const parsed = envSchema.safeParse(process.env)
