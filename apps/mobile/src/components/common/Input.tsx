@@ -5,8 +5,6 @@ import type { KeyboardTypeOptions } from 'react-native';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 
 interface InputProps {
   label: string;
@@ -21,6 +19,7 @@ interface InputProps {
   rightIcon?: ComponentProps<typeof Feather>['name'];
   rightIconColor?: string;
   onRightIconPress?: () => void;
+  optional?: boolean;
 }
 
 export function Input({
@@ -36,39 +35,60 @@ export function Input({
   rightIcon,
   rightIconColor,
   onRightIconPress,
+  optional = false,
 }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
-  const inputStateStyle = error ? styles.fieldError : isFocused ? styles.fieldFocused : null;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={[styles.field, multiline && styles.fieldMultiline, inputStateStyle]}>
-        {leftIcon ? <Feather name={leftIcon} size={18} color={Colors.textMuted} style={styles.leftIcon} /> : null}
+      <Text style={styles.label}>
+        {label}
+        {optional && <Text style={styles.optional}>  ·  optionnel</Text>}
+      </Text>
+      <View
+        style={[
+          styles.field,
+          multiline && styles.fieldMultiline,
+          isFocused && styles.fieldFocused,
+          error ? styles.fieldError : null,
+        ]}
+      >
+        {leftIcon && (
+          <Feather
+            name={leftIcon}
+            size={18}
+            color={isFocused ? Colors.primary : Colors.subtle}
+            style={styles.leftIcon}
+          />
+        )}
         <TextInput
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           placeholder={placeholder}
-          placeholderTextColor={Colors.textMuted}
+          placeholderTextColor={Colors.subtle}
           multiline={multiline}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           style={[styles.input, multiline && styles.multiline]}
         />
-        {rightIcon ? (
+        {rightIcon && (
           <Pressable
             accessibilityRole="button"
             disabled={!onRightIconPress}
             onPress={onRightIconPress}
             style={styles.rightIcon}
           >
-            <Feather name={rightIcon} size={19} color={rightIconColor ?? Colors.textMuted} />
+            <Feather
+              name={rightIcon}
+              size={19}
+              color={rightIconColor ?? Colors.subtle}
+            />
           </Pressable>
-        ) : null}
+        )}
       </View>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
@@ -78,35 +98,40 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   label: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.xs,
-    fontWeight: FontWeight.semiBold,
-    letterSpacing: 0.96,
-    textTransform: 'uppercase',
+    fontSize: 13,
+    fontWeight: '500',
+    color: Colors.body,
+  },
+  optional: {
+    fontSize: 12,
+    color: Colors.subtle,
+    fontWeight: '400',
   },
   field: {
-    height: 48,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.border,
     backgroundColor: Colors.surface,
-    paddingHorizontal: Spacing.md,
+    borderWidth: 1.5,
+    borderColor: Colors.hairline,
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    height: 52,
   },
   fieldFocused: {
-    borderColor: Colors.skyBlue,
+    borderColor: Colors.primary,
   },
   fieldError: {
     borderColor: Colors.danger,
   },
   fieldMultiline: {
+    height: undefined,
     minHeight: 56,
     alignItems: 'flex-start',
-    paddingTop: Spacing.sm,
+    paddingTop: 14,
+    paddingBottom: 14,
   },
   leftIcon: {
-    marginRight: Spacing.sm,
+    marginRight: 10,
     marginTop: 1,
   },
   rightIcon: {
@@ -118,9 +143,9 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     minHeight: 44,
-    color: Colors.textPrimary,
-    fontSize: FontSize.md,
-    fontWeight: FontWeight.regular,
+    color: Colors.body,
+    fontSize: 15,
+    fontWeight: '400',
     padding: 0,
   },
   multiline: {
@@ -129,6 +154,7 @@ const styles = StyleSheet.create({
   },
   error: {
     color: Colors.danger,
-    fontSize: FontSize.xs,
+    fontSize: 12,
+    marginTop: 2,
   },
 });

@@ -2,24 +2,24 @@ import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 
 interface CapacityBarProps {
   total: number;
   filled: number;
   showText?: boolean;
+  height?: number;
 }
 
-export function CapacityBar({ total, filled, showText = true }: CapacityBarProps) {
+export function CapacityBar({ total, filled, showText = true, height = 6 }: CapacityBarProps) {
   const ratio = total > 0 ? Math.min(1, Math.max(0, filled / total)) : 0;
+  const pct = Math.round(ratio * 100);
+  const isFull = filled >= total;
+
   const progress = useRef(new Animated.Value(0)).current;
   const animatedWidth = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0%', `${Math.round(ratio * 100)}%`],
+    outputRange: ['0%', `${pct}%`],
   });
-  const animatedFillStyle = { width: animatedWidth };
-  const fillTone = ratio >= 1 ? styles.fillDanger : ratio >= 0.7 ? styles.fillAccent : styles.fillSuccess;
 
   useEffect(() => {
     Animated.timing(progress, {
@@ -28,51 +28,74 @@ export function CapacityBar({ total, filled, showText = true }: CapacityBarProps
       easing: Easing.out(Easing.ease),
       useNativeDriver: false,
     }).start();
-  }, [progress, ratio]);
+  }, [progress, pct]);
+
+  const fillColor = isFull ? Colors.statusComplet : Colors.primary;
 
   return (
     <View style={styles.container}>
-      <View style={styles.track}>
-        <Animated.View style={[styles.fill, fillTone, animatedFillStyle]} />
+      {showText && (
+        <View style={styles.labelRow}>
+          <Text style={styles.fraction}>
+            <Text style={styles.filledNum}>{filled}</Text>
+            <Text style={styles.sep}>/{total}</Text>
+            <Text style={styles.label}> inscrits</Text>
+          </Text>
+          <Text style={[styles.pctText, isFull && styles.pctFull]}>
+            {isFull ? 'Complet' : `${pct}%`}
+          </Text>
+        </View>
+      )}
+      <View style={[styles.track, { height }]}>
+        <Animated.View
+          style={[
+            styles.fill,
+            { height, backgroundColor: fillColor, width: animatedWidth },
+          ]}
+        />
       </View>
-      {showText ? (
-        <Text style={[styles.text, ratio >= 0.9 && styles.textDanger]}>
-          {filled} / {total} places
-        </Text>
-      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    gap: Spacing.xs,
+    gap: 6,
+  },
+  labelRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+  },
+  fraction: {
+    fontSize: 12,
+    color: Colors.subtle,
+    fontWeight: '500',
+  },
+  filledNum: {
+    color: Colors.body,
+    fontWeight: '600',
+  },
+  sep: {
+    color: Colors.subtle,
+  },
+  label: {
+    color: Colors.subtle,
+  },
+  pctText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: Colors.subtle,
+  },
+  pctFull: {
+    color: Colors.statusComplet,
   },
   track: {
-    height: 6,
     borderRadius: 999,
-    backgroundColor: Colors.border,
+    backgroundColor: Colors.primaryPale,
     overflow: 'hidden',
   },
   fill: {
-    height: 6,
     borderRadius: 999,
-  },
-  fillSuccess: {
-    backgroundColor: Colors.success,
-  },
-  fillAccent: {
-    backgroundColor: Colors.skyBlue,
-  },
-  fillDanger: {
-    backgroundColor: Colors.danger,
-  },
-  text: {
-    color: Colors.textSecondary,
-    fontSize: FontSize.tiny,
-    fontWeight: FontWeight.medium,
-  },
-  textDanger: {
-    color: Colors.danger,
   },
 });

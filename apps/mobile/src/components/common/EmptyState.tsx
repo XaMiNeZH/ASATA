@@ -3,8 +3,6 @@ import { Feather } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from '../../constants/colors';
-import { Spacing } from '../../constants/spacing';
-import { FontSize, FontWeight } from '../../constants/typography';
 
 interface EmptyStateProps {
   icon: ComponentProps<typeof Feather>['name'];
@@ -15,7 +13,9 @@ interface EmptyStateProps {
 export function EmptyState({ icon, title, subtitle }: EmptyStateProps) {
   return (
     <View style={styles.container}>
-      <Feather name={icon} size={48} color={Colors.textMuted} />
+      <View style={styles.iconBox}>
+        <Feather name={icon} size={28} color={Colors.primary} />
+      </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
@@ -24,22 +24,32 @@ export function EmptyState({ icon, title, subtitle }: EmptyStateProps) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: Spacing.sm,
-    borderRadius: 12,
-    backgroundColor: Colors.surface,
-    padding: Spacing.xl,
+    gap: 14,
+    padding: 40,
+    textAlign: 'center',
+  },
+  iconBox: {
+    width: 64,
+    height: 64,
+    borderRadius: 20,
+    backgroundColor: Colors.primaryPale,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
-    color: Colors.textPrimary,
-    fontSize: FontSize.xl,
-    fontWeight: FontWeight.bold,
+    fontSize: 15,
+    fontWeight: '600',
+    color: Colors.body,
     textAlign: 'center',
   },
   subtitle: {
-    color: Colors.textMuted,
-    fontSize: FontSize.md,
+    fontSize: 13,
+    color: Colors.subtle,
     textAlign: 'center',
+    lineHeight: 20,
+    maxWidth: 240,
   },
 });

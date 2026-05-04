@@ -1,53 +1,60 @@
+// ASATA design tokens — strict light blue + white palette.
+// No black, no dark navy in UI elements.
 export const Colors = {
-  primary: '#0D2B55',
-  primaryDark: '#001637',
-  primaryMid: '#2D4772',
-  primaryLight: '#D7E3FF',
-  primaryPale: '#EEF2F7',
-  primaryGhost: '#F4F3F7',
-  darkNavy: '#0a1628',
-  slate: '#2D3E50',
-  skyBlue: '#42A5F5',
-  skyBlueDark: '#1E88E5',
-  lightBlueGray: '#EEF2F7',
-  accent: '#42A5F5',
-  danger: '#E53935',
-  error: '#BA1A1A',
-  success: '#2E7D52',
-  warning: '#B7791F',
-  background: '#FAF9FD',
-  surface: '#FFFFFF',
-  textPrimary: '#1A1B1F',
-  textSecondary: '#44474F',
-  textMuted: '#747780',
-  outline: '#747780',
-  border: '#C4C6D0',
-  divider: '#E2E8F0',
-  surfaceContainerLow: '#F4F3F7',
-  surfaceContainer: '#EFEDF1',
-  surfaceContainerHigh: '#E9E7EC',
-  surfaceContainerHighest: '#E3E2E6',
-  surfaceDim: '#DAD9DE',
-  primaryFixed: '#D7E3FF',
-  primaryFixedDim: '#AEC7FA',
-  secondary: '#535F74',
-  secondaryContainer: '#D4E0F9',
-  tertiary: '#061829',
-  tertiaryContainer: '#1C2D3E',
-  tertiaryFixed: '#D2E4FB',
-  onPrimaryContainer: '#7A93C3',
-  onSecondaryContainer: '#586378',
-  onTertiaryContainer: '#8395AA',
-  onErrorContainer: '#93000A',
-  errorContainer: '#FFDAD6',
-  inverseSurface: '#2F3034',
-  inverseOnSurface: '#F1F0F4',
-  overlay: 'rgba(0,0,0,0.5)',
-  whiteOverlay10: 'rgba(255,255,255,0.1)',
-  whiteOverlay20: 'rgba(255,255,255,0.2)',
-  whiteOverlay60: 'rgba(255,255,255,0.6)',
-  whiteOverlay70: 'rgba(255,255,255,0.7)',
-  whiteOverlay80: 'rgba(255,255,255,0.8)',
-  blackOverlay20: 'rgba(0,0,0,0.2)',
-  blackOverlay60: 'rgba(0,0,0,0.6)',
+  // ── Core palette ────────────────────────────────────────
+  primary:      '#1565C0',
+  primaryLight: '#42A5F5',
+  primaryDark:  '#0D47A1',
+  primaryPale:  '#E3F2FD',
+  primaryGhost: '#F4F9FF',
+  surface:      '#FFFFFF',
+
+  // ── Text ────────────────────────────────────────────────
+  body:    '#374151',   // primary body text
+  subtle:  '#6B7280',   // secondary / muted text
+  textPrimary:   '#374151',
+  textSecondary: '#6B7280',
+  textMuted:     '#9CA3AF',
+
+  // ── Border / dividers ───────────────────────────────────
+  hairline: '#EAF2FB',  // blue-tinted separators
+  border:   '#EAF2FB',
+  divider:  '#EAF2FB',
+
+  // ── Status pill colors ──────────────────────────────────
+  // planifie  → blue
+  // en_cours  → green
+  // termine   → neutral gray
+  // annule    → red
+  // complet   → amber
+  statusPlanifie:   '#0D47A1', statusPlanifieBg:   '#E3F2FD',
+  statusEnCours:    '#166534', statusEnCoursBg:     '#DCFCE7',
+  statusTermine:    '#4B5563', statusTermineBg:     '#F3F4F6',
+  statusAnnule:     '#991B1B', statusAnnuleBg:      '#FEE2E2',
+  statusComplet:    '#854D0E', statusCompletBg:     '#FEF3C7',
+  statusEnAttente:  '#854D0E', statusEnAttenteBg:   '#FEF3C7',
+  statusConfirme:   '#0D47A1', statusConfirmeBg:    '#E3F2FD',
+  statusPresent:    '#166534', statusPresentBg:     '#DCFCE7',
+  statusAbsent:     '#6B7280', statusAbsentBg:      '#F3F4F6',
+
+  // ── Semantic ────────────────────────────────────────────
+  danger:         '#B91C1C',
+  error:          '#991B1B',
+  errorContainer: '#FEE2E2',
+  success:        '#166534',
+  background:     '#F4F9FF',
+
+  // ── Aliases kept for backward compat ────────────────────
+  skyBlue:       '#42A5F5',
+  skyBlueDark:   '#1E88E5',
+
+  // ── Overlays ────────────────────────────────────────────
+  overlay:          'rgba(21,101,192,0.08)',
+  whiteOverlay10:   'rgba(255,255,255,0.10)',
+  whiteOverlay20:   'rgba(255,255,255,0.20)',
+  whiteOverlay60:   'rgba(255,255,255,0.60)',
+  whiteOverlay70:   'rgba(255,255,255,0.70)',
+  whiteOverlay80:   'rgba(255,255,255,0.80)',
+  blackOverlay20:   'rgba(0,0,0,0.20)',
+  blackOverlay60:   'rgba(0,0,0,0.60)',
 };

@@ -3,33 +3,30 @@ import { Feather } from '@expo/vector-icons';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AppHeader } from '../../components/common/AppHeader';
-import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { Colors } from '../../constants/colors';
 import { getAnnouncementById } from '../../services/announcements.service';
 import type { AnnouncementsStackParamList, Annonce } from '../../types';
 import { formatDate } from '../../utils/date';
-import { styles } from './AnnouncementDetailScreen.styles';
 
 type AnnouncementDetailRoute = RouteProp<AnnouncementsStackParamList, 'AnnouncementDetail'>;
 type AnnouncementDetailNavigation = NativeStackNavigationProp<AnnouncementsStackParamList, 'AnnouncementDetail'>;
 
-const noop = (): void => undefined;
-
 export function AnnouncementDetailScreen() {
   const route = useRoute<AnnouncementDetailRoute>();
   const navigation = useNavigation<AnnouncementDetailNavigation>();
+  const insets = useSafeAreaInsets();
+
   const [announcement, setAnnouncement] = useState<Annonce | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const loadAnnouncement = async (): Promise<void> => {
-    setError(null);
-    setIsLoading(true);
+    setError(null); setIsLoading(true);
     try {
       setAnnouncement(await getAnnouncementById(route.params.annonceId));
     } catch (caught) {
@@ -39,14 +36,9 @@ export function AnnouncementDetailScreen() {
     }
   };
 
-  useEffect(() => {
-    void loadAnnouncement();
-  }, [route.params.annonceId]);
+  useEffect(() => { void loadAnnouncement(); }, [route.params.annonceId]);
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
+  if (isLoading) return <LoadingSpinner />;
   if (!announcement || error) {
     return (
       <View style={styles.screen}>
@@ -56,58 +48,157 @@ export function AnnouncementDetailScreen() {
   }
 
   return (
-    <View style={styles.screen}>
-      <AppHeader title="Announcement Detail" onBack={() => navigation.goBack()} />
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.heroImage}>
-          <Feather name="monitor" size={48} color={Colors.whiteOverlay60} />
-          <View style={styles.heroBadge}>
-            <Text style={styles.heroBadgeText}>IMPORTANT UPDATE</Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.dateRow}>
-            <Feather name="calendar" size={18} color={Colors.secondary} />
-            <Text style={styles.date}>{formatDate(announcement.datePublication)}</Text>
-          </View>
-          <Text style={styles.title}>{announcement.titre}</Text>
-          <Text style={styles.body}>{announcement.contenu}</Text>
-          <View style={styles.quoteBox}>
-            <Text style={styles.quote}>
-              "Cette annonce marque une étape importante pour la communauté ASATA Connect."
-            </Text>
-          </View>
-          <View style={styles.bulletList}>
-            <View style={styles.bulletRow}>
-              <Feather name="check-circle" size={18} color={Colors.skyBlue} />
-              <Text style={styles.bulletText}>Accès complet aux informations membres.</Text>
-            </View>
-            <View style={styles.bulletRow}>
-              <Feather name="check-circle" size={18} color={Colors.skyBlue} />
-              <Text style={styles.bulletText}>Suivi simplifié depuis l'application.</Text>
-            </View>
-            <View style={styles.bulletRow}>
-              <Feather name="check-circle" size={18} color={Colors.skyBlue} />
-              <Text style={styles.bulletText}>Mises à jour synchronisées avec les prochains événements.</Text>
-            </View>
-          </View>
-          <View style={styles.actions}>
-            <Button label="Register for Summit" onPress={noop} variant="primary" />
-            <Button label="Download Schedule (PDF)" onPress={noop} variant="secondary" />
-          </View>
-        </View>
-        <Text style={styles.relatedTitle}>RELATED ANNOUNCEMENTS</Text>
-        <Pressable accessibilityRole="button" style={styles.relatedCard}>
-          <View style={styles.relatedThumb} />
-          <View style={styles.relatedCopy}>
-            <Text style={styles.relatedMeta}>PREVIOUS</Text>
-            <Text numberOfLines={1} style={styles.relatedText}>
-              New Performance Metrics Guidelines
-            </Text>
-          </View>
-          <Feather name="chevron-right" size={20} color={Colors.secondary} />
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
+      {/* Back row */}
+      <View style={styles.backRow}>
+        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Feather name="chevron-left" size={22} color={Colors.primary} strokeWidth={2.4} />
         </Pressable>
+      </View>
+
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Eyebrow */}
+        <View style={styles.eyebrow}>
+          <Feather name="volume-2" size={12} color={Colors.primary} />
+          <Text style={styles.eyebrowText}>Annonce</Text>
+        </View>
+
+        {/* Title */}
+        <Text style={styles.title}>{announcement.titre}</Text>
+
+        {/* Meta */}
+        <View style={styles.metaRow}>
+          <Feather name="calendar" size={13} color={Colors.subtle} />
+          <Text style={styles.metaText}>{formatDate(announcement.datePublication)}</Text>
+          <View style={styles.metaDot} />
+          <Feather name="clock" size={13} color={Colors.subtle} />
+          <Text style={styles.metaText}>2 min de lecture</Text>
+        </View>
+
+        {/* Photo placeholder */}
+        <View style={styles.photoPlaceholder}>
+          <View style={styles.photoInner}>
+            <Text style={styles.photoLabel}>photo · cérémonie</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        {/* Body */}
+        <Text style={styles.body}>{announcement.contenu}</Text>
       </ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: Colors.surface,
+  },
+
+  // Back
+  backRow: {
+    paddingHorizontal: 12,
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    backgroundColor: Colors.primaryGhost,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  // Content
+  content: {
+    paddingHorizontal: 24,
+    paddingBottom: 48,
+    gap: 16,
+  },
+
+  // Eyebrow
+  eyebrow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: Colors.primaryPale,
+    borderRadius: 999,
+  },
+  eyebrowText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: Colors.primaryDark,
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+  },
+
+  // Title
+  title: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: Colors.primaryDark,
+    letterSpacing: -0.5,
+    lineHeight: 32,
+  },
+
+  // Meta
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  metaText: {
+    fontSize: 12,
+    color: Colors.subtle,
+  },
+  metaDot: {
+    width: 3,
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: Colors.hairline,
+  },
+
+  // Photo placeholder
+  photoPlaceholder: {
+    height: 160,
+    borderRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: Colors.primaryGhost,
+    borderWidth: 1,
+    borderColor: Colors.hairline,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  photoInner: {
+    backgroundColor: 'rgba(255,255,255,0.85)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  photoLabel: {
+    fontSize: 11,
+    color: Colors.primaryDark,
+    fontWeight: '600',
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+    fontFamily: 'monospace',
+  },
+
+  divider: {
+    height: 1,
+    backgroundColor: Colors.hairline,
+  },
+
+  // Body
+  body: {
+    fontSize: 15,
+    color: Colors.body,
+    lineHeight: 24,
+  },
+});

@@ -63,6 +63,7 @@ export interface Evenement {
   capacite: number;
   inscrits: number;
   statut: EventStatus;
+  sport?: string;
   coverImage?: string;
 }
 
