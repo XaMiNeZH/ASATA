@@ -1,12 +1,14 @@
 import express from 'express'
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
+import path from 'path'
 import { env } from './config/env'
 import { donationsRouter } from './modules/donations/donations.router'
 import { contactRouter }   from './modules/contact/contact.router'
 import { authRouter }      from './modules/auth/auth.router'
 import { eventsRouter }    from './modules/events/events.router'
 import { galleryRouter }   from './modules/gallery/gallery.router'
+import { uploadRouter }    from './modules/upload/upload.router'
 
 const app = express()
 
@@ -25,6 +27,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }))
+
+// ── Static files ──────────────────────────────────────────────────────────────
+
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 // ── Body parsing ──────────────────────────────────────────────────────────────
 
@@ -72,6 +78,7 @@ app.use('/api/contact',   contactRouter)
 app.use('/api/admin',     authRouter)
 app.use('/api/events',    eventsRouter)
 app.use('/api/gallery',   galleryRouter)
+app.use('/api/upload',    uploadRouter)
 
 // ── 404 handler ───────────────────────────────────────────────────────────────
 

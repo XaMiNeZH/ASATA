@@ -131,6 +131,24 @@ export const donationsAdminApi = {
     request<ApiDonation>(`/api/donations/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
 }
 
+// ── upload (admin) ────────────────────────────────────────────────────────────
+
+export const uploadApi = {
+  upload: async (file: File): Promise<{ url: string }> => {
+    const formData = new FormData()
+    formData.append('image', file)
+    const token = localStorage.getItem('asata_admin_token')
+    const res = await fetch(`${BASE}/api/upload`, {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: formData,
+    })
+    const json = await res.json()
+    if (!res.ok) throw new Error(json.message ?? `HTTP ${res.status}`)
+    return json.data as { url: string }
+  },
+}
+
 // ── contact messages (admin) ──────────────────────────────────────────────────
 
 export interface ApiContactMessage {
