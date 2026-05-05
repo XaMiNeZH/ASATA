@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition'
 import FadeIn from '../components/FadeIn'
+import { eventsApi, ApiEvent } from '../lib/api'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -11,7 +12,7 @@ type Status   = 'upcoming' | 'past'
 type Category = 'competition' | 'tournoi' | 'stage' | 'ceremonie' | 'rencontre'
 
 interface Evenement {
-  id: number
+  id: string
   title: string
   subtitle?: string
   date: string
@@ -27,127 +28,26 @@ interface Evenement {
   image?: string
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─── API → local mapper ───────────────────────────────────────────────────────
 
-const events: Evenement[] = [
-  {
-    id: 1,
-    title: 'Stage d\'Été Ski & Montagne',
-    subtitle: 'Formation technique — Toutes catégories',
-    date: '2026-06-20',
-    endDate: '2026-06-27',
-    location: 'Oukaimeden',
-    locationDetail: 'Station de ski d\'Oukaimeden — Alt. 2 600 m',
-    sport: 'ski',
-    category: 'stage',
-    status: 'upcoming',
-    description: 'Stage intensif d\'une semaine pour les jeunes skieurs du club. Au programme : perfectionnement technique, initiation au slalom géant et randonnée en haute montagne avec nos moniteurs certifiés.',
-    highlight: true,
-  },
-  {
-    id: 2,
-    title: 'Tournoi de Football Asni',
-    subtitle: '3ème Édition — Garçons & Filles',
-    date: '2026-05-15',
-    endDate: '2026-05-17',
-    location: 'Asni',
-    locationDetail: 'Terrain de football d\'Asni',
-    sport: 'football',
-    category: 'tournoi',
-    status: 'upcoming',
-    description: 'La troisième édition du tournoi de football de l\'ASATA réunit les équipes des communes d\'Al Haouz. Catégories U12, U16, et senior masculin et féminin. Inscriptions ouvertes.',
-  },
-  {
-    id: 3,
-    title: 'Championnat National d\'Athlétisme',
-    subtitle: 'Délégation ASATA — FRMA',
-    date: '2026-09-06',
-    location: 'Rabat',
-    locationDetail: 'Complexe sportif Prince Moulay Abdallah',
-    sport: 'athletisme',
-    category: 'competition',
-    status: 'upcoming',
-    description: 'Notre délégation d\'athlètes participera au Championnat National sous les couleurs de l\'ASATA, encadrée par M. Ahmed BIRI, champion national en titre du 110m haies.',
-  },
-  {
-    id: 4,
-    title: 'Journée Portes Ouvertes ASATA',
-    subtitle: '16ème anniversaire de l\'association',
-    date: '2026-06-06',
-    location: 'Asni',
-    locationDetail: 'Siège de l\'ASATA — Village d\'Asni',
-    sport: 'general',
-    category: 'ceremonie',
-    status: 'upcoming',
-    description: 'Pour célébrer les 16 ans de l\'ASATA, nous ouvrons nos portes à la communauté. Démonstrations sportives, remise de prix aux athlètes méritants et moment convivial.',
-  },
-  {
-    id: 5,
-    title: 'Open African Masters Athletics',
-    subtitle: '1ère place · 100m & 110m haies',
-    date: '2025-10-12',
-    location: 'Tunis, Tunisie',
-    locationDetail: 'Stade El Menzah',
-    sport: 'athletisme',
-    category: 'competition',
-    status: 'past',
-    description: 'M. Ahmed BIRI a représenté brillamment l\'ASATA lors de l\'Open African Masters à Tunis, décrochant deux médailles d\'or en 100m et 110m haies.',
-    result: '🥇 1ère place — 100m & 110m haies',
-    highlight: true,
-  },
-  {
-    id: 6,
-    title: 'Tournoi Ramadan de Football',
-    subtitle: 'Trophée ASATA · Édition 2025',
-    date: '2025-03-20',
-    endDate: '2025-03-28',
-    location: 'Asni',
-    locationDetail: 'Terrain de football d\'Asni',
-    sport: 'football',
-    category: 'tournoi',
-    status: 'past',
-    description: 'L\'ASATA a organisé et remporté le tournoi de football du Ramadan, rassemblant 8 équipes de la province d\'Al Haouz.',
-    result: '🏆 Vainqueur du tournoi',
-    image: '/footballActivitiesPics/asata tournoi raman winners.jpg',
-  },
-  {
-    id: 7,
-    title: 'Championnat International — Shkodër',
-    subtitle: '110m haies & 200m · Albanie',
-    date: '2025-06-08',
-    location: 'Shkodër, Albanie',
-    sport: 'athletisme',
-    category: 'competition',
-    status: 'past',
-    description: 'Participation internationale de M. Ahmed BIRI au championnat de Shkodër avec un double podium remarquable.',
-    result: '🥇 1ère place — 110m haies · 🥇 1ère place — 200m',
-  },
-  {
-    id: 8,
-    title: '2ème Édition Compétition Ski Alpin',
-    subtitle: 'Coupe ASATA — Slalom Géant',
-    date: '2025-01-25',
-    location: 'Oukaimeden',
-    locationDetail: 'Pistes noires & rouges · Alt. 2 600 m',
-    sport: 'ski',
-    category: 'competition',
-    status: 'past',
-    description: 'La deuxième édition de la compétition de ski alpin organisée par l\'ASATA a réuni 34 compétiteurs issus de plusieurs clubs du Maroc.',
-    image: '/skiActivitiesPics/Ski comp 2eme edution fiche.jpg',
-  },
-  {
-    id: 10,
-    title: 'Rencontre Amicale Football',
-    subtitle: 'ASATA vs Club Ait Ourir',
-    date: '2025-09-14',
-    location: 'Ait Ourir',
-    sport: 'football',
-    category: 'rencontre',
-    status: 'past',
-    description: 'Match amical entre l\'équipe senior de l\'ASATA et le club d\'Ait Ourir, dans le cadre de la préparation de la saison 2025–2026.',
-    result: '2 – 1 (Victoire ASATA)',
-  },
-]
+function mapEvent(e: ApiEvent): Evenement {
+  return {
+    id:             e.id,
+    title:          e.title,
+    subtitle:       e.subtitle ?? undefined,
+    date:           e.date,
+    endDate:        e.endDate ?? undefined,
+    location:       e.location,
+    locationDetail: e.locationDetail ?? undefined,
+    sport:          (e.sport as Sport) ?? 'general',
+    category:       (e.category as Category) ?? 'competition',
+    status:         (e.status as Status) ?? 'upcoming',
+    description:    e.description,
+    result:         e.result ?? undefined,
+    highlight:      e.highlight,
+    image:          e.image ?? undefined,
+  }
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -535,14 +435,26 @@ const SPORT_FILTERS: { key: SportFilter; label: string; icon: string }[] = [
 ]
 
 export default function Evenements() {
+  const [events,       setEvents]       = useState<Evenement[]>([])
+  const [apiLoading,   setApiLoading]   = useState(true)
+  const [apiError,     setApiError]     = useState('')
+
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const [sportFilter,  setSportFilter]  = useState<SportFilter>('all')
   const [activeEvent,  setActiveEvent]  = useState<Evenement | null>(null)
   const [search,       setSearch]       = useState('')
 
+  // Fetch from API
+  useEffect(() => {
+    eventsApi.list()
+      .then(data => setEvents(data.map(mapEvent)))
+      .catch(err => setApiError(err instanceof Error ? err.message : 'Erreur de chargement'))
+      .finally(() => setApiLoading(false))
+  }, [])
+
   const upcomingEvents = useMemo(
     () => events.filter(e => e.status === 'upcoming').sort((a, b) => a.date < b.date ? -1 : 1),
-    [],
+    [events],
   )
 
   const filtered = useMemo(() => {
@@ -559,11 +471,40 @@ export default function Evenements() {
         if (a.status === 'past'     && b.status === 'past')     return a.date > b.date ? -1 : 1
         return a.status === 'upcoming' ? -1 : 1
       })
-  }, [statusFilter, sportFilter, search])
+  }, [events, statusFilter, sportFilter, search])
 
   const upcomingFiltered = filtered.filter(e => e.status === 'upcoming')
   const pastFiltered     = filtered.filter(e => e.status === 'past')
   const hasActiveFilters = statusFilter !== 'all' || sportFilter !== 'all' || !!search
+
+  if (apiLoading) {
+    return (
+      <PageTransition>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-gray-400 font-heading">Chargement des événements…</p>
+          </div>
+        </div>
+      </PageTransition>
+    )
+  }
+
+  if (apiError) {
+    return (
+      <PageTransition>
+        <div className="min-h-[60vh] flex items-center justify-center px-4">
+          <div className="text-center">
+            <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <i className="fas fa-exclamation-circle text-red-400 text-xl" />
+            </div>
+            <h2 className="font-heading font-black text-gray-900 text-xl mb-2">Erreur de chargement</h2>
+            <p className="text-gray-400 text-sm">{apiError}</p>
+          </div>
+        </div>
+      </PageTransition>
+    )
+  }
 
   return (
     <PageTransition>
