@@ -1,0 +1,49 @@
+
+> asata-website@1.0.0 dev
+> vite
+
+Port 5173 is in use, trying another one...
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m585[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5174[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m1:38:48 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Evenements.tsx, /src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/admin/ProtectedRoute.tsx, /src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/context/AdminAuthContext.tsx, /src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/admin/AdminDashboard.tsx, /src/pages/Evenements.tsx[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m2:06:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminLogin.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Evenements.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/context/AdminAuthContext.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/admin/ProtectedRoute.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Evenements.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m2:06:47 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminLogin.tsx, /src/index.css[22m
+[2m2:06:48 PM[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/context/AdminAuthContext.tsx[22m Could not Fast Refresh ("useAdminAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m2:06:48 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.tsx, /src/components/admin/ProtectedRoute.tsx, /src/pages/admin/AdminLogin.tsx, /src/pages/admin/AdminDashboard.tsx[22m
+[2m2:47:12 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Evenements.tsx, /src/index.css, /src/context/AdminAuthContext.tsx, /src/pages/admin/AdminDashboard.tsx[22m
+[2m2:47:12 PM[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/context/AdminAuthContext.tsx[22m Could not Fast Refresh ("useAdminAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m2:47:12 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.tsx, /src/components/admin/ProtectedRoute.tsx, /src/pages/admin/AdminLogin.tsx, /src/pages/admin/AdminDashboard.tsx[22m
+[2m6:02:06 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:09:52 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Evenements.tsx, /src/index.css, /src/context/AdminAuthContext.tsx, /src/pages/admin/AdminDashboard.tsx[22m
+[2m6:10:01 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:10:42 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:10:50 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:10:56 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:11:01 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:16:32 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.tsx, /src/index.css[22m
+[2m6:16:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.tsx, /src/index.css[22m
+[2m6:16:44 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.tsx, /src/index.css[22m
+[2m6:16:56 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.tsx, /src/index.css[22m
+[2m6:40:00 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Evenements.tsx, /src/index.css, /src/context/AdminAuthContext.tsx, /src/pages/admin/AdminDashboard.tsx[22m
+[2m6:40:09 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:40:29 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:40:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:40:39 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m
+[2m6:40:44 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/admin/AdminDashboard.tsx, /src/index.css[22m

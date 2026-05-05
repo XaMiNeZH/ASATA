@@ -1,0 +1,409 @@
+
+> asata-api@1.0.0 dev
+> ts-node-dev --respawn --transpile-only src/main.ts
+
+[INFO] 18:07:41 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:07:42 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:12:45 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+🚀  ASATA API running on http://localhost:3001
+📦  Environment: development
+💳  Donations: http://localhost:3001/api/donations
+[INFO] 18:16:23 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\modules\contact\contact.schema.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:16:24 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:27:31 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+🚀  ASATA API running on http://localhost:3001
+📦  Environment: development
+💳  Donations: http://localhost:3001/api/donations
+[INFO] 18:39:48 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:49 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:51 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:53 Error: listen EADDRINUSE: address already in use :::3001
+ ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query UPDATE `main`.`Donation` SET `status` = ?, `updatedAt` = ? WHERE (`main`.`Donation`.`id` = ? AND 1=1) RETURNING `id` AS `id`, `reference` AS `reference`, `status` AS `status`, `updatedAt` AS `updatedAt`
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`dono[INFO] 18:12:45 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:12:46 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:16:23 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\modules\contact\contact.schema.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:16:24 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:27:31 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:29 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:48 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:49 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:51 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:53 Error: listen EADDRINUSE: address already in use :::3001
+tus`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`,[INFO] 18:12:45 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:12:46 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:16:23 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\modules\contact\contact.schema.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:16:24 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:27:31 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:28 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:48 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+🚀  ASATA API running on http://localhost:3001
+📦  Environment: development
+💳  Donations: http://localhost:3001/api/donations
+[INFO] 18:39:51 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:53 Error: listen EADDRINUSE: address already in use :::3001
+ ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `ma[INFO] 18:12:45 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:12:46 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:16:23 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\modules\contact\contact.schema.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:16:24 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:27:31 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:29 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:48 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:49 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:51 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:53 Error: listen EADDRINUSE: address already in use :::3001
+e`, `status`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `firstName` AS `firstName`, `lastName` AS `lastName`, `email` AS `email`, `phone` AS `phone`, `subject` AS `subject`, `message` AS `message`, `status` AS `status`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+📧  Email send failed: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-45052483166sm6089573f8f.7 - gsmtp
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query UPDATE `main`.`ContactMessage` SET `status` = ?, `updatedAt` = ? WHERE (`main`.`ContactMessage`.`id` = ? AND 1=1) RETURNING `id` AS `id`, `firstName` AS `firstName`, `lastName` AS `lastName`, `email` AS `email`, `phone` AS `phone`, `subject` AS `subject`, `message` AS `message`, `status` AS `status`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+[INFO] 18:27:31 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:29 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:48 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\hamza\ASATA\ASATA\apps\api\node_modules\express\lib\application.js:635:24)
+    at bootstrap (C:\Users\hamza\ASATA\ASATA\apps\api\src\main.ts:16:22)
+[ERROR] 18:39:49 Error: listen EADDRINUSE: address already in use :::3001
+[INFO] 18:39:51 Restarting: C:\Users\hamza\ASATA\ASATA\apps\api\src\app.ts has been modified
+✅  Database connected
+🚀  ASATA API running on http://localhost:3001
+📦  Environment: development
+💳  Donations: http://localhost:3001/api/donations
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email`, `main`.`Admin`.`passwordHash`, `main`.`Admin`.`createdAt` FROM `main`.`Admin` WHERE (`main`.`Admin`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Admin`.`id`, `main`.`Admin`.`email` FROM `main`.`Admin` WHERE (`main`.`Admin`.`id` = ? AND 1=1) LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`GalleryPhoto`.`id`, `main`.`GalleryPhoto`.`src`, `main`.`GalleryPhoto`.`caption`, `main`.`GalleryPhoto`.`category`, `main`.`GalleryPhoto`.`createdAt` FROM `main`.`GalleryPhoto` WHERE 1=1 ORDER BY `main`.`GalleryPhoto`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query INSERT INTO `main`.`Event` (`id`, `title`, `subtitle`, `date`, `endDate`, `location`, `locationDetail`, `sport`, `category`, `status`, `description`, `result`, `highlight`, `image`, `createdAt`, `updatedAt`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING `id` AS `id`, `title` AS `title`, `subtitle` AS `subtitle`, `date` AS `date`, `endDate` AS `endDate`, `location` AS `location`, `locationDetail` AS `locationDetail`, `sport` AS `sport`, `category` AS `category`, `status` AS `status`, `description` AS `description`, `result` AS `result`, `highlight` AS `highlight`, `image` AS `image`, `createdAt` AS `createdAt`, `updatedAt` AS `updatedAt`
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE `main`.`ContactMessage`.`status` = ? ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`ContactMessage`.`id`, `main`.`ContactMessage`.`firstName`, `main`.`ContactMessage`.`lastName`, `main`.`ContactMessage`.`email`, `main`.`ContactMessage`.`phone`, `main`.`ContactMessage`.`subject`, `main`.`ContactMessage`.`message`, `main`.`ContactMessage`.`status`, `main`.`ContactMessage`.`createdAt`, `main`.`ContactMessage`.`updatedAt` FROM `main`.`ContactMessage` WHERE 1=1 ORDER BY `main`.`ContactMessage`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT `main`.`Event`.`id`, `main`.`Event`.`title`, `main`.`Event`.`subtitle`, `main`.`Event`.`date`, `main`.`Event`.`endDate`, `main`.`Event`.`location`, `main`.`Event`.`locationDetail`, `main`.`Event`.`sport`, `main`.`Event`.`category`, `main`.`Event`.`status`, `main`.`Event`.`description`, `main`.`Event`.`result`, `main`.`Event`.`highlight`, `main`.`Event`.`image`, `main`.`Event`.`createdAt`, `main`.`Event`.`updatedAt` FROM `main`.`Event` WHERE 1=1 ORDER BY `main`.`Event`.`date` ASC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT SUM(`amount`), COUNT(`id`) FROM (SELECT `main`.`Donation`.`amount`, `main`.`Donation`.`id` FROM `main`.`Donation` WHERE `main`.`Donation`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT COUNT(`main`.`Donation`.`id`), SUM(`main`.`Donation`.`amount`), `main`.`Donation`.`method` FROM `main`.`Donation` WHERE 1=1 GROUP BY `main`.`Donation`.`method` LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+prisma:query SELECT `main`.`Donation`.`id`, `main`.`Donation`.`reference`, `main`.`Donation`.`amount`, `main`.`Donation`.`currency`, `main`.`Donation`.`method`, `main`.`Donation`.`status`, `main`.`Donation`.`donorName`, `main`.`Donation`.`donorEmail`, `main`.`Donation`.`createdAt` FROM `main`.`Donation` WHERE 1=1 ORDER BY `main`.`Donation`.`createdAt` DESC LIMIT ? OFFSET ?
+prisma:query SELECT COUNT(*) FROM (SELECT `main`.`Donation`.`id` FROM `main`.`Donation` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`

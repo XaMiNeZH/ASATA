@@ -1,10 +1,11 @@
-import { useState, useEffect, FormEvent } from 'react'
+import { useState, useEffect, useRef, FormEvent } from 'react'
 import { useAdminAuth } from '../../context/AdminAuthContext'
 import {
   eventsApi, ApiEvent, EventPayload,
   galleryApi, ApiPhoto,
   donationsAdminApi, ApiDonation, DonationStats,
   contactAdminApi, ApiContactMessage,
+  uploadApi,
 } from '../../lib/api'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -34,6 +35,55 @@ function emptyForm(): EventPayload {
 
 function Badge({ cls, text }: { cls: string; text: string }) {
   return <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${cls}`}>{text}</span>
+}
+
+function ImageUploader({ value, onChange, label = 'Image', required = false }: { value: string | null; onChange: (url: string | null) => void; label?: string; required?: boolean }) {
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  async function handleFile(file: File) {
+    setUploading(true)
+    setUploadError('')
+    try {
+      const { url } = await uploadApi.upload(file)
+      onChange(url)
+    } catch (err: unknown) {
+      setUploadError(err instanceof Error ? err.message : 'Erreur upload')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div>
+      <label className="form-label">{label}</label>
+      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = '' }} />
+      {value ? (
+        <div className="mt-1">
+          <div className="relative rounded-xl overflow-hidden bg-gray-100 h-32">
+            <img src={value} alt="preview" className="w-full h-full object-cover" onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
+          </div>
+          <div className="flex items-center gap-3 mt-2">
+            <button type="button" onClick={() => inputRef.current?.click()} disabled={uploading} className="text-xs text-primary font-heading font-bold hover:underline disabled:opacity-50">
+              {uploading ? <><span className="inline-block w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin mr-1" />Chargement…</> : 'Changer l\'image'}
+            </button>
+            {!required && <button type="button" onClick={() => onChange(null)} className="text-xs text-red-500 font-heading font-bold hover:underline">Supprimer</button>}
+          </div>
+        </div>
+      ) : (
+        <button type="button" onClick={() => inputRef.current?.click()} disabled={uploading}
+          className="mt-1 w-full border-2 border-dashed border-gray-200 rounded-xl p-6 flex flex-col items-center gap-2 hover:border-primary hover:bg-primary/5 transition-colors disabled:opacity-50 cursor-pointer">
+          {uploading
+            ? <span className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            : <i className="fas fa-cloud-upload-alt text-2xl text-gray-400" />}
+          <span className="text-sm text-gray-500">{uploading ? 'Chargement…' : 'Cliquer pour parcourir'}</span>
+          <span className="text-xs text-gray-400">JPG, PNG, WebP · max 5 MB</span>
+        </button>
+      )}
+      {uploadError && <p className="text-xs text-red-500 mt-1">{uploadError}</p>}
+    </div>
+  )
 }
 
 // ─── EVENTS TAB ───────────────────────────────────────────────────────────────
@@ -229,7 +279,7 @@ function EventsTab() {
                 </div>
                 <div className="sm:col-span-2"><label className="form-label">Description *</label><textarea required rows={4} value={form.description} onChange={e => setField('description', e.target.value)} className="form-input resize-none" /></div>
                 <div className="sm:col-span-2"><label className="form-label">Résultat</label><input value={form.result ?? ''} onChange={e => setField('result', e.target.value || null)} className="form-input" placeholder="Ex: 🥇 1ère place" /></div>
-                <div className="sm:col-span-2"><label className="form-label">Chemin de l'image</label><input value={form.image ?? ''} onChange={e => setField('image', e.target.value || null)} className="form-input" placeholder="Ex: /footballActivitiesPics/photo.jpg" /></div>
+                <div className="sm:col-span-2"><ImageUploader value={form.image ?? null} onChange={url => setField('image', url)} label="Image" /></div>
               </div>
               <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
                 <button type="button" onClick={() => setModalOpen(false)} className="px-5 py-2.5 text-sm font-heading font-bold text-gray-600 hover:bg-gray-100 rounded-xl">Annuler</button>
@@ -286,7 +336,9 @@ function GalleryTab() {
   const displayed = filter === 'all' ? photos : photos.filter(p => p.category === filter)
 
   async function handleAdd(e: FormEvent) {
-    e.preventDefault(); setSaving(true)
+    e.preventDefault()
+    if (!newSrc) { setError('Veuillez sélectionner une image'); return }
+    setSaving(true)
     try {
       const p = await galleryApi.create({ src: newSrc, caption: newCap || null, category: newCat })
       setPhotos(prev => [p, ...prev])
@@ -365,11 +417,7 @@ function GalleryTab() {
               <button onClick={() => setAddOpen(false)} className="p-2 hover:bg-gray-100 rounded-xl"><i className="fas fa-times text-gray-500" /></button>
             </div>
             <form onSubmit={handleAdd} className="p-6 flex flex-col gap-4">
-              <div>
-                <label className="form-label">Chemin de l'image *</label>
-                <input required value={newSrc} onChange={e => setNewSrc(e.target.value)} className="form-input" placeholder="/skiActivitiesPics/photo.jpg" />
-                {newSrc && <img src={newSrc} alt="preview" className="mt-2 h-32 w-full object-cover rounded-xl bg-gray-100" onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />}
-              </div>
+              <ImageUploader value={newSrc || null} onChange={url => setNewSrc(url ?? '')} label="Image *" required />
               <div>
                 <label className="form-label">Légende</label>
                 <input value={newCap} onChange={e => setNewCap(e.target.value)} className="form-input" placeholder="Description optionnelle" />
