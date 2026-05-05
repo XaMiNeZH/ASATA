@@ -1,4 +1,4 @@
-const USE_MOCK = true; // Set to false when real backend is ready
+const USE_MOCK = false; // Set to false when real backend is ready
 
 import { apiClient } from '../api/client';
 import { mockNotifications } from '../mocks/notifications.mock';
@@ -10,7 +10,7 @@ const delay = async (): Promise<void> => {
 
 export const getUserNotifications = async (userId: string): Promise<Notification[]> => {
   if (!USE_MOCK) {
-    return apiClient.request<Notification[]>(`/users/${userId}/notifications`);
+    return apiClient.request<Notification[]>('/notifications/me');
   }
 
   await delay();
@@ -34,7 +34,9 @@ export const markAsRead = async (notificationId: string): Promise<void> => {
 
 export const markAllAsRead = async (userId: string): Promise<void> => {
   if (!USE_MOCK) {
-    await apiClient.request<void>(`/users/${userId}/notifications/read-all`, { method: 'PATCH' });
+    await apiClient.request<void>('/notifications/me/read-all', {
+      method: 'PATCH',
+    });
     return;
   }
 

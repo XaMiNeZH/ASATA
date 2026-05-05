@@ -1,4 +1,4 @@
-const USE_MOCK = true; // Set to false when real backend is ready
+const USE_MOCK = false; // Set to false when real backend is ready
 
 import { apiClient } from '../api/client';
 import { MOCK_PASSWORD, mockUsers } from '../mocks/users.mock';
@@ -14,7 +14,10 @@ const delay = async (): Promise<void> => {
 
 export const login = async (credentials: AuthCredentials): Promise<AuthResponse> => {
   if (!USE_MOCK) {
-    return apiClient.request<AuthResponse>('/auth/login', { method: 'POST', body: credentials });
+    return apiClient.request<AuthResponse>('/auth/login', {
+      method: 'POST',
+      body: credentials,
+    });
   }
 
   await delay();
@@ -29,7 +32,10 @@ export const login = async (credentials: AuthCredentials): Promise<AuthResponse>
 
 export const register = async (payload: RegisterPayload): Promise<AuthResponse> => {
   if (!USE_MOCK) {
-    return apiClient.request<AuthResponse>('/auth/register', { method: 'POST', body: payload });
+    return apiClient.request<AuthResponse>('/auth/register', {
+      method: 'POST',
+      body: payload,
+    });
   }
 
   await delay();
@@ -59,7 +65,9 @@ export const register = async (payload: RegisterPayload): Promise<AuthResponse> 
 
 export const logout = async (): Promise<void> => {
   if (!USE_MOCK) {
-    await apiClient.request<void>('/auth/logout', { method: 'POST' });
+    await storage.remove('asata_token');
+    await storage.remove('asata_user');
+    return;
   }
 
   await delay();
@@ -71,7 +79,10 @@ export const getCurrentUser = async (): Promise<UserWithProfil | null> => {
 
 export const updateProfil = async (userId: string, data: Partial<Profil>): Promise<Profil> => {
   if (!USE_MOCK) {
-    return apiClient.request<Profil>(`/users/${userId}/profil`, { method: 'PATCH', body: data });
+    return apiClient.request<Profil>('/profile/me', {
+      method: 'PATCH',
+      body: data,
+    });
   }
 
   await delay();
