@@ -1,4 +1,4 @@
-const USE_MOCK = true; // Set to false when real backend is ready
+const USE_MOCK = false; // Set to false when real backend is ready
 
 import { apiClient } from '../api/client';
 import { mockAnnouncements } from '../mocks/announcements.mock';

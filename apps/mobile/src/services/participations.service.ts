@@ -1,4 +1,4 @@
-const USE_MOCK = true; // Set to false when real backend is ready
+const USE_MOCK = false; // Set to false when real backend is ready
 
 import { apiClient } from '../api/client';
 import { mockEvents } from '../mocks/events.mock';
@@ -17,7 +17,10 @@ const withEvent = (participation: Participation): Participation => ({
 
 export const registerForEvent = async (eventId: string, userId: string): Promise<Participation> => {
   if (!USE_MOCK) {
-    return apiClient.request<Participation>('/participations', { method: 'POST', body: { eventId, userId } });
+    return apiClient.request<Participation>('/participations', {
+      method: 'POST',
+      body: { evenementId: eventId },
+    });
   }
 
   await delay();
@@ -61,7 +64,9 @@ export const registerForEvent = async (eventId: string, userId: string): Promise
 
 export const cancelParticipation = async (participationId: string): Promise<void> => {
   if (!USE_MOCK) {
-    await apiClient.request<void>(`/participations/${participationId}`, { method: 'DELETE' });
+    await apiClient.request<void>(`/participations/${participationId}/cancel`, {
+      method: 'PATCH',
+    });
     return;
   }
 
@@ -90,7 +95,7 @@ export const cancelParticipation = async (participationId: string): Promise<void
 
 export const getUserParticipations = async (userId: string): Promise<Participation[]> => {
   if (!USE_MOCK) {
-    return apiClient.request<Participation[]>(`/users/${userId}/participations`);
+    return apiClient.request<Participation[]>('/participations/me');
   }
 
   await delay();

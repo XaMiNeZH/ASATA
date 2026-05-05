@@ -1,4 +1,4 @@
-const USE_MOCK = true; // Set to false when real backend is ready
+const USE_MOCK = false; // Set to false when real backend is ready
 
 import { apiClient } from '../api/client';
 import { mockEvents } from '../mocks/events.mock';
@@ -34,7 +34,7 @@ export const getEventById = async (id: string): Promise<Evenement> => {
 
 export const isUserRegistered = async (eventId: string, userId: string): Promise<boolean> => {
   if (!USE_MOCK) {
-    return apiClient.request<boolean>(`/events/${eventId}/registered?userId=${userId}`);
+    return apiClient.request<boolean>(`/events/${eventId}/registered`);
   }
 
   await delay();
