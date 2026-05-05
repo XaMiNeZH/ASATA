@@ -74,3 +74,59 @@ export const eventsApi = {
   delete: (id: string) =>
     request<null>(`/api/events/${id}`, { method: 'DELETE' }),
 }
+
+// ── gallery ───────────────────────────────────────────────────────────────────
+
+export interface ApiPhoto {
+  id: string
+  src: string
+  caption?: string | null
+  category: string
+  createdAt: string
+}
+
+export const galleryApi = {
+  list: (category?: string) => {
+    const qs = category && category !== 'all' ? `?category=${category}` : ''
+    return request<ApiPhoto[]>(`/api/gallery${qs}`)
+  },
+  create: (data: { src: string; caption?: string | null; category: string }) =>
+    request<ApiPhoto>('/api/gallery', { method: 'POST', body: JSON.stringify(data) }),
+  delete: (id: string) =>
+    request<null>(`/api/gallery/${id}`, { method: 'DELETE' }),
+}
+
+// ── donations (admin) ─────────────────────────────────────────────────────────
+
+export interface ApiDonation {
+  id: string
+  reference: string
+  amount: number
+  currency: string
+  method: string
+  status: string
+  donorName: string
+  donorEmail: string
+  createdAt: string
+}
+
+export interface DonationStats {
+  totalDonations: number
+  confirmedCount: number
+  confirmedTotal: number
+  byMethod: { method: string; count: number; total: number }[]
+}
+
+export const donationsAdminApi = {
+  list: (params?: { status?: string; method?: string; page?: number }) => {
+    const q = new URLSearchParams()
+    if (params?.status) q.set('status', params.status)
+    if (params?.method) q.set('method', params.method)
+    if (params?.page)   q.set('page',   String(params.page))
+    const qs = q.toString() ? `?${q}` : ''
+    return request<{ donations: ApiDonation[]; pagination: { total: number; page: number; totalPages: number } }>(`/api/donations${qs}`)
+  },
+  stats: () => request<DonationStats>('/api/donations/stats'),
+  updateStatus: (id: string, status: string) =>
+    request<ApiDonation>(`/api/donations/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
+}

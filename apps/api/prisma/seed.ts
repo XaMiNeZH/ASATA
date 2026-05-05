@@ -20,8 +20,7 @@ async function main() {
   const count = await prisma.event.count();
   if (count > 0) {
     console.log("Events already seeded, skipping.");
-    return;
-  }
+  } else {
 
   const events = [
     {
@@ -137,6 +136,47 @@ async function main() {
     await prisma.event.create({ data: ev });
   }
   console.log(`Seeded ${events.length} events.`);
+  } // end events seeding
+
+  // ── Seed gallery photos ────────────────────────────────────────────────────
+  const photoCount = await prisma.galleryPhoto.count();
+  if (photoCount === 0) {
+    const ski = (f: string) => `/skiActivitiesPics/${f}`
+    const fb  = (f: string) => `/footballActivitiesPics/${f}`
+    const ath = (f: string) => `/athleticism/${f}`
+
+    const skiPhotos = [
+      ski('Group ski team with leaders.jpg'), ski('PHOTO-2026-04-07-12-10-28.jpg'),
+      ski('PHOTO-2026-04-07-12-10-29.jpg'),  ski('PHOTO-2026-04-07-12-10-30.jpg'),
+      ski('PHOTO-2026-04-07-12-10-31.jpg'),  ski('PHOTO-2026-04-07-12-10-32.jpg'),
+      ski('PHOTO-2026-04-07-12-10-33.jpg'),  ski('PHOTO-2026-04-07-12-10-34.jpg'),
+      ski('PHOTO-2026-04-07-12-10-35.jpg'),  ski('PHOTO-2026-04-07-12-10-36.jpg'),
+      ski('PHOTO-2026-04-07-12-10-37.jpg'),  ski('PHOTO-2026-04-07-12-10-38.jpg'),
+      ski('PHOTO-2026-04-07-12-10-40.jpg'),  ski('PHOTO-2026-04-07-12-10-41.jpg'),
+      ski('PHOTO-2026-04-07-12-10-42.jpg'),  ski('PHOTO-2026-04-07-12-10-43.jpg'),
+      ski('PHOTO-2026-04-07-12-10-44.jpg'),  ski('PHOTO-2026-04-07-12-10-45.jpg'),
+      ski('Ski comp 2eme edution fiche.jpg'),
+    ].map(src => ({ src, category: 'ski' }))
+
+    const fbPhotos = [
+      fb('484108752_1050160593818353_1515778284063821567_n.jpg'),
+      fb('asata tournoi raman winners.jpg'),
+      fb('488773657_1063992112435201_1225323002036523208_n.jpg'),
+      fb('488942403_1063991805768565_8104423691628912325_n.jpg'),
+    ].map(src => ({ src, category: 'football' }))
+
+    const athPhotos = [
+      ath('Screenshot 2026-04-26 211856.png'), ath('Screenshot 2026-04-26 212022.png'),
+      ath('Screenshot 2026-04-26 212049.png'), ath('Screenshot 2026-04-26 212127.png'),
+      ath('Screenshot 2026-04-26 212350.png'),
+    ].map(src => ({ src, category: 'athletisme' }))
+
+    const all = [...skiPhotos, ...fbPhotos, ...athPhotos]
+    await prisma.galleryPhoto.createMany({ data: all })
+    console.log(`Seeded ${all.length} gallery photos.`)
+  } else {
+    console.log('Gallery photos already seeded, skipping.')
+  }
 }
 
 main()

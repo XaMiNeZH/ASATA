@@ -48,6 +48,14 @@ model Donation {
   updatedAt   DateTime @updatedAt
 }
 
+model GalleryPhoto {
+  id        String   @id @default(cuid())
+  src       String
+  caption   String?
+  category  String   @default("general")
+  createdAt DateTime @default(now())
+}
+
 model ContactMessage {
   id        String   @id @default(cuid())
   firstName String
