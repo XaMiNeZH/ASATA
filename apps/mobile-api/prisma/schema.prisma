@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// role: "membre" | "coach" | "administrateur"
+// statut: "actif" | "inactif" | "suspendu"
+model User {
+  id              String   @id @default(cuid())
+  nom             String
+  email           String   @unique
+  motDePasseHash  String
+  role            String   @default("membre")
+  dateCreation    DateTime @default(now())
+
+  dateInscription DateTime?
+  statut          String?  @default("actif")
+
+  specialite      String?
+  experience      Int?
+
+  niveau          Int?
+
+  profil          Profil?
+  participations  Participation[]
+  notifications   Notification[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([email])
+  @@index([role])
+}
+
+model Profil {
+  id        String @id @default(cuid())
+  userId    String @unique
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  age       Int?
+  telephone String?
+  adresse   String?
+  photo     String?
+
+  updatedAt DateTime @updatedAt
+}
+
+// statut: "planifie" | "en_cours" | "termine" | "annule"
+model Evenement {
+  id             String   @id @default(cuid())
+  titre          String
+  description    String
+  date           DateTime
+  lieu           String
+  capacite       Int
+  statut         String   @default("planifie")
+  coverImage     String?
+
+  participations Participation[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([statut])
+  @@index([date])
+}
+
+// statut: "confirme" | "annule" | "en_attente"
+// presence: "present" | "absent" | "non_renseigne"
+model Participation {
+  id              String    @id @default(cuid())
+  userId          String
+  evenementId     String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  evenement       Evenement @relation(fields: [evenementId], references: [id], onDelete: Cascade)
+
+  dateInscription DateTime  @default(now())
+  statut          String    @default("confirme")
+  presence        String    @default("non_renseigne")
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([userId, evenementId])
+  @@index([userId])
+  @@index([evenementId])
+  @@index([statut])
+}
+
+model Annonce {
+  id              String   @id @default(cuid())
+  titre           String
+  contenu         String
+  datePublication DateTime @default(now())
+  visible         Boolean  @default(true)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([visible])
+  @@index([datePublication])
+}
+
+// type: "event_confirmation" | "event_cancelled" | "announcement" | "reminder"
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  message   String
+  dateEnvoi DateTime @default(now())
+  type      String
+  lu        Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([lu])
+}
