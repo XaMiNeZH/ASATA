@@ -130,3 +130,26 @@ export const donationsAdminApi = {
   updateStatus: (id: string, status: string) =>
     request<ApiDonation>(`/api/donations/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
 }
+
+// ── contact messages (admin) ──────────────────────────────────────────────────
+
+export interface ApiContactMessage {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string | null
+  subject: string
+  message: string
+  status: 'unread' | 'read' | 'replied'
+  createdAt: string
+}
+
+export const contactAdminApi = {
+  list: (status?: string) => {
+    const qs = status && status !== 'all' ? `?status=${status}` : ''
+    return request<ApiContactMessage[]>(`/api/contact${qs}`)
+  },
+  updateStatus: (id: string, status: string) =>
+    request<ApiContactMessage>(`/api/contact/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
+}
