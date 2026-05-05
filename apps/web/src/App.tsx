@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Outlet } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect, useLayoutEffect } from 'react'
 import Navbar from './components/Navbar'
@@ -18,35 +18,9 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 import { AdminAuthProvider } from './context/AdminAuthContext'
 
-// Admin layout — no Navbar/Footer
-function AdminRoutes() {
-  return (
-    <AdminAuthProvider>
-      <Routes>
-        <Route path="/login" element={<AdminLogin />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </AdminAuthProvider>
-  )
-}
+// ── Public layout wrapper ────────────────────────────────────────────────────
 
-// Public layout — with Navbar/Footer
-function PublicRoutes() {
+function PublicLayout() {
   const location = useLocation()
 
   useEffect(() => {
@@ -65,18 +39,7 @@ function PublicRoutes() {
       <Navbar />
       <main className="flex-1">
         <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/"           element={<Home />} />
-            <Route path="/about"      element={<About />} />
-            <Route path="/ski"        element={<Ski />} />
-            <Route path="/football"   element={<Football />} />
-            <Route path="/athletisme" element={<Athletisme />} />
-            <Route path="/equipe"     element={<Equipe />} />
-            <Route path="/galerie"    element={<Galerie />} />
-            <Route path="/contact"    element={<Contact />} />
-            <Route path="/don"        element={<Don />} />
-            <Route path="/evenements" element={<Evenements />} />
-          </Routes>
+          <Outlet key={location.pathname} />
         </AnimatePresence>
       </main>
       <Footer />
@@ -84,13 +47,44 @@ function PublicRoutes() {
   )
 }
 
+// ── App ──────────────────────────────────────────────────────────────────────
+
 export default function App() {
-  const location = useLocation()
+  return (
+    <Routes>
+      {/* ── Admin routes (no Navbar/Footer) ──────────────────────────── */}
+      <Route
+        path="/admin/*"
+        element={
+          <AdminAuthProvider>
+            <Routes>
+              <Route path="login" element={<AdminLogin />} />
+              <Route
+                path="*"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </AdminAuthProvider>
+        }
+      />
 
-  // Route admin paths to the admin layout
-  if (location.pathname.startsWith('/admin')) {
-    return <AdminRoutes />
-  }
-
-  return <PublicRoutes />
+      {/* ── Public routes (with Navbar/Footer) ───────────────────────── */}
+      <Route element={<PublicLayout />}>
+        <Route path="/"           element={<Home />} />
+        <Route path="/about"      element={<About />} />
+        <Route path="/ski"        element={<Ski />} />
+        <Route path="/football"   element={<Football />} />
+        <Route path="/athletisme" element={<Athletisme />} />
+        <Route path="/equipe"     element={<Equipe />} />
+        <Route path="/galerie"    element={<Galerie />} />
+        <Route path="/contact"    element={<Contact />} />
+        <Route path="/don"        element={<Don />} />
+        <Route path="/evenements" element={<Evenements />} />
+      </Route>
+    </Routes>
+  )
 }
