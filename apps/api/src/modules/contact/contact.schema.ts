@@ -11,7 +11,7 @@ export const createContactSchema = z.object({
     ['adhesion', 'partenariat', 'evenement', 'information', 'presse', 'autre'],
     { required_error: 'Sujet requis' }
   ),
-  message:   z.string().min(10, 'Message trop court').max(2000),
+  message:   z.string().min(2, 'Message trop court').max(2000),
 })
 
 // ── Update message status (admin) ─────────────────────────────────────────────
