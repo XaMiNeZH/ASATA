@@ -9,8 +9,8 @@ export async function createDonation(input: CreateDonationInput) {
       amount:     input.amount,
       currency:   input.currency ?? 'MAD',
       method:     input.method,
-      donorName:  input.donorName,
-      donorEmail: input.donorEmail,
+      donorName:  input.donorName  ?? '',
+      donorEmail: input.donorEmail ?? '',
       donorPhone: input.donorPhone,
       message:    input.message,
       status:     'PENDING',
@@ -127,14 +127,12 @@ export async function updateDonationStatus(id: string, input: UpdateStatusInput)
   return prisma.donation.update({
     where: { id },
     data: {
-      status:    input.status,
-      adminNote: input.adminNote,
+      status: input.status,
     },
     select: {
       id:        true,
       reference: true,
       status:    true,
-      adminNote: true,
       updatedAt: true,
     },
   })

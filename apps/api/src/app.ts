@@ -4,6 +4,8 @@ import rateLimit from 'express-rate-limit'
 import { env } from './config/env'
 import { donationsRouter } from './modules/donations/donations.router'
 import { contactRouter }   from './modules/contact/contact.router'
+import { authRouter }      from './modules/auth/auth.router'
+import { eventsRouter }    from './modules/events/events.router'
 
 const app = express()
 
@@ -66,6 +68,8 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/donations', donationsRouter)
 app.use('/api/contact',   contactRouter)
+app.use('/api/admin',     authRouter)
+app.use('/api/events',    eventsRouter)
 
 // ── 404 handler ───────────────────────────────────────────────────────────────
 

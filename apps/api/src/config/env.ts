@@ -12,6 +12,10 @@ const envSchema = z.object({
   GMAIL_USER:          z.string().email().optional(),
   GMAIL_APP_PASSWORD:  z.string().optional(),
   CONTACT_RECEIVER:    z.string().email().default('asata.club@gmail.com'),
+  JWT_SECRET:          z.string().min(16).default('asata_super_secret_jwt_key_change_in_production'),
+  JWT_EXPIRES_IN:      z.string().default('7d'),
+  ADMIN_EMAIL:         z.string().email().default('admin@asata.ma'),
+  ADMIN_PASSWORD:      z.string().default('asata2024!'),
 })
 
 const parsed = envSchema.safeParse(process.env)
