@@ -24,11 +24,13 @@ export default function Contact() {
   const [sent, setSent]         = useState(false)
   const [loading, setLoading]   = useState(false)
   const [apiError, setApiError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({})
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setApiError(null)
+    setFieldErrors({})
 
     try {
       const res = await fetch(`${API_URL}/api/contact`, {
@@ -48,6 +50,7 @@ export default function Contact() {
 
       if (!res.ok) {
         setApiError(json?.message ?? 'Une erreur est survenue. Réessayez.')
+        if (json?.errors) setFieldErrors(json.errors)
         return
       }
 
@@ -198,7 +201,13 @@ export default function Contact() {
                 <div>
                   <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Message *</label>
                   <textarea className={`${inputCls} resize-none`} rows={5} placeholder="Décrivez votre demande en détail..." value={form.message} onChange={set('message')} required />
+                  {fieldErrors.message && <p className="mt-1 text-xs text-red-500">{fieldErrors.message[0]}</p>}
                 </div>
+                {Object.keys(fieldErrors).length > 0 && !fieldErrors.message && (
+                  <p className="text-xs text-red-500">
+                    Veuillez corriger les champs suivants : {Object.keys(fieldErrors).join(', ')}
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={loading}
