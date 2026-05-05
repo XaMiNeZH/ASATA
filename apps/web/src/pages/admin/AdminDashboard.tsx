@@ -4,6 +4,7 @@ import {
   eventsApi, ApiEvent, EventPayload,
   galleryApi, ApiPhoto,
   donationsAdminApi, ApiDonation, DonationStats,
+  contactAdminApi, ApiContactMessage,
 } from '../../lib/api'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -574,18 +575,203 @@ function DonationsTab() {
   )
 }
 
+// ─── MESSAGES TAB ────────────────────────────────────────────────────────────
+
+const SUBJECT_LABELS: Record<string, string> = {
+  adhesion:    'Adhésion',
+  partenariat: 'Partenariat',
+  evenement:   'Événement',
+  information: 'Information',
+  presse:      'Presse',
+  autre:       'Autre',
+}
+
+const MSG_STATUS: Record<string, { label: string; cls: string; icon: string }> = {
+  unread:  { label: 'Non lu',   cls: 'bg-blue-100 text-blue-700',  icon: 'fas fa-envelope' },
+  read:    { label: 'Lu',       cls: 'bg-gray-100 text-gray-600',  icon: 'fas fa-envelope-open' },
+  replied: { label: 'Répondu',  cls: 'bg-green-100 text-green-700', icon: 'fas fa-reply' },
+}
+
+function MessagesTab() {
+  const [messages,  setMessages]  = useState<ApiContactMessage[]>([])
+  const [loading,   setLoading]   = useState(true)
+  const [error,     setError]     = useState('')
+  const [filter,    setFilter]    = useState('all')
+  const [selected,  setSelected]  = useState<ApiContactMessage | null>(null)
+  const [updating,  setUpdating]  = useState<string | null>(null)
+
+  async function load(f = filter) {
+    setLoading(true)
+    try { setMessages(await contactAdminApi.list(f !== 'all' ? f : undefined)) }
+    catch (e: unknown) { setError(e instanceof Error ? e.message : 'Erreur') }
+    finally { setLoading(false) }
+  }
+
+  useEffect(() => { load() }, [])
+
+  async function changeStatus(id: string, status: string) {
+    setUpdating(id)
+    try {
+      const updated = await contactAdminApi.updateStatus(id, status)
+      setMessages(prev => prev.map(m => m.id === id ? updated : m))
+      if (selected?.id === id) setSelected(updated)
+    } catch (e: unknown) { setError(e instanceof Error ? e.message : 'Erreur') }
+    finally { setUpdating(null) }
+  }
+
+  function applyFilter(f: string) { setFilter(f); load(f) }
+
+  // auto-mark as read when opened
+  function openMessage(msg: ApiContactMessage) {
+    setSelected(msg)
+    if (msg.status === 'unread') changeStatus(msg.id, 'read')
+  }
+
+  const unreadCount = messages.filter(m => m.status === 'unread').length
+
+  return (
+    <div>
+      {/* Toolbar */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2">
+            <span className="font-heading font-black text-xl text-gray-900">{messages.length} messages</span>
+            {unreadCount > 0 && (
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold">{unreadCount}</span>
+            )}
+          </div>
+          <div className="flex gap-1.5 flex-wrap">
+            {[{ value: 'all', label: 'Tous' }, { value: 'unread', label: 'Non lus' }, { value: 'read', label: 'Lus' }, { value: 'replied', label: 'Répondus' }].map(f => (
+              <button key={f.value} onClick={() => applyFilter(f.value)}
+                className={`text-xs font-heading font-bold px-3 py-1.5 rounded-xl transition-all ${filter === f.value ? 'bg-primary text-white' : 'bg-gray-100 text-gray-500 hover:bg-primary-ghost hover:text-primary'}`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 flex items-center gap-2 mb-4">
+          <i className="fas fa-exclamation-circle" />{error}
+          <button onClick={() => setError('')} className="ml-auto"><i className="fas fa-times" /></button>
+        </div>
+      )}
+
+      {loading ? (
+        <div className="flex justify-center py-20"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>
+      ) : messages.length === 0 ? (
+        <div className="bg-white border border-gray-100 rounded-2xl py-16 text-center text-gray-400">
+          <i className="fas fa-inbox text-3xl mb-3 block" /><p className="text-sm">Aucun message</p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3">
+          {messages.map(msg => (
+            <div
+              key={msg.id}
+              onClick={() => openMessage(msg)}
+              className={`cursor-pointer bg-white border rounded-2xl p-4 hover:border-primary/30 hover:shadow-blue-sm transition-all ${msg.status === 'unread' ? 'border-blue-200 bg-blue-50/30' : 'border-gray-100'}`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
+                  {/* Avatar */}
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-heading font-black text-sm ${msg.status === 'unread' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'}`}>
+                    {msg.firstName[0]}{msg.lastName[0]}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-heading font-black text-sm text-gray-900">{msg.firstName} {msg.lastName}</span>
+                      <Badge cls="bg-gray-100 text-gray-500" text={SUBJECT_LABELS[msg.subject] ?? msg.subject} />
+                      {msg.status === 'unread' && <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />}
+                    </div>
+                    <p className="text-xs text-gray-400 mt-0.5">{msg.email}{msg.phone ? ` · ${msg.phone}` : ''}</p>
+                    <p className="text-sm text-gray-600 mt-1.5 line-clamp-2">{msg.message}</p>
+                  </div>
+                </div>
+                <div className="shrink-0 text-right">
+                  <Badge cls={MSG_STATUS[msg.status]?.cls ?? ''} text={MSG_STATUS[msg.status]?.label ?? msg.status} />
+                  <p className="text-xs text-gray-400 mt-1">{new Date(msg.createdAt).toLocaleDateString('fr-FR')}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Message detail modal */}
+      {selected && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+            <div className="flex items-center justify-between p-5 border-b border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary-pale flex items-center justify-center font-heading font-black text-sm text-primary">
+                  {selected.firstName[0]}{selected.lastName[0]}
+                </div>
+                <div>
+                  <p className="font-heading font-black text-gray-900">{selected.firstName} {selected.lastName}</p>
+                  <p className="text-xs text-gray-400">{selected.email}{selected.phone ? ` · ${selected.phone}` : ''}</p>
+                </div>
+              </div>
+              <button onClick={() => setSelected(null)} className="p-2 hover:bg-gray-100 rounded-xl"><i className="fas fa-times text-gray-500" /></button>
+            </div>
+
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Badge cls="bg-primary-pale text-primary" text={SUBJECT_LABELS[selected.subject] ?? selected.subject} />
+                <Badge cls={MSG_STATUS[selected.status]?.cls ?? ''} text={MSG_STATUS[selected.status]?.label ?? selected.status} />
+                <span className="text-xs text-gray-400 ml-auto">{new Date(selected.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+              </div>
+              <div className="bg-gray-50 rounded-2xl p-4 text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                {selected.message}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 px-5 pb-5">
+              <a
+                href={`mailto:${selected.email}?subject=Re: ${SUBJECT_LABELS[selected.subject] ?? selected.subject}`}
+                onClick={() => changeStatus(selected.id, 'replied')}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary text-white text-sm font-heading font-bold rounded-xl hover:bg-primary-dark transition"
+              >
+                <i className="fas fa-reply" /> Répondre par email
+              </a>
+              {selected.status !== 'replied' && (
+                <button
+                  onClick={() => changeStatus(selected.id, 'replied')}
+                  disabled={updating === selected.id}
+                  className="px-4 py-2.5 text-sm font-heading font-bold text-green-700 bg-green-100 rounded-xl hover:bg-green-200 disabled:opacity-50"
+                >
+                  {updating === selected.id ? '…' : 'Marquer répondu'}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── MAIN DASHBOARD ───────────────────────────────────────────────────────────
 
-type Tab = 'events' | 'gallery' | 'donations'
+type Tab = 'events' | 'gallery' | 'donations' | 'messages'
 
 export default function AdminDashboard() {
   const { admin, logout } = useAdminAuth()
   const [tab, setTab] = useState<Tab>('events')
+  const [unreadCount, setUnreadCount] = useState(0)
 
-  const tabs: { key: Tab; label: string; icon: string }[] = [
+  // fetch unread count for badge
+  useEffect(() => {
+    contactAdminApi.list('unread')
+      .then(msgs => setUnreadCount(msgs.length))
+      .catch(() => {})
+  }, [])
+
+  const tabs: { key: Tab; label: string; icon: string; badge?: number }[] = [
     { key: 'events',    label: 'Événements', icon: 'fas fa-calendar' },
     { key: 'gallery',   label: 'Galerie',    icon: 'fas fa-images' },
     { key: 'donations', label: 'Dons',       icon: 'fas fa-hand-holding-heart' },
+    { key: 'messages',  label: 'Messages',   icon: 'fas fa-envelope', badge: unreadCount },
   ]
 
   return (
@@ -614,8 +800,13 @@ export default function AdminDashboard() {
         <div className="flex gap-1 max-w-7xl mx-auto">
           {tabs.map(t => (
             <button key={t.key} onClick={() => setTab(t.key)}
-              className={`flex items-center gap-2 px-4 py-4 text-sm font-heading font-bold border-b-2 transition-colors ${tab === t.key ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+              className={`relative flex items-center gap-2 px-4 py-4 text-sm font-heading font-bold border-b-2 transition-colors ${tab === t.key ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
               <i className={t.icon} />{t.label}
+              {t.badge != null && t.badge > 0 && (
+                <span className="absolute top-2.5 right-1 w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] font-bold flex items-center justify-center">
+                  {t.badge > 9 ? '9+' : t.badge}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -625,6 +816,7 @@ export default function AdminDashboard() {
         {tab === 'events'    && <EventsTab />}
         {tab === 'gallery'   && <GalleryTab />}
         {tab === 'donations' && <DonationsTab />}
+        {tab === 'messages'  && <MessagesTab />}
       </div>
     </div>
   )
