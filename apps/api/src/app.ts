@@ -43,15 +43,15 @@ const limiter = rateLimit({
 
 // Stricter limiter for donation submission
 const donationLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,        // 1 hour
-  max: 10,
+  windowMs: 60 * 60 * 1000,
+  max: env.NODE_ENV === 'development' ? 500 : 10,
   message: { success: false, message: 'Limite de dons atteinte. Réessayez dans une heure.' },
 })
 
 // Stricter limiter for contact form submission
 const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,        // 1 hour
-  max: 5,
+  windowMs: 60 * 60 * 1000,
+  max: env.NODE_ENV === 'development' ? 500 : 5,
   message: { success: false, message: 'Trop de messages envoyés. Réessayez dans une heure.' },
 })
 
