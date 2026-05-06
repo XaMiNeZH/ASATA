@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import Lightbox from '../components/Lightbox'
 import { ALL_PHOTOS, GALLERY_HERO_IMAGE } from '../data/images'
+import { galleryApi } from '../lib/api'
 
 type Filter = 'all' | 'ski' | 'football' | 'athletisme'
 
@@ -17,10 +18,26 @@ const filters: { key: Filter; label: string; icon: string }[] = [
 export default function Galerie() {
   const [filter, setFilter]   = useState<Filter>('all')
   const [lbIndex, setLbIndex] = useState<number | null>(null)
+  const [photos, setPhotos]   = useState<{ src: string; category: string }[]>(ALL_PHOTOS)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    galleryApi.list()
+      .then(data => {
+        if (data && data.length > 0) {
+          setPhotos(data.map(p => ({ src: p.src, category: p.category })))
+        }
+        // if API returns empty, keep the hardcoded fallback
+      })
+      .catch(() => {
+        // silently fall back to hardcoded photos on error
+      })
+      .finally(() => setLoading(false))
+  }, [])
 
   const filtered = useMemo(
-    () => filter === 'all' ? ALL_PHOTOS : ALL_PHOTOS.filter(p => p.category === filter),
-    [filter]
+    () => filter === 'all' ? photos : photos.filter(p => p.category === filter),
+    [filter, photos]
   )
 
   const lbImages = filtered.map(p => p.src)
@@ -56,7 +73,7 @@ export default function Galerie() {
 
           {/* Count */}
           <p className="text-center text-gray-400 text-sm font-medium mb-8">
-            {filtered.length} photo{filtered.length > 1 ? 's' : ''}
+            {loading ? 'Chargement...' : `${filtered.length} photo${filtered.length > 1 ? 's' : ''}`}
           </p>
 
           {/* Grid */}
