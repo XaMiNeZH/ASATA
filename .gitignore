@@ -12,3 +12,13 @@ issuesToFix.md
 issuesToFix/
 .trash/
 .codex
+
+# Environment variables — never commit secrets
+.env
+.env.local
+.env.production
+.env.*.local
+
+# SQLite legacy
+*.db
+*.db-journal
