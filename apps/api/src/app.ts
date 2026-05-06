@@ -12,6 +12,9 @@ import { uploadRouter }    from './modules/upload/upload.router'
 
 const app = express()
 
+// ── Trust proxy (required for Railway/Heroku deployments) ────────────────────
+app.set('trust proxy', 1)
+
 // ── CORS ──────────────────────────────────────────────────────────────────────
 
 const allowedOrigins = env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
