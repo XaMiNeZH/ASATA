@@ -1,87 +1,213 @@
-# ASATA
+# ASATA — Association Sportive Atlas Toubkal Asni
 
-Repository for Association Sportive Atlas Toubkal Asni.
+<div align="center">
 
-This project currently contains two active applications:
+![ASATA](https://img.shields.io/badge/ASATA-Sports%20Association-blue?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Live%20in%20Production-success?style=for-the-badge)
+![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)
 
-- `apps/web` - the public React website for ASATA
-- `apps/mobile` - the Expo mobile app, currently using mock data until the backend is implemented
+**[🌐 Website](https://asata-website.vercel.app) · [⚙️ API](https://asata-production.up.railway.app/health) · [🔐 Admin Panel](https://asata-website.vercel.app/admin)**
 
-The backend is not part of the repository yet. The mobile app already has service and API-client boundaries so it can be connected to the backend later without rewriting the screens.
+</div>
+
+---
+
+## Overview
+
+ASATA is a full-stack sports association management platform for Association Sportive Atlas Toubkal Asni — a multi-discipline sports club based in Asni, Morocco, at the foot of Djebel Toubkal.
+
+The platform includes a public website, an admin panel, a REST API, and a mobile app.
+
+---
 
 ## Project Structure
 
-```text
-apps/
-  web/       React, Vite, TypeScript, Tailwind CSS
-  mobile/    Expo, React Native, TypeScript
-archive/     Older website and mobile prototypes kept for reference
-docs/        Source documents and planning material
+```
+ASATA/
+├── apps/
+│   ├── web/          # React website + admin panel (Vercel)
+│   ├── api/          # Express REST API (Railway)
+│   └── mobile/       # Expo React Native app (ASATA Connect)
+├── archive/          # Older prototypes (reference only)
+└── docs/             # Planning and source documents
 ```
 
-## Website
+---
 
-Location: `apps/web`
+## Live URLs
 
-The website is the current public web experience and the Vercel deployment source.
+| Service | URL | Platform |
+|---------|-----|----------|
+| **Website** | https://asata-website.vercel.app | Vercel |
+| **API** | https://asata-production.up.railway.app | Railway |
+| **Admin Panel** | https://asata-website.vercel.app/admin | Vercel |
+| **API Health** | https://asata-production.up.railway.app/health | Railway |
 
-Run locally:
+---
 
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18, TypeScript, Vite, TailwindCSS, Framer Motion |
+| Backend | Node.js, Express.js, TypeScript |
+| Database | PostgreSQL (Neon) via Prisma ORM |
+| Auth | JWT + bcryptjs |
+| Validation | Zod |
+| Mobile | Expo, React Native, TypeScript |
+| Hosting | Vercel (web), Railway (API), Neon (DB) |
+
+---
+
+## Apps
+
+### `apps/web` — Public Website & Admin Panel
+
+The React frontend deployed on Vercel. Includes:
+- Public pages: Home, About, Events, Gallery, Contact, Donations, Sport clubs
+- Admin panel at `/admin` with full CRUD for events, gallery, donations, and contact messages
+
+**Run locally:**
 ```bash
 cd apps/web
 npm install
-npm run dev
+npm run dev        # http://localhost:5173
 ```
 
-Build:
+**Environment variables** (create `apps/web/.env`):
+```env
+VITE_API_URL=http://localhost:3001
+```
 
+---
+
+### `apps/api` — REST API
+
+The Express API deployed on Railway, connected to Neon PostgreSQL.
+
+**Run locally:**
 ```bash
-cd apps/web
-npm run build
+cd apps/api
+npm install
+npm run dev        # http://localhost:3001
 ```
 
-Website assets live in `apps/web/public`.
+**Environment variables** (create `apps/api/.env`):
+```env
+DATABASE_URL=postgresql://...
+DATABASE_URL_UNPOOLED=postgresql://...
+JWT_SECRET=your_secret
+ADMIN_EMAIL=admin@asata.ma
+ADMIN_PASSWORD=your_password
+ALLOWED_ORIGINS=http://localhost:5173
+NODE_ENV=development
+```
 
-## Mobile App
+**Database setup:**
+```bash
+npx prisma migrate deploy    # Run migrations
+npx prisma db seed           # Seed admin + sample data
+npx prisma studio            # Visual DB browser
+```
 
-Location: `apps/mobile`
+**API Endpoints:**
 
-The mobile app is named `ASATA Connect`. It is built with Expo and React Native.
+| Method | Endpoint | Access |
+|--------|----------|--------|
+| POST | `/api/admin/login` | Public |
+| GET | `/api/admin/me` | Admin |
+| GET | `/api/events` | Public |
+| POST/PUT/DELETE | `/api/events/:id` | Admin |
+| GET | `/api/gallery` | Public |
+| POST/DELETE | `/api/gallery/:id` | Admin |
+| POST | `/api/donations` | Public |
+| GET | `/api/donations` | Admin |
+| POST | `/api/contact` | Public |
+| GET | `/api/contact` | Admin |
+| POST | `/api/upload` | Admin |
+| GET | `/health` | Public |
 
-Run locally:
+---
 
+### `apps/mobile` — ASATA Connect (Mobile App)
+
+The Expo React Native mobile app connected to the live API.
+
+**Run locally:**
 ```bash
 cd apps/mobile
 npm install
 npx expo start
 ```
 
-Common Expo targets:
-
+**Targets:**
 ```bash
 npm run android
 npm run ios
 npm run web
 ```
 
-The app currently uses mock data from `apps/mobile/src/mocks`. Backend-ready service files live in `apps/mobile/src/services`, and the shared API client is in `apps/mobile/src/api/client.ts`.
+**Backend connection:**
+- API URL is set in `apps/mobile/src/api/client.ts`
+- Set `USE_MOCK=false` in service files to use the live API
 
-When the backend is ready:
+---
 
-1. Update `API_BASE_URL` in `apps/mobile/src/api/client.ts`.
-2. Set `USE_MOCK = false` in the mobile service files.
-3. Verify the API routes expected by the service files match the backend routes.
+## Development Setup (Full Stack)
 
-## Backend Status
+Run the full stack locally with Docker for PostgreSQL:
 
-The backend is planned but not implemented yet.
+```bash
+# 1. Start local PostgreSQL
+docker-compose up -d
 
-Until then:
+# 2. Start API
+cd apps/api && npm install && npm run dev
 
-- The website is static/client-side and does not depend on a backend.
-- The mobile app uses mock data for authentication, events, announcements, notifications, participations, and profile flows.
-- API integration points are present in the mobile app but inactive while `USE_MOCK` is enabled.
+# 3. Start Web (new terminal)
+cd apps/web && npm install && npm run dev
+```
 
-## Archived Work
+Or use Neon directly — update `apps/api/.env` with your Neon connection string.
 
-The `archive` directory contains older versions and prototypes. These are kept as reference material only and are not active deployment targets.
+---
+
+## Deployment
+
+### Frontend → Vercel
+Deploys automatically on push to `main` in `XaMiNeZH/ASATA`.
+- Build: `cd apps/web && npm run build`
+- Required env var: `VITE_API_URL`
+
+### API → Railway
+Deploys automatically on push to `main` in `Hamzaaxx/ASATA`.
+- Build: `npm install --include=dev && npm run build`
+- Start: `npm start`
+- See `apps/api/railway.toml` for full config
+
+---
+
+## Database Models
+
+| Model | Description |
+|-------|-------------|
+| `Event` | Sports events (upcoming / past) |
+| `Admin` | Admin accounts (JWT auth) |
+| `Donation` | Donation records |
+| `GalleryPhoto` | Gallery images |
+| `ContactMessage` | Contact form submissions |
+
+---
+
+## Team
+
+| Role | GitHub |
+|------|--------|
+| Co-Founder / Owner | [@XaMiNeZH](https://github.com/XaMiNeZH) |
+| Contributor | [@Hamzaaxx](https://github.com/Hamzaaxx) |
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for the youth of Asni, Morocco 🇲🇦</sub>
+</div>
