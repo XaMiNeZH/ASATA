@@ -73,29 +73,26 @@ export default function Athletisme() {
         <div className="max-w-7xl mx-auto px-5">
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
-            {/* Images grid */}
+            {/* Main image + small overlay */}
             <FadeIn direction="left">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="relative">
                 <img
                   src={ATHLETISME_INTRO_IMAGE}
                   alt="Athlétisme ASATA"
-                  className="w-full h-52 object-cover rounded-2xl shadow-blue-md"
+                  className="w-full h-[480px] object-cover rounded-2xl shadow-blue-md"
                 />
-                <img
-                  src={ATHLETISME_LANDSCAPE_IMAGE}
-                  alt="Paysage Asni"
-                  className="w-full h-52 object-cover rounded-2xl shadow-blue-md mt-6"
-                />
-                <img
-                  src={ATHLETISME_PHOTOS[3] ?? ATHLETISME_INTRO_IMAGE}
-                  alt="Compétition athlétisme"
-                  className="w-full h-52 object-cover rounded-2xl shadow-blue-md -mt-6"
-                />
-                <img
-                  src={ATHLETISME_PHOTOS[4] ?? ATHLETISME_LANDSCAPE_IMAGE}
-                  alt="Entraînement athlétisme"
-                  className="w-full h-52 object-cover rounded-2xl shadow-blue-md"
-                />
+                {/* Small overlay image bottom-right */}
+                <div className="absolute bottom-4 right-4 w-36 h-36 rounded-xl overflow-hidden border-4 border-white shadow-blue-md">
+                  <img
+                    src={ATHLETISME_LANDSCAPE_IMAGE}
+                    alt="Paysage Asni"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Badge top-left */}
+                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-heading font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                  🏃 Club FRMA
+                </div>
               </div>
             </FadeIn>
 
@@ -238,16 +235,42 @@ export default function Athletisme() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-5">
           <SectionHeader tag="Nos photos" title="Galerie Athlétisme" />
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
-            {ATHLETISME_PHOTOS.map((src, i) => (
-              <FadeIn key={src} delay={i * 0.08}>
+
+          {/* Preview strip — 3 wide images */}
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            {ATHLETISME_PHOTOS.slice(0, 3).map((src, i) => (
+              <FadeIn key={`strip-${src}`} delay={i * 0.08}>
                 <div
-                  className="group relative overflow-hidden rounded-xl cursor-pointer break-inside-avoid mb-3"
+                  className="group relative overflow-hidden rounded-xl cursor-pointer"
                   onClick={() => setLbIndex(i)}
                 >
                   <img
                     src={src}
                     alt={`Athlétisme ASATA ${i + 1}`}
+                    className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-primary-dark/0 group-hover:bg-primary-dark/45 transition-all duration-300 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      <i className="fas fa-search-plus" />
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Masonry grid — remaining photos */}
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+            {ATHLETISME_PHOTOS.slice(3).map((src, i) => (
+              <FadeIn key={src} delay={i * 0.08}>
+                <div
+                  className="group relative overflow-hidden rounded-xl cursor-pointer break-inside-avoid mb-3"
+                  onClick={() => setLbIndex(i + 3)}
+                >
+                  <img
+                    src={src}
+                    alt={`Athlétisme ASATA ${i + 4}`}
                     className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
