@@ -5,22 +5,15 @@ import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
 import { DON_HERO_IMAGE } from '../data/images'
 
-type PaymentMethod = 'CARD' | 'VIREMENT'
-
 interface DonForm {
   firstName: string
   lastName: string
   email: string
   phone: string
-  cardName: string
-  cardNumber: string
-  expiry: string
-  cvv: string
 }
 
 const init: DonForm = {
   firstName: '', lastName: '', email: '', phone: '',
-  cardName: '', cardNumber: '', expiry: '', cvv: '',
 }
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
@@ -56,7 +49,6 @@ export default function Don() {
   const [selected, setSelected] = useState<number | null>(null)
   const [custom, setCustom]     = useState('')
   const [form, setForm]         = useState<DonForm>(init)
-  const [method, setMethod]     = useState<PaymentMethod>('CARD')
   const [sent, setSent]         = useState(false)
   const [loading, setLoading]   = useState(false)
   const [reference, setReference] = useState<string | null>(null)
@@ -66,35 +58,9 @@ export default function Don() {
     (e: React.ChangeEvent<HTMLInputElement>) =>
       setForm(f => ({ ...f, [key]: e.target.value }))
 
-  const handleCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const d = e.target.value.replace(/\D/g, '').slice(0, 16)
-    setForm(f => ({ ...f, cardNumber: d.replace(/(.{4})/g, '$1 ').trim() }))
-  }
-
-  const handleExpiry = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const d = e.target.value.replace(/\D/g, '').slice(0, 4)
-    setForm(f => ({ ...f, expiry: d.length > 2 ? `${d.slice(0, 2)}/${d.slice(2)}` : d }))
-  }
-
-  const cardIcon = () => {
-    const n = form.cardNumber.replace(/\s/g, '')
-    if (n.startsWith('4'))                        return 'fab fa-cc-visa'
-    if (/^5[1-5]/.test(n) || /^2[2-7]/.test(n)) return 'fab fa-cc-mastercard'
-    if (/^3[47]/.test(n))                         return 'fab fa-cc-amex'
-    return 'fas fa-credit-card'
-  }
-
   const amount    = custom ? parseFloat(custom) : selected
-  const cardValid = method === 'CARD'
-    ? !!form.cardName &&
-      form.cardNumber.replace(/\s/g, '').length >= 13 &&
-      /^(0[1-9]|1[0-2])\/\d{2}$/.test(form.expiry) &&
-      form.cvv.length >= 3
-    : true
-
   const canSubmit = amount !== null && amount > 0 && !isNaN(amount) &&
-                    !!form.firstName && !!form.lastName && !!form.email &&
-                    cardValid
+                    !!form.firstName && !!form.lastName && !!form.email
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -109,7 +75,7 @@ export default function Don() {
         body: JSON.stringify({
           amount,
           currency: 'MAD',
-          method,
+          method: 'VIREMENT',
           donorName:  `${form.firstName} ${form.lastName}`.trim(),
           donorEmail: form.email || undefined,
           donorPhone: form.phone || undefined,
@@ -269,16 +235,17 @@ export default function Don() {
                             <p className="text-[11px] text-gray-400 mt-1">Conservez cette référence pour le suivi de votre don.</p>
                           </div>
                         )}
-                        {method === 'VIREMENT' && (
                           <div className="bg-white border border-green-200 rounded-xl px-4 py-3 text-sm">
-                            <p className="font-heading font-bold text-gray-700 mb-2">Instructions de virement</p>
+                            <p className="font-heading font-bold text-gray-700 mb-2">
+                              <i className="fas fa-university mr-1.5 text-primary" />
+                              Instructions de virement
+                            </p>
                             <div className="space-y-1 text-gray-500 text-xs">
                               <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Association Sportive Atlas Toubkal Asni</p>
                               <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
                               <p><span className="font-semibold text-gray-700">Motif :</span> Don ASATA — {reference}</p>
                             </div>
                           </div>
-                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -349,115 +316,21 @@ export default function Don() {
                       </div>
                     </div>
 
-                    <hr className="border-gray-100" />
-
-                    {/* Payment method toggle */}
-                    <div>
-                      <p className={lbl}>Méthode de paiement</p>
-                      <div className="grid grid-cols-2 gap-2">
-                        {([
-                          { key: 'CARD',     icon: 'fas fa-credit-card', label: 'Carte bancaire' },
-                          { key: 'VIREMENT', icon: 'fas fa-university',  label: 'Virement' },
-                        ] as { key: PaymentMethod; icon: string; label: string }[]).map(m => (
-                          <button
-                            key={m.key}
-                            type="button"
-                            onClick={() => setMethod(m.key)}
-                            className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border-2 font-heading font-semibold text-sm transition-all ${
-                              method === m.key
-                                ? 'border-primary bg-primary-pale text-primary'
-                                : 'border-gray-200 text-gray-400 hover:border-primary/40'
-                            }`}
-                          >
-                            <i className={`${m.icon} text-base`} />
-                            {m.label}
-                          </button>
-                        ))}
+                    {/* Virement info */}
+                    <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-4 text-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <i className="fas fa-university text-primary" />
+                        <span className="font-heading font-bold text-primary-dark">Paiement par virement bancaire</span>
+                      </div>
+                      <div className="space-y-1.5 text-gray-500 text-xs">
+                        <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Asso. Sportive Atlas Toubkal Asni</p>
+                        <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
+                        <p className="mt-2 text-primary/70">
+                          <i className="fas fa-info-circle mr-1" />
+                          Une référence unique vous sera communiquée après soumission — indiquez-la dans le motif du virement.
+                        </p>
                       </div>
                     </div>
-
-                    {/* Card fields */}
-                    {method === 'CARD' && (
-                      <div className="flex flex-col gap-3">
-                        <div className="flex items-center justify-between">
-                          <p className={lbl}>Détails de la carte</p>
-                          <div className="flex items-center gap-2 text-2xl text-gray-300">
-                            <i className="fab fa-cc-visa" />
-                            <i className="fab fa-cc-mastercard" />
-                            <i className="fab fa-cc-amex" />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className={lbl}>Nom sur la carte *</label>
-                          <input type="text" className={inp} placeholder="PRÉNOM NOM" value={form.cardName} onChange={set('cardName')} autoComplete="cc-name" />
-                        </div>
-
-                        <div>
-                          <label className={lbl}>Numéro de carte *</label>
-                          <div className="relative">
-                            <input
-                              type="text"
-                              inputMode="numeric"
-                              className={`${inp} pr-12`}
-                              placeholder="0000 0000 0000 0000"
-                              value={form.cardNumber}
-                              onChange={handleCardNumber}
-                              autoComplete="cc-number"
-                              maxLength={19}
-                            />
-                            <i className={`${cardIcon()} absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 text-xl pointer-events-none`} />
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <label className={lbl}>Expiration *</label>
-                            <input
-                              type="text"
-                              inputMode="numeric"
-                              className={inp}
-                              placeholder="MM/AA"
-                              value={form.expiry}
-                              onChange={handleExpiry}
-                              autoComplete="cc-exp"
-                              maxLength={5}
-                            />
-                          </div>
-                          <div>
-                            <label className={lbl}>CVV *</label>
-                            <div className="relative">
-                              <input
-                                type="password"
-                                inputMode="numeric"
-                                className={`${inp} pr-10`}
-                                placeholder="•••"
-                                value={form.cvv}
-                                onChange={e => setForm(f => ({ ...f, cvv: e.target.value.replace(/\D/g,'').slice(0,4) }))}
-                                autoComplete="cc-csc"
-                                maxLength={4}
-                              />
-                              <i className="fas fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Virement info */}
-                    {method === 'VIREMENT' && (
-                      <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-4 text-sm">
-                        <div className="flex items-center gap-2 mb-3">
-                          <i className="fas fa-info-circle text-primary" />
-                          <span className="font-heading font-bold text-primary-dark">Instructions de virement</span>
-                        </div>
-                        <div className="space-y-1.5 text-gray-500 text-xs">
-                          <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Asso. Sportive Atlas Toubkal Asni</p>
-                          <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
-                          <p className="mt-2 text-primary/70">Une référence unique vous sera transmise après soumission à indiquer dans le motif du virement.</p>
-                        </div>
-                      </div>
-                    )}
 
                     {/* Submit */}
                     <button
@@ -476,8 +349,8 @@ export default function Don() {
                     </button>
 
                     <p className="text-center text-xs text-gray-400 leading-relaxed">
-                      <i className="fas fa-shield-alt mr-1" />
-                      Paiement 100% sécurisé — vos données ne sont jamais partagées
+                      <i className="fas fa-lock mr-1" />
+                      Vos données personnelles sont confidentielles et ne sont jamais partagées
                     </p>
 
                   </form>
