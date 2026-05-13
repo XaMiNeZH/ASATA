@@ -197,17 +197,6 @@ Deploys automatically on push to `main` in `Hamzaaxx/ASATA`.
 | `GalleryPhoto` | Gallery images |
 | `ContactMessage` | Contact form submissions |
 
----
-
-## Team
-
-| Role | GitHub |
-|------|--------|
-| Co-Founder / Owner | [@XaMiNeZH](https://github.com/XaMiNeZH) |
-| Contributor | [@Hamzaaxx](https://github.com/Hamzaaxx) |
-
----
-
 <div align="center">
   <sub>Built with ❤️ for the youth of Asni, Morocco 🇲🇦</sub>
 </div>
