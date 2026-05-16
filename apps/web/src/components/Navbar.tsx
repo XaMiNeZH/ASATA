@@ -50,7 +50,7 @@ export default function Navbar() {
           <img
             src={LOGO}
             alt="Logo ASATA"
-            className="w-12 h-12 rounded-full object-contain border-2 border-primary-pale"
+            className="w-16 h-16 rounded-full object-contain border-2 border-primary-pale"
           />
           <div className="flex flex-col leading-none">
             <span className="font-heading font-extrabold text-xl tracking-wide text-primary">
