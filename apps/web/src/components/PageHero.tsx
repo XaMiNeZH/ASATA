@@ -16,7 +16,7 @@ export default function PageHero({ title, subtitle, image, breadcrumbs, icon, im
   const positionClass = imagePosition === 'top' ? 'bg-top' : imagePosition === 'bottom' ? 'bg-bottom' : 'bg-center'
   return (
     <section
-      className={`relative min-h-[65vh] flex items-center bg-cover ${positionClass} pt-[76px]`}
+      className={`relative min-h-[75vh] flex items-center bg-cover ${positionClass} pt-[76px]`}
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="absolute inset-0 bg-hero-overlay" />
