@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
@@ -14,12 +15,13 @@ const init: Form = { firstName: '', lastName: '', email: '', phone: '', subject:
 
 const contactInfo = [
   { icon: 'fas fa-envelope',       label: 'Email',         value: 'asata.club@gmail.com' },
-  { icon: 'fas fa-map-marker-alt', label: 'Adresse',       value: 'Asni, Province d\'Al Haouz, Maroc' },
+  { icon: 'fas fa-map-marker-alt', label: 'Adresse',       value: "Asni, Province d'Al Haouz, Maroc" },
   { icon: 'fas fa-mountain',       label: 'Localisation',  value: '50 km au sud de Marrakech — 1 150 m altitude' },
   { icon: 'fas fa-certificate',    label: 'Accréditation', value: 'N° 2024/1111 — Mai 2024' },
 ]
 
 export default function Contact() {
+  const { t } = useTranslation()
   const [form, setForm]         = useState<Form>(init)
   const [sent, setSent]         = useState(false)
   const [loading, setLoading]   = useState(false)
@@ -49,7 +51,7 @@ export default function Contact() {
       const json = await res.json()
 
       if (!res.ok) {
-        setApiError(json?.message ?? 'Une erreur est survenue. Réessayez.')
+        setApiError(json?.message ?? t('common.error'))
         if (json?.errors) setFieldErrors(json.errors)
         return
       }
@@ -58,7 +60,7 @@ export default function Contact() {
       setForm(init)
       setTimeout(() => setSent(false), 5000)
     } catch {
-      setApiError('Impossible de contacter le serveur. Vérifiez votre connexion.')
+      setApiError(t('contact.form.serverError'))
     } finally {
       setLoading(false)
     }
@@ -72,10 +74,10 @@ export default function Contact() {
   return (
     <PageTransition>
       <PageHero
-        title="Contactez-nous"
-        subtitle="Une question, un partenariat ou envie de rejoindre l'ASATA ? Nous sommes à votre écoute."
+        title={t('contact.hero.title')}
+        subtitle={t('contact.hero.subtitle')}
         image={CONTACT_HERO_IMAGE}
-        breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Contact' }]}
+        breadcrumbs={[{ label: t('common.home'), to: '/' }, { label: t('contact.hero.crumb') }]}
       />
 
       <section className="py-24 bg-white">
@@ -83,10 +85,10 @@ export default function Contact() {
 
           {/* Info */}
           <FadeIn direction="left">
-            <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">Coordonnées</span>
-            <h2 className="font-heading font-bold text-4xl text-gray-900 mb-3 mt-1">Restons en contact</h2>
+            <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">{t('contact.info.tag')}</span>
+            <h2 className="font-heading font-bold text-4xl text-gray-900 mb-3 mt-1">{t('contact.info.title')}</h2>
             <p className="text-gray-500 mb-7 leading-relaxed">
-              Que vous souhaitiez rejoindre un de nos clubs, proposer un partenariat ou simplement en savoir plus sur l'ASATA, n'hésitez pas à nous écrire.
+              {t('contact.info.subtitle')}
             </p>
 
             <div className="flex flex-col gap-3 mb-7">
@@ -103,7 +105,7 @@ export default function Contact() {
               ))}
             </div>
 
-            <h4 className="font-heading font-bold text-[11px] uppercase tracking-[2px] text-gray-700 mb-3">Suivez-nous</h4>
+            <h4 className="font-heading font-bold text-[11px] uppercase tracking-[2px] text-gray-700 mb-3">{t('contact.info.follow')}</h4>
             <div className="flex gap-2 mb-8">
               {[
                 { href: 'https://www.facebook.com/asataclub', icon: 'fab fa-facebook-f', label: 'Facebook' },
@@ -118,12 +120,12 @@ export default function Contact() {
             </div>
 
             <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-5">
-              <h4 className="font-heading font-bold text-base text-gray-900 mb-3"><i className="fas fa-info-circle text-primary-light mr-2" />Rejoindre un club</h4>
+              <h4 className="font-heading font-bold text-base text-gray-900 mb-3"><i className="fas fa-info-circle text-primary-light mr-2" />{t('contact.info.joinClub')}</h4>
               <div className="flex flex-col gap-2">
                 {[
-                  { to: '/ski',        icon: 'fas fa-skiing',  label: 'Ski & Sports de Montagne' },
-                  { to: '/football',   icon: 'fas fa-futbol',  label: 'Football' },
-                  { to: '/athletisme', icon: 'fas fa-running', label: 'Athlétisme' },
+                  { to: '/ski',        icon: 'fas fa-skiing',  label: t('nav.ski') },
+                  { to: '/football',   icon: 'fas fa-futbol',  label: t('nav.football') },
+                  { to: '/athletisme', icon: 'fas fa-running', label: t('nav.athletisme') },
                 ].map(({ to, icon, label }) => (
                   <Link key={to} to={to} className="flex items-center gap-3 text-sm text-gray-700 hover:text-primary font-medium transition-colors">
                     <i className={`${icon} text-primary-light w-4`} />{label}
@@ -137,7 +139,7 @@ export default function Contact() {
           <FadeIn direction="right" delay={0.1}>
             <div className="bg-primary-ghost border border-primary-pale rounded-3xl p-8">
               <h3 className="font-heading font-bold text-xl text-gray-900 mb-6">
-                <i className="fas fa-paper-plane text-primary-light mr-2" /> Envoyez-nous un message
+                <i className="fas fa-paper-plane text-primary-light mr-2" /> {t('contact.form.title')}
               </h3>
 
               <AnimatePresence>
@@ -150,7 +152,7 @@ export default function Contact() {
                     className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 rounded-xl px-4 py-3 mb-5 text-sm font-semibold"
                   >
                     <i className="fas fa-check-circle text-green-500" />
-                    Message envoyé ! Nous vous répondrons bientôt.
+                    {t('contact.form.success')}
                   </motion.div>
                 )}
                 {apiError && (
@@ -170,37 +172,37 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Prénom *</label>
-                    <input type="text" className={inputCls} placeholder="Votre prénom" value={form.firstName} onChange={set('firstName')} required />
+                    <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.firstName')} {t('common.required')}</label>
+                    <input type="text" className={inputCls} placeholder={t('contact.form.firstNamePh')} value={form.firstName} onChange={set('firstName')} required />
                   </div>
                   <div>
-                    <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Nom *</label>
-                    <input type="text" className={inputCls} placeholder="Votre nom" value={form.lastName} onChange={set('lastName')} required />
+                    <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.lastName')} {t('common.required')}</label>
+                    <input type="text" className={inputCls} placeholder={t('contact.form.lastNamePh')} value={form.lastName} onChange={set('lastName')} required />
                   </div>
                 </div>
                 <div>
-                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Email *</label>
-                  <input type="email" className={inputCls} placeholder="votre@email.com" value={form.email} onChange={set('email')} required />
+                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.email')} {t('common.required')}</label>
+                  <input type="email" className={inputCls} placeholder={t('contact.form.emailPh')} value={form.email} onChange={set('email')} required />
                 </div>
                 <div>
-                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Téléphone</label>
-                  <input type="tel" className={inputCls} placeholder="+212 6XX XXX XXX" value={form.phone} onChange={set('phone')} />
+                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.phone')}</label>
+                  <input type="tel" className={inputCls} placeholder={t('contact.form.phonePh')} value={form.phone} onChange={set('phone')} />
                 </div>
                 <div>
-                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Sujet *</label>
+                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.subject')} {t('common.required')}</label>
                   <select className={inputCls} value={form.subject} onChange={set('subject')} required>
-                    <option value="" disabled>Choisir un sujet</option>
-                    <option value="adhesion">Adhésion à un club</option>
-                    <option value="partenariat">Partenariat / Sponsoring</option>
-                    <option value="evenement">Organisation d'événement</option>
-                    <option value="information">Demande d'information</option>
-                    <option value="presse">Presse / Médias</option>
-                    <option value="autre">Autre</option>
+                    <option value="" disabled>{t('contact.form.subjectPh')}</option>
+                    <option value="adhesion">{t('contact.form.subjectAdhesion')}</option>
+                    <option value="partenariat">{t('contact.form.subjectPartnership')}</option>
+                    <option value="evenement">{t('contact.form.subjectEvent')}</option>
+                    <option value="information">{t('contact.form.subjectInfo')}</option>
+                    <option value="presse">{t('contact.form.subjectPress')}</option>
+                    <option value="autre">{t('contact.form.subjectOther')}</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">Message *</label>
-                  <textarea className={`${inputCls} resize-none`} rows={5} placeholder="Décrivez votre demande en détail..." value={form.message} onChange={set('message')} required />
+                  <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.message')} {t('common.required')}</label>
+                  <textarea className={`${inputCls} resize-none`} rows={5} placeholder={t('contact.form.messagePh')} value={form.message} onChange={set('message')} required />
                   {fieldErrors.message && <p className="mt-1 text-xs text-red-500">{fieldErrors.message[0]}</p>}
                 </div>
                 {Object.keys(fieldErrors).length > 0 && !fieldErrors.message && (
@@ -213,7 +215,7 @@ export default function Contact() {
                   disabled={loading}
                   className="w-full flex items-center justify-center gap-2 bg-primary text-white font-heading font-bold py-3.5 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {loading ? <><i className="fas fa-spinner fa-spin" /> Envoi en cours...</> : <><i className="fas fa-paper-plane" /> Envoyer le message</>}
+                  {loading ? <><i className="fas fa-spinner fa-spin" /> {t('contact.form.sending')}</> : <><i className="fas fa-paper-plane" /> {t('contact.form.send')}</>}
                 </button>
               </form>
             </div>
@@ -224,7 +226,7 @@ export default function Contact() {
       {/* Map */}
       <section className="bg-primary-ghost pb-16">
         <div className="max-w-7xl mx-auto px-5">
-          <SectionHeader tag="Localisation" title="Où nous trouver" subtitle="Asni — Province d'Al Haouz, à 50 km au sud de Marrakech, au pied du Djebel Toubkal" />
+          <SectionHeader tag={t('contact.map.tag')} title={t('contact.map.title')} subtitle={t('contact.map.subtitle')} />
           <FadeIn>
             <div className="rounded-2xl overflow-hidden shadow-blue-md h-[380px]">
               <iframe

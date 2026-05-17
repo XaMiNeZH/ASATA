@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
@@ -46,6 +47,7 @@ const whyItems = [
 ]
 
 export default function Don() {
+  const { t } = useTranslation()
   const [selected, setSelected] = useState<number | null>(null)
   const [custom, setCustom]     = useState('')
   const [form, setForm]         = useState<DonForm>(init)
@@ -109,10 +111,10 @@ export default function Don() {
 
       {/* ── Hero ── */}
       <PageHero
-        title="Faire un Don"
-        subtitle="Soutenez les jeunes sportifs d'Asni — chaque don construit un avenir meilleur pour nos enfants."
+        title={t('donate.hero.title')}
+        subtitle={t('donate.hero.subtitle')}
         image={DON_HERO_IMAGE}
-        breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Faire un Don' }]}
+        breadcrumbs={[{ label: t('common.home'), to: '/' }, { label: t('donate.hero.crumb') }]}
       />
 
       {/* ── Stats bar ── */}
@@ -189,7 +191,7 @@ export default function Don() {
 
                 {/* Form header */}
                 <div className="bg-gradient-to-r from-primary-dark to-primary px-8 py-6">
-                  <h3 className="font-heading font-extrabold text-white text-xl">Faire un don maintenant</h3>
+                  <h3 className="font-heading font-extrabold text-white text-xl">{t('donate.form.title')}</h3>
                   <p className="text-white/65 text-sm mt-1">Sécurisé · Confidentiel · Impact immédiat</p>
                 </div>
 
@@ -238,7 +240,7 @@ export default function Don() {
                           <div className="bg-white border border-green-200 rounded-xl px-4 py-3 text-sm">
                             <p className="font-heading font-bold text-gray-700 mb-2">
                               <i className="fas fa-university mr-1.5 text-primary" />
-                              Instructions de virement
+                              {t('donate.virement.title')}
                             </p>
                             <div className="space-y-1 text-gray-500 text-xs">
                               <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Association Sportive Atlas Toubkal Asni</p>
@@ -254,7 +256,7 @@ export default function Don() {
 
                     {/* Amount */}
                     <div>
-                      <p className={lbl}>Choisissez un montant</p>
+                      <p className={lbl}>{t('donate.form.amount')}</p>
                       <div className="grid grid-cols-4 gap-2 mb-3">
                         {presetAmounts.map(a => (
                           <button
@@ -295,23 +297,23 @@ export default function Don() {
 
                     {/* Personal info */}
                     <div className="flex flex-col gap-3">
-                      <p className={lbl}>Vos coordonnées</p>
+                      <p className={lbl}>{t('donate.form.name')}</p>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className={lbl}>Prénom *</label>
-                          <input type="text" className={inp} placeholder="Prénom" value={form.firstName} onChange={set('firstName')} required />
+                          <label className={lbl}>{t('donate.form.name')} *</label>
+                          <input type="text" className={inp} placeholder={t('donate.form.name')} value={form.firstName} onChange={set('firstName')} required />
                         </div>
                         <div>
-                          <label className={lbl}>Nom *</label>
-                          <input type="text" className={inp} placeholder="Nom" value={form.lastName} onChange={set('lastName')} required />
+                          <label className={lbl}>{t('donate.form.name')} *</label>
+                          <input type="text" className={inp} placeholder={t('donate.form.name')} value={form.lastName} onChange={set('lastName')} required />
                         </div>
                       </div>
                       <div>
-                        <label className={lbl}>Email *</label>
+                        <label className={lbl}>{t('donate.form.email')} *</label>
                         <input type="email" className={inp} placeholder="votre@email.com" value={form.email} onChange={set('email')} required />
                       </div>
                       <div>
-                        <label className={lbl}>Téléphone</label>
+                        <label className={lbl}>{t('contact.form.phone')}</label>
                         <input type="tel" className={inp} placeholder="+212 6XX XXX XXX" value={form.phone} onChange={set('phone')} />
                       </div>
                     </div>
@@ -320,7 +322,7 @@ export default function Don() {
                     <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-4 text-sm">
                       <div className="flex items-center gap-2 mb-3">
                         <i className="fas fa-university text-primary" />
-                        <span className="font-heading font-bold text-primary-dark">Paiement par virement bancaire</span>
+                        <span className="font-heading font-bold text-primary-dark">{t('donate.virement.title')}</span>
                       </div>
                       <div className="space-y-1.5 text-gray-500 text-xs">
                         <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Asso. Sportive Atlas Toubkal Asni</p>
@@ -339,7 +341,7 @@ export default function Don() {
                       className="w-full flex items-center justify-center gap-2.5 bg-primary text-white font-heading font-bold text-base py-4 rounded-2xl hover:bg-primary-dark transition-all shadow-blue-sm disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 disabled:translate-y-0 mt-1"
                     >
                       {loading ? (
-                        <><i className="fas fa-spinner fa-spin" /> Traitement en cours...</>
+                        <><i className="fas fa-spinner fa-spin" /> {t('donate.form.submitting')}</>
                       ) : (
                         <>
                           <i className="fas fa-hand-holding-heart" />

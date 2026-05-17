@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import FadeIn from '../components/FadeIn'
 import { eventsApi, ApiEvent } from '../lib/api'
@@ -258,6 +259,7 @@ function EventRow({ ev, onClick, index }: { ev: Evenement; onClick: () => void; 
 // ─── Modal ────────────────────────────────────────────────────────────────────
 
 function EventModal({ ev, onClose }: { ev: Evenement; onClose: () => void }) {
+  const { t } = useTranslation()
   const isPast = ev.status === 'past'
   const m = SPORT_META[ev.sport]
 
@@ -328,11 +330,11 @@ function EventModal({ ev, onClose }: { ev: Evenement; onClose: () => void }) {
           <div className="absolute bottom-3 left-4">
             {isPast ? (
               <span className="inline-flex items-center gap-1.5 bg-white/90 text-gray-600 text-xs font-heading font-bold px-3 py-1.5 rounded-full">
-                <i className="fas fa-check-circle text-green-500 text-[10px]" /> Terminé
+                <i className="fas fa-check-circle text-green-500 text-[10px]" /> {t('events.past')}
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 bg-white/90 text-green-700 text-xs font-heading font-bold px-3 py-1.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> À venir
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> {t('events.upcoming')}
               </span>
             )}
           </div>
@@ -370,7 +372,7 @@ function EventModal({ ev, onClose }: { ev: Evenement; onClose: () => void }) {
             </div>
             <div className="bg-primary-ghost rounded-2xl p-4 border border-primary-pale">
               <div className="text-[10px] font-heading font-bold uppercase tracking-widest text-primary/40 mb-1.5">
-                <i className="fas fa-map-marker-alt mr-1" /> Lieu
+                <i className="fas fa-map-marker-alt mr-1" /> {t('events.location')}
               </div>
               <div className="font-heading font-bold text-gray-900 text-sm">{ev.location}</div>
               {ev.locationDetail && (
@@ -389,7 +391,7 @@ function EventModal({ ev, onClose }: { ev: Evenement; onClose: () => void }) {
                 <i className="fas fa-trophy text-amber-500" />
               </div>
               <div>
-                <div className="font-heading font-black text-amber-800 text-xs uppercase tracking-widest mb-1">Résultat</div>
+                <div className="font-heading font-black text-amber-800 text-xs uppercase tracking-widest mb-1">{t('events.result')}</div>
                 <div className="font-heading font-semibold text-amber-700 text-sm">{ev.result}</div>
               </div>
             </div>
@@ -435,6 +437,7 @@ const SPORT_FILTERS: { key: SportFilter; label: string; icon: string }[] = [
 ]
 
 export default function Evenements() {
+  const { t } = useTranslation()
   const [events,       setEvents]       = useState<Evenement[]>([])
   const [apiLoading,   setApiLoading]   = useState(true)
   const [apiError,     setApiError]     = useState('')
@@ -483,7 +486,7 @@ export default function Evenements() {
         <div className="min-h-[60vh] flex items-center justify-center">
           <div className="flex flex-col items-center gap-4">
             <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-gray-400 font-heading">Chargement des événements…</p>
+            <p className="text-sm text-gray-400 font-heading">{t('events.loading')}</p>
           </div>
         </div>
       </PageTransition>
@@ -498,7 +501,7 @@ export default function Evenements() {
             <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <i className="fas fa-exclamation-circle text-red-400 text-xl" />
             </div>
-            <h2 className="font-heading font-black text-gray-900 text-xl mb-2">Erreur de chargement</h2>
+            <h2 className="font-heading font-black text-gray-900 text-xl mb-2">{t('events.error')}</h2>
             <p className="text-gray-400 text-sm">{apiError}</p>
           </div>
         </div>
@@ -519,25 +522,24 @@ export default function Evenements() {
           <div>
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm text-gray-400 font-heading mb-6">
-              <Link to="/" className="hover:text-primary transition">Accueil</Link>
+              <Link to="/" className="hover:text-primary transition">{t('common.home')}</Link>
               <i className="fas fa-chevron-right text-[9px]" />
-              <span className="text-primary font-semibold">Événements</span>
+              <span className="text-primary font-semibold">{t('nav.events')}</span>
             </div>
 
             <h1 className="font-heading font-black text-gray-900 text-5xl md:text-6xl leading-[0.95] tracking-tight">
-              Nos<br />
-              <span className="text-primary">Événements</span>
+              {t('events.hero.title')}
             </h1>
             <p className="mt-5 text-gray-500 text-lg leading-relaxed max-w-lg">
-              Compétitions, tournois, stages et cérémonies — toute l'actualité sportive de l'ASATA.
+              {t('events.hero.subtitle')}
             </p>
 
             {/* Stats row */}
             <div className="mt-8 flex flex-wrap gap-4">
               {[
-                { value: events.filter(e => e.status === 'upcoming').length, label: 'À venir', icon: 'fas fa-calendar-check', color: 'text-primary' },
-                { value: events.filter(e => e.status === 'past').length,     label: 'Passés',  icon: 'fas fa-history',        color: 'text-gray-400' },
-                { value: 3,                                                   label: 'Sports',  icon: 'fas fa-medal',          color: 'text-amber-500' },
+                { value: events.filter(e => e.status === 'upcoming').length, label: t('events.upcoming'), icon: 'fas fa-calendar-check', color: 'text-primary' },
+                { value: events.filter(e => e.status === 'past').length,     label: t('events.past'),     icon: 'fas fa-history',        color: 'text-gray-400' },
+                { value: 3,                                                   label: 'Sports',             icon: 'fas fa-medal',          color: 'text-amber-500' },
               ].map(({ value, label, icon, color }) => (
                 <div key={label} className="flex items-center gap-3 bg-primary-ghost border border-primary-pale rounded-2xl px-5 py-3">
                   <i className={`${icon} ${color} text-lg`} />
@@ -605,7 +607,7 @@ export default function Evenements() {
           <div className="max-w-7xl mx-auto px-5">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <span className="font-heading font-black text-gray-900 text-lg">Prochains événements</span>
+                <span className="font-heading font-black text-gray-900 text-lg">{t('events.upcoming')}</span>
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               </div>
               <button
@@ -654,9 +656,9 @@ export default function Evenements() {
             {/* Status tabs */}
             <div className="flex items-center gap-1 bg-primary-ghost rounded-xl p-1">
               {([
-                { key: 'all',      label: 'Tous',    count: events.length },
-                { key: 'upcoming', label: 'À venir', count: events.filter(e => e.status === 'upcoming').length },
-                { key: 'past',     label: 'Passés',  count: events.filter(e => e.status === 'past').length },
+                { key: 'all',      label: t('events.filters.all'),      count: events.length },
+                { key: 'upcoming', label: t('events.filters.upcoming'),  count: events.filter(e => e.status === 'upcoming').length },
+                { key: 'past',     label: t('events.filters.past'),      count: events.filter(e => e.status === 'past').length },
               ] as { key: StatusFilter; label: string; count: number }[]).map(f => (
                 <button
                   key={f.key}
@@ -714,7 +716,7 @@ export default function Evenements() {
           <div className="flex items-center gap-2 mb-6">
             <span className="font-heading font-bold text-gray-900">{filtered.length}</span>
             <span className="text-sm text-gray-400 font-heading">
-              événement{filtered.length > 1 ? 's' : ''} trouvé{filtered.length > 1 ? 's' : ''}
+              {t('events.hero.crumb')}
             </span>
           </div>
 
@@ -724,8 +726,8 @@ export default function Evenements() {
                 <div className="w-16 h-16 rounded-2xl bg-primary-ghost flex items-center justify-center mx-auto mb-4">
                   <i className="fas fa-calendar-times text-primary-light text-2xl" />
                 </div>
-                <h3 className="font-heading font-black text-gray-900 text-xl mb-2">Aucun événement trouvé</h3>
-                <p className="text-gray-400 text-sm mb-6">Essayez un autre filtre ou modifiez votre recherche.</p>
+                <h3 className="font-heading font-black text-gray-900 text-xl mb-2">{t('events.empty')}</h3>
+                <p className="text-gray-400 text-sm mb-6">{t('events.empty')}</p>
                 <button
                   onClick={() => { setStatusFilter('all'); setSportFilter('all'); setSearch('') }}
                   className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold text-sm px-5 py-2.5 rounded-full hover:bg-primary-dark transition"
@@ -742,10 +744,10 @@ export default function Evenements() {
                 <div>
                   {statusFilter === 'all' && (
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="font-heading font-black text-gray-900">À venir</span>
+                      <span className="font-heading font-black text-gray-900">{t('events.upcoming')}</span>
                       <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                       <span className="h-px flex-1 bg-primary-pale" />
-                      <span className="text-xs text-gray-400 font-heading">{upcomingFiltered.length} événement{upcomingFiltered.length > 1 ? 's' : ''}</span>
+                      <span className="text-xs text-gray-400 font-heading">{upcomingFiltered.length}</span>
                     </div>
                   )}
                   <div className="flex flex-col gap-3">
@@ -761,9 +763,9 @@ export default function Evenements() {
                 <div>
                   {statusFilter === 'all' && (
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="font-heading font-black text-gray-500">Événements passés</span>
+                      <span className="font-heading font-black text-gray-500">{t('events.past')}</span>
                       <span className="h-px flex-1 bg-gray-200" />
-                      <span className="text-xs text-gray-400 font-heading">{pastFiltered.length} événement{pastFiltered.length > 1 ? 's' : ''}</span>
+                      <span className="text-xs text-gray-400 font-heading">{pastFiltered.length}</span>
                     </div>
                   )}
                   <div className="flex flex-col gap-3">

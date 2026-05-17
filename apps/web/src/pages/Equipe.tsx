@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import { TEAM_PHOTOS, TRAINER_PHOTOS } from '../data/images'
 
@@ -172,6 +173,7 @@ function PhotoOrInitials({ photo, name, className = '' }: { photo: string | null
 type Coach = typeof coaches[0]
 
 export default function Equipe() {
+  const { t } = useTranslation()
   const [activeCoach, setActiveCoach] = useState<Coach | null>(null)
 
   useEffect(() => {
@@ -204,14 +206,14 @@ export default function Equipe() {
             className="font-heading font-black text-primary-dark leading-[0.95] tracking-tight"
             style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}
           >
-            Notre équipe.
+            {t('team.hero.title')}
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-6 max-w-2xl mx-auto text-gray-600 text-lg leading-relaxed"
           >
-            Quinze femmes et hommes qui dirigent l'ASATA — un président, deux vice-président·e·s, huit membres du bureau et les directions de nos trois clubs sportifs.
+            {t('team.hero.subtitle')}
           </motion.p>
         </div>
       </section>
@@ -223,7 +225,7 @@ export default function Equipe() {
         <div className="max-w-5xl mx-auto px-6">
 
           <div className="flex items-center gap-4 mb-8">
-            <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Présidence</span>
+            <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">{t('team.president')}</span>
             <span className="h-px flex-1 bg-primary/15" />
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary/40">01 / 15</span>
           </div>
@@ -326,7 +328,7 @@ export default function Equipe() {
         <div className="max-w-5xl mx-auto px-6">
 
           <div className="flex items-center gap-4 mb-8">
-            <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Le Bureau</span>
+            <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">{t('team.bureau')}</span>
             <span className="h-px flex-1 bg-primary/15" />
             <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary/40">04 — 11 / 15</span>
           </div>
@@ -425,7 +427,7 @@ export default function Equipe() {
         <div className="max-w-7xl mx-auto px-6">
 
           <div className="flex items-center gap-4 mb-10">
-            <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">Staff Technique</span>
+            <span className="font-heading font-bold text-xs tracking-[0.3em] uppercase text-primary">{t('team.trainers')}</span>
             <span className="h-px flex-1 bg-primary/15" />
           </div>
 

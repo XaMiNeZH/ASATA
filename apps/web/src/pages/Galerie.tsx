@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import Lightbox from '../components/Lightbox'
@@ -8,19 +9,20 @@ import { galleryApi } from '../lib/api'
 
 type Filter = 'all' | 'ski' | 'football' | 'athletisme' | 'association'
 
-const filters: { key: Filter; label: string; icon: string }[] = [
-  { key: 'all',         label: 'Tout voir',       icon: 'fas fa-th' },
-  { key: 'ski',         label: 'Ski & Montagne',   icon: 'fas fa-skiing' },
-  { key: 'football',    label: 'Football',         icon: 'fas fa-futbol' },
-  { key: 'athletisme',  label: 'Athlétisme',       icon: 'fas fa-running' },
-  { key: 'association', label: 'Association',      icon: 'fas fa-users' },
-]
-
 export default function Galerie() {
+  const { t } = useTranslation()
   const [filter, setFilter]   = useState<Filter>('all')
   const [lbIndex, setLbIndex] = useState<number | null>(null)
   const [photos, setPhotos]   = useState<{ src: string; category: string }[]>(ALL_PHOTOS)
   const [loading, setLoading] = useState(true)
+
+  const filters: { key: Filter; label: string; icon: string }[] = [
+    { key: 'all',         label: t('gallery.filters.all'),         icon: 'fas fa-th' },
+    { key: 'ski',         label: t('gallery.filters.ski'),         icon: 'fas fa-skiing' },
+    { key: 'football',    label: t('gallery.filters.football'),    icon: 'fas fa-futbol' },
+    { key: 'athletisme',  label: t('gallery.filters.athletisme'),  icon: 'fas fa-running' },
+    { key: 'association', label: t('gallery.filters.association'), icon: 'fas fa-users' },
+  ]
 
   useEffect(() => {
     galleryApi.list()
@@ -43,13 +45,20 @@ export default function Galerie() {
 
   const lbImages = filtered.map(p => p.src)
 
+  function getBadgeLabel(category: string): string {
+    if (category === 'ski') return t('gallery.badges.ski')
+    if (category === 'football') return t('gallery.badges.football')
+    if (category === 'athletisme') return t('gallery.badges.athletisme')
+    return t('gallery.badges.association')
+  }
+
   return (
     <PageTransition>
       <PageHero
-        title="Galerie Photos"
-        subtitle="Découvrez nos activités à travers les images de nos clubs"
+        title={t('gallery.hero.title')}
+        subtitle={t('gallery.hero.subtitle')}
         image={GALLERY_HERO_IMAGE}
-        breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Galerie' }]}
+        breadcrumbs={[{ label: t('common.home'), to: '/' }, { label: t('gallery.hero.crumb') }]}
       />
 
       <section className="py-16 bg-white">
@@ -74,7 +83,7 @@ export default function Galerie() {
 
           {/* Count */}
           <p className="text-center text-gray-400 text-sm font-medium mb-8">
-            {loading ? 'Chargement...' : `${filtered.length} photo${filtered.length > 1 ? 's' : ''}`}
+            {loading ? t('common.loading') : `${filtered.length} photo${filtered.length > 1 ? 's' : ''}`}
           </p>
 
           {/* Grid */}
@@ -105,7 +114,7 @@ export default function Galerie() {
                   {/* Category badge */}
                   <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="bg-primary/80 text-white text-[10px] font-heading font-bold uppercase tracking-wide px-2 py-0.5 rounded-full backdrop-blur-sm">
-                      {category === 'ski' ? '⛷ Ski' : category === 'football' ? '⚽ Football' : category === 'athletisme' ? '🏃 Athlétisme' : '🤝 Association'}
+                      {getBadgeLabel(category)}
                     </span>
                   </div>
                 </motion.div>

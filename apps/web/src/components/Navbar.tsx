@@ -1,27 +1,30 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { LOGO } from '../data/images'
-
-const clubs = [
-  { to: '/ski',        icon: 'fas fa-skiing',  label: 'Ski & Montagne' },
-  { to: '/football',   icon: 'fas fa-futbol',  label: 'Football' },
-  { to: '/athletisme', icon: 'fas fa-running', label: 'Athlétisme' },
-]
-
-const links = [
-  { to: '/',            label: 'Accueil' },
-  { to: '/about',       label: 'À Propos' },
-  { to: '/equipe',      label: 'Notre Équipe' },
-  { to: '/evenements',  label: 'Événements' },
-  { to: '/galerie',     label: 'Galerie' },
-]
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Navbar() {
   const [scrolled,     setScrolled]     = useState(false)
   const [menuOpen,     setMenuOpen]     = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const location = useLocation()
+  const { t } = useTranslation()
+
+  const links = [
+    { to: '/',            label: t('nav.home') },
+    { to: '/about',       label: t('nav.about') },
+    { to: '/equipe',      label: t('nav.team') },
+    { to: '/evenements',  label: t('nav.events') },
+    { to: '/galerie',     label: t('nav.gallery') },
+  ]
+
+  const clubs = [
+    { to: '/ski',        icon: 'fas fa-skiing',  label: t('nav.ski') },
+    { to: '/football',   icon: 'fas fa-futbol',  label: t('nav.football') },
+    { to: '/athletisme', icon: 'fas fa-running', label: t('nav.athletisme') },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -82,7 +85,7 @@ export default function Navbar() {
           {/* Clubs dropdown */}
           <li className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
             <button className="font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-primary-ghost">
-              Nos Clubs <i className={`fas fa-chevron-down text-[10px] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              {t('nav.clubs')} <i className={`fas fa-chevron-down text-[10px] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             <AnimatePresence>
               {dropdownOpen && (
@@ -110,11 +113,15 @@ export default function Navbar() {
           </li>
 
           <li>
+            <LanguageSwitcher />
+          </li>
+
+          <li>
             <Link
               to="/don"
               className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-primary text-white hover:bg-primary-dark hover:shadow-blue-sm transition-all duration-200"
             >
-              <i className="fas fa-hand-holding-heart mr-1.5" />Faire un Don
+              <i className="fas fa-hand-holding-heart mr-1.5" />{t('nav.donate')}
             </Link>
           </li>
           <li>
@@ -122,7 +129,7 @@ export default function Navbar() {
               to="/contact"
               className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-white text-primary border border-primary-pale hover:bg-primary-pale transition-all duration-200"
             >
-              Contact
+              {t('nav.contact')}
             </Link>
           </li>
         </ul>
@@ -172,7 +179,7 @@ export default function Navbar() {
                 </li>
               ))}
               <li className="pt-1 border-t border-primary-pale mt-1">
-                <p className="text-[11px] font-heading font-bold text-gray-400 uppercase tracking-widest px-3 py-2">Nos Clubs</p>
+                <p className="text-[11px] font-heading font-bold text-gray-400 uppercase tracking-widest px-3 py-2">{t('nav.clubs')}</p>
                 {clubs.map(({ to, icon, label }) => (
                   <Link
                     key={to}
@@ -184,12 +191,15 @@ export default function Navbar() {
                   </Link>
                 ))}
               </li>
+              <li className="pt-1 border-t border-primary-pale mt-1 px-3 py-2">
+                <LanguageSwitcher />
+              </li>
               <li>
                 <Link
                   to="/don"
                   className="block text-center font-heading font-bold text-sm px-4 py-2.5 bg-primary text-white rounded-full mt-2 hover:bg-primary-dark transition-colors"
                 >
-                  <i className="fas fa-hand-holding-heart mr-1.5" />Faire un Don
+                  <i className="fas fa-hand-holding-heart mr-1.5" />{t('nav.donate')}
                 </Link>
               </li>
               <li>
@@ -197,7 +207,7 @@ export default function Navbar() {
                   to="/contact"
                   className="block text-center font-heading font-bold text-sm px-4 py-2.5 border border-primary text-primary rounded-full mt-2 hover:bg-primary-pale transition-colors"
                 >
-                  Contact
+                  {t('nav.contact')}
                 </Link>
               </li>
             </ul>
