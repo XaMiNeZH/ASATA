@@ -113,10 +113,6 @@ export default function Navbar() {
           </li>
 
           <li>
-            <LanguageSwitcher />
-          </li>
-
-          <li>
             <Link
               to="/don"
               className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-primary text-white hover:bg-primary-dark hover:shadow-blue-sm transition-all duration-200"
@@ -131,6 +127,9 @@ export default function Navbar() {
             >
               {t('nav.contact')}
             </Link>
+          </li>
+          <li>
+            <LanguageSwitcher />
           </li>
         </ul>
 
