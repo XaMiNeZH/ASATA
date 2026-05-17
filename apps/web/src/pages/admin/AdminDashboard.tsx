@@ -21,13 +21,14 @@ const STATUS_LABELS: Record<string, { label: string; cls: string }> = {
 const SPORT_COLORS: Record<string, string> = {
   football: 'bg-emerald-100 text-emerald-700', ski: 'bg-sky-100 text-sky-700',
   athletisme: 'bg-orange-100 text-orange-700', general: 'bg-purple-100 text-purple-700',
+  association: 'bg-rose-100 text-rose-700',
 }
 const DON_STATUS: Record<string, { label: string; cls: string }> = {
   PENDING:   { label: 'En attente', cls: 'bg-amber-100 text-amber-700' },
   CONFIRMED: { label: 'Confirmé',   cls: 'bg-green-100 text-green-700' },
   FAILED:    { label: 'Échoué',     cls: 'bg-red-100 text-red-600' },
 }
-const GALLERY_CATS = [{ value: 'ski', label: 'Ski' }, { value: 'football', label: 'Football' }, { value: 'athletisme', label: 'Athlétisme' }, { value: 'general', label: 'Général' }]
+const GALLERY_CATS = [{ value: 'ski', label: 'Ski' }, { value: 'football', label: 'Football' }, { value: 'athletisme', label: 'Athlétisme' }, { value: 'association', label: 'Association' }, { value: 'general', label: 'Général' }]
 
 function emptyForm(): EventPayload {
   return { title: '', subtitle: null, date: '', endDate: null, location: '', locationDetail: null, sport: 'football', category: 'tournoi', status: 'upcoming', description: '', result: null, highlight: false, image: null }
