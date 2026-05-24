@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
@@ -7,20 +8,28 @@ import SectionHeader from '../components/SectionHeader'
 import Lightbox from '../components/Lightbox'
 import { FOOTBALL_HERO_IMAGE, FOOTBALL_INTRO_IMAGE, FOOTBALL_PHOTOS } from '../data/images'
 
-const activities = [
-  { icon: 'fas fa-futbol',            title: 'Compétitions régionales',  desc: 'Participation aux ligues et championnats régionaux affiliés à la FRMF.' },
-  { icon: 'fas fa-star-and-crescent', title: 'Tournoi du Ramadan',        desc: 'Organisation du tournoi annuel du Ramadan, événement phare de la région d\'Asni.' },
-  { icon: 'fas fa-child',             title: 'Formation des jeunes',      desc: 'École de football pour les jeunes talents avec encadrement qualifié et suivi personnalisé.' },
-  { icon: 'fas fa-chalkboard-teacher',title: 'Formation des entraîneurs', desc: 'Mise à niveau des entraîneurs avec documents pédagogiques et formations FRMF.' },
-  { icon: 'fas fa-heartbeat',         title: 'Santé & Bien-être',         desc: 'Sensibilisation à la nutrition sportive et à la prévention des blessures.' },
-  { icon: 'fas fa-handshake',         title: 'Événements communautaires', desc: 'Organisation d\'événements sportifs contribuant au lien social et au développement local.' },
-]
-
 export default function Football() {
+  const { t } = useTranslation()
   const [lbIndex, setLbIndex] = useState<number | null>(null)
+
+  const activities = [
+    { icon: 'fas fa-futbol',             title: t('football.a1t'), desc: t('football.a1d') },
+    { icon: 'fas fa-star-and-crescent',  title: t('football.a2t'), desc: t('football.a2d') },
+    { icon: 'fas fa-child',              title: t('football.a3t'), desc: t('football.a3d') },
+    { icon: 'fas fa-chalkboard-teacher', title: t('football.a4t'), desc: t('football.a4d') },
+    { icon: 'fas fa-heartbeat',          title: t('football.a5t'), desc: t('football.a5d') },
+    { icon: 'fas fa-handshake',          title: t('football.a6t'), desc: t('football.a6d') },
+  ]
+
   return (
     <PageTransition>
-      <PageHero title="Club Football" subtitle="Affilié à la Fédération Royale Marocaine de Football (FRMF)" image={FOOTBALL_HERO_IMAGE} icon="fas fa-futbol" breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Nos Clubs' }, { label: 'Football' }]} />
+      <PageHero
+        title={t('football.hero.title')}
+        subtitle={t('football.hero.subtitle')}
+        image={FOOTBALL_HERO_IMAGE}
+        icon="fas fa-futbol"
+        breadcrumbs={[{ label: t('common.home'), to: '/' }, { label: t('nav.clubs') }, { label: t('football.hero.crumb') }]}
+      />
 
       {/* Intro */}
       <section className="py-24 bg-white">
@@ -30,14 +39,14 @@ export default function Football() {
               <img src={FOOTBALL_INTRO_IMAGE} alt="Football ASATA" className="w-full h-[400px] object-cover rounded-2xl shadow-blue-md" />
             </FadeIn>
             <FadeIn direction="right" delay={0.1}>
-              <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">Club Football</span>
-              <h2 className="font-heading font-bold text-4xl text-gray-900 mt-1 mb-4">Football au pied du Toubkal</h2>
-              <p className="text-gray-500 mb-4 leading-relaxed">Le Club Football de l'ASATA est affilié à la <strong className="text-gray-700">Fédération Royale Marocaine de Football (FRMF)</strong>. Il incarne la passion du football dans la région d'Asni.</p>
-              <p className="text-gray-500 mb-4 leading-relaxed">Le club organise des tournois locaux — comme le <strong className="text-gray-700">Tournoi du Ramadan</strong> — et participe aux compétitions régionales, offrant aux joueurs d'Asni une véritable filière de développement sportif.</p>
-              <p className="text-gray-500 mb-6 leading-relaxed">Notre objectif : former de bons footballeurs et des citoyens exemplaires porteurs des valeurs du sport : respect, discipline et esprit d'équipe.</p>
+              <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">{t('football.tag')}</span>
+              <h2 className="font-heading font-bold text-4xl text-gray-900 mt-1 mb-4">{t('football.title')}</h2>
+              <p className="text-gray-500 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('football.p1') }} />
+              <p className="text-gray-500 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('football.p2') }} />
+              <p className="text-gray-500 mb-6 leading-relaxed">{t('football.p3')}</p>
               <div className="flex gap-3 flex-wrap">
-                <Link to="/galerie" className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold px-6 py-3 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm"><i className="fas fa-images" /> Voir les photos</Link>
-                <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-primary text-primary font-heading font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all"><i className="fas fa-envelope" /> Rejoindre</Link>
+                <Link to="/galerie" className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold px-6 py-3 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm"><i className="fas fa-images" /> {t('football.viewPhotos')}</Link>
+                <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-primary text-primary font-heading font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all"><i className="fas fa-envelope" /> {t('football.join')}</Link>
               </div>
             </FadeIn>
           </div>
@@ -47,7 +56,7 @@ export default function Football() {
       {/* Activities */}
       <section className="py-20 bg-primary-ghost">
         <div className="max-w-7xl mx-auto px-5">
-          <SectionHeader tag="Activités" title="Ce que nous faisons" />
+          <SectionHeader tag={t('football.activitiesTag')} title={t('football.activitiesTitle')} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {activities.map(({ icon, title, desc }, i) => (
               <FadeIn key={title} delay={i * 0.08}>
@@ -64,7 +73,7 @@ export default function Football() {
       {/* Gallery */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-5">
-          <SectionHeader tag="Photos" title="Galerie football" />
+          <SectionHeader tag={t('football.galleryTag')} title={t('football.galleryTitle')} />
           <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto">
             {FOOTBALL_PHOTOS.map((src, i) => (
               <FadeIn key={src} delay={i * 0.1}>

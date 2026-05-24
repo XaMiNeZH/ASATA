@@ -21,31 +21,6 @@ const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
 const presetAmounts = [50, 100, 200, 500]
 
-const impacts = [
-  { icon: 'fas fa-child',        value: '200+', label: 'Enfants accompagnés' },
-  { icon: 'fas fa-calendar-alt', value: '30+',  label: 'Événements organisés' },
-  { icon: 'fas fa-mountain',     value: '3',    label: 'Disciplines sportives' },
-  { icon: 'fas fa-trophy',       value: '15+',  label: 'Compétitions financées' },
-]
-
-const whyItems = [
-  {
-    icon: 'fas fa-futbol',
-    title: 'Plus d\'événements sportifs',
-    desc: 'Vos dons nous permettent d\'organiser des tournois, des compétitions et des stages pour les jeunes d\'Asni tout au long de l\'année.',
-  },
-  {
-    icon: 'fas fa-child',
-    title: 'Aider plus d\'enfants',
-    desc: 'Chaque contribution permet à un enfant de plus d\'accéder au sport, à l\'encadrement professionnel et à l\'épanouissement personnel.',
-  },
-  {
-    icon: 'fas fa-skiing',
-    title: 'Équiper nos jeunes talents',
-    desc: 'Le matériel sportif coûte cher. Grâce à vous, aucun enfant ne sera exclu faute d\'équipement.',
-  },
-]
-
 export default function Don() {
   const { t } = useTranslation()
   const [selected, setSelected] = useState<number | null>(null)
@@ -87,7 +62,7 @@ export default function Don() {
       const json = await res.json()
 
       if (!res.ok) {
-        setApiError(json.message ?? 'Une erreur est survenue. Veuillez réessayer.')
+        setApiError(json.message ?? t('contact.form.serverError'))
         return
       }
 
@@ -97,11 +72,24 @@ export default function Don() {
       setSelected(null)
       setCustom('')
     } catch {
-      setApiError('Impossible de contacter le serveur. Vérifiez votre connexion.')
+      setApiError(t('contact.form.serverError'))
     } finally {
       setLoading(false)
     }
   }
+
+  const impacts = [
+    { icon: 'fas fa-child',        value: '200+', label: t('donateExt.i1l') },
+    { icon: 'fas fa-calendar-alt', value: '30+',  label: t('donateExt.i2l') },
+    { icon: 'fas fa-mountain',     value: '3',    label: t('donateExt.i3l') },
+    { icon: 'fas fa-trophy',       value: '15+',  label: t('donateExt.i4l') },
+  ]
+
+  const whyItems = [
+    { icon: 'fas fa-futbol',  title: t('donateExt.w1t'), desc: t('donateExt.w1d') },
+    { icon: 'fas fa-child',   title: t('donateExt.w2t'), desc: t('donateExt.w2d') },
+    { icon: 'fas fa-skiing',  title: t('donateExt.w3t'), desc: t('donateExt.w3d') },
+  ]
 
   const inp = 'w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-300 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all font-body'
   const lbl = 'block font-heading font-semibold text-xs text-gray-500 uppercase tracking-wider mb-1.5'
@@ -142,16 +130,14 @@ export default function Don() {
             {/* ── LEFT — why donate ── */}
             <FadeIn direction="left">
               <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-4">
-                Votre impact
+                {t('donateExt.impactTag')}
               </span>
               <h2 className="font-heading font-extrabold text-4xl md:text-5xl text-gray-900 leading-tight mb-5">
-                Votre don change<br />
-                <span className="text-primary">la vie d'un enfant</span>
+                {t('donateExt.impactTitle')}<br />
+                <span className="text-primary">{t('donateExt.impactTitleHighlight')}</span>
               </h2>
               <p className="text-gray-500 text-lg leading-relaxed mb-10">
-                Grâce à votre générosité, l'ASATA peut organiser davantage d'événements sportifs,
-                accueillir plus d'enfants et leur offrir un encadrement de qualité au pied du Djebel Toubkal.
-                Chaque dirham compte et se traduit directement en sourires, en médailles et en rêves accomplis.
+                {t('donateExt.impactDesc')}
               </p>
 
               <div className="flex flex-col gap-5 mb-10">
@@ -172,13 +158,12 @@ export default function Don() {
               <div className="relative bg-white border-l-4 border-primary rounded-2xl p-6 shadow-blue-sm">
                 <i className="fas fa-quote-left text-primary/20 text-4xl absolute top-4 right-5" />
                 <p className="text-gray-700 text-base leading-relaxed italic mb-3">
-                  "Le sport nous a appris la discipline, le dépassement de soi et la solidarité.
-                  Avec votre aide, nous pouvons offrir ces valeurs à encore plus d'enfants d'Asni."
+                  "{t('donateExt.quote')}"
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold font-heading">A</div>
                   <div>
-                    <p className="font-heading font-bold text-sm text-gray-900">L'équipe ASATA</p>
+                    <p className="font-heading font-bold text-sm text-gray-900">{t('donateExt.quoteAuthor')}</p>
                     <p className="text-xs text-gray-400">Association Sportive Atlas Toubkal Asni</p>
                   </div>
                 </div>
@@ -192,7 +177,7 @@ export default function Don() {
                 {/* Form header */}
                 <div className="bg-gradient-to-r from-primary-dark to-primary px-8 py-6">
                   <h3 className="font-heading font-extrabold text-white text-xl">{t('donate.form.title')}</h3>
-                  <p className="text-white/65 text-sm mt-1">Sécurisé · Confidentiel · Impact immédiat</p>
+                  <p className="text-white/65 text-sm mt-1">{t('donateExt.secure')}</p>
                 </div>
 
                 <div className="px-8 py-7 overflow-y-auto flex-1">
@@ -224,17 +209,17 @@ export default function Don() {
                         <div className="flex items-start gap-3">
                           <i className="fas fa-check-circle text-green-500 text-xl mt-0.5 shrink-0" />
                           <div>
-                            <p className="font-heading font-bold text-base text-green-700">Merci infiniment !</p>
+                            <p className="font-heading font-bold text-base text-green-700">{t('donateExt.successTitle')}</p>
                             <p className="text-green-600/80 text-sm mt-0.5 leading-relaxed">
-                              Votre don a bien été enregistré. Ensemble, nous aidons plus d'enfants à s'épanouir à travers le sport.
+                              {t('donateExt.successDesc')}
                             </p>
                           </div>
                         </div>
                         {reference && (
                           <div className="bg-white border border-green-200 rounded-xl px-4 py-3">
-                            <p className="text-[11px] text-gray-400 font-heading uppercase tracking-widest mb-1">Référence de votre don</p>
+                            <p className="text-[11px] text-gray-400 font-heading uppercase tracking-widest mb-1">{t('donateExt.refLabel')}</p>
                             <p className="font-heading font-black text-primary tracking-wide text-sm break-all">{reference}</p>
-                            <p className="text-[11px] text-gray-400 mt-1">Conservez cette référence pour le suivi de votre don.</p>
+                            <p className="text-[11px] text-gray-400 mt-1">{t('donateExt.refNote')}</p>
                           </div>
                         )}
                           <div className="bg-white border border-green-200 rounded-xl px-4 py-3 text-sm">
@@ -243,9 +228,9 @@ export default function Don() {
                               {t('donate.virement.title')}
                             </p>
                             <div className="space-y-1 text-gray-500 text-xs">
-                              <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Association Sportive Atlas Toubkal Asni</p>
-                              <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
-                              <p><span className="font-semibold text-gray-700">Motif :</span> Don ASATA — {reference}</p>
+                              <p><span className="font-semibold text-gray-700">{t('donateExt.beneficiary')} :</span> Association Sportive Atlas Toubkal Asni</p>
+                              <p><span className="font-semibold text-gray-700">{t('donateExt.bank')} :</span> CIH Bank</p>
+                              <p><span className="font-semibold text-gray-700">{t('donateExt.motive')} :</span> Don ASATA — {reference}</p>
                             </div>
                           </div>
                       </motion.div>
@@ -279,7 +264,7 @@ export default function Don() {
                           type="number"
                           min="1"
                           className={`${inp} pr-16`}
-                          placeholder="Autre montant"
+                          placeholder={t('donateExt.otherAmount')}
                           value={custom}
                           onChange={e => { setCustom(e.target.value); setSelected(null) }}
                         />
@@ -288,7 +273,7 @@ export default function Don() {
                       {amount && (
                         <p className="mt-2 text-xs text-primary font-heading font-semibold">
                           <i className="fas fa-check-circle mr-1" />
-                          Montant sélectionné : {amount} MAD
+                          {t('donateExt.selectedAmount')} : {amount} MAD
                         </p>
                       )}
                     </div>
@@ -297,24 +282,23 @@ export default function Don() {
 
                     {/* Personal info */}
                     <div className="flex flex-col gap-3">
-                      <p className={lbl}>{t('donate.form.name')}</p>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className={lbl}>{t('donate.form.name')} *</label>
-                          <input type="text" className={inp} placeholder={t('donate.form.name')} value={form.firstName} onChange={set('firstName')} required />
+                          <label className={lbl}>{t('donateExt.firstName')} *</label>
+                          <input type="text" className={inp} placeholder={t('contact.form.firstNamePh')} value={form.firstName} onChange={set('firstName')} required />
                         </div>
                         <div>
-                          <label className={lbl}>{t('donate.form.name')} *</label>
-                          <input type="text" className={inp} placeholder={t('donate.form.name')} value={form.lastName} onChange={set('lastName')} required />
+                          <label className={lbl}>{t('donateExt.lastName')} *</label>
+                          <input type="text" className={inp} placeholder={t('contact.form.lastNamePh')} value={form.lastName} onChange={set('lastName')} required />
                         </div>
                       </div>
                       <div>
                         <label className={lbl}>{t('donate.form.email')} *</label>
-                        <input type="email" className={inp} placeholder="votre@email.com" value={form.email} onChange={set('email')} required />
+                        <input type="email" className={inp} placeholder={t('contact.form.emailPh')} value={form.email} onChange={set('email')} required />
                       </div>
                       <div>
                         <label className={lbl}>{t('contact.form.phone')}</label>
-                        <input type="tel" className={inp} placeholder="+212 6XX XXX XXX" value={form.phone} onChange={set('phone')} />
+                        <input type="tel" className={inp} placeholder={t('contact.form.phonePh')} value={form.phone} onChange={set('phone')} />
                       </div>
                     </div>
 
@@ -325,11 +309,11 @@ export default function Don() {
                         <span className="font-heading font-bold text-primary-dark">{t('donate.virement.title')}</span>
                       </div>
                       <div className="space-y-1.5 text-gray-500 text-xs">
-                        <p><span className="font-semibold text-gray-700">Bénéficiaire :</span> Asso. Sportive Atlas Toubkal Asni</p>
-                        <p><span className="font-semibold text-gray-700">Banque :</span> CIH Bank</p>
+                        <p><span className="font-semibold text-gray-700">{t('donateExt.beneficiary')} :</span> Asso. Sportive Atlas Toubkal Asni</p>
+                        <p><span className="font-semibold text-gray-700">{t('donateExt.bank')} :</span> CIH Bank</p>
                         <p className="mt-2 text-primary/70">
                           <i className="fas fa-info-circle mr-1" />
-                          Une référence unique vous sera communiquée après soumission — indiquez-la dans le motif du virement.
+                          {t('donateExt.virementNote')}
                         </p>
                       </div>
                     </div>
@@ -345,14 +329,14 @@ export default function Don() {
                       ) : (
                         <>
                           <i className="fas fa-hand-holding-heart" />
-                          {amount ? `Donner ${amount} MAD` : 'Confirmer le don'}
+                          {amount ? `${t('donateExt.donateBtn')} ${amount} MAD` : t('donateExt.confirmBtn')}
                         </>
                       )}
                     </button>
 
                     <p className="text-center text-xs text-gray-400 leading-relaxed">
                       <i className="fas fa-lock mr-1" />
-                      Vos données personnelles sont confidentielles et ne sont jamais partagées
+                      {t('donateExt.privacy')}
                     </p>
 
                   </form>

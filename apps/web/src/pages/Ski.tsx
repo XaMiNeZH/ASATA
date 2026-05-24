@@ -1,20 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
 import SectionHeader from '../components/SectionHeader'
 import Lightbox from '../components/Lightbox'
 import { SKI_HERO_IMAGE, SKI_PHOTOS, SKI_TEAM_IMAGE } from '../data/images'
-
-const activities = [
-  { icon: 'fas fa-skiing',            title: 'Ski alpin',              desc: 'Compétitions à Oukaimden — ligue régionale, championnat national et Coupe du Roi.' },
-  { icon: 'fas fa-mountain',          title: 'Escalade',               desc: 'Parois artificielles et naturelles avec encadrement de formateurs qualifiés.' },
-  { icon: 'fas fa-hiking',            title: 'Randonnée',              desc: 'Randonnées guidées dans le massif du Toubkal, sensibilisation à l\'environnement.' },
-  { icon: 'fas fa-flag-checkered',    title: 'Trail running',          desc: 'Course en montagne et trail sur les sentiers du Haut Atlas marocain.' },
-  { icon: 'fas fa-plane',             title: 'Stages internationaux',  desc: 'Formation à l\'étranger : Espagne, France et Corée du Sud pour nos athlètes.' },
-  { icon: 'fas fa-chalkboard-teacher',title: 'Formation & Encadrement',desc: 'Formation des entraîneurs avec qualifications fédérales officielles FRMSSM.' },
-]
 
 const team = [
   { name: 'M. Farid BOUSERHAN',   role: 'Président — Commission Technique — Porte-parole Média' },
@@ -27,10 +19,27 @@ const team = [
 const galleryPhotos = SKI_PHOTOS.slice(0, 12)
 
 export default function Ski() {
+  const { t } = useTranslation()
   const [lbIndex, setLbIndex] = useState<number | null>(null)
+
+  const activities = [
+    { icon: 'fas fa-skiing',             title: t('ski.a1t'), desc: t('ski.a1d') },
+    { icon: 'fas fa-mountain',           title: t('ski.a2t'), desc: t('ski.a2d') },
+    { icon: 'fas fa-hiking',             title: t('ski.a3t'), desc: t('ski.a3d') },
+    { icon: 'fas fa-flag-checkered',     title: t('ski.a4t'), desc: t('ski.a4d') },
+    { icon: 'fas fa-plane',              title: t('ski.a5t'), desc: t('ski.a5d') },
+    { icon: 'fas fa-chalkboard-teacher', title: t('ski.a6t'), desc: t('ski.a6d') },
+  ]
+
   return (
     <PageTransition>
-      <PageHero title="Ski & Sports de Montagne" subtitle="Affilié à la Fédération Royale Marocaine de Ski et Sports de Montagne (FRMSSM) depuis 2013" image={SKI_HERO_IMAGE} icon="fas fa-skiing" breadcrumbs={[{ label: 'Accueil', to: '/' }, { label: 'Nos Clubs' }, { label: 'Ski & Montagne' }]} />
+      <PageHero
+        title={t('ski.hero.title')}
+        subtitle={t('ski.hero.subtitle')}
+        image={SKI_HERO_IMAGE}
+        icon="fas fa-skiing"
+        breadcrumbs={[{ label: t('common.home'), to: '/' }, { label: t('nav.clubs') }, { label: t('ski.hero.crumb') }]}
+      />
 
       {/* Intro */}
       <section className="py-24 bg-white">
@@ -40,13 +49,13 @@ export default function Ski() {
               <img src={SKI_TEAM_IMAGE} alt="Équipe Ski ASATA" className="w-full h-[400px] object-cover rounded-2xl shadow-blue-md" />
             </FadeIn>
             <FadeIn direction="right" delay={0.1}>
-              <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">Club Ski & Montagne</span>
-              <h2 className="font-heading font-bold text-4xl text-gray-900 mt-1 mb-4">Le ski au sommet du Maroc</h2>
-              <p className="text-gray-500 mb-4 leading-relaxed">Le Club Ski & Sports de Montagne de l'ASATA est affilié à la <strong className="text-gray-700">FRMSSM</strong> depuis 2013. Il pratique le ski alpin à la station de <strong className="text-gray-700">Oukaimden</strong>, la plus haute station de ski d'Afrique.</p>
-              <p className="text-gray-500 mb-6 leading-relaxed">Sous la présidence de <strong className="text-gray-700">M. Farid BOUSERHAN</strong> et l'encadrement de <strong className="text-gray-700">M. Rachid CHIB</strong>, le club forme une nouvelle génération de skieurs marocains issus du Haut Atlas.</p>
+              <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">{t('ski.tag')}</span>
+              <h2 className="font-heading font-bold text-4xl text-gray-900 mt-1 mb-4">{t('ski.title')}</h2>
+              <p className="text-gray-500 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('ski.p1') }} />
+              <p className="text-gray-500 mb-6 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('ski.p2') }} />
               <div className="flex gap-3 flex-wrap">
-                <Link to="/galerie" className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold px-6 py-3 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm"><i className="fas fa-images" /> Voir les photos</Link>
-                <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-primary text-primary font-heading font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all"><i className="fas fa-envelope" /> Rejoindre</Link>
+                <Link to="/galerie" className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold px-6 py-3 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm"><i className="fas fa-images" /> {t('ski.viewPhotos')}</Link>
+                <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-primary text-primary font-heading font-bold px-6 py-3 rounded-full hover:bg-primary hover:text-white hover:-translate-y-0.5 transition-all"><i className="fas fa-envelope" /> {t('ski.join')}</Link>
               </div>
             </FadeIn>
           </div>
@@ -54,7 +63,12 @@ export default function Ski() {
           {/* Quick stats */}
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[{ v: '2013', l: 'Affiliation FRMSSM' }, { v: '3+', l: 'Pays de stages' }, { v: '3800m', l: 'Altitude Oukaimden' }, { v: 'National', l: 'Niveau compétition' }].map(({ v, l }) => (
+              {[
+                { v: '2013',     l: t('ski.stats.affiliation') },
+                { v: '3+',       l: t('ski.stats.camps') },
+                { v: '3800m',    l: t('ski.stats.altitude') },
+                { v: 'National', l: t('ski.stats.level') },
+              ].map(({ v, l }) => (
                 <div key={l} className="bg-primary-ghost border border-primary-pale rounded-2xl p-5 text-center">
                   <div className="font-heading font-black text-2xl text-primary mb-1">{v}</div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-gray-400">{l}</div>
@@ -68,7 +82,7 @@ export default function Ski() {
       {/* Activities */}
       <section className="py-20 bg-primary-ghost">
         <div className="max-w-7xl mx-auto px-5">
-          <SectionHeader tag="Disciplines" title="Nos activités" />
+          <SectionHeader tag={t('ski.activitiesTag')} title={t('ski.activitiesTitle')} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {activities.map(({ icon, title, desc }, i) => (
               <FadeIn key={title} delay={i * 0.08}>
@@ -85,11 +99,11 @@ export default function Ski() {
       {/* Team table */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-5">
-          <SectionHeader tag="Encadrement" title="Équipe dirigeante du club" />
+          <SectionHeader tag={t('ski.teamTag')} title={t('ski.teamTitle')} />
           <FadeIn>
             <div className="rounded-2xl overflow-hidden shadow-blue-sm border border-primary-pale">
               <table className="w-full border-collapse">
-                <thead><tr className="bg-gradient-to-r from-primary-dark to-primary text-white"><th className="text-left px-6 py-4 font-heading font-bold text-sm">Nom</th><th className="text-left px-6 py-4 font-heading font-bold text-sm">Fonction</th></tr></thead>
+                <thead><tr className="bg-gradient-to-r from-primary-dark to-primary text-white"><th className="text-left px-6 py-4 font-heading font-bold text-sm">{t('ski.teamName')}</th><th className="text-left px-6 py-4 font-heading font-bold text-sm">{t('ski.teamRole')}</th></tr></thead>
                 <tbody>
                   {team.map(({ name, role }, i) => (
                     <tr key={name} className={`border-b border-primary-pale last:border-0 hover:bg-primary-ghost transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-primary-ghost/40'}`}>
@@ -107,7 +121,7 @@ export default function Ski() {
       {/* Gallery */}
       <section className="py-20 bg-primary-ghost">
         <div className="max-w-7xl mx-auto px-5">
-          <SectionHeader tag="Photos" title="Galerie ski & montagne" />
+          <SectionHeader tag={t('ski.galleryTag')} title={t('ski.galleryTitle')} />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {galleryPhotos.map((src, i) => (
               <FadeIn key={src} delay={i * 0.04}>
@@ -118,7 +132,11 @@ export default function Ski() {
               </FadeIn>
             ))}
           </div>
-          <div className="text-center mt-8"><Link to="/galerie" className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold px-7 py-3.5 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm">Voir toute la galerie <i className="fas fa-arrow-right" /></Link></div>
+          <div className="text-center mt-8">
+            <Link to="/galerie" className="inline-flex items-center gap-2 bg-primary text-white font-heading font-bold px-7 py-3.5 rounded-full hover:bg-primary-dark hover:-translate-y-0.5 transition-all shadow-blue-sm">
+              {t('ski.viewGallery')} <i className="fas fa-arrow-right" />
+            </Link>
+          </div>
         </div>
       </section>
 
