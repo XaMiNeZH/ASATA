@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASATA Connect Admin - Event Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#faf9fd",
+                      "secondary-container": "#d4e0f9",
+                      "on-tertiary-container": "#8395aa",
+                      "inverse-surface": "#2f3034",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#101c2e",
+                      "on-surface-variant": "#44474f",
+                      "on-background": "#1a1b1f",
+                      "surface-container-highest": "#e3e2e6",
+                      "secondary-fixed-dim": "#bbc7df",
+                      "on-surface": "#1a1b1f",
+                      "on-secondary-container": "#586378",
+                      "primary-fixed": "#d7e3ff",
+                      "on-primary-fixed-variant": "#2d4772",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#faf9fd",
+                      "surface-tint": "#465e8b",
+                      "inverse-primary": "#aec7fa",
+                      "surface-variant": "#e3e2e6",
+                      "error": "#ba1a1a",
+                      "surface-container": "#efedf1",
+                      "on-error": "#ffffff",
+                      "outline": "#747780",
+                      "tertiary-fixed-dim": "#b6c8df",
+                      "surface-container-high": "#e9e7ec",
+                      "on-primary-fixed": "#001b3f",
+                      "surface-dim": "#dad9de",
+                      "surface-container-low": "#f4f3f7",
+                      "on-primary-container": "#7a93c3",
+                      "outline-variant": "#c4c6d0",
+                      "on-tertiary-fixed": "#0a1d2d",
+                      "primary-container": "#0d2b55",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#aec7fa",
+                      "tertiary-container": "#1c2d3e",
+                      "inverse-on-surface": "#f1f0f4",
+                      "tertiary-fixed": "#d2e4fb",
+                      "background": "#faf9fd",
+                      "secondary": "#535f74",
+                      "tertiary": "#061829",
+                      "primary": "#001637",
+                      "on-tertiary-fixed-variant": "#37485b",
+                      "secondary-fixed": "#d7e3fc",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed-variant": "#3c475b",
+                      "sky-blue": "#42A5F5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "container-margin": "20px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Lexend"],
+                      "h2": ["Lexend"],
+                      "label-caps": ["Lexend"],
+                      "h3": ["Lexend"],
+                      "h1": ["Lexend"],
+                      "button": ["Lexend"],
+                      "body-sm": ["Lexend"],
+                      "body-lg": ["Lexend"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                      "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Lexend', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-chip {
+            background-color: #0d2b55;
+            color: white;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar Navigation -->
+<header class="w-full top-0 sticky bg-surface-container-lowest shadow-sm flex justify-between items-center px-gutter py-sm z-40">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="font-h2 text-h2 text-primary">ASATA Connect Admin</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-secondary-container flex items-center justify-center">
+<img alt="Admin User Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-level sports executive, wearing a sharp navy blue tailored suit. The lighting is sophisticated and directional, creating a clean, high-performance corporate aesthetic. The background is a minimalist, out-of-focus modern office space with cool blue tones and sleek glass surfaces, reflecting an elite and methodical management personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6H3jI5EH6VK0Ye1ZhlHnk46NWEeVUYUpLsanziw2tQ6tKUqqXfTGL0-ZaQGSMXKLN5GmWLcVug4khF4zgvqC_Gs1nJDDrcWwEWUeAiLHsWcAs-cXZoLbRzDbHPITNocWm2hfiwQ54Hyrmz34oHk7N9JwSiNT78d4fU-Fw6ILX00aW6XlbQVAKC-L2zOdDttfzRrDc5QhgplpF-XdI1fpkHppYQ6c70ayTU9SUxV1ABfO7nuNJR2OS7nXllMd15ckP5B1bRKNMJ68"/>
+</div>
+</header>
+<main class="px-container-margin py-md space-y-md">
+<!-- Search Bar Section -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<input class="w-full pl-12 pr-md py-lg bg-surface-container-low border border-outline-variant rounded-xl focus:ring-2 focus:ring-sky-blue focus:border-sky-blue outline-none transition-all font-body-md text-on-surface" placeholder="Search events, organizers, or locations..." type="text"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-sm overflow-x-auto scrollbar-hide py-base">
+<button class="active-chip px-md py-sm rounded-full font-label-caps text-label-caps transition-all">All</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-sm rounded-full font-label-caps text-label-caps hover:bg-secondary-container transition-all">Draft</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-sm rounded-full font-label-caps text-label-caps hover:bg-secondary-container transition-all">Active</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-sm rounded-full font-label-caps text-label-caps hover:bg-secondary-container transition-all">Completed</button>
+</div>
+<!-- Events Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Event Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md border-none group hover:scale-[1.01] transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<span class="font-label-caps text-label-caps text-primary px-sm py-[2px] bg-secondary-container rounded-full">ACTIVE</span>
+<h3 class="font-h3 text-h3 text-primary">Elite Coaches Summit 2025</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>October 14-16, 2025</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Cape Town International Convention Centre</span>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
+<span>CAPACITY</span>
+<span>82%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-sky-blue rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<div class="flex gap-sm pt-sm">
+<button class="flex-1 bg-primary text-on-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Edit</button>
+<button class="flex-1 bg-transparent border-[1.5px] border-primary text-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Manage Attendees</button>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md border-none group hover:scale-[1.01] transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant px-sm py-[2px] bg-surface-container-high rounded-full">DRAFT</span>
+<h3 class="font-h3 text-h3 text-primary">Junior Athletics Regional Trials</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">more_vert</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>November 05, 2025</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Pretoria Sports Complex</span>
+</div>
+</div>
+<div class="space-y-xs opacity-50">
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
+<span>CAPACITY (UNSET)</span>
+<span>0%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant rounded-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="flex gap-sm pt-sm">
+<button class="flex-1 bg-primary text-on-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Edit</button>
+<button class="flex-1 bg-transparent border-[1.5px] border-primary text-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Manage Attendees</button>
+</div>
+</div>
+<!-- Event Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md border-none group hover:scale-[1.01] transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<span class="font-label-caps text-label-caps text-primary px-sm py-[2px] bg-secondary-container rounded-full">ACTIVE</span>
+<h3 class="font-h3 text-h3 text-primary">ASATA Annual Gala Dinner</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">more_vert</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>December 12, 2025</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Sandton Convention Centre</span>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
+<span>CAPACITY</span>
+<span>95%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-sky-blue rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<div class="flex gap-sm pt-sm">
+<button class="flex-1 bg-primary text-on-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Edit</button>
+<button class="flex-1 bg-transparent border-[1.5px] border-primary text-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Manage Attendees</button>
+</div>
+</div>
+<!-- Event Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md border-none group hover:scale-[1.01] transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant px-sm py-[2px] bg-surface-container-high rounded-full">COMPLETED</span>
+<h3 class="font-h3 text-h3 text-primary">Winter Training Camp</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant">more_vert</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>July 20-30, 2025</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Durban High Performance Hub</span>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant">
+<span>FINAL CAPACITY</span>
+<span>100%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-tertiary-container rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<div class="flex gap-sm pt-sm">
+<button class="flex-1 bg-primary text-on-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">View Archive</button>
+<button class="flex-1 bg-transparent border-[1.5px] border-primary text-primary font-button text-button py-sm rounded-lg active:scale-95 transition-all">Reports</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-md w-14 h-14 bg-sky-blue text-white rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-lowest shadow-[0_-2px_8px_rgba(0,0,0,0.08)] z-50 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-label-caps">Members</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-1 cursor-default">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-caps text-label-caps">Events</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-caps text-label-caps">News</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple Micro-interaction: Filter Chip Toggle
+        const filterChips = document.querySelectorAll('.font-label-caps');
+        filterChips.forEach(chip => {
+            if(chip.parentElement.classList.contains('flex-gap-sm')) {
+                chip.addEventListener('click', () => {
+                    document.querySelector('.active-chip')?.classList.remove('active-chip', 'bg-primary', 'text-white');
+                    document.querySelectorAll('.bg-surface-container-high').forEach(c => c.classList.remove('active-chip'));
+                    chip.classList.add('active-chip');
+                });
+            }
+        });
+
+        // FAB interaction effect
+        const fab = document.querySelector('.bg-sky-blue');
+        fab.addEventListener('click', () => {
+            fab.style.transform = 'rotate(45deg) scale(0.9)';
+            setTimeout(() => {
+                fab.style.transform = 'rotate(0deg) scale(1)';
+            }, 200);
+        });
+    </script>
+</body></html>

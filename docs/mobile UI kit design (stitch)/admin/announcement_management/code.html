@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASATA Connect Admin - Announcements</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#faf9fd",
+                        "secondary-container": "#d4e0f9",
+                        "on-tertiary-container": "#8395aa",
+                        "inverse-surface": "#2f3034",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#101c2e",
+                        "on-surface-variant": "#44474f",
+                        "on-background": "#1a1b1f",
+                        "surface-container-highest": "#e3e2e6",
+                        "secondary-fixed-dim": "#bbc7df",
+                        "on-surface": "#1a1b1f",
+                        "on-secondary-container": "#586378",
+                        "primary-fixed": "#d7e3ff",
+                        "on-primary-fixed-variant": "#2d4772",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#faf9fd",
+                        "surface-tint": "#465e8b",
+                        "inverse-primary": "#aec7fa",
+                        "surface-variant": "#e3e2e6",
+                        "error": "#ba1a1a",
+                        "surface-container": "#efedf1",
+                        "on-error": "#ffffff",
+                        "outline": "#747780",
+                        "tertiary-fixed-dim": "#b6c8df",
+                        "surface-container-high": "#e9e7ec",
+                        "on-primary-fixed": "#001b3f",
+                        "surface-dim": "#dad9de",
+                        "surface-container-low": "#f4f3f7",
+                        "on-primary-container": "#7a93c3",
+                        "outline-variant": "#c4c6d0",
+                        "on-tertiary-fixed": "#0a1d2d",
+                        "primary-container": "#0d2b55",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#aec7fa",
+                        "tertiary-container": "#1c2d3e",
+                        "inverse-on-surface": "#f1f0f4",
+                        "tertiary-fixed": "#d2e4fb",
+                        "background": "#faf9fd",
+                        "secondary": "#535f74",
+                        "tertiary": "#061829",
+                        "primary": "#001637",
+                        "on-tertiary-fixed-variant": "#37485b",
+                        "secondary-fixed": "#d7e3fc",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c475b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "container-margin": "20px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Lexend"],
+                        "h2": ["Lexend"],
+                        "label-caps": ["Lexend"],
+                        "h3": ["Lexend"],
+                        "h1": ["Lexend"],
+                        "button": ["Lexend"],
+                        "body-sm": ["Lexend"],
+                        "body-lg": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #faf9fd;
+        }
+        .mountain-gradient {
+            background: linear-gradient(180deg, #d7e3ff 0%, #faf9fd 40%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- Sidebar (NavigationDrawer) - Visible on Desktop -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full w-72 bg-surface-container dark:bg-surface-container-high shadow-xl p-md z-50" id="main-sidebar">
+<div class="flex flex-col h-full">
+<div class="mb-xl px-sm">
+<h2 class="font-h2 text-h2 text-primary dark:text-primary-fixed-dim">ASATA</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Admin Console</p>
+</div>
+<div class="flex items-center gap-md p-md mb-lg bg-surface-container-low rounded-xl">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-fixed flex items-center justify-center">
+<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbE_BECciT_uoZk2AlasuFn76ak7bzKcezcG8uQW6MhAIn-yRedmYtwNfdA8qxpGQuBW-_bXdlF6vLuohb5X_SyoxqvXpeNnuSuqN-fBz9gSr18tFuUCljdVsE8j5fisHek9JAnhzMe1U1e9b56IZeGEQgTU3qSJxr36ZJ5P9y_BozG8UCRFy51hXx4RbQZ4hGy1ia4YqhjkMxtNFOfsh5oKNx9B1nnaAEcg8Wqunax1c5wRiXr6gp1KcO_1pNY-UdQ31ie0f0DNA"/>
+</div>
+<div>
+<p class="font-h3 text-h3 text-primary text-[14px]">Association Admin</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Elite Management</p>
+</div>
+</div>
+<nav class="space-y-sm flex-grow">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">Members</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-body-md text-body-md">Events</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container font-bold rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">article</span>
+<span class="font-body-md text-body-md">News</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-body-md text-body-md">Admin Profile</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant/20 px-sm">
+<p class="font-label-caps text-[10px] text-on-surface-variant">v2.4.0</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-72 min-h-screen pb-32 md:pb-lg mountain-gradient">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface-container-lowest shadow-sm flex justify-between items-center px-gutter py-sm z-40">
+<div class="flex items-center gap-sm">
+<button class="md:hidden text-primary p-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-h2 text-h2 text-primary">Announcements &amp; News</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-secondary-container transition-colors p-sm rounded-full">search</button>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary-container overflow-hidden">
+<img alt="Admin User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5J0ZzayoPopNvox0TsoCUWA25dEWy-1C3SCIeyLJG32UwmUSn2y4ptFFWswyexphuum8r3pV1ssYEKO2XyofuhQhzgqlp3I4YxGMtFo4lGpEfxHRWmUMMwC-gu8FKFawF8VrZOda3gYoDVe_w_5-2Ortwa6gtzMpvmjYFM23DpjuArSMsEvrqE7p9goTRck5Zl4F_aShuvvBoKxHbHghc6PfPDII8kmwHyzZMOHDR3IkCDV9MVKoK4iPxrgfuWJ1fpU1k2LlyTMw"/>
+</div>
+</div>
+</header>
+<!-- Page Hero / Stat Overview (Asymmetric Layout) -->
+<div class="px-container-margin py-xl grid grid-cols-1 md:grid-cols-12 gap-lg">
+<div class="md:col-span-8 flex flex-col justify-center">
+<h2 class="font-h1 text-h1 text-primary-container mb-xs">Elite Broadcast Control</h2>
+<p class="font-body-lg text-body-lg text-secondary max-w-xl">
+                    Manage high-performance communications across the ASATA athlete and member ecosystem.
+                </p>
+</div>
+<div class="md:col-span-4 bg-primary-container text-white p-lg rounded-xl shadow-md relative overflow-hidden flex flex-col justify-between">
+<!-- Abstract Mountain Decor -->
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">landscape</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps opacity-70">Total Engagement</p>
+<p class="font-h1 text-h1">12,482</p>
+</div>
+<div class="flex gap-md mt-md">
+<div class="bg-white/10 p-sm rounded-lg flex-1">
+<p class="text-[10px] opacity-70">Views</p>
+<p class="font-h3 text-h3">8.2k</p>
+</div>
+<div class="bg-white/10 p-sm rounded-lg flex-1">
+<p class="text-[10px] opacity-70">Clicks</p>
+<p class="font-h3 text-h3">4.2k</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Create New Desktop CTA -->
+<div class="px-container-margin mb-lg hidden md:flex">
+<button class="bg-primary-container text-white px-xl py-md rounded-full font-button flex items-center gap-sm shadow-md hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                Create New Announcement
+            </button>
+</div>
+<!-- News Item List (Bento-style list) -->
+<div class="px-container-margin space-y-md">
+<!-- Item 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary group-hover:w-2 transition-all"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div class="flex-grow">
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-green-100 text-[#2E7D52] font-label-caps text-[10px] px-sm py-[2px] rounded-full">Published</span>
+<span class="font-label-caps text-on-tertiary-container text-[10px]">March 15, 2025</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary-container">Annual Sports Gala: Ticket Registration Open</h3>
+<p class="font-body-sm text-body-sm text-secondary mt-1 max-w-2xl">Registration for the 2025 ASATA Elite Gala is now live for all gold-tier members...</p>
+</div>
+<!-- Metrics & Actions -->
+<div class="flex flex-wrap items-center gap-lg border-t md:border-t-0 md:border-l border-outline-variant/30 pt-md md:pt-0 md:pl-lg">
+<div class="flex items-center gap-xl">
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-tertiary-container">View Count</p>
+<p class="font-h3 text-h3 text-primary-container">2,450</p>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-tertiary-container">Clicks</p>
+<p class="font-h3 text-h3 text-primary-container">892</p>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="p-sm text-primary hover:bg-secondary-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-sm text-error hover:bg-error-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-fixed group-hover:w-2 transition-all"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div class="flex-grow">
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-blue-100 text-primary-container font-label-caps text-[10px] px-sm py-[2px] rounded-full">Scheduled</span>
+<span class="font-label-caps text-on-tertiary-container text-[10px]">April 02, 2025</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary-container">New Performance Tracking Updates</h3>
+<p class="font-body-sm text-body-sm text-secondary mt-1 max-w-2xl">We are rolling out version 2.5 of our tracking system next month with AI-driven stats...</p>
+</div>
+<!-- Metrics & Actions -->
+<div class="flex flex-wrap items-center gap-lg border-t md:border-t-0 md:border-l border-outline-variant/30 pt-md md:pt-0 md:pl-lg">
+<div class="flex items-center gap-xl opacity-40">
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-tertiary-container">View Count</p>
+<p class="font-h3 text-h3 text-primary-container">0</p>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-tertiary-container">Clicks</p>
+<p class="font-h3 text-h3 text-primary-container">0</p>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="p-sm text-primary hover:bg-secondary-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-sm text-error hover:bg-error-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary group-hover:w-2 transition-all"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div class="flex-grow">
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-green-100 text-[#2E7D52] font-label-caps text-[10px] px-sm py-[2px] rounded-full">Published</span>
+<span class="font-label-caps text-on-tertiary-container text-[10px]">March 10, 2025</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary-container">Welcome Our New Technical Director</h3>
+<p class="font-body-sm text-body-sm text-secondary mt-1 max-w-2xl">Joining us from the International League, we are thrilled to welcome Coach Sarah Jenkins...</p>
+</div>
+<!-- Metrics & Actions -->
+<div class="flex flex-wrap items-center gap-lg border-t md:border-t-0 md:border-l border-outline-variant/30 pt-md md:pt-0 md:pl-lg">
+<div class="flex items-center gap-xl">
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-tertiary-container">View Count</p>
+<p class="font-h3 text-h3 text-primary-container">4,812</p>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-tertiary-container">Clicks</p>
+<p class="font-h3 text-h3 text-primary-container">1,230</p>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="p-sm text-primary hover:bg-secondary-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-sm text-error hover:bg-error-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 4 (Mobile Only Card Design Variation) -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm flex flex-col gap-md">
+<div class="flex items-start justify-between">
+<div>
+<span class="bg-green-100 text-[#2E7D52] font-label-caps text-[10px] px-sm py-[2px] rounded-full">Published</span>
+<h3 class="font-h3 text-h3 text-primary-container mt-xs">Quarterly Performance Reviews</h3>
+</div>
+<div class="flex gap-xs">
+<button class="p-xs text-primary"><span class="material-symbols-outlined">edit</span></button>
+<button class="p-xs text-error"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant/10 pt-sm">
+<div class="flex gap-md">
+<div>
+<p class="text-[9px] text-on-tertiary-container font-label-caps">Views</p>
+<p class="font-body-md font-bold">1.2k</p>
+</div>
+<div>
+<p class="text-[9px] text-on-tertiary-container font-label-caps">Clicks</p>
+<p class="font-body-md font-bold">455</p>
+</div>
+</div>
+<p class="font-label-caps text-[10px] text-on-tertiary-container">March 01</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar - Visible on Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest shadow-[0_-2px_8px_rgba(0,0,0,0.08)] flex justify-around items-center px-4 pb-4 pt-2 z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-secondary px-3 py-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-[10px]">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary px-3 py-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-[10px]">Members</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary px-3 py-1" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-[10px]">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
+<span class="font-label-caps text-[10px]">News</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary px-3 py-1" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-[10px]">Profile</span>
+</a>
+</nav>
+<!-- Sticky Floating Action Button (Mobile Only) -->
+<button class="md:hidden fixed bottom-24 right-6 bg-primary-container text-white w-14 h-14 rounded-full shadow-xl flex items-center justify-center z-40 active:scale-95 transition-transform" onclick="alert('Create New Announcement')">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Micro-interaction for cards
+        const cards = document.querySelectorAll('.group');
+        cards.forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple visibility observer for scroll effects
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(item => {
+            item.classList.add('transition-all', 'duration-500', 'opacity-0', 'translate-y-4');
+            observer.observe(item);
+        });
+    </script>
+</body></html>

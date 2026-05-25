@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASATA Connect Admin - Member Directory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .mountain-bg {
+            background-image: radial-gradient(circle at 20% 150%, #d7e3ff 0%, transparent 50%),
+                              radial-gradient(circle at 80% -20%, #bbc7df 0%, transparent 40%);
+        }
+        .scale-98:active { transform: scale(0.98); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen pb-24 md:pb-0 mountain-bg">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#faf9fd",
+                        "secondary-container": "#d4e0f9",
+                        "on-tertiary-container": "#8395aa",
+                        "inverse-surface": "#2f3034",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#101c2e",
+                        "on-surface-variant": "#44474f",
+                        "on-background": "#1a1b1f",
+                        "surface-container-highest": "#e3e2e6",
+                        "secondary-fixed-dim": "#bbc7df",
+                        "on-surface": "#1a1b1f",
+                        "on-secondary-container": "#586378",
+                        "primary-fixed": "#d7e3ff",
+                        "on-primary-fixed-variant": "#2d4772",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#faf9fd",
+                        "surface-tint": "#465e8b",
+                        "inverse-primary": "#aec7fa",
+                        "surface-variant": "#e3e2e6",
+                        "error": "#ba1a1a",
+                        "surface-container": "#efedf1",
+                        "on-error": "#ffffff",
+                        "outline": "#747780",
+                        "tertiary-fixed-dim": "#b6c8df",
+                        "surface-container-high": "#e9e7ec",
+                        "on-primary-fixed": "#001b3f",
+                        "surface-dim": "#dad9de",
+                        "surface-container-low": "#f4f3f7",
+                        "on-primary-container": "#7a93c3",
+                        "outline-variant": "#c4c6d0",
+                        "on-tertiary-fixed": "#0a1d2d",
+                        "primary-container": "#0d2b55",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#aec7fa",
+                        "tertiary-container": "#1c2d3e",
+                        "inverse-on-surface": "#f1f0f4",
+                        "tertiary-fixed": "#d2e4fb",
+                        "background": "#faf9fd",
+                        "secondary": "#535f74",
+                        "tertiary": "#061829",
+                        "primary": "#001637",
+                        "on-tertiary-fixed-variant": "#37485b",
+                        "secondary-fixed": "#d7e3fc",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c475b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "container-margin": "20px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Lexend"],
+                        "h2": ["Lexend"],
+                        "label-caps": ["Lexend"],
+                        "h3": ["Lexend"],
+                        "h1": ["Lexend"],
+                        "button": ["Lexend"],
+                        "body-sm": ["Lexend"],
+                        "body-lg": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "h3": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<!-- Top AppBar -->
+<header class="w-full top-0 sticky bg-surface-container-lowest shadow-sm px-gutter py-sm w-full z-40 flex justify-between items-center glass-header">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary scale-98 active:scale-95 duration-200" data-icon="menu">menu</button>
+<h1 class="font-h2 text-h2 text-primary">ASATA Connect Admin</h1>
+</div>
+<div class="flex items-center gap-sm">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-caps text-[10px]">1,284 MEMBERS</span>
+<img alt="Admin" class="w-10 h-10 rounded-full border-2 border-primary-fixed shadow-sm" data-alt="A professional studio portrait of a mid-40s corporate executive with a confident smile. He is wearing a tailored navy blue blazer over a crisp white shirt. The background is a soft, blurred office interior with cool blue and grey tones, perfectly matching the elite, professional aesthetic of the ASATA brand. High-key lighting highlights his professional demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIVv8inOV4JLun7CI1b9CnLKRWqsgJ5DuSO56uHVRBMNidgUsKvFZ9EQIPXfQWsfLuAbvNEGxXSYlfVAVFivVJ-qH0NNVqcKaucZ1g_qFHpr7kntQsjFh86KQq2yRDPUsBwWCRms-HyHVGZjjJFKHBe7orsThsFno2FwNtVPb_-9E_gTjJvQAe0b4VO2AtUsjHz44PP61PJ_nEGFP8JKUvJs3ANvCiOiBRSJvSK2Lt7X0cKs5_70E3NxgRbnKEJ_vpIloYI2iZKlg"/>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin py-lg space-y-xl">
+<!-- Search & Filter Area -->
+<section class="space-y-md">
+<div class="relative w-full max-w-2xl mx-auto">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-on-primary-container shadow-sm font-body-md transition-all" placeholder="Find member..." type="text"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 bg-primary text-on-primary px-4 py-2 rounded-lg font-button text-body-sm scale-98 active:scale-95 transition-transform">Search</button>
+</div>
+</section>
+<!-- Pending Approval Section -->
+<section class="space-y-md">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<h3 class="font-h3 text-h3 text-primary">Pending Approval</h3>
+<span class="text-error font-label-caps bg-error-container px-2 py-0.5 rounded text-[11px]">8 REQUESTS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Pending Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex flex-col justify-between group transition-all hover:translate-y-[-2px]">
+<div class="flex items-start gap-md">
+<img class="w-16 h-16 rounded-xl object-cover" data-alt="A high-resolution close-up portrait of a young professional woman with dark hair and a friendly expression. She is in a bright, modern co-working space with natural sunlight filtering through large windows. The lighting is soft and airy, emphasizing a light-mode corporate aesthetic. Her attire is business casual in neutral tones that harmonize with the brand's cool palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4B5H5BkiLF-uZj2-LdxQ1x47mcJRt6n47H39PARuKnpyIzo7ZPKTIwKT1CDJnP_hbLGTQOn_8Yss5eGWQkxpFfSz9UgJPyyWHsyWlT6R1aN0RNYg0KX_x6V11DXt0SrbnJdq4QOno7hahnQvWldTHhuwDge2sRVCvgLjoXuT9VsaXQqMuiBfVVSILn_EwLHRJ8fo78rvaAqSwG1y97_qdHtf5sH6qxPUnpvK75yH0974lO1-U5B0JNN1QFRvLQlwLw9FJnAyFKrE"/>
+<div class="space-y-1">
+<h4 class="font-h3 text-body-lg text-on-surface">Elena Rodriguez</h4>
+<p class="font-label-caps text-on-surface-variant text-[11px]">Elite Member Applicant</p>
+<span class="inline-block px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] rounded font-bold uppercase tracking-wider">Pending</span>
+</div>
+</div>
+<div class="mt-lg flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-lg font-button text-body-sm scale-98 active:scale-95 transition-all">Approve</button>
+<button class="flex-1 border border-outline text-on-surface-variant py-2 rounded-lg font-button text-body-sm scale-98 active:scale-95 transition-all hover:bg-surface-container-high">Reject</button>
+</div>
+</div>
+<!-- Pending Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] flex flex-col justify-between group transition-all hover:translate-y-[-2px]">
+<div class="flex items-start gap-md">
+<img class="w-16 h-16 rounded-xl object-cover" data-alt="Portrait of a male professional athlete in his late 20s, looking focused and determined. He is standing in a clean, high-tech training facility with blue and white accents. The background features sleek architectural lines and soft ambient lighting. The overall mood is high-performance, elite, and methodical, reflecting the sports management brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMHIJDxazjdKinM7_dC7UGcO95ygKELeVg1lSvGwRt2iRONJnKazfmh9av9s04-m4vwuTfDtVDV13SEKJTA2bm41cCWOgj3_14e4Chy8r76CAZbD2Y7hE6irMGih99MnPFGQsg9Mp0Ey-X1AAgFpFa-N5qdBroGsaEdRcCUGFkK3yjS0Pa-2cIMs8gsVgVDzMFT-T6gKNSK3fkSJMpwS95rHfNCMOMcXW_CfC7yfz8x0hrxG04ZV8829gpgaN-M0BaLm6aIYiFBY"/>
+<div class="space-y-1">
+<h4 class="font-h3 text-body-lg text-on-surface">Marcus Chen</h4>
+<p class="font-label-caps text-on-surface-variant text-[11px]">Standard Member Applicant</p>
+<span class="inline-block px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] rounded font-bold uppercase tracking-wider">Pending</span>
+</div>
+</div>
+<div class="mt-lg flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-lg font-button text-body-sm scale-98 active:scale-95 transition-all">Approve</button>
+<button class="flex-1 border border-outline text-on-surface-variant py-2 rounded-lg font-button text-body-sm scale-98 active:scale-95 transition-all hover:bg-surface-container-high">Reject</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Members Section -->
+<section class="space-y-md">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<h3 class="font-h3 text-h3 text-primary">Active Members</h3>
+<div class="flex gap-sm">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="filter_list">filter_list</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="sort">sort</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Member Card Loop (Simulated) -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md group transition-all hover:shadow-md">
+<div class="flex flex-col items-center text-center space-y-sm">
+<img class="w-20 h-20 rounded-full object-cover border-4 border-surface-container" data-alt="A professional studio portrait of a woman in corporate attire, sitting in a bright environment. She has a confident and welcoming expression. The lighting is professional and high-key, creating a clean and premium look that aligns with a corporate modern design system. The background is a soft white and light gray, maintaining a cool-headed and stable atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJTRg5egJ5diRGsVrMNIWB4QBByvjaIK4L2-iFCVc70zUcJtBWrX4Gd3yh5-b003shrnK9VgKi-YGu3dxrUcY3-Ba-duvw8_9pSjF134VRQy1cifiLhkIGj8kWkfu50yyWwUL2gA5UOx4hGPs24TA6XhyeB_hzI6Dc14ONleURrvzko-5T7ZDIWYW3aIpHW0hUYG4nL9goeFdZoCce-qF0Ad3rhdpnZ1CEBW5S_KodYXiDCphanBzDdRKGBuBwoc_KYayMoJ5A9lA"/>
+<div>
+<h4 class="font-h3 text-body-md text-on-surface">Sarah Jenkins</h4>
+<p class="font-label-caps text-on-primary-container text-[10px]">Elite Member</p>
+</div>
+<span class="flex items-center gap-1 text-[10px] text-[#2E7D52] bg-[#2E7D52]/10 px-2 py-0.5 rounded-full font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D52]"></span> ACTIVE
+                        </span>
+</div>
+<div class="pt-sm space-y-2">
+<button class="w-full bg-surface-container-high text-on-surface font-button text-body-sm py-2 rounded-lg hover:bg-secondary-container transition-colors">View Profile</button>
+<button class="w-full border border-outline-variant text-on-surface-variant font-button text-body-sm py-2 rounded-lg hover:bg-surface-variant transition-colors">Edit Permissions</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md group transition-all hover:shadow-md">
+<div class="flex flex-col items-center text-center space-y-sm">
+<img class="w-20 h-20 rounded-full object-cover border-4 border-surface-container" data-alt="Portrait of a smiling man in a business setting, representing a modern professional. The lighting is soft and natural, with a focus on high clarity and detail. The background shows a modern architectural interior with glass and steel elements in cool blue tones. The aesthetic is elite and methodical, fitting for a premium sports association admin panel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqRt5MoviL05FVzqqKCvZy1gJiSkVSbL1iljR8RF7CqidXqvWpc-g9z5e2y6ya9I2mKQC3wWr1H32rnjf4ARo-GgydGyt-Kn3_1-sYQ9rosvcZ04_6FPzFZn10TV-NH2NgkVrwxDW52j2gwmLpgTXjfIGwM85KzxozvNXPM-eBcjzV5XqWC-1mv1u0pdqPCicFCzt2qjbNJZsb5a76DwDMBTxnw6bTv1pQeLqvRIyaJGhzWmt56vv97Lwmd36QQPNxXW0irfbOZQ"/>
+<div>
+<h4 class="font-h3 text-body-md text-on-surface">David Wilson</h4>
+<p class="font-label-caps text-on-surface-variant text-[10px]">Standard Member</p>
+</div>
+<span class="flex items-center gap-1 text-[10px] text-[#2E7D52] bg-[#2E7D52]/10 px-2 py-0.5 rounded-full font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D52]"></span> ACTIVE
+                        </span>
+</div>
+<div class="pt-sm space-y-2">
+<button class="w-full bg-surface-container-high text-on-surface font-button text-body-sm py-2 rounded-lg hover:bg-secondary-container transition-colors">View Profile</button>
+<button class="w-full border border-outline-variant text-on-surface-variant font-button text-body-sm py-2 rounded-lg hover:bg-surface-variant transition-colors">Edit Permissions</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md group transition-all hover:shadow-md">
+<div class="flex flex-col items-center text-center space-y-sm">
+<img class="w-20 h-20 rounded-full object-cover border-4 border-surface-container" data-alt="A portrait of a female executive with a focused look. She is in a contemporary office space with soft daylighting. The visual style is corporate modern, using a cool palette of blues and grays. The image is high contrast and professional, evoking a sense of stability and methodical management within an elite athletic facility context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5wChOGEMeQKzBbQFGLgddzbni0ODc-HEJ3E3wkgbbzintpPQFN60P5-cKrQywt5RYU9ee5_ffGYC8xj-PbYl60Y7xKeKYu1J9o7ZzphyPZji7kp4SYLQ77Bni7sA0K5Cw9UMN4rnS7p3jMWsFGTSsmzplSB1_Ks_jLg6MkXvl82hpG8m1HgecAzriouNjJh9xmgF4jWDRhvxqkYs1im0Dg00Vi9mI0JvdyStkjGgrXJk38VmCp4p5-sQbIVMO0VRBfFOmuKMqCug"/>
+<div>
+<h4 class="font-h3 text-body-md text-on-surface">Aria Sterling</h4>
+<p class="font-label-caps text-on-primary-container text-[10px]">Elite Member</p>
+</div>
+<span class="flex items-center gap-1 text-[10px] text-[#2E7D52] bg-[#2E7D52]/10 px-2 py-0.5 rounded-full font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D52]"></span> ACTIVE
+                        </span>
+</div>
+<div class="pt-sm space-y-2">
+<button class="w-full bg-surface-container-high text-on-surface font-button text-body-sm py-2 rounded-lg hover:bg-secondary-container transition-colors">View Profile</button>
+<button class="w-full border border-outline-variant text-on-surface-variant font-button text-body-sm py-2 rounded-lg hover:bg-surface-variant transition-colors">Edit Permissions</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_8px_rgba(0,0,0,0.08)] space-y-md group transition-all hover:shadow-md">
+<div class="flex flex-col items-center text-center space-y-sm">
+<img class="w-20 h-20 rounded-full object-cover border-4 border-surface-container" data-alt="A close-up professional portrait of a man with a steady, confident gaze. He is wearing a dark grey suit in a clean, modern architectural space. The lighting is diffused and cool, highlighting the polished, high-tech aesthetic of the surroundings. The color palette is restricted to navy, slate, and white to maintain the elite, professional brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA0Gz4LF67NfFSgvw706vrLNhEaT0uMzucfysswTBUrYNTTkwBcSKhs-NVz6xaT_hnpk586QX4_RoOU8K8GmGXpNhoG4suzbbzN1JES28Afqx5AqVjTOxnQ2YExDq57m8b4yiZVqZNagtZuTjaff6_GBEC7EM53rxLOYnc5wnMxsXabcuTod3675LOKPvd-wBM8gmCiSiUd94jjws4ysgqwGC1J3g9coqe3FjJbLE00ETae4lFE3VaMTyrCr8l67AD9IwMEk7Th14"/>
+<div>
+<h4 class="font-h3 text-body-md text-on-surface">Jordan Blake</h4>
+<p class="font-label-caps text-on-surface-variant text-[10px]">Standard Member</p>
+</div>
+<span class="flex items-center gap-1 text-[10px] text-[#2E7D52] bg-[#2E7D52]/10 px-2 py-0.5 rounded-full font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#2E7D52]"></span> ACTIVE
+                        </span>
+</div>
+<div class="pt-sm space-y-2">
+<button class="w-full bg-surface-container-high text-on-surface font-button text-body-sm py-2 rounded-lg hover:bg-secondary-container transition-colors">View Profile</button>
+<button class="w-full border border-outline-variant text-on-surface-variant font-button text-body-sm py-2 rounded-lg hover:bg-surface-variant transition-colors">Edit Permissions</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pagination (Implicit) -->
+<div class="flex justify-center pt-md">
+<nav class="flex gap-sm">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-on-primary shadow-md">1</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:bg-surface-variant">2</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:bg-surface-variant">3</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:bg-surface-variant">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</nav>
+</div>
+</main>
+<!-- Bottom NavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface shadow-[0_-2px_8px_rgba(0,0,0,0.08)] z-50 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 scale-98 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-98 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-caps text-label-caps mt-1 font-bold">Members</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 scale-98 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-caps text-label-caps mt-1">Events</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 scale-98 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="newspaper">newspaper</span>
+<span class="font-label-caps text-label-caps mt-1">News</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-3 py-1 scale-98 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="person_settings">settings</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</div>
+</nav>
+<!-- Floating Action Button -->
+<button class="fixed right-6 bottom-24 md:bottom-10 bg-primary-container text-on-primary-container w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center scale-98 active:scale-95 transition-all z-40 group">
+<span class="material-symbols-outlined text-3xl" data-icon="person_add">person_add</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-3 py-1 rounded-lg text-sm font-button opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Add New Member</span>
+</button>
+<script>
+        // Simple search interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.01]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.01]');
+        });
+
+        // Hover effect for cards to simulate interactive depth
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            });
+        });
+    </script>
+</body></html>
