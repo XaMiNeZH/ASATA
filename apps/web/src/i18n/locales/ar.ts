@@ -3,6 +3,7 @@ export default {
     home: "الرئيسية", about: "حول الجمعية", team: "فريقنا", events: "الأحداث", gallery: "المعرض",
     clubs: "أنديتنا", donate: "تبرع", contact: "اتصل بنا",
     ski: "التزلج والجبل", football: "كرة القدم", athletisme: "ألعاب القوى",
+    language: "اللغة",
   },
   home: {
     badge: "تأسست عام 2010 · أسني، مراكش",

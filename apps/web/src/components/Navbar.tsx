@@ -44,24 +44,28 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 inset-x-0 z-50 h-[76px] bg-white/95 backdrop-blur-md border-b transition-all duration-300 ${
-        scrolled ? 'shadow-blue-sm border-primary-pale' : 'border-transparent'
+      className={`fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b transition-all duration-300 ${
+        scrolled ? 'h-[64px] shadow-blue-sm border-primary-pale' : 'h-[76px] border-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between h-full">
 
         {/* Brand */}
-        <Link to="/" className="flex items-center gap-3 shrink-0">
+        <Link to="/" className="flex items-center gap-3 shrink-0 group">
           <img
             src={LOGO}
             alt="Logo ASATA"
-            className="w-16 h-16 rounded-full object-contain border-2 border-primary-pale"
+            className={`rounded-full object-contain border-2 border-primary-pale transition-all duration-300 group-hover:border-primary-light ${
+              scrolled ? 'w-12 h-12' : 'w-14 h-14'
+            }`}
           />
           <div className="flex flex-col leading-none">
             <span className="font-heading font-extrabold text-xl tracking-wide text-primary">
               ASATA
             </span>
-            <span className="text-[11px] font-medium tracking-wide text-gray-400">
+            <span className={`font-medium tracking-wide text-gray-400 transition-all duration-300 overflow-hidden ${
+              scrolled ? 'text-[0px] opacity-0 max-h-0' : 'text-[11px] opacity-100 max-h-4'
+            }`}>
               Atlas Toubkal Asni
             </span>
           </div>
@@ -73,19 +77,20 @@ export default function Navbar() {
             <li key={to}>
               <Link
                 to={to}
-                className={`relative font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive(to)
-                    ? 'text-primary'
-                    : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
+                aria-current={isActive(to) ? 'page' : undefined}
+                className={`group relative font-heading font-semibold text-sm px-3 py-2 transition-colors duration-200 ${
+                  isActive(to) ? 'text-primary' : 'text-gray-700 hover:text-primary'
                 }`}
               >
                 {label}
-                {isActive(to) && (
+                {isActive(to) ? (
                   <motion.span
                     layoutId="nav-underline"
                     className="absolute left-3 right-3 -bottom-0.5 h-[3px] rounded-full bg-primary"
                     transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                   />
+                ) : (
+                  <span className="absolute left-3 right-3 -bottom-0.5 h-[3px] rounded-full bg-primary-light/50 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
                 )}
               </Link>
             </li>
@@ -93,16 +98,22 @@ export default function Navbar() {
 
           {/* Clubs dropdown */}
           <li className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button className={`relative font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-1 ${
-              clubsActive ? 'text-primary' : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
-            }`}>
+            <button
+              aria-haspopup="true"
+              aria-expanded={dropdownOpen}
+              className={`group relative font-heading font-semibold text-sm px-3 py-2 transition-colors duration-200 flex items-center gap-1 ${
+                clubsActive ? 'text-primary' : 'text-gray-700 hover:text-primary'
+              }`}
+            >
               {t('nav.clubs')} <i className={`fas fa-chevron-down text-[10px] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
-              {clubsActive && (
+              {clubsActive ? (
                 <motion.span
                   layoutId="nav-underline"
                   className="absolute left-3 right-6 -bottom-0.5 h-[3px] rounded-full bg-primary"
                   transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                 />
+              ) : (
+                <span className="absolute left-3 right-6 -bottom-0.5 h-[3px] rounded-full bg-primary-light/50 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
               )}
             </button>
             <AnimatePresence>
@@ -112,16 +123,25 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0,  scale: 1 }}
                   exit={{   opacity: 0, y: -8, scale: 0.96 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-blue-lg border border-primary-pale py-2 min-w-[210px] origin-top"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-blue-lg border border-primary-pale py-2 min-w-[220px] origin-top"
                 >
+                  {/* caret */}
+                  <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-primary-pale rotate-45" />
                   {clubs.map(({ to, icon, label }) => (
                     <li key={to}>
                       <Link
                         to={to}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm font-heading font-semibold text-gray-700 hover:text-primary hover:bg-primary-ghost transition-colors duration-150"
+                        aria-current={isActive(to) ? 'page' : undefined}
+                        className={`relative flex items-center gap-3 px-4 py-2.5 text-sm font-heading font-semibold transition-colors duration-150 ${
+                          isActive(to)
+                            ? 'text-primary bg-primary-ghost'
+                            : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
+                        }`}
                       >
+                        {isActive(to) && <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-primary" />}
                         <i className={`${icon} text-primary-light w-5`} />
                         {label}
+                        {isActive(to) && <i className="fas fa-check text-[10px] text-primary ml-auto" />}
                       </Link>
                     </li>
                   ))}
@@ -159,6 +179,7 @@ export default function Navbar() {
           className="md:hidden flex flex-col gap-[5px] p-1"
           onClick={() => setMenuOpen(v => !v)}
           aria-label="Menu"
+          aria-expanded={menuOpen}
         >
           {[0, 1, 2].map(i => (
             <span
@@ -190,42 +211,48 @@ export default function Navbar() {
                 <li key={to}>
                   <Link
                     to={to}
-                    className={`block font-heading font-semibold text-sm px-3 py-2.5 rounded-lg transition-colors ${
-                      isActive(to) ? 'text-primary bg-primary-pale' : 'text-gray-800 hover:text-primary hover:bg-primary-ghost'
+                    aria-current={isActive(to) ? 'page' : undefined}
+                    className={`relative block font-heading font-semibold text-sm px-3 py-2.5 rounded-lg transition-colors ${
+                      isActive(to) ? 'text-primary bg-primary-pale pl-5' : 'text-gray-800 hover:text-primary hover:bg-primary-ghost'
                     }`}
                   >
+                    {isActive(to) && <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r bg-primary" />}
                     {label}
                   </Link>
                 </li>
               ))}
-              <li className="pt-1 border-t border-primary-pale mt-1">
+              <li className="pt-2 border-t border-primary-pale mt-2">
                 <p className="text-[11px] font-heading font-bold text-gray-400 uppercase tracking-widest px-3 py-2">{t('nav.clubs')}</p>
                 {clubs.map(({ to, icon, label }) => (
                   <Link
                     key={to}
                     to={to}
-                    className="flex items-center gap-3 px-3 py-2.5 font-heading font-semibold text-sm text-gray-700 hover:text-primary hover:bg-primary-ghost rounded-lg transition-colors"
+                    aria-current={isActive(to) ? 'page' : undefined}
+                    className={`relative flex items-center gap-3 px-3 py-2.5 font-heading font-semibold text-sm rounded-lg transition-colors ${
+                      isActive(to) ? 'text-primary bg-primary-pale pl-5' : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
+                    }`}
                   >
+                    {isActive(to) && <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r bg-primary" />}
                     <i className={`${icon} text-primary-light w-4`} />
                     {label}
+                    {isActive(to) && <i className="fas fa-check text-[10px] text-primary ml-auto" />}
                   </Link>
                 ))}
               </li>
-              <li className="pt-1 border-t border-primary-pale mt-1 px-3 py-2">
+              <li className="pt-2 border-t border-primary-pale mt-2 px-3 py-2 flex items-center justify-between">
+                <span className="text-[11px] font-heading font-bold text-gray-400 uppercase tracking-widest">{t('nav.language')}</span>
                 <LanguageSwitcher />
               </li>
-              <li>
+              <li className="grid grid-cols-2 gap-2 mt-2">
                 <Link
                   to="/don"
-                  className="block text-center font-heading font-bold text-sm px-4 py-2.5 bg-primary text-white rounded-full mt-2 hover:bg-primary-dark transition-colors"
+                  className="flex items-center justify-center gap-1.5 text-center font-heading font-bold text-sm px-3 py-2.5 bg-primary text-white rounded-full shadow-blue-sm hover:bg-primary-dark transition-colors"
                 >
-                  <i className="fas fa-hand-holding-heart mr-1.5" />{t('nav.donate')}
+                  <i className="fas fa-hand-holding-heart" />{t('nav.donate')}
                 </Link>
-              </li>
-              <li>
                 <Link
                   to="/contact"
-                  className="block text-center font-heading font-bold text-sm px-4 py-2.5 border border-primary text-primary rounded-full mt-2 hover:bg-primary-pale transition-colors"
+                  className="text-center font-heading font-bold text-sm px-3 py-2.5 border border-primary text-primary rounded-full hover:bg-primary-pale transition-colors"
                 >
                   {t('nav.contact')}
                 </Link>

@@ -3,6 +3,7 @@ export default {
     home: "Home", about: "About", team: "Our Team", events: "Events", gallery: "Gallery",
     clubs: "Our Clubs", donate: "Donate", contact: "Contact",
     ski: "Ski & Mountain", football: "Football", athletisme: "Athletics",
+    language: "Language",
   },
   home: {
     badge: "Founded in 2010 · Asni, Marrakech",

@@ -12,6 +12,7 @@ export default {
     ski: "Ski & Montagne",
     football: "Football",
     athletisme: "Athlétisme",
+    language: "Langue",
   },
 
   // Home page
