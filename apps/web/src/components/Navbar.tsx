@@ -40,6 +40,8 @@ export default function Navbar() {
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to)
 
+  const clubsActive = clubs.some(c => location.pathname.startsWith(c.to))
+
   return (
     <nav
       className={`fixed top-0 inset-x-0 z-50 h-[76px] bg-white/95 backdrop-blur-md border-b transition-all duration-300 ${
@@ -66,26 +68,42 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop menu */}
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden md:flex items-center gap-0.5">
           {links.map(({ to, label }) => (
             <li key={to}>
               <Link
                 to={to}
-                className={`font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 ${
+                className={`relative font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-colors duration-200 ${
                   isActive(to)
-                    ? 'text-primary bg-primary-pale'
+                    ? 'text-primary'
                     : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
                 }`}
               >
                 {label}
+                {isActive(to) && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute left-3 right-3 -bottom-0.5 h-[3px] rounded-full bg-primary"
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
               </Link>
             </li>
           ))}
 
           {/* Clubs dropdown */}
           <li className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button className="font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-1 text-gray-700 hover:text-primary hover:bg-primary-ghost">
+            <button className={`relative font-heading font-semibold text-sm px-3 py-2 rounded-lg transition-colors duration-200 flex items-center gap-1 ${
+              clubsActive ? 'text-primary' : 'text-gray-700 hover:text-primary hover:bg-primary-ghost'
+            }`}>
               {t('nav.clubs')} <i className={`fas fa-chevron-down text-[10px] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              {clubsActive && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute left-3 right-6 -bottom-0.5 h-[3px] rounded-full bg-primary"
+                  transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                />
+              )}
             </button>
             <AnimatePresence>
               {dropdownOpen && (
@@ -112,10 +130,13 @@ export default function Navbar() {
             </AnimatePresence>
           </li>
 
+          {/* Divider */}
+          <li className="mx-2 h-6 w-px bg-primary-pale" aria-hidden="true" />
+
           <li>
             <Link
               to="/don"
-              className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-primary text-white hover:bg-primary-dark hover:shadow-blue-sm transition-all duration-200"
+              className="font-heading font-semibold text-sm px-4 py-2 rounded-full bg-primary text-white shadow-blue-sm hover:bg-primary-dark hover:shadow-blue-md hover:-translate-y-0.5 transition-all duration-200"
             >
               <i className="fas fa-hand-holding-heart mr-1.5" />{t('nav.donate')}
             </Link>
@@ -123,12 +144,12 @@ export default function Navbar() {
           <li>
             <Link
               to="/contact"
-              className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-white text-primary border border-primary-pale hover:bg-primary-pale transition-all duration-200"
+              className="font-heading font-semibold text-sm px-4 py-2 rounded-full ml-1 bg-white text-primary border border-primary-pale hover:bg-primary-pale hover:border-primary-light transition-all duration-200"
             >
               {t('nav.contact')}
             </Link>
           </li>
-          <li>
+          <li className="ml-1">
             <LanguageSwitcher />
           </li>
         </ul>
