@@ -6,41 +6,59 @@ import FadeIn from '../components/FadeIn'
 import SectionHeader from '../components/SectionHeader'
 import { ABOUT_HERO_IMAGE } from '../data/images'
 
-const values = [
-  { icon: 'fas fa-user-graduate', titleKey: 'Formation des jeunes',        descKey: "Développer les sports en mettant l'accent sur la formation des jeunes joueurs et des entraîneurs." },
-  { icon: 'fas fa-ban',           titleKey: 'Lutte contre la drogue',      descKey: "Combattre l'abus de drogues en proposant une alternative sportive saine et épanouissante." },
-  { icon: 'fas fa-calendar-plus', titleKey: 'Événements sportifs',         descKey: 'Créer et organiser des événements sportifs réguliers pour dynamiser la région.' },
-  { icon: 'fas fa-book-open',     titleKey: 'Documentation & Santé',       descKey: 'Fournir aux entraîneurs des documents de formation et informations sur la santé sportive.' },
-  { icon: 'fas fa-hands-helping', titleKey: 'Inclusion totale',            descKey: "Encourager la participation de tous, sans distinction d'âge, de genre ou de situation économique." },
-  { icon: 'fas fa-chart-line',    titleKey: 'Développement socio-éco.',    descKey: "Développer des projets sportifs contribuant à l'essor de la communauté d'Asni." },
+const valueIcons = [
+  'fas fa-user-graduate',
+  'fas fa-ban',
+  'fas fa-calendar-plus',
+  'fas fa-book-open',
+  'fas fa-hands-helping',
+  'fas fa-chart-line',
+]
+
+const infoIcons = [
+  'fas fa-tag',
+  'fas fa-calendar-alt',
+  'fas fa-map-marker-alt',
+  'fas fa-envelope',
+  'fas fa-certificate',
+  'fas fa-registered',
+]
+
+const locIcons = [
+  'fas fa-road',
+  'fas fa-arrows-alt-v',
+  'fas fa-users',
+  'fas fa-language',
+  'fas fa-store',
+  'fas fa-leaf',
 ]
 
 const feds = [
-  { icon: 'fas fa-skiing',  name: 'FRMSSM', full: 'Fédération Royale Marocaine de Ski et Sports de Montagne', sinceKey: 'since2013' as const },
-  { icon: 'fas fa-futbol',  name: 'FRMF',   full: 'Fédération Royale Marocaine de Football',                  sinceKey: 'since' as const },
-  { icon: 'fas fa-running', name: 'FRMA',   full: "Fédération Royale Marocaine d'Athlétisme",                 sinceKey: 'since' as const },
-]
-
-const infoItems = [
-  { icon: 'fas fa-tag',           label: 'Nom complet',                value: 'Association Sportive Atlas Toubkal Asni (A.S.A.T.A)' },
-  { icon: 'fas fa-calendar-alt',  label: 'Date de fondation',          value: '6 juin 2010' },
-  { icon: 'fas fa-map-marker-alt',label: 'Localisation',               value: "Asni, Province d'Al Haouz, Maroc — Altitude 1 150 m" },
-  { icon: 'fas fa-envelope',      label: 'Email',                      value: 'asata.club@gmail.com' },
-  { icon: 'fas fa-certificate',   label: 'Accréditation professionnelle', value: 'Mai 2024 — Réf. 2024/1111' },
-  { icon: 'fas fa-registered',    label: 'Logo enregistré',            value: 'N° 218955 / Classe 41 — © 2020' },
-]
-
-const location = [
-  { icon: 'fas fa-road',       label: 'Distance de Marrakech', value: '50 km au sud' },
-  { icon: 'fas fa-arrows-alt-v', label: 'Altitude',            value: '1 150 m' },
-  { icon: 'fas fa-users',      label: 'Population',            value: 'Plus de 21 000 habitants' },
-  { icon: 'fas fa-language',   label: 'Langue locale',         value: 'Berbère (Tamazight)' },
-  { icon: 'fas fa-store',      label: 'Marché hebdomadaire',   value: 'Chaque samedi' },
-  { icon: 'fas fa-leaf',       label: 'Économie locale',       value: 'Agriculture & Tourisme de montagne' },
+  { icon: 'fas fa-skiing',  name: 'FRMSSM', fullKey: 'frmssm', sinceKey: 'since2013' as const },
+  { icon: 'fas fa-futbol',  name: 'FRMF',   fullKey: 'frmf',   sinceKey: 'since' as const },
+  { icon: 'fas fa-running', name: 'FRMA',   fullKey: 'frma',   sinceKey: 'since' as const },
 ]
 
 export default function About() {
   const { t } = useTranslation()
+
+  const values = valueIcons.map((icon, i) => ({
+    icon,
+    title: t(`about.values.v${i + 1}t`),
+    desc:  t(`about.values.v${i + 1}d`),
+  }))
+
+  const infoItems = infoIcons.map((icon, i) => ({
+    icon,
+    label: t(`about.info.l${i + 1}`),
+    value: t(`about.info.v${i + 1}`),
+  }))
+
+  const location = locIcons.map((icon, i) => ({
+    icon,
+    label: t(`about.loc.l${i + 1}`),
+    value: t(`about.loc.v${i + 1}`),
+  }))
 
   return (
     <PageTransition>
@@ -116,13 +134,13 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-5">
           <SectionHeader tag={t('about.values.tag')} title={t('about.values.title')} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {values.map(({ icon, titleKey, descKey }, i) => (
-              <FadeIn key={titleKey} delay={i * 0.08}>
+            {values.map(({ icon, title, desc }, i) => (
+              <FadeIn key={i} delay={i * 0.08}>
                 <div className="bg-white rounded-2xl p-6 hover:shadow-blue-md transition-all duration-300 shadow-blue-sm">
                   <h3 className="font-heading font-bold text-base text-gray-900 mb-2 flex items-center gap-2">
-                    <i className={`${icon} text-primary-light`} /> {titleKey}
+                    <i className={`${icon} text-primary-light`} /> {title}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{descKey}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -135,14 +153,14 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-5">
           <SectionHeader tag={t('about.feds.tag')} title={t('about.feds.title')} />
           <div className="grid md:grid-cols-3 gap-6">
-            {feds.map(({ icon, name, full, sinceKey }, i) => (
+            {feds.map(({ icon, name, fullKey, sinceKey }, i) => (
               <FadeIn key={name} delay={i * 0.1}>
                 <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-7 text-center hover:bg-primary-pale hover:border-primary-light hover:-translate-y-1 transition-all duration-300">
                   <div className="w-16 h-16 bg-primary-pale text-primary rounded-xl flex items-center justify-center text-2xl mx-auto mb-4">
                     <i className={icon} />
                   </div>
                   <h3 className="font-heading font-bold text-lg text-gray-900 mb-2">{name}</h3>
-                  <p className="text-gray-500 text-sm mb-3">{full}</p>
+                  <p className="text-gray-500 text-sm mb-3">{t(`about.feds.${fullKey}`)}</p>
                   <span className="inline-block bg-primary text-white font-heading font-bold text-xs px-3 py-1 rounded-full">{t(`about.feds.${sinceKey}`)}</span>
                 </div>
               </FadeIn>
