@@ -160,7 +160,9 @@ export default function About() {
                     <i className={icon} />
                   </div>
                   <h3 className="font-heading font-bold text-lg text-gray-900 mb-2">{name}</h3>
-                  <p className="text-gray-500 text-sm mb-4 flex-1">{t(`about.feds.${fullKey}`)}</p>
+                  <div className="flex-1 flex items-center justify-center mb-4">
+                    <p className="text-gray-500 text-sm leading-snug">{t(`about.feds.${fullKey}`)}</p>
+                  </div>
                   <span className="inline-block bg-primary text-white font-heading font-bold text-xs px-3 py-1 rounded-full">{t(`about.feds.${sinceKey}`)}</span>
                 </div>
               </FadeIn>
