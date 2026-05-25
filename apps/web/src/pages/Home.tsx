@@ -170,22 +170,22 @@ export default function Home() {
       <section className="py-24 bg-primary-ghost">
         <div className="max-w-7xl mx-auto px-5">
           <SectionHeader tag={t('home.clubs.tag')} title={t('home.clubs.title')} subtitle={t('home.clubs.subtitle')} />
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-stretch">
             {clubs.map(({ to, img, icon, fed, title, desc }, i) => (
-              <FadeIn key={to} delay={i * 0.1}>
-                <div className="group bg-white rounded-2xl overflow-hidden shadow-blue-sm hover:shadow-blue-lg hover:-translate-y-2 transition-all duration-300 border border-primary-pale">
-                  <div className="relative h-56 overflow-hidden">
+              <FadeIn key={to} delay={i * 0.1} className="h-full">
+                <div className="group h-full flex flex-col bg-white rounded-2xl overflow-hidden shadow-blue-sm hover:shadow-blue-lg hover:-translate-y-2 transition-all duration-300 border border-primary-pale">
+                  <div className="relative h-56 overflow-hidden shrink-0">
                     <img src={img} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 to-transparent" />
                     <div className="absolute top-3 right-3 w-10 h-10 bg-white/15 backdrop-blur-sm border border-white/30 rounded-xl flex items-center justify-center text-white">
                       <i className={icon} />
                     </div>
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-1">
                     <p className="text-primary-light font-heading font-bold text-[11px] uppercase tracking-[2px] mb-1">{fed}</p>
                     <h3 className="font-heading font-bold text-lg text-gray-900 mb-2">{title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-4">{desc}</p>
-                    <Link to={to} className="inline-flex items-center gap-2 text-primary font-heading font-bold text-sm group-hover:gap-3 transition-all">
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{desc}</p>
+                    <Link to={to} className="inline-flex items-center gap-2 text-primary font-heading font-bold text-sm group-hover:gap-3 transition-all mt-auto">
                       {t('home.clubs.discover')} <i className="fas fa-arrow-right" />
                     </Link>
                   </div>
