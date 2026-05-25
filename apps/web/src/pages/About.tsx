@@ -83,7 +83,7 @@ export default function About() {
                 t('about.story.p3'),
                 t('about.story.p4'),
               ].map((p, i) => (
-                <p key={i} className="text-gray-500 mb-4 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: p }} />
+                <p key={i} className="text-gray-500 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: p }} />
               ))}
             </FadeIn>
 

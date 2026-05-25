@@ -6,6 +6,7 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Open Sans', sans-serif; color: #2D3E50; }
   h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+  p { text-align: justify; }
 }
 
 @keyframes marquee {
