@@ -13,6 +13,9 @@ export default {
     football: "Football",
     athletisme: "Athlétisme",
     language: "Langue",
+    skiTag: "Ski alpin, escalade & randonnée",
+    footTag: "Formation & compétitions régionales",
+    athTag: "Trail & course en montagne",
   },
 
   // Home page

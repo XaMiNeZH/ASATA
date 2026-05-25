@@ -4,6 +4,9 @@ export default {
     clubs: "أنديتنا", donate: "تبرع", contact: "اتصل بنا",
     ski: "التزلج والجبل", football: "كرة القدم", athletisme: "ألعاب القوى",
     language: "اللغة",
+    skiTag: "تزلج جبلي، تسلق ورحلات",
+    footTag: "تكوين ومنافسات جهوية",
+    athTag: "سباقات الجبال والمضمار",
   },
   home: {
     badge: "تأسست عام 2010 · أسني، مراكش",

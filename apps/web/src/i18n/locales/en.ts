@@ -4,6 +4,9 @@ export default {
     clubs: "Our Clubs", donate: "Donate", contact: "Contact",
     ski: "Ski & Mountain", football: "Football", athletisme: "Athletics",
     language: "Language",
+    skiTag: "Alpine ski, climbing & hiking",
+    footTag: "Training & regional competitions",
+    athTag: "Trail & mountain running",
   },
   home: {
     badge: "Founded in 2010 · Asni, Marrakech",
