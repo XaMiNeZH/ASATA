@@ -74,7 +74,7 @@ export default function About() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-5">
           <div className="grid md:grid-cols-2 gap-16 items-start mb-14">
-            <FadeIn direction="left">
+            <FadeIn direction="up">
               <span className="inline-block bg-primary-pale text-primary font-heading font-bold text-[11px] uppercase tracking-[2px] px-3 py-1 rounded-full mb-3">{t('about.story.tag')}</span>
               <h2 className="font-heading font-bold text-4xl text-gray-900 mb-6 mt-1">{t('about.story.title')}</h2>
               {[
@@ -87,7 +87,7 @@ export default function About() {
               ))}
             </FadeIn>
 
-            <FadeIn direction="right" delay={0.1}>
+            <FadeIn direction="up" delay={0.1}>
               <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-6">
                 <h3 className="font-heading font-bold text-lg text-primary flex items-center gap-2 mb-5">
                   <i className="fas fa-id-card" /> {t('about.story.identityTitle')}
