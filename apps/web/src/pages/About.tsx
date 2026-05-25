@@ -152,15 +152,15 @@ export default function About() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-5">
           <SectionHeader tag={t('about.feds.tag')} title={t('about.feds.title')} />
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-stretch">
             {feds.map(({ icon, name, fullKey, sinceKey }, i) => (
-              <FadeIn key={name} delay={i * 0.1}>
-                <div className="bg-primary-ghost border border-primary-pale rounded-2xl p-7 text-center hover:bg-primary-pale hover:border-primary-light hover:-translate-y-1 transition-all duration-300">
+              <FadeIn key={name} delay={i * 0.1} className="h-full">
+                <div className="h-full flex flex-col items-center bg-primary-ghost border border-primary-pale rounded-2xl p-7 text-center hover:bg-primary-pale hover:border-primary-light hover:-translate-y-1 transition-all duration-300">
                   <div className="w-16 h-16 bg-primary-pale text-primary rounded-xl flex items-center justify-center text-2xl mx-auto mb-4">
                     <i className={icon} />
                   </div>
                   <h3 className="font-heading font-bold text-lg text-gray-900 mb-2">{name}</h3>
-                  <p className="text-gray-500 text-sm mb-3">{t(`about.feds.${fullKey}`)}</p>
+                  <p className="text-gray-500 text-sm mb-4 flex-1">{t(`about.feds.${fullKey}`)}</p>
                   <span className="inline-block bg-primary text-white font-heading font-bold text-xs px-3 py-1 rounded-full">{t(`about.feds.${sinceKey}`)}</span>
                 </div>
               </FadeIn>
