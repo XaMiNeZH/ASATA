@@ -145,7 +145,7 @@ export function EventDetailScreen() {
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.coverWrap}>
-          <Pressable accessibilityRole="button" style={styles.backButton} onPress={handleBack}>
+          <Pressable accessibilityRole="button" hitSlop={12} style={styles.backButton} onPress={handleBack}>
             <Feather name="arrow-left" size={24} color={Colors.surface} />
           </Pressable>
           <Text style={styles.coverWatermark}>ASATA</Text>

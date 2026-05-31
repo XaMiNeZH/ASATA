@@ -30,6 +30,8 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: Spacing.xl,
     left: Spacing.container,
+    zIndex: 20,
+    elevation: 20,
     width: 40,
     height: 40,
     borderRadius: 20,
