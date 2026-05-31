@@ -73,7 +73,7 @@ export const registerForEvent = async (
     },
   })
 
-  if (existingParticipation) {
+  if (existingParticipation && existingParticipation.statut !== CANCELLED_STATUS) {
     throw new AppError(409, 'Déjà inscrit à cet événement')
   }
 
@@ -86,15 +86,26 @@ export const registerForEvent = async (
       throw new AppError(409, 'Événement complet')
     }
 
-    const createdParticipation = await tx.participation.create({
-      data: {
-        userId,
-        evenementId: event.id,
-        statut: CONFIRMED_STATUS,
-        presence: DEFAULT_PRESENCE,
-      },
-      include: { evenement: true },
-    })
+    const registeredParticipation =
+      existingParticipation?.statut === CANCELLED_STATUS
+        ? await tx.participation.update({
+            where: { id: existingParticipation.id },
+            data: {
+              statut: CONFIRMED_STATUS,
+              presence: DEFAULT_PRESENCE,
+              dateInscription: new Date(),
+            },
+            include: { evenement: true },
+          })
+        : await tx.participation.create({
+            data: {
+              userId,
+              evenementId: event.id,
+              statut: CONFIRMED_STATUS,
+              presence: DEFAULT_PRESENCE,
+            },
+            include: { evenement: true },
+          })
 
     await tx.notification.create({
       data: {
@@ -104,7 +115,7 @@ export const registerForEvent = async (
       },
     })
 
-    return createdParticipation
+    return registeredParticipation
   })
 
   return serializeParticipation(participation)
