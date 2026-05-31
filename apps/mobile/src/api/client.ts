@@ -9,12 +9,8 @@
  *
  * Production: Update the production URL when the API is deployed.
  */
-import { DEV_API_HOST, DEV_API_PORT } from '../config/api.config';
+import { API_BASE_URL } from '../config/api.config';
 import { storage } from '../utils/storage';
-
-export const API_BASE_URL = __DEV__
-  ? `http://${DEV_API_HOST}:${DEV_API_PORT}/api`
-  : 'https://api.asata.ma/api';
 
 interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';

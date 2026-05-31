@@ -1,7 +1,6 @@
 /**
- * Set your local machine IP here during development.
- * This file is gitignored so each developer sets their own.
- * Find your IP: Linux/Mac: `ip addr` | Windows: `ipconfig`
+ * API Base URL for ASATA Connect mobile app.
+ * Points to the deployed Railway backend.
+ * Update this when the backend URL changes.
  */
-export const DEV_API_HOST = '192.168.xx.xxx'; // change this locally
-export const DEV_API_PORT = 3001;
+export const API_BASE_URL = 'https://asata-production-ae83.up.railway.app/api';
