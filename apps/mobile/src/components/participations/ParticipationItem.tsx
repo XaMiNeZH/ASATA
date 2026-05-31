@@ -1,5 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
@@ -12,17 +12,33 @@ import { formatDate } from '../../utils/date';
 interface ParticipationItemProps {
   participation: Participation;
   canCancel: boolean;
+  onPress?: () => void;
   onCancel: () => void;
   isCancelling?: boolean;
 }
 
-export function ParticipationItem({ participation, canCancel, onCancel, isCancelling = false }: ParticipationItemProps) {
+export function ParticipationItem({
+  participation,
+  canCancel,
+  onPress,
+  onCancel,
+  isCancelling = false,
+}: ParticipationItemProps) {
   const statusStyle = statusToneStyles[participation.statut];
   const isCancelled = participation.statut === 'annule';
   const title = participation.evenement?.titre ?? 'Événement';
 
   return (
-    <View style={[styles.card, isCancelled && styles.cancelledCard]}>
+    <Pressable
+      accessibilityRole={onPress ? 'button' : undefined}
+      disabled={!onPress}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.card,
+        isCancelled && styles.cancelledCard,
+        pressed && onPress && styles.pressed,
+      ]}
+    >
       <View style={styles.main}>
         <View style={[styles.thumbnail, statusStyle]}>
           <Feather name={isCancelled ? 'x-circle' : 'calendar'} size={28} color={isCancelled ? Colors.error : Colors.surface} />
@@ -46,7 +62,9 @@ export function ParticipationItem({ participation, canCancel, onCancel, isCancel
       <View style={styles.actions}>
         <Badge label={participation.statut.replace('_', ' ')} status={participation.statut} />
         {canCancel ? (
-          <Button label="Annuler" onPress={onCancel} isLoading={isCancelling} variant="dangerOutline" size="small" />
+          <View style={styles.cancelButton}>
+            <Button label="Annuler" onPress={onCancel} isLoading={isCancelling} variant="dangerOutline" />
+          </View>
         ) : null}
         {participation.statut === 'en_attente' ? (
           <View style={styles.pendingTime}>
@@ -55,7 +73,7 @@ export function ParticipationItem({ participation, canCancel, onCancel, isCancel
           </View>
         ) : null}
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -73,6 +91,9 @@ const styles = StyleSheet.create({
   cancelledCard: {
     backgroundColor: Colors.surfaceContainer,
     opacity: 0.72,
+  },
+  pressed: {
+    opacity: 0.82,
   },
   main: {
     flexDirection: 'row',
@@ -112,6 +133,7 @@ const styles = StyleSheet.create({
     color: '#DE7D7D',
   },
   actions: {
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -120,6 +142,10 @@ const styles = StyleSheet.create({
     borderTopColor: Colors.divider,
     marginTop: Spacing.md,
     paddingTop: Spacing.sm,
+  },
+  cancelButton: {
+    minWidth: 90,
+    maxWidth: 120,
   },
   pendingTime: {
     flexDirection: 'row',

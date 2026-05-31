@@ -3,7 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '../../components/common/AppHeader';
@@ -11,12 +11,50 @@ import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { Input } from '../../components/common/Input';
 import { Colors } from '../../constants/colors';
+import { Spacing } from '../../constants/spacing';
+import { FontSize, FontWeight } from '../../constants/typography';
 import { updateProfil } from '../../services/auth.service';
 import { useAuthStore } from '../../store/auth.store';
 import type { ProfileStackParamList } from '../../types';
 import { styles } from './EditProfileScreen.styles';
 
 type EditProfileNavigation = NativeStackNavigationProp<ProfileStackParamList, 'EditProfile'>;
+
+const emailStyles = StyleSheet.create({
+  container: {
+    gap: 6,
+  },
+  label: {
+    color: Colors.textSecondary,
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.semiBold,
+    letterSpacing: 0.96,
+    textTransform: 'uppercase',
+  },
+  field: {
+    height: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    paddingHorizontal: Spacing.md,
+    opacity: 0.5,
+  },
+  input: {
+    flex: 1,
+    minHeight: 44,
+    color: Colors.textPrimary,
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.regular,
+    padding: 0,
+  },
+  caption: {
+    color: Colors.textMuted,
+    fontSize: FontSize.xs,
+  },
+});
 
 export function EditProfileScreen() {
   const navigation = useNavigation<EditProfileNavigation>();
@@ -25,7 +63,7 @@ export function EditProfileScreen() {
   const nameParts = user?.nom.split(' ') ?? [];
   const [firstName, setFirstName] = useState(nameParts[0] ?? '');
   const [lastName, setLastName] = useState(nameParts.slice(1).join(' ') ?? '');
-  const [email, setEmail] = useState(user?.email ?? '');
+  const email = user?.email ?? '';
   const [telephone, setTelephone] = useState(user?.profil.telephone ?? '');
   const [bio, setBio] = useState(user?.profil.adresse ?? '');
   const [photo, setPhoto] = useState(user?.profil.photo);
@@ -96,7 +134,20 @@ export function EditProfileScreen() {
         <Text style={styles.photoCaption}>Changer la photo de profil</Text>
         <Input label="Prénom" value={firstName} onChangeText={setFirstName} placeholder="Jean" />
         <Input label="Nom" value={lastName} onChangeText={setLastName} placeholder="Dupont" />
-        <Input label="Email" value={email} onChangeText={setEmail} keyboardType="email-address" placeholder="jean.dupont@asata.com" />
+        <View style={emailStyles.container}>
+          <Text style={emailStyles.label}>Email</Text>
+          <View style={emailStyles.field}>
+            <TextInput
+              value={email}
+              editable={false}
+              keyboardType="email-address"
+              placeholder="jean.dupont@asata.com"
+              placeholderTextColor={Colors.textMuted}
+              style={emailStyles.input}
+            />
+          </View>
+          <Text style={emailStyles.caption}>L'email ne peut pas être modifié.</Text>
+        </View>
         <Input label="Numéro de téléphone" value={telephone} onChangeText={setTelephone} keyboardType="phone-pad" />
         <Input
           label="Bio"

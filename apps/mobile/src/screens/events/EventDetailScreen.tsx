@@ -32,6 +32,15 @@ export function EventDetailScreen() {
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
+  const handleBack = (): void => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+      return;
+    }
+
+    navigation.navigate('Events');
+  };
+
   const loadEvent = async (): Promise<void> => {
     if (!user) {
       setError('Utilisateur introuvable.');
@@ -136,7 +145,7 @@ export function EventDetailScreen() {
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.coverWrap}>
-          <Pressable accessibilityRole="button" style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Pressable accessibilityRole="button" style={styles.backButton} onPress={handleBack}>
             <Feather name="arrow-left" size={24} color={Colors.surface} />
           </Pressable>
           <Text style={styles.coverWatermark}>ASATA</Text>

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { Alert, SectionList, Text, View } from 'react-native';
 
 import { AppHeader } from '../../components/common/AppHeader';
@@ -8,13 +10,15 @@ import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { ParticipationItem } from '../../components/participations/ParticipationItem';
 import { useParticipations } from '../../hooks/useParticipations';
 import { useAuthStore } from '../../store/auth.store';
-import type { Participation } from '../../types';
+import type { MainTabParamList, Participation } from '../../types';
 import { styles } from './ParticipationsScreen.styles';
 
 interface ParticipationSection {
   title: string;
   data: Participation[];
 }
+
+type ParticipationsNavigation = BottomTabNavigationProp<MainTabParamList, 'Participations'>;
 
 const isPast = (participation: Participation): boolean => {
   if (!participation.evenement) {
@@ -25,6 +29,7 @@ const isPast = (participation: Participation): boolean => {
 };
 
 export function ParticipationsScreen() {
+  const navigation = useNavigation<ParticipationsNavigation>();
   const user = useAuthStore((state) => state.user);
   const { participations, isLoading, error, retry, cancelById } = useParticipations(user?.id);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
@@ -51,11 +56,19 @@ export function ParticipationsScreen() {
     try {
       await cancelById(participationId);
       setMessage('Participation annulée.');
+      setTimeout(() => setMessage(null), 3000);
     } catch (caught) {
       setActionError(caught instanceof Error ? caught.message : 'Annulation impossible.');
     } finally {
       setCancellingId(null);
     }
+  };
+
+  const openParticipation = (participation: Participation): void => {
+    navigation.navigate('Activites', {
+      screen: 'EventDetail',
+      params: { eventId: participation.evenementId },
+    });
   };
 
   if (isLoading) {
@@ -96,6 +109,7 @@ export function ParticipationsScreen() {
           <ParticipationItem
             participation={item}
             canCancel={item.statut === 'confirme' && !isPast(item)}
+            onPress={() => openParticipation(item)}
             onCancel={() => handleCancel(item.id)}
             isCancelling={cancellingId === item.id}
           />

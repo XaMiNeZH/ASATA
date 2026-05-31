@@ -54,7 +54,22 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         storage.get<string>(authService.AUTH_TOKEN_KEY),
         authService.getCurrentUser(),
       ]);
-      set({ token, user, isAuthenticated: Boolean(token && user) });
+      if (token && user) {
+        try {
+          await authService.getMe();
+          set({ token, user, isAuthenticated: true });
+        } catch (caught) {
+          if (caught instanceof Error && caught.message === 'SESSION_EXPIRED') {
+            await storage.remove(authService.AUTH_TOKEN_KEY);
+            await storage.remove(authService.AUTH_USER_KEY);
+            set({ user: null, token: null, isAuthenticated: false });
+          } else {
+            set({ token, user, isAuthenticated: true });
+          }
+        }
+      } else {
+        set({ user: null, token: null, isAuthenticated: false });
+      }
     } catch {
       set({ user: null, token: null, isAuthenticated: false });
     } finally {

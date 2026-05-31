@@ -36,8 +36,16 @@ export const useNotifications = (userId?: string) => {
   };
 
   const markRead = async (notificationId: string): Promise<void> => {
-    await notificationService.markAsRead(notificationId);
-    await loadNotifications();
+    const nextNotifications = notifications.map((item) =>
+      item.id === notificationId ? { ...item, lu: true } : item,
+    );
+    setNotifications(nextNotifications);
+    syncUnread(nextNotifications);
+    try {
+      await notificationService.markAsRead(notificationId);
+    } catch {
+      await loadNotifications();
+    }
   };
 
   const markAllRead = async (): Promise<void> => {
@@ -45,8 +53,14 @@ export const useNotifications = (userId?: string) => {
       return;
     }
 
-    await notificationService.markAllAsRead(userId);
-    await loadNotifications();
+    const allRead = notifications.map((item) => ({ ...item, lu: true }));
+    setNotifications(allRead);
+    syncUnread(allRead);
+    try {
+      await notificationService.markAllAsRead(userId);
+    } catch {
+      await loadNotifications();
+    }
   };
 
   useEffect(() => {
