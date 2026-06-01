@@ -136,12 +136,50 @@ export type ProfileStackParamList = {
   EditProfile: undefined;
 };
 
+export interface AdminStats {
+  totalMembers: number;
+  totalEvents: number;
+  upcomingEvents: number;
+  totalParticipations: number;
+  totalAnnouncements: number;
+}
+
+export interface CreateEventPayload {
+  titre: string;
+  description: string;
+  date: string;
+  lieu: string;
+  capacite: number;
+  statut: EventStatus;
+  coverImage?: string;
+}
+
+export interface UpdateEventPayload extends Partial<CreateEventPayload> {}
+
+export interface CreateAnnouncementPayload {
+  titre: string;
+  contenu: string;
+  visible: boolean;
+}
+
+export interface UpdateAnnouncementPayload extends Partial<CreateAnnouncementPayload> {}
+
+export type AdminStackParamList = {
+  AdminDashboard: undefined;
+  AdminEvents: undefined;
+  AdminEventForm: { eventId?: string };
+  AdminAnnouncements: undefined;
+  AdminAnnouncementForm: { annonceId?: string };
+  AdminMembers: undefined;
+};
+
 export type MainTabParamList = {
   Accueil: NavigatorScreenParams<HomeStackParamList>;
   Activites: NavigatorScreenParams<EventsStackParamList>;
   Participations: undefined;
   Annonces: NavigatorScreenParams<AnnouncementsStackParamList>;
   Profil: NavigatorScreenParams<ProfileStackParamList>;
+  Admin: NavigatorScreenParams<AdminStackParamList>;
 };
 
 export type RootStackParamList = {
