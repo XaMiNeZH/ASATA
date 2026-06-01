@@ -6,6 +6,12 @@ import { StyleSheet, View } from 'react-native';
 
 import { Colors } from '../constants/colors';
 import { FontSize } from '../constants/typography';
+import { AdminAnnouncementFormScreen } from '../screens/admin/AdminAnnouncementFormScreen';
+import { AdminAnnouncementsScreen } from '../screens/admin/AdminAnnouncementsScreen';
+import { AdminDashboardScreen } from '../screens/admin/AdminDashboardScreen';
+import { AdminEventFormScreen } from '../screens/admin/AdminEventFormScreen';
+import { AdminEventsScreen } from '../screens/admin/AdminEventsScreen';
+import { AdminMembersScreen } from '../screens/admin/AdminMembersScreen';
 import { AnnouncementsScreen } from '../screens/announcements/AnnouncementsScreen';
 import { AnnouncementDetailScreen } from '../screens/announcements/AnnouncementDetailScreen';
 import { EventDetailScreen } from '../screens/events/EventDetailScreen';
@@ -15,8 +21,10 @@ import { NotificationsScreen } from '../screens/notifications/NotificationsScree
 import { ParticipationsScreen } from '../screens/participations/ParticipationsScreen';
 import { EditProfileScreen } from '../screens/profile/EditProfileScreen';
 import { ProfileScreen } from '../screens/profile/ProfileScreen';
+import { useAuthStore } from '../store/auth.store';
 import { useNotificationsStore } from '../store/notifications.store';
 import type {
+  AdminStackParamList,
   AnnouncementsStackParamList,
   EventsStackParamList,
   HomeStackParamList,
@@ -31,6 +39,7 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const EventsStack = createNativeStackNavigator<EventsStackParamList>();
 const AnnouncementsStack = createNativeStackNavigator<AnnouncementsStackParamList>();
 const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
+const AdminStack = createNativeStackNavigator<AdminStackParamList>();
 
 const getScreenOptions = () => ({ headerShown: false });
 
@@ -70,6 +79,19 @@ function ProfileStackNavigator() {
   );
 }
 
+function AdminStackNavigator() {
+  return (
+    <AdminStack.Navigator screenOptions={getScreenOptions()}>
+      <AdminStack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+      <AdminStack.Screen name="AdminEvents" component={AdminEventsScreen} />
+      <AdminStack.Screen name="AdminEventForm" component={AdminEventFormScreen} />
+      <AdminStack.Screen name="AdminAnnouncements" component={AdminAnnouncementsScreen} />
+      <AdminStack.Screen name="AdminAnnouncementForm" component={AdminAnnouncementFormScreen} />
+      <AdminStack.Screen name="AdminMembers" component={AdminMembersScreen} />
+    </AdminStack.Navigator>
+  );
+}
+
 const renderIcon =
   (name: FeatherName) =>
   ({ focused }: { focused: boolean }) =>
@@ -81,6 +103,8 @@ const renderIcon =
 
 export function MainNavigator() {
   const unreadCount = useNotificationsStore((state) => state.unreadCount);
+  const user = useAuthStore((state) => state.user);
+  const isAdmin = user?.role === 'administrateur' || user?.role === 'coach';
 
   return (
     <Tab.Navigator
@@ -118,6 +142,13 @@ export function MainNavigator() {
         component={ProfileStackNavigator}
         options={{ tabBarIcon: renderIcon('user'), tabBarLabel: 'Profile' }}
       />
+      {isAdmin ? (
+        <Tab.Screen
+          name="Admin"
+          component={AdminStackNavigator}
+          options={{ tabBarIcon: renderIcon('settings'), tabBarLabel: 'Admin' }}
+        />
+      ) : null}
     </Tab.Navigator>
   );
 }
