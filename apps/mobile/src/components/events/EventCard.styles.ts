@@ -34,17 +34,21 @@ export const styles = StyleSheet.create({
     height: 128,
     justifyContent: 'center',
     backgroundColor: Colors.primary,
+    overflow: 'hidden',
   },
-  imageWordmark: {
-    color: Colors.whiteOverlay20,
-    fontSize: FontSize.display,
-    fontWeight: FontWeight.extraBold,
-    textAlign: 'center',
+  featureImageAsset: {
+    width: '100%',
+    height: '100%',
+  },
+  imageOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.blackOverlay20,
   },
   dateBadge: {
     position: 'absolute',
     top: 12,
     left: 12,
+    zIndex: 1,
     borderRadius: 8,
     backgroundColor: Colors.whiteOverlay80,
     paddingHorizontal: Spacing.sm,
@@ -97,6 +101,14 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  thumbnailImage: {
+    borderRadius: 8,
+  },
+  thumbnailOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.blackOverlay20,
   },
   listBody: {
     flex: 1,

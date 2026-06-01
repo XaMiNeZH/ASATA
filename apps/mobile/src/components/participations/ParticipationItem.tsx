@@ -1,13 +1,15 @@
 import { Feather } from '@expo/vector-icons';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
+import { AsataImages } from '../../constants/asataImages';
 import { Colors } from '../../constants/colors';
 import { Spacing } from '../../constants/spacing';
 import { FontSize, FontWeight } from '../../constants/typography';
 import type { Participation } from '../../types';
 import { formatDate } from '../../utils/date';
+import { getEventImageSource } from '../../utils/eventImages';
 
 interface ParticipationItemProps {
   participation: Participation;
@@ -27,6 +29,7 @@ export function ParticipationItem({
   const statusStyle = statusToneStyles[participation.statut];
   const isCancelled = participation.statut === 'annule';
   const title = participation.evenement?.titre ?? 'Événement';
+  const imageSource = participation.evenement ? getEventImageSource(participation.evenement) : AsataImages.association;
 
   return (
     <Pressable
@@ -40,9 +43,10 @@ export function ParticipationItem({
       ]}
     >
       <View style={styles.main}>
-        <View style={[styles.thumbnail, statusStyle]}>
+        <ImageBackground source={imageSource} resizeMode="cover" style={[styles.thumbnail, statusStyle]} imageStyle={styles.thumbnailImage}>
+          <View style={styles.thumbnailOverlay} />
           <Feather name={isCancelled ? 'x-circle' : 'calendar'} size={28} color={isCancelled ? Colors.error : Colors.surface} />
-        </View>
+        </ImageBackground>
         <View style={styles.copy}>
           <Text numberOfLines={1} style={[styles.title, isCancelled && styles.cancelledText]}>
             {title}
@@ -105,6 +109,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  thumbnailImage: {
+    borderRadius: 8,
+  },
+  thumbnailOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.blackOverlay20,
   },
   copy: {
     flex: 1,

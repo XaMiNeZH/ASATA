@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { Input } from '../../components/common/Input';
+import { AsataImages } from '../../constants/asataImages';
 import { useAuthStore } from '../../store/auth.store';
 import type { AuthStackParamList } from '../../types';
 import { isValidEmail, isValidPassword } from '../../utils/validators';
@@ -67,6 +68,7 @@ export function LoginScreen() {
             <Text style={styles.locationText}>Asni, Marrakech</Text>
           </View>
           <Text style={styles.heroBackdrop}>AS</Text>
+          <Image source={AsataImages.logo} style={styles.logo} resizeMode="contain" />
           <Text style={styles.brand}>ASATA</Text>
           <Text style={styles.subtitle}>Association Sportive Atlas Toubkal Asni</Text>
         </View>

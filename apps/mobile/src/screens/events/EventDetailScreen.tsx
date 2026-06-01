@@ -3,7 +3,7 @@ import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, ImageBackground, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '../../components/common/Button';
@@ -14,6 +14,7 @@ import { getEventById, isUserRegistered } from '../../services/events.service';
 import { cancelParticipation, getUserParticipations, registerForEvent } from '../../services/participations.service';
 import { useAuthStore } from '../../store/auth.store';
 import type { Evenement, EventsStackParamList } from '../../types';
+import { getEventImageSource } from '../../utils/eventImages';
 import { EventDetailContent } from './EventDetailContent';
 import { styles } from './EventDetailScreen.styles';
 
@@ -144,7 +145,13 @@ export function EventDetailScreen() {
   return (
     <View style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.coverWrap}>
+        <ImageBackground
+          source={getEventImageSource(event)}
+          resizeMode="cover"
+          style={styles.coverWrap}
+          imageStyle={styles.coverImage}
+        >
+          <View style={styles.coverOverlay} />
           <Pressable accessibilityRole="button" hitSlop={12} style={styles.backButton} onPress={handleBack}>
             <Feather name="arrow-left" size={24} color={Colors.surface} />
           </Pressable>
@@ -157,7 +164,7 @@ export function EventDetailScreen() {
               {event.titre}
             </Text>
           </View>
-        </View>
+        </ImageBackground>
         <EventDetailContent
           event={event}
           isRegistered={isRegistered}

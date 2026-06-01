@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityIndicator, Alert, FlatList, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, ImageBackground, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '../../components/common/AppHeader';
@@ -16,6 +16,7 @@ import { useEvents } from '../../hooks/useEvents';
 import { deleteEvent } from '../../services/admin.service';
 import type { AdminStackParamList, Evenement, EventStatus } from '../../types';
 import { formatDate } from '../../utils/date';
+import { getEventImageSource } from '../../utils/eventImages';
 import { styles } from './AdminEventsScreen.styles';
 
 type AdminEventsNavigation = NativeStackNavigationProp<AdminStackParamList, 'AdminEvents'>;
@@ -60,6 +61,15 @@ export function AdminEventsScreen() {
   const renderEvent = ({ item }: { item: Evenement }) => (
     <Card>
       <View style={styles.row}>
+        <ImageBackground
+          source={getEventImageSource(item)}
+          resizeMode="cover"
+          style={styles.thumbnail}
+          imageStyle={styles.thumbnailImage}
+        >
+          <View style={styles.thumbnailOverlay} />
+          <Feather name="calendar" size={22} color={Colors.surface} />
+        </ImageBackground>
         <View style={styles.rowBody}>
           <Text numberOfLines={1} style={styles.title}>
             {item.titre}

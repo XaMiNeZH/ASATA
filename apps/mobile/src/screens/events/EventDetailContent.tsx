@@ -1,9 +1,10 @@
 import { Feather } from '@expo/vector-icons';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import { Badge } from '../../components/common/Badge';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { CapacityBar } from '../../components/events/CapacityBar';
+import { AsataImages } from '../../constants/asataImages';
 import { Colors } from '../../constants/colors';
 import type { Evenement } from '../../types';
 import { formatDate } from '../../utils/date';
@@ -78,11 +79,11 @@ export function EventDetailContent({
         <View style={styles.speakerGrid}>
           <View style={styles.speakerCard}>
             <View style={styles.speakerAvatar}>
-              <Text style={styles.speakerInitials}>JD</Text>
+              <Image source={AsataImages.trainers[0]} style={styles.speakerAvatarImage} resizeMode="cover" />
             </View>
             <View>
-              <Text style={styles.speakerName}>Jean Dupont</Text>
-              <Text style={styles.speakerRole}>Directeur Technique</Text>
+              <Text style={styles.speakerName}>Ahmed Biri</Text>
+              <Text style={styles.speakerRole}>Coach ASATA</Text>
             </View>
           </View>
           <View style={styles.speakerCardSmall}>
