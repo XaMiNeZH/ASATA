@@ -1,0 +1,101 @@
+name: Mobile Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "GitHub release tag, e.g. mobile-v1.0.0"
+        required: true
+        default: "mobile-v1.0.0"
+      release_name:
+        description: "GitHub release title"
+        required: true
+        default: "ASATA Connect Mobile v1.0.0"
+      build_android:
+        description: "Build Android APK"
+        required: true
+        default: true
+        type: boolean
+      build_ios_simulator:
+        description: "Build iOS Simulator artifact"
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    name: Build mobile apps and publish release
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/mobile
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Create artifacts directory
+        run: mkdir -p ../../mobile-release-artifacts
+
+      - name: Build Android APK with EAS
+        if: ${{ inputs.build_android }}
+        env:
+          EXPO_PUBLIC_API_BASE_URL: ${{ vars.EXPO_PUBLIC_API_BASE_URL }}
+        run: |
+          eas build --platform android --profile preview --non-interactive --wait --json > android-build.json
+          node scripts/extract-eas-artifact-url.js android-build.json android-url.txt
+          curl -L "$(cat android-url.txt)" -o ../../mobile-release-artifacts/asata-connect-android.apk
+
+      - name: Build iOS Simulator with EAS
+        if: ${{ inputs.build_ios_simulator }}
+        env:
+          EXPO_PUBLIC_API_BASE_URL: ${{ vars.EXPO_PUBLIC_API_BASE_URL }}
+        run: |
+          eas build --platform ios --profile simulator --non-interactive --wait --json > ios-simulator-build.json
+          node scripts/extract-eas-artifact-url.js ios-simulator-build.json ios-simulator-url.txt
+          curl -L "$(cat ios-simulator-url.txt)" -o ../../mobile-release-artifacts/asata-connect-ios-simulator.tar.gz
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.release_tag }}
+          name: ${{ inputs.release_name }}
+          body: |
+            ## ASATA Connect Mobile Release
+
+            This release contains mobile builds generated with Expo EAS Build.
+
+            ### Artifacts
+            - Android APK: installable directly on Android devices
+            - iOS Simulator build: runnable on macOS iOS Simulator only
+
+            ### Important
+            The iOS simulator artifact is not an IPA for real iPhones.
+            Real iPhone distribution requires Apple Developer/TestFlight configuration.
+          files: |
+            mobile-release-artifacts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
