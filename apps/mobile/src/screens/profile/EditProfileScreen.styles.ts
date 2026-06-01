@@ -47,11 +47,11 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 3,
+    overflow: 'hidden',
   },
-  photoInitials: {
-    color: Colors.surface,
-    fontSize: 32,
-    fontWeight: '700',
+  photoImage: {
+    width: '100%',
+    height: '100%',
   },
   cameraBadge: {
     position: 'absolute',

@@ -18,11 +18,26 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: Colors.primary,
     padding: Spacing.lg,
+    position: 'relative',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 3,
+  },
+  networkCardImage: {
+    borderRadius: 12,
+  },
+  networkOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.blackOverlay60,
+  },
+  networkCopy: {
+    flex: 1,
+    zIndex: 1,
+  },
+  networkIcon: {
+    zIndex: 1,
   },
   eyebrow: {
     color: Colors.onPrimaryContainer,

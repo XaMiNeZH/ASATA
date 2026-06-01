@@ -161,11 +161,11 @@ export const contentStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.primary,
+    overflow: 'hidden',
   },
-  speakerInitials: {
-    color: Colors.surface,
-    fontSize: FontSize.xs,
-    fontWeight: FontWeight.bold,
+  speakerAvatarImage: {
+    width: '100%',
+    height: '100%',
   },
   speakerName: {
     color: Colors.textPrimary,

@@ -1,7 +1,8 @@
 import { Feather } from '@expo/vector-icons';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AsataImages } from '../../constants/asataImages';
 import { Colors } from '../../constants/colors';
 import { Spacing } from '../../constants/spacing';
 import { FontSize, FontWeight } from '../../constants/typography';
@@ -37,7 +38,7 @@ export function AppHeader({ title, onBack, onBellPress, unreadCount = 0 }: AppHe
             </Pressable>
           ) : null}
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>AS</Text>
+            <Image source={AsataImages.logo} style={styles.avatarLogo} resizeMode="cover" />
           </View>
         </View>
       </View>
@@ -121,11 +122,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: Colors.whiteOverlay20,
-    backgroundColor: Colors.slate,
+    backgroundColor: Colors.surface,
+    overflow: 'hidden',
   },
-  avatarText: {
-    color: Colors.surface,
-    fontSize: FontSize.tab,
-    fontWeight: FontWeight.bold,
+  avatarLogo: {
+    width: '100%',
+    height: '100%',
   },
 });

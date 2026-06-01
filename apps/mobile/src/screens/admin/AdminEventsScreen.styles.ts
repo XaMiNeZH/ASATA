@@ -21,6 +21,22 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.md,
   },
+  thumbnail: {
+    width: 64,
+    height: 64,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    backgroundColor: Colors.primary,
+  },
+  thumbnailImage: {
+    borderRadius: 10,
+  },
+  thumbnailOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.blackOverlay20,
+  },
   rowBody: {
     flex: 1,
     minWidth: 0,

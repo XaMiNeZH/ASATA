@@ -1,12 +1,13 @@
 import type { ComponentProps } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { Pressable, Text, View } from 'react-native';
+import { ImageBackground, Pressable, Text, View } from 'react-native';
 
 import { Badge } from '../common/Badge';
 import { CapacityBar } from './CapacityBar';
 import { Colors } from '../../constants/colors';
 import type { Evenement } from '../../types';
 import { formatDate } from '../../utils/date';
+import { getEventImageSource } from '../../utils/eventImages';
 import { imageToneStyles, styles } from './EventCard.styles';
 
 type FeatherName = ComponentProps<typeof Feather>['name'];
@@ -44,6 +45,7 @@ export function EventCard({ event, onPress, variant = 'list' }: EventCardProps) 
   const isCancelled = event.statut === 'annule';
   const percentage = `${Math.round(Math.min(1, ratio) * 100)}%`;
   const statusLabel = labelByStatus[event.statut];
+  const imageSource = getEventImageSource(event);
 
   if (isFeature) {
     return (
@@ -52,12 +54,17 @@ export function EventCard({ event, onPress, variant = 'list' }: EventCardProps) 
         onPress={onPress}
         style={({ pressed }) => [styles.card, styles.featureCard, pressed && styles.pressed]}
       >
-        <View style={[styles.featureImage, imageToneStyles[event.statut]]}>
-          <Text style={styles.imageWordmark}>ASATA</Text>
+        <ImageBackground
+          source={imageSource}
+          resizeMode="cover"
+          style={[styles.featureImage, imageToneStyles[event.statut]]}
+          imageStyle={styles.featureImageAsset}
+        >
+          <View style={styles.imageOverlay} />
           <View style={styles.dateBadge}>
             <Text style={styles.dateBadgeText}>{getDateBadge(event.date)}</Text>
           </View>
-        </View>
+        </ImageBackground>
         <View style={styles.featureBody}>
           <Text numberOfLines={2} style={styles.featureTitle}>
             {event.titre}
@@ -84,9 +91,15 @@ export function EventCard({ event, onPress, variant = 'list' }: EventCardProps) 
       onPress={onPress}
       style={({ pressed }) => [styles.card, styles.listCard, isCancelled && styles.cancelledCard, pressed && styles.pressed]}
     >
-      <View style={[styles.thumbnail, imageToneStyles[event.statut]]}>
+      <ImageBackground
+        source={imageSource}
+        resizeMode="cover"
+        style={[styles.thumbnail, imageToneStyles[event.statut]]}
+        imageStyle={styles.thumbnailImage}
+      >
+        <View style={styles.thumbnailOverlay} />
         <Feather name={iconByStatus[event.statut]} size={28} color={isCancelled ? Colors.error : Colors.surface} />
-      </View>
+      </ImageBackground>
       <View style={styles.listBody}>
         <View style={styles.listHeader}>
           <Badge label={statusLabel} status={event.statut} />

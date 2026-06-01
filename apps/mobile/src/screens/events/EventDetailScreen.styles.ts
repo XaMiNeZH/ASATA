@@ -18,6 +18,14 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: Colors.primary,
   },
+  coverImage: {
+    width: '100%',
+    height: '100%',
+  },
+  coverOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: Colors.blackOverlay60,
+  },
   coverWatermark: {
     position: 'absolute',
     right: -16,

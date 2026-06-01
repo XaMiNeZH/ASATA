@@ -44,6 +44,15 @@ export const styles = StyleSheet.create({
     fontSize: 120,
     fontWeight: FontWeight.extraBold,
   },
+  logo: {
+    width: 104,
+    height: 104,
+    borderRadius: 52,
+    borderWidth: 4,
+    borderColor: Colors.whiteOverlay80,
+    backgroundColor: Colors.surface,
+    marginBottom: Spacing.md,
+  },
   brand: {
     color: Colors.surface,
     fontSize: FontSize.hero,

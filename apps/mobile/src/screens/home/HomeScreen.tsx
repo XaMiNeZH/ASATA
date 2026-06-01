@@ -2,12 +2,13 @@ import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { FlatList, Pressable, ScrollView, Text, View } from 'react-native';
+import { FlatList, ImageBackground, Pressable, ScrollView, Text, View } from 'react-native';
 
 import { AppHeader } from '../../components/common/AppHeader';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { EventCard } from '../../components/events/EventCard';
+import { AsataImages } from '../../constants/asataImages';
 import { Colors } from '../../constants/colors';
 import { FontSize } from '../../constants/typography';
 import { NotificationItem } from '../../components/notifications/NotificationItem';
@@ -57,8 +58,14 @@ export function HomeScreen() {
         onBellPress={() => navigation.navigate('Notifications')}
       />
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.networkCard}>
-          <View>
+        <ImageBackground
+          source={AsataImages.homeHeader}
+          resizeMode="cover"
+          style={styles.networkCard}
+          imageStyle={styles.networkCardImage}
+        >
+          <View style={styles.networkOverlay} />
+          <View style={styles.networkCopy}>
             <Text style={styles.eyebrow}>ÉTAT DU RÉSEAU</Text>
             <Text style={styles.networkTitle}>Élite Performance Hub</Text>
             <View style={styles.networkStats}>
@@ -73,8 +80,8 @@ export function HomeScreen() {
               </View>
             </View>
           </View>
-          <Feather name="bar-chart-2" size={72} color={Colors.whiteOverlay10} />
-        </View>
+          <Feather name="bar-chart-2" size={72} color={Colors.whiteOverlay60} style={styles.networkIcon} />
+        </ImageBackground>
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Prochains événements</Text>

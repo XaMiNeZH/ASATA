@@ -33,8 +33,8 @@ export function ProfileScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
           <View style={styles.avatarRing}>
-          <Avatar name={user.nom} photo={user.profil.photo} />
-          <View style={styles.onlineDot} />
+            <Avatar name={user.nom} photo={user.profil.photo} useLogoFallback />
+            <View style={styles.onlineDot} />
           </View>
           <Text style={styles.name}>{user.nom}</Text>
           <View style={styles.badgeRow}>

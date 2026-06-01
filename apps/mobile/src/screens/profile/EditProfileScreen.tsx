@@ -3,13 +3,14 @@ import * as ImagePicker from 'expo-image-picker';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '../../components/common/AppHeader';
 import { Button } from '../../components/common/Button';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { Input } from '../../components/common/Input';
+import { AsataImages } from '../../constants/asataImages';
 import { Colors } from '../../constants/colors';
 import { Spacing } from '../../constants/spacing';
 import { FontSize, FontWeight } from '../../constants/typography';
@@ -69,6 +70,10 @@ export function EditProfileScreen() {
   const [photo, setPhoto] = useState(user?.profil.photo);
   const [error, setError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const photoUri = photo?.trim();
+  const photoSource = photoUri && /^(https?:|file:|content:|data:image\/)/i.test(photoUri)
+    ? { uri: photoUri }
+    : AsataImages.logo;
 
   const pickPhoto = async (): Promise<void> => {
     setError(null);
@@ -125,7 +130,7 @@ export function EditProfileScreen() {
         </View>
         <Pressable accessibilityRole="button" onPress={() => void pickPhoto()} style={styles.photoButton}>
           <View style={styles.photoPlaceholder}>
-            <Text style={styles.photoInitials}>{user?.nom ? user.nom.slice(0, 2).toUpperCase() : 'AS'}</Text>
+            <Image source={photoSource} style={styles.photoImage} resizeMode="cover" />
           </View>
           <View style={styles.cameraBadge}>
             <Feather name="camera" size={17} color={Colors.surface} />
