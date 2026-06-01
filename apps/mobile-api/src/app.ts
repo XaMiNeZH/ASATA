@@ -3,6 +3,7 @@ import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import { env } from './config/env'
 import { announcementsRouter } from './modules/announcements/announcements.router'
+import { adminRouter } from './modules/admin/admin.router'
 import { authRouter } from './modules/auth/auth.router'
 import { eventsRouter } from './modules/events/events.router'
 import { notificationsRouter } from './modules/notifications/notifications.router'
@@ -22,7 +23,7 @@ app.use(cors({
 
     callback(new Error(`Origin ${origin} not allowed by CORS`))
   },
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }))
@@ -53,6 +54,7 @@ app.get('/health', (_req, res) => {
 })
 
 app.use('/api/auth', authRouter)
+app.use('/api/admin', adminRouter)
 app.use('/api/events', eventsRouter)
 app.use('/api/participations', participationsRouter)
 app.use('/api/announcements', announcementsRouter)
