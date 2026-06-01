@@ -1,13 +1,8 @@
 /**
  * API Base URL Configuration
  *
- * Development: Replace 192.168.x.x with your computer's local IP address.
- * Find it with:
- *   - Linux/Mac: `ip addr` or `ifconfig`
- *   - Windows: `ipconfig`
- * The IP must be on the same WiFi network as your phone.
- *
- * Production: Update the production URL when the API is deployed.
+ * Set EXPO_PUBLIC_API_BASE_URL before building when the app should target
+ * another deployed API. Installed APKs cannot reach localhost on a dev machine.
  */
 import { API_BASE_URL } from '../config/api.config';
 import { storage } from '../utils/storage';
