@@ -17,14 +17,12 @@ interface RequestOptions {
   body?: unknown;
 }
 
-interface ApiError {
-  success: false;
-  message: string;
-}
+const TOKEN_KEY = 'asata_token';
+const USER_KEY = 'asata_user';
 
 export const apiClient = {
   request: async <T>(path: string, options: RequestOptions = {}): Promise<T> => {
-    const token = await storage.get<string>('asata_token');
+    const token = await storage.get<string>(TOKEN_KEY);
 
     const response = await fetch(`${API_BASE_URL}${path}`, {
       method: options.method ?? 'GET',
@@ -36,11 +34,16 @@ export const apiClient = {
       body: options.body ? JSON.stringify(options.body) : undefined,
     });
 
+    if (response.status === 401) {
+      await storage.remove(TOKEN_KEY);
+      await storage.remove(USER_KEY);
+      throw new Error('SESSION_EXPIRED');
+    }
+
     const json = (await response.json()) as { success: boolean; data?: T; message?: string };
 
     if (!response.ok || !json.success) {
-      const error = json as ApiError;
-      throw new Error(error.message ?? 'Erreur réseau. Veuillez réessayer.');
+      throw new Error(json.message ?? 'Erreur réseau. Veuillez réessayer.');
     }
 
     return json.data as T;

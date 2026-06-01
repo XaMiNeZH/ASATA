@@ -77,6 +77,10 @@ export const getCurrentUser = async (): Promise<UserWithProfil | null> => {
   return storage.get<UserWithProfil>(AUTH_USER_KEY);
 };
 
+export const getMe = async (): Promise<UserWithProfil> => {
+  return apiClient.request<UserWithProfil>('/auth/me');
+};
+
 export const updateProfil = async (userId: string, data: Partial<Profil>): Promise<Profil> => {
   if (!USE_MOCK) {
     return apiClient.request<Profil>('/profile/me', {

@@ -5,11 +5,11 @@ import { Feather } from '@expo/vector-icons';
 import { FlatList, Pressable, ScrollView, Text, View } from 'react-native';
 
 import { AppHeader } from '../../components/common/AppHeader';
-import { EmptyState } from '../../components/common/EmptyState';
 import { ErrorMessage } from '../../components/common/ErrorMessage';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { EventCard } from '../../components/events/EventCard';
 import { Colors } from '../../constants/colors';
+import { FontSize } from '../../constants/typography';
 import { NotificationItem } from '../../components/notifications/NotificationItem';
 import { useEvents } from '../../hooks/useEvents';
 import { useNotifications } from '../../hooks/useNotifications';
@@ -102,7 +102,9 @@ export function HomeScreen() {
               contentContainerStyle={styles.eventList}
             />
           ) : (
-            <EmptyState icon="calendar" title="Aucun evenement" subtitle="Les prochaines activites apparaitront ici." />
+            <Text style={{ color: Colors.textMuted, fontSize: FontSize.sm, textAlign: 'center', paddingVertical: 16 }}>
+              Aucun événement à venir.
+            </Text>
           )}
         </View>
         <View style={styles.section}>
@@ -128,7 +130,9 @@ export function HomeScreen() {
               ))}
             </View>
           ) : (
-            <EmptyState icon="bell" title="Aucune notification non lue" subtitle="Vous etes a jour." />
+            <Text style={{ color: Colors.textMuted, fontSize: FontSize.sm, textAlign: 'center', paddingVertical: 16 }}>
+              Aucune notification pour le moment.
+            </Text>
           )}
         </View>
         <View style={styles.section}>
