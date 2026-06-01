@@ -2,6 +2,7 @@
   "expo": {
     "name": "ASATA Connect",
     "slug": "asata-connect",
+    "scheme": "asata-connect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,15 +11,17 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#F5F5F7"
+      "backgroundColor": "#0D2B55"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ma.asata.connect"
     },
     "android": {
+      "package": "ma.asata.connect",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1565C0"
+        "backgroundColor": "#0D2B55"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
