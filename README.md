@@ -183,7 +183,7 @@ Deploys automatically on push to `main` in `XaMiNeZH/ASATA`.
 Deploys automatically on push to `main` in `Hamzaaxx/ASATA`.
 - Build: `npm install --include=dev && npm run build`
 - Start: `npm start`
-- See `apps/api/railway.toml` for full config
+- See `apps/api/railway.toml` for full configuration
 
 ---
 
