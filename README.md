@@ -198,5 +198,5 @@ Deploys automatically on push to `main` in `Hamzaaxx/ASATA`.
 | `ContactMessage` | Contact form submissions |
 
 <div align="center">
-  <sub>Built with love for the youth of Asni, Morocco 🇲🇦</sub>
+  <sub>Built with ❤️ for the youth of Asni, Morocco 🇲🇦</sub>
 </div>
