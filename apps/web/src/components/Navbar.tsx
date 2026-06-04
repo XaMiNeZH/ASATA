@@ -8,6 +8,10 @@ import LanguageSwitcher from './LanguageSwitcher'
 export default function Navbar() {
   const [scrolled,     setScrolled]     = useState(false)
   const [menuOpen,     setMenuOpen]     = useState(false)
+  // Allows the inner language dropdown to overflow the mobile drawer once the
+  // slide-down animation is finished (drawer keeps overflow-hidden during the
+  // animation so the slide stays clean).
+  const [menuExpanded, setMenuExpanded] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const location = useLocation()
   const { t } = useTranslation()
@@ -37,6 +41,10 @@ export default function Navbar() {
     setMenuOpen(false)
     setDropdownOpen(false)
   }, [location.pathname])
+
+  // Reset overflow back to hidden as soon as the drawer starts closing so the
+  // slide-up animation stays clean.
+  useEffect(() => { if (!menuOpen) setMenuExpanded(false) }, [menuOpen])
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to)
@@ -223,7 +231,8 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{   opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t border-primary-pale overflow-hidden shadow-blue-lg"
+            onAnimationComplete={() => menuOpen && setMenuExpanded(true)}
+            className={`lg:hidden bg-white border-t border-primary-pale shadow-blue-lg ${menuExpanded ? 'overflow-visible' : 'overflow-hidden'}`}
           >
             <ul className="flex flex-col p-4 gap-1">
               {links.map(({ to, label }) => (
