@@ -45,7 +45,7 @@ export default function Home() {
     <PageTransition>
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section
-        className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-fixed overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center bg-cover bg-center md:bg-fixed overflow-hidden"
         style={{ backgroundImage: `url(${HOME_HERO_IMAGE})` }}
       >
         <div className="absolute inset-0 bg-hero-overlay" />

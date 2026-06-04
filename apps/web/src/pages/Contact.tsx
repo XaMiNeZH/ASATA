@@ -170,7 +170,7 @@ export default function Contact() {
               </AnimatePresence>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block font-heading font-bold text-xs text-gray-700 uppercase tracking-wide mb-1.5">{t('contact.form.firstName')} {t('common.required')}</label>
                     <input type="text" className={inputCls} placeholder={t('contact.form.firstNamePh')} value={form.firstName} onChange={set('firstName')} required />

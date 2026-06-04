@@ -14,8 +14,9 @@ export default {
         },
       },
       fontFamily: {
-        heading: ['Montserrat', 'sans-serif'],
-        body:    ['Open Sans', 'sans-serif'],
+        heading: ['Montserrat', 'Cairo', 'system-ui', 'sans-serif'],
+        body:    ['Open Sans', 'Noto Sans Arabic', 'system-ui', 'sans-serif'],
+        arabic:  ['Noto Sans Arabic', 'Cairo', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'blue-sm': '0 2px 10px rgba(21,101,192,.10)',
