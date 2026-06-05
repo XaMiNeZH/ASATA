@@ -445,6 +445,7 @@ export default {
     bank: "Banque",
     motive: "Motif",
     rib: "RIB",
+    iban: "IBAN",
     swift: "Code SWIFT",
     copy: "Copier",
     copied: "Copié !",

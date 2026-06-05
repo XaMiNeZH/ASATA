@@ -315,6 +315,7 @@ export default {
     bank: "Bank",
     motive: "Reference",
     rib: "RIB",
+    iban: "IBAN",
     swift: "SWIFT / BIC",
     copy: "Copy",
     copied: "Copied!",

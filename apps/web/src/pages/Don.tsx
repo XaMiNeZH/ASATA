@@ -240,8 +240,9 @@ export default function Don() {
                               {([
                                 { label: t('donateExt.beneficiary'), value: BANK_DETAILS.beneficiary },
                                 { label: t('donateExt.bank'),        value: `${BANK_DETAILS.bank} — ${BANK_DETAILS.agency}` },
-                                { label: t('donateExt.rib'),         value: BANK_DETAILS.ribDisplay, copy: BANK_DETAILS.ribRaw, mono: true },
-                                { label: t('donateExt.swift'),       value: BANK_DETAILS.swift,      copy: BANK_DETAILS.swift,  mono: true },
+                                { label: t('donateExt.rib'),         value: BANK_DETAILS.ribDisplay,  copy: BANK_DETAILS.ribRaw,  mono: true },
+                                { label: t('donateExt.iban'),        value: BANK_DETAILS.ibanDisplay, copy: BANK_DETAILS.ibanRaw, mono: true },
+                                { label: t('donateExt.swift'),       value: BANK_DETAILS.swift,       copy: BANK_DETAILS.swift,   mono: true },
                                 { label: t('donateExt.motive'),      value: `Don ASATA — ${reference}`, copy: `Don ASATA — ${reference}`, highlight: true },
                               ] as const).map(row => {
                                 const isCopied = copiedKey === row.label

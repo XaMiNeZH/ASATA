@@ -317,6 +317,7 @@ export default {
     bank: "البنك",
     motive: "المرجع",
     rib: "RIB",
+    iban: "IBAN",
     swift: "SWIFT",
     copy: "نسخ",
     copied: "تم النسخ",
