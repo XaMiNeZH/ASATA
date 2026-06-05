@@ -5,6 +5,7 @@ import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 import FadeIn from '../components/FadeIn'
 import { DON_HERO_IMAGE } from '../data/images'
+import { BANK_DETAILS } from '../data/bank'
 
 interface DonForm {
   firstName: string
@@ -30,6 +31,14 @@ export default function Don() {
   const [loading, setLoading]   = useState(false)
   const [reference, setReference] = useState<string | null>(null)
   const [apiError, setApiError]   = useState<string | null>(null)
+  const [copiedKey, setCopiedKey] = useState<string | null>(null)
+
+  const copy = (text: string, key: string) => {
+    navigator.clipboard?.writeText(text).then(() => {
+      setCopiedKey(key)
+      window.setTimeout(() => setCopiedKey(k => (k === key ? null : k)), 1800)
+    }).catch(() => {})
+  }
 
   const set = (key: keyof DonForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -222,15 +231,43 @@ export default function Don() {
                             <p className="text-[11px] text-gray-400 mt-1">{t('donateExt.refNote')}</p>
                           </div>
                         )}
-                          <div className="bg-white border border-green-200 rounded-xl px-4 py-3 text-sm">
-                            <p className="font-heading font-bold text-gray-700 mb-2">
-                              <i className="fas fa-university mr-1.5 text-primary" />
+                          <div className="bg-white border border-green-200 rounded-xl px-4 py-3.5 text-sm">
+                            <p className="font-heading font-bold text-gray-700 mb-3 flex items-center gap-2">
+                              <i className="fas fa-university text-primary" />
                               {t('donate.virement.title')}
                             </p>
-                            <div className="space-y-1 text-gray-500 text-xs">
-                              <p><span className="font-semibold text-gray-700">{t('donateExt.beneficiary')} :</span> Association Sportive Atlas Toubkal Asni</p>
-                              <p><span className="font-semibold text-gray-700">{t('donateExt.bank')} :</span> CIH Bank</p>
-                              <p><span className="font-semibold text-gray-700">{t('donateExt.motive')} :</span> Don ASATA — {reference}</p>
+                            <div className="divide-y divide-gray-100">
+                              {([
+                                { label: t('donateExt.beneficiary'), value: BANK_DETAILS.beneficiary },
+                                { label: t('donateExt.bank'),        value: `${BANK_DETAILS.bank} — ${BANK_DETAILS.agency}` },
+                                { label: t('donateExt.rib'),         value: BANK_DETAILS.ribDisplay, copy: BANK_DETAILS.ribRaw, mono: true },
+                                { label: t('donateExt.swift'),       value: BANK_DETAILS.swift,      copy: BANK_DETAILS.swift,  mono: true },
+                                { label: t('donateExt.motive'),      value: `Don ASATA — ${reference}`, copy: `Don ASATA — ${reference}`, highlight: true },
+                              ] as const).map(row => {
+                                const isCopied = copiedKey === row.label
+                                const copyVal  = (row as { copy?: string }).copy
+                                return (
+                                  <div key={row.label} className="py-2 flex items-start gap-2">
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-[10px] font-heading font-bold text-gray-400 uppercase tracking-wider">{row.label}</p>
+                                      <p className={`mt-0.5 text-[13px] break-all leading-snug ${('mono' in row) ? 'font-mono tracking-wide text-gray-900' : ''} ${('highlight' in row) ? 'text-primary font-semibold' : 'text-gray-800'}`}>
+                                        {row.value}
+                                      </p>
+                                    </div>
+                                    {copyVal && (
+                                      <button
+                                        type="button"
+                                        onClick={() => copy(copyVal, row.label)}
+                                        className="shrink-0 mt-2.5 text-[11px] font-heading font-bold text-primary hover:text-primary-dark transition flex items-center gap-1 px-2 py-1 rounded-md hover:bg-primary-ghost"
+                                        aria-label={`${t('donateExt.copy')} ${row.label}`}
+                                      >
+                                        <i className={`fas ${isCopied ? 'fa-check' : 'fa-copy'}`} />
+                                        <span className="hidden sm:inline">{isCopied ? t('donateExt.copied') : t('donateExt.copy')}</span>
+                                      </button>
+                                    )}
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
                       </motion.div>
