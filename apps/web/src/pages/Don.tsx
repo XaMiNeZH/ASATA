@@ -251,7 +251,10 @@ export default function Don() {
                                   <div key={row.label} className="py-2 flex items-start gap-2">
                                     <div className="flex-1 min-w-0">
                                       <p className="text-[10px] font-heading font-bold text-gray-400 uppercase tracking-wider">{row.label}</p>
-                                      <p className={`mt-0.5 text-[13px] break-all leading-snug ${('mono' in row) ? 'font-mono tracking-wide text-gray-900' : ''} ${('highlight' in row) ? 'text-primary font-semibold' : 'text-gray-800'}`}>
+                                      <p
+                                        dir="ltr"
+                                        className={`mt-0.5 text-[13px] break-all leading-snug text-left ${('mono' in row) ? 'font-mono tracking-wide text-gray-900' : ''} ${('highlight' in row) ? 'text-primary font-semibold' : 'text-gray-800'}`}
+                                      >
                                         {row.value}
                                       </p>
                                     </div>
