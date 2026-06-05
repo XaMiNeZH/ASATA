@@ -100,11 +100,11 @@ const trainerAsset = (fileName: string) => `/trainers/${fileName}`
 
 export const TRAINER_PHOTOS = {
   rachidChib:        trainerAsset('rachid-chib.jpeg'),
-  ahmedBiri:         trainerAsset('ahmed-biri.jpeg'),
-  younesElMarkat:    trainerAsset('younes-el-markat.jpeg'),
+  ahmedBiri:         trainerAsset('ahmed-biri.png'),
+  younesElMarkat:    trainerAsset('younes-el-markat.jpg'),
   taherAitElBaraka:  trainerAsset('taher-ait-el-baraka.jpeg'),
-  essadiqAitBenAli:  trainerAsset('essadiq-ait-ben-ali.jpeg'),
-  soufianAzzaimi:    trainerAsset('soufian-azzaimi.jpeg'),
+  essadiqAitBenAli:  trainerAsset('essadiq-ait-ben-ali.png'),
+  soufianAzzaimi:    trainerAsset('soufian-azzaimi.png'),
 }
 
 export const LOGO = '/Association Logo.jpg'
