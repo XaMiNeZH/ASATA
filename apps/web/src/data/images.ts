@@ -15,7 +15,7 @@ export const ABOUT_HERO_IMAGE = '/association%20image.jpg'
 export const CONTACT_HERO_IMAGE = '/contactphoto.jpg'
 export const HOME_SKI_CARD_IMAGE = skiAsset('PHOTO-2026-04-07-12-10-40.jpg')
 export const HOME_ATHLETISME_CARD_IMAGE = athleticismAsset('acc image.jpeg')
-export const FOOTBALL_HERO_IMAGE = footballAsset('asata tournoi raman winners.jpg')
+export const FOOTBALL_HERO_IMAGE = footballAsset("asata tournoi raman winners.jpg")
 export const FOOTBALL_INTRO_IMAGE = footballAsset('484108752_1050160593818353_1515778284063821567_n.jpg')
 
 export const SKI_PHOTOS: string[] = [
