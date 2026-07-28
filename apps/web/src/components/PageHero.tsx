@@ -17,7 +17,7 @@ export default function PageHero({ title, subtitle, image, breadcrumbs, icon, im
   return (
     <section
       className={`relative min-h-[75vh] flex items-center bg-cover ${positionClass} pt-[76px]`}
-      style={{ backgroundImage: `url(${image})` }}
+      style={{ backgroundImage: `url('${image}')` }}
     >
       <div className="absolute inset-0 bg-hero-overlay" />
       <div className="relative z-10 max-w-7xl mx-auto px-5 py-16 text-white w-full">
