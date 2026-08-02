@@ -7,6 +7,7 @@ import {
   contactAdminApi, ApiContactMessage,
   uploadApi,
 } from '../../lib/api'
+import { LOGO } from '../../data/images'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -828,8 +829,8 @@ export default function AdminDashboard() {
       {/* Top bar */}
       <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <i className="fas fa-shield-alt text-white text-sm" />
+          <div className="w-8 h-8 rounded-lg overflow-hidden">
+            <img src={LOGO} alt="ASATA" className="w-full h-full object-cover" />
           </div>
           <div>
             <h1 className="font-heading font-black text-lg text-gray-900 leading-none">ASATA Admin</h1>
