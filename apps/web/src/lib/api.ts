@@ -129,6 +129,8 @@ export const donationsAdminApi = {
   stats: () => request<DonationStats>('/api/donations/stats'),
   updateStatus: (id: string, status: string) =>
     request<ApiDonation>(`/api/donations/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
+  delete: (id: string) =>
+    request<null>(`/api/donations/${id}`, { method: 'DELETE' }),
 }
 
 // ── upload (admin) ────────────────────────────────────────────────────────────

@@ -482,6 +482,8 @@ function DonationsTab() {
   const [filter,   setFilter]   = useState('all')
   const [page,     setPage]     = useState(1)
   const [updating, setUpdating] = useState<string | null>(null)
+  const [deleteId, setDeleteId] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   async function load(f = filter, p = page) {
     setLoading(true)
@@ -506,6 +508,13 @@ function DonationsTab() {
 
   function applyFilter(f: string) { setFilter(f); setPage(1); load(f, 1) }
   function goPage(p: number) { setPage(p); load(filter, p) }
+
+  async function confirmDelete() {
+    if (!deleteId) return; setDeleting(true)
+    try { await donationsAdminApi.delete(deleteId); setDeleteId(null); await load() }
+    catch (err: unknown) { setError(err instanceof Error ? err.message : 'Erreur') }
+    finally { setDeleting(false) }
+  }
 
   return (
     <div>
@@ -571,16 +580,21 @@ function DonationsTab() {
                     <td className="px-4 py-3"><Badge cls={DON_STATUS[d.status]?.cls ?? 'bg-gray-100 text-gray-600'} text={DON_STATUS[d.status]?.label ?? d.status} /></td>
                     <td className="px-4 py-3 text-xs text-gray-400 whitespace-nowrap">{new Date(d.createdAt).toLocaleDateString('fr-FR')}</td>
                     <td className="px-4 py-3">
-                      {d.status === 'PENDING' && (
-                        <div className="flex items-center gap-1.5">
-                          <button onClick={() => changeStatus(d.id, 'CONFIRMED')} disabled={updating === d.id} className="text-xs font-heading font-bold px-2.5 py-1 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 disabled:opacity-50">
-                            {updating === d.id ? '…' : 'Confirmer'}
-                          </button>
-                          <button onClick={() => changeStatus(d.id, 'FAILED')} disabled={updating === d.id} className="text-xs font-heading font-bold px-2.5 py-1 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 disabled:opacity-50">
-                            Échoué
-                          </button>
-                        </div>
-                      )}
+                      <div className="flex items-center gap-1.5">
+                        {d.status === 'PENDING' && (
+                          <>
+                            <button onClick={() => changeStatus(d.id, 'CONFIRMED')} disabled={updating === d.id} className="text-xs font-heading font-bold px-2.5 py-1 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 disabled:opacity-50">
+                              {updating === d.id ? '…' : 'Confirmer'}
+                            </button>
+                            <button onClick={() => changeStatus(d.id, 'FAILED')} disabled={updating === d.id} className="text-xs font-heading font-bold px-2.5 py-1 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 disabled:opacity-50">
+                              Échoué
+                            </button>
+                          </>
+                        )}
+                        <button onClick={() => setDeleteId(d.id)} className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
+                          <i className="fas fa-trash text-xs" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -600,12 +614,15 @@ function DonationsTab() {
                       <Badge cls={DON_STATUS[d.status]?.cls ?? ''} text={DON_STATUS[d.status]?.label ?? d.status} />
                     </div>
                   </div>
-                  {d.status === 'PENDING' && (
-                    <div className="flex gap-2 mt-2">
-                      <button onClick={() => changeStatus(d.id, 'CONFIRMED')} className="flex-1 text-xs font-heading font-bold py-1.5 bg-green-100 text-green-700 rounded-lg">Confirmer</button>
-                      <button onClick={() => changeStatus(d.id, 'FAILED')} className="flex-1 text-xs font-heading font-bold py-1.5 bg-red-100 text-red-600 rounded-lg">Échoué</button>
-                    </div>
-                  )}
+                  <div className="flex gap-2 mt-2">
+                    {d.status === 'PENDING' && (
+                      <>
+                        <button onClick={() => changeStatus(d.id, 'CONFIRMED')} className="flex-1 text-xs font-heading font-bold py-1.5 bg-green-100 text-green-700 rounded-lg">Confirmer</button>
+                        <button onClick={() => changeStatus(d.id, 'FAILED')} className="flex-1 text-xs font-heading font-bold py-1.5 bg-red-100 text-red-600 rounded-lg">Échoué</button>
+                      </>
+                    )}
+                    <button onClick={() => setDeleteId(d.id)} className="px-3 text-xs font-heading font-bold py-1.5 bg-gray-100 text-gray-500 rounded-lg"><i className="fas fa-trash" /></button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -620,6 +637,23 @@ function DonationsTab() {
             </div>
           )}
         </>
+      )}
+
+      {/* Delete confirm */}
+      {deleteId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center">
+            <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-4"><i className="fas fa-hand-holding-heart text-red-500 text-xl" /></div>
+            <h3 className="font-heading font-black text-lg text-gray-900 mb-2">Supprimer ce don ?</h3>
+            <p className="text-sm text-gray-500 mb-6">Cette action est irréversible.</p>
+            <div className="flex gap-3">
+              <button onClick={() => setDeleteId(null)} className="flex-1 py-2.5 text-sm font-heading font-bold text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50">Annuler</button>
+              <button onClick={confirmDelete} disabled={deleting} className="flex-1 py-2.5 text-sm font-heading font-bold text-white bg-red-500 rounded-xl hover:bg-red-600 disabled:opacity-50 flex items-center justify-center gap-2">
+                {deleting ? <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <i className="fas fa-trash" />} Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

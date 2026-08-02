@@ -10,6 +10,7 @@ import {
   listDonations,
   getDonationStats,
   updateDonationStatus,
+  deleteDonation,
 } from './donations.service'
 import {
   sendSuccess,
@@ -102,6 +103,18 @@ donationsRouter.patch('/:id/status', requireAdmin, async (req: AuthRequest, res:
     const donation = await updateDonationStatus(req.params.id, parsed.data)
     return sendSuccess(res, donation, 'Statut mis à jour')
   } catch (err) {
+    return sendServerError(res, err)
+  }
+})
+
+// ── DELETE /api/donations/:id ─────────────────────────────────────────────────
+// Admin — delete a donation
+donationsRouter.delete('/:id', requireAdmin, async (req: AuthRequest, res: Response) => {
+  try {
+    await deleteDonation(req.params.id)
+    return sendSuccess(res, null, 'Don supprimé')
+  } catch (err: any) {
+    if (err?.code === 'P2025') return sendNotFound(res, 'Don')
     return sendServerError(res, err)
   }
 })

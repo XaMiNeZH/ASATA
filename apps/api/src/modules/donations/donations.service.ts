@@ -137,3 +137,9 @@ export async function updateDonationStatus(id: string, input: UpdateStatusInput)
     },
   })
 }
+
+// ── Delete a donation (admin) ──────────────────────────────────────────────────
+
+export async function deleteDonation(id: string) {
+  return prisma.donation.delete({ where: { id } })
+}
