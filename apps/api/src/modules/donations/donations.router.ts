@@ -18,12 +18,13 @@ import {
   sendNotFound,
   sendServerError,
 } from '../../utils/response'
+import { donationLimiter } from '../../config/rateLimiters'
 
 export const donationsRouter = Router()
 
 // ── POST /api/donations ───────────────────────────────────────────────────────
 // Public — submit a new donation
-donationsRouter.post('/', async (req: Request, res: Response) => {
+donationsRouter.post('/', donationLimiter, async (req: Request, res: Response) => {
   const parsed = createDonationSchema.safeParse(req.body)
 
   if (!parsed.success) {

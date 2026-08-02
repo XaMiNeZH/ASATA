@@ -2,12 +2,13 @@ import { Router, Request, Response } from 'express'
 import { createContactSchema, updateContactStatusSchema } from './contact.schema'
 import { createContact, listContacts, updateContactStatus } from './contact.service'
 import { sendCreated, sendSuccess, sendError, sendNotFound, sendServerError } from '../../utils/response'
+import { contactLimiter } from '../../config/rateLimiters'
 
 export const contactRouter = Router()
 
 // ── POST /api/contact — submit a message ─────────────────────────────────────
 
-contactRouter.post('/', async (req: Request, res: Response) => {
+contactRouter.post('/', contactLimiter, async (req: Request, res: Response) => {
   const parsed = createContactSchema.safeParse(req.body)
   if (!parsed.success) {
     return sendError(res, 'Données invalides', 422, parsed.error.flatten().fieldErrors)

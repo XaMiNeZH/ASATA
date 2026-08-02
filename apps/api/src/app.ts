@@ -50,23 +50,7 @@ const limiter = rateLimit({
   message: { success: false, message: 'Trop de requêtes. Réessayez dans 15 minutes.' },
 })
 
-// Stricter limiter for donation submission
-const donationLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: env.NODE_ENV === 'development' ? 500 : 10,
-  message: { success: false, message: 'Limite de dons atteinte. Réessayez dans une heure.' },
-})
-
-// Stricter limiter for contact form submission
-const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: env.NODE_ENV === 'development' ? 500 : 5,
-  message: { success: false, message: 'Trop de messages envoyés. Réessayez dans une heure.' },
-})
-
 app.use('/api', limiter)
-app.use('/api/donations', donationLimiter)
-app.use('/api/contact', contactLimiter)
 
 // ── Health check ──────────────────────────────────────────────────────────────
 
