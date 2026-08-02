@@ -19,6 +19,7 @@ import {
   sendServerError,
 } from '../../utils/response'
 import { donationLimiter } from '../../config/rateLimiters'
+import { requireAdmin, AuthRequest } from '../auth/auth.middleware'
 
 export const donationsRouter = Router()
 
@@ -46,7 +47,7 @@ donationsRouter.post('/', donationLimiter, async (req: Request, res: Response) =
 
 // ── GET /api/donations/stats ──────────────────────────────────────────────────
 // Admin — donation statistics
-donationsRouter.get('/stats', async (_req: Request, res: Response) => {
+donationsRouter.get('/stats', requireAdmin, async (_req: AuthRequest, res: Response) => {
   try {
     const stats = await getDonationStats()
     return sendSuccess(res, stats)
@@ -57,7 +58,7 @@ donationsRouter.get('/stats', async (_req: Request, res: Response) => {
 
 // ── GET /api/donations ────────────────────────────────────────────────────────
 // Admin — list all donations with filters & pagination
-donationsRouter.get('/', async (req: Request, res: Response) => {
+donationsRouter.get('/', requireAdmin, async (req: AuthRequest, res: Response) => {
   const parsed = listDonationsQuerySchema.safeParse(req.query)
 
   if (!parsed.success) {
@@ -90,7 +91,7 @@ donationsRouter.get('/:reference', async (req: Request, res: Response) => {
 
 // ── PATCH /api/donations/:id/status ──────────────────────────────────────────
 // Admin — update donation status
-donationsRouter.patch('/:id/status', async (req: Request, res: Response) => {
+donationsRouter.patch('/:id/status', requireAdmin, async (req: AuthRequest, res: Response) => {
   const parsed = updateStatusSchema.safeParse(req.body)
 
   if (!parsed.success) {

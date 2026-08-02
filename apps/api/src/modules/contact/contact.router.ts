@@ -3,6 +3,7 @@ import { createContactSchema, updateContactStatusSchema } from './contact.schema
 import { createContact, listContacts, updateContactStatus } from './contact.service'
 import { sendCreated, sendSuccess, sendError, sendNotFound, sendServerError } from '../../utils/response'
 import { contactLimiter } from '../../config/rateLimiters'
+import { requireAdmin, AuthRequest } from '../auth/auth.middleware'
 
 export const contactRouter = Router()
 
@@ -27,7 +28,7 @@ contactRouter.post('/', contactLimiter, async (req: Request, res: Response) => {
 
 // ── GET /api/contact — list messages (admin) ──────────────────────────────────
 
-contactRouter.get('/', async (req: Request, res: Response) => {
+contactRouter.get('/', requireAdmin, async (req: AuthRequest, res: Response) => {
   try {
     const { status } = req.query as { status?: string }
     const messages = await listContacts(status)
@@ -39,7 +40,7 @@ contactRouter.get('/', async (req: Request, res: Response) => {
 
 // ── PATCH /api/contact/:id/status — mark read/replied (admin) ─────────────────
 
-contactRouter.patch('/:id/status', async (req: Request, res: Response) => {
+contactRouter.patch('/:id/status', requireAdmin, async (req: AuthRequest, res: Response) => {
   const parsed = updateContactStatusSchema.safeParse(req.body)
   if (!parsed.success) {
     return sendError(res, 'Données invalides', 422, parsed.error.flatten().fieldErrors)
